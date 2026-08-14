@@ -1,7 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { readKidsProgress, writeKidsProgress, checkDbHealth } from './store.js';
+import { 
+  readKidsProgress, 
+  writeKidsProgress, 
+  checkDbHealth,
+  getLearnerProfile,
+  getCourseLevels,
+  searchVocabulary,
+  recordQuizAttempt
+} from './store.js';
 
 dotenv.config();
 
@@ -21,7 +29,8 @@ const defaultOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
-  'https://kids-english-agent.pages.dev'
+  'https://kids-english-agent.pages.dev',
+  'https://kids-english-agent.leluongbaonguyen.workers.dev'
 ];
 
 const finalOrigins = [...new Set([...allowedOrigins, ...defaultOrigins])];
@@ -45,7 +54,7 @@ const handleHealthCheck = async (req, res) => {
 
   res.status(200).json({
     status: 'ok',
-    service: 'Kids English Learning Agent API Server',
+    service: 'Kids English Learning Agent API Server (Enterprise DB 2.0)',
     uptime: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
@@ -78,6 +87,48 @@ app.post('/api/kids/progress', async (req, res) => {
     const updatedData = req.body;
     const result = await writeKidsProgress(updatedData);
     res.json({ success: true, progress: result });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Learner Profile
+app.get('/api/learners/default', async (req, res) => {
+  try {
+    const learner = await getLearnerProfile('LEARNER_DEFAULT');
+    res.json({ success: true, learner });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Course Levels
+app.get('/api/levels', async (req, res) => {
+  try {
+    const levels = await getCourseLevels();
+    res.json({ success: true, levels });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Vocabulary Search/Filter
+app.get('/api/vocabulary', async (req, res) => {
+  try {
+    const { q, level, limit } = req.query;
+    const words = await searchVocabulary(q || '', level || null, limit ? parseInt(limit, 10) : 50);
+    res.json({ success: true, count: words.length, vocabulary: words });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// POST Record Quiz Attempt
+app.post('/api/quizzes/attempt', async (req, res) => {
+  try {
+    const attemptData = req.body;
+    const result = await recordQuizAttempt(attemptData);
+    res.json({ success: true, result });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -118,4 +169,3 @@ function shutdown(signal) {
 
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
-
