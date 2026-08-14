@@ -89,7 +89,7 @@ export default function TodayPlanModal({
 
   return (
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/90 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-3xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-amber-400/60 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-4 text-white shadow-2xl custom-scrollbar">
+      <div className="relative w-full max-w-xl sm:max-w-2xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-amber-400/60 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-4 text-white shadow-2xl custom-scrollbar">
 
         {/* HEADER BAR */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
