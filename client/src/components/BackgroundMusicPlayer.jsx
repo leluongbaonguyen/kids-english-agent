@@ -413,8 +413,8 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
     <>
       <audio ref={audioElemRef} loop />
 
-      {/* Floating 3D Cute BGM Music Player Widget (Bottom Left) */}
-      <div className="no-print fixed bottom-4 left-4 z-50 select-none font-sans">
+      {/* Floating 3D Cute BGM Music Player Widget (Bottom Left - Mobile Adjusted) */}
+      <div className="no-print fixed bottom-20 left-3 xl:bottom-4 xl:left-4 z-40 select-none font-sans touch-manipulation">
         {showWidget ? (
           <div className="flex items-center gap-2 p-2.5 rounded-3xl border-2 border-pink-400/80 bg-gradient-to-r from-pink-950/95 via-purple-950/95 to-slate-900 shadow-[0_10px_30px_rgba(236,72,153,0.4)] backdrop-blur-xl animate-fadeIn">
             <button

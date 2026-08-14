@@ -123,12 +123,19 @@ app.get('/api/vocabulary', async (req, res) => {
   }
 });
 
-// POST Record Quiz Attempt
-app.post('/api/quizzes/attempt', async (req, res) => {
+// POST Analytics Events Ingestion
+app.post('/api/analytics/events', (req, res) => {
+  const event = req.body;
+  console.log(`[REALTIME EVENT LOG]: ${event.eventName || 'event'}`, event.payload?.actor || 'guest');
+  res.json({ success: true, receivedAt: new Date().toISOString() });
+});
+
+// POST Kids Sync Batch Queue
+app.post('/api/kids/sync_batch', async (req, res) => {
   try {
-    const attemptData = req.body;
-    const result = await recordQuizAttempt(attemptData);
-    res.json({ success: true, result });
+    const batchItem = req.body;
+    console.log(`[BATCH SYNC ITEM]: ${batchItem.type || 'batch'}`, batchItem.idempotencyKey);
+    res.json({ success: true, processedAt: new Date().toISOString() });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -145,6 +152,76 @@ app.get('/api/dictionary/lookup', (req, res) => {
     phonetic: `/${word.toLowerCase()}/`,
     status: 'ready'
   });
+});
+
+// ----------------------------------------------------
+// Enterprise Database API Endpoints
+// ----------------------------------------------------
+
+// GET Database Statistics
+app.get('/api/db/stats', async (req, res) => {
+  try {
+    const { getDatabaseStats } = await import('./store.js');
+    const stats = await getDatabaseStats();
+    res.json({ success: true, stats });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Audit Logs
+app.get('/api/db/audit-logs', async (req, res) => {
+  try {
+    const { getAuditLogs } = await import('./store.js');
+    const logs = await getAuditLogs(100);
+    res.json({ success: true, count: logs.length, logs });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Trash Can Items
+app.get('/api/db/trash', async (req, res) => {
+  try {
+    const { getTrashCanItems } = await import('./store.js');
+    const items = await getTrashCanItems();
+    res.json({ success: true, count: items.length, items });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// POST Create Vocabulary Item
+app.post('/api/vocabulary', async (req, res) => {
+  try {
+    const { createVocabularyItem } = await import('./store.js');
+    const item = await createVocabularyItem(req.body);
+    res.status(201).json({ success: true, item });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// PUT Update Vocabulary Item
+app.put('/api/vocabulary/:id', async (req, res) => {
+  try {
+    const { updateVocabularyItem } = await import('./store.js');
+    const item = await updateVocabularyItem(req.params.id, req.body);
+    res.json({ success: true, item });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// DELETE Vocabulary Item
+app.delete('/api/vocabulary/:id', async (req, res) => {
+  try {
+    const { deleteVocabularyItem } = await import('./store.js');
+    const result = await deleteVocabularyItem(req.params.id, req.body.reason || 'Xóa thủ công');
+    res.json({ success: true, result });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 const server = app.listen(PORT, HOST, () => {
