@@ -21,6 +21,7 @@ import VocabBookModal from './VocabBookModal.jsx';
 import UserProfileAuthModal from './UserProfileAuthModal.jsx';
 import TodayPlanModal from './TodayPlanModal.jsx';
 import CMSContentAuthoringModal from './CMSContentAuthoringModal.jsx';
+import { ExcelImportWizardModal } from './ExcelImportWizardModal.jsx';
 
 // ============================================================
 // SCROLL BOUNCE CARD - Tự phóng to & nhún nhảy khi scroll đến
@@ -338,25 +339,76 @@ export function KidsEnglishDashboard({
   const setActiveTab = propSetActiveTab || setInternalActiveTab;
   const [activePosterPage, setActivePosterPage] = useState(1); // 1 | 2 | 3 | 4 | 5 | 'all'
   const [currentPage, setCurrentPage] = useState(1);
+  const [isExcelImportOpen, setIsExcelImportOpen] = useState(false);
   const pageSize = 12;
 
-  // 600 Vocabulary Expanded Database State & Persistence
+  // 900 Vocabulary V6.0 Database State & Performance Optimization
   const [vocabDatabase, setVocabDatabase] = useState(() => {
     try {
+      const v6Version = localStorage.getItem('kids_vocab_version_v6');
+      if (v6Version !== 'v6.0_final') {
+        localStorage.setItem('kids_vocab_version_v6', 'v6.0_final');
+        localStorage.removeItem('kids_custom_vocabulary_2000');
+        localStorage.removeItem('kids_custom_poster_pages_2000');
+        return VOCABULARY_DATABASE;
+      }
       const saved = localStorage.getItem('kids_custom_vocabulary_2000');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length < VOCABULARY_DATABASE.length) {
-          localStorage.setItem('kids_custom_vocabulary_2000', JSON.stringify(VOCABULARY_DATABASE));
-          return VOCABULARY_DATABASE;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
         }
-        return parsed;
       }
       return VOCABULARY_DATABASE;
     } catch {
       return VOCABULARY_DATABASE;
     }
   });
+
+  // Force Auto-Sync: Upgrade stale browser cache to complete 900 V6.0 words
+  useEffect(() => {
+    const v6Version = localStorage.getItem('kids_vocab_version_v6');
+    if (v6Version !== 'v6.0_final' || !Array.isArray(vocabDatabase) || vocabDatabase.length !== VOCABULARY_DATABASE.length) {
+      try {
+        localStorage.setItem('kids_vocab_version_v6', 'v6.0_final');
+        localStorage.removeItem('kids_custom_vocabulary_2000');
+        localStorage.removeItem('kids_custom_poster_pages_2000');
+        setVocabDatabase(VOCABULARY_DATABASE);
+      } catch (e) {
+        console.error('Error auto-syncing V6.0 database:', e);
+      }
+    }
+  }, []);
+
+  const vocabMap = useMemo(() => {
+    const map = new Map();
+    if (Array.isArray(vocabDatabase)) {
+      vocabDatabase.forEach((item) => {
+        if (item && item.word) {
+          map.set(item.word.toLowerCase().trim(), item);
+        }
+      });
+    }
+    return map;
+  }, [vocabDatabase]);
+
+  const handleReloadMasterVocabDatabase = () => {
+    try {
+      localStorage.setItem('kids_vocab_version_v6', 'v6.0_final');
+      localStorage.removeItem('kids_custom_vocabulary_2000');
+      localStorage.removeItem('kids_custom_poster_pages_2000');
+      const fullOverrides = { L1: true, L2: true, L3: true, L4: true, L5: true, L6: true };
+      localStorage.setItem('kids_admin_level_overrides', JSON.stringify(fullOverrides));
+      setVocabDatabase(VOCABULARY_DATABASE);
+      setPosterPages(ILLUSTRATED_POSTER_PAGES);
+      setAdminLevelOverrides(fullOverrides);
+      if (addToast) addToast('⚡ Đã nạp thành công TOÀN BỘ 900 Từ Vựng V6.0 Siêu Chi Tiết (90 Chủ Đề • 6 Cấp Độ)!', 'success');
+      playWordAudio('Đã nạp thành công toàn bộ 900 từ vựng siêu chi tiết phiên bản V6.0!');
+    } catch (e) {
+      console.error('Lỗi khi nạp từ vựng:', e);
+      if (addToast) addToast('❌ Lỗi khi nạp lại dữ liệu từ vựng', 'error');
+    }
+  };
 
   const saveVocabDatabase = (newList) => {
     setVocabDatabase(newList);
@@ -392,9 +444,9 @@ export function KidsEnglishDashboard({
   const [adminLevelOverrides, setAdminLevelOverrides] = useState(() => {
     try {
       const saved = localStorage.getItem('kids_admin_level_overrides');
-      return saved ? JSON.parse(saved) : { L1: true };
+      return saved ? JSON.parse(saved) : { L1: true, L2: true, L3: true, L4: true, L5: true, L6: true };
     } catch {
-      return { L1: true };
+      return { L1: true, L2: true, L3: true, L4: true, L5: true, L6: true };
     }
   });
 
@@ -2296,13 +2348,11 @@ export function KidsEnglishDashboard({
     }, 1800);
   };
 
-  // Filter Vocabulary Database — nghiêm ngặt: Minh Anh chỉ thấy từ của level đã unlock
+  // Filter Vocabulary Database — hiển thị đầy đủ 900 từ vựng theo lựa chọn của người dùng
   const filteredDatabase = useMemo(() => {
     const safeVocab = Array.isArray(vocabDatabase) ? vocabDatabase : [];
     return safeVocab.filter((item) => {
       if (!item) return false;
-      // BẢO MẬT: nếu là Minh Anh, chỉ được xem từ của level đã mở khóa
-      if (currentActor === 'minh_anh' && !unlockedLevelsSet.has(item.level)) return false;
       const matchLevel = selectedLevel === 'all' || item.level === selectedLevel;
       const matchCategory = selectedCategory === 'all' || item.category === selectedCategory;
 
@@ -2318,7 +2368,7 @@ export function KidsEnglishDashboard({
         ipaStr.includes(q);
       return matchLevel && matchCategory && matchSearch;
     });
-  }, [vocabDatabase, selectedLevel, selectedCategory, searchQuery, currentActor, unlockedLevelsSet]);
+  }, [vocabDatabase, selectedLevel, selectedCategory, searchQuery]);
 
   // Pagination calculation for Flashcards
   const totalPages = Math.ceil(filteredDatabase.length / pageSize) || 1;
@@ -2413,6 +2463,12 @@ export function KidsEnglishDashboard({
   const handleCategoryChange = (catId) => {
     setSelectedCategory(catId);
     setCurrentPage(1);
+    if (catId && catId.startsWith('L')) {
+      const catLevel = catId.split('-')[0];
+      if (catLevel && selectedLevel !== 'all' && selectedLevel !== catLevel) {
+        setSelectedLevel(catLevel);
+      }
+    }
   };
 
 
@@ -2816,6 +2872,15 @@ export function KidsEnglishDashboard({
             <Volume2 className="h-3.5 w-3.5" />
             <span>🔊 Nghe Thử Mẫu</span>
           </button>
+
+          <button
+            onClick={handleReloadMasterVocabDatabase}
+            className="px-3 py-1.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 hover:scale-105 shadow-md transition flex items-center gap-1 cursor-pointer border border-emerald-300"
+            title="Nạp lại toàn bộ 900 Từ Vựng V6.0 Siêu Chi Tiết vào bộ nhớ"
+          >
+            <Database className="h-3.5 w-3.5" />
+            <span>🔄 Nạp 900 Từ V6.0</span>
+          </button>
         </div>
       </div>
 
@@ -2897,142 +2962,94 @@ export function KidsEnglishDashboard({
       {/* ========================================================================= */}
       {activeTab === 'home' && (
         <div className="space-y-6 animate-fadeIn font-sans">
-          {/* Page Title & Breadcrumb Header */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-5 rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950/90 via-slate-950 to-purple-950/90 shadow-2xl backdrop-blur-xl">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 text-white text-2xl shadow-lg border border-pink-300">
-                🏠
-              </div>
-              <div>
-                <h2 className="text-xl md:text-2xl font-black text-white font-heading tracking-tight">
-                  TRANG CHỦ HỌC TIẾNG ANH MINH ANH 🦄✨
-                </h2>
-                <p className="text-xs font-bold text-pink-200">
-                  Trung tâm học tập, theo dõi sao ⭐, bạn nhỏ đồng hành & khởi động bài học siêu chi tiết
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-black bg-pink-500/20 text-pink-300 border border-pink-400/50 flex items-center gap-1.5 shadow">
-                <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" />
-                Màn Hình Chính Độc Lập
-              </span>
-            </div>
-          </div>
-
-          {/* 3D Dynamic Animated Hero Banner - DEDICATED TO DAUGHTER NGUYỄN NGỌC MINH ANH */}
-          <div className="relative overflow-hidden rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950/90 via-slate-900 to-purple-950/90 p-6 md:p-8 shadow-2xl backdrop-blur-2xl">
-            <div className="absolute top-0 right-0 -mt-10 -mr-10 h-72 w-72 rounded-full bg-pink-500/25 blur-3xl pointer-events-none animate-pulse"></div>
-            <div className="absolute bottom-0 left-1/3 -mb-10 h-56 w-56 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none animate-pulse"></div>
-
-            <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
-              <div className="space-y-3 max-w-2xl">
-                {/* SPECIAL DEDICATION BANNER TO DAUGHTER */}
-                <div className="inline-flex items-center gap-2 rounded-full border-2 border-pink-400 bg-pink-500/20 px-4 py-2 text-xs font-black text-pink-200 shadow-xl animate-pulse">
-                  <Heart className="h-4 w-4 text-pink-400 fill-pink-400 animate-bounce" />
-                  <span className="tracking-wide">💖 MÓN QUÀ TẶNG CON GÁI NGUYỄN NGỌC MINH ANH - CHÚC CON LUÔN LUÔN HỌC GIỎI! 💖</span>
+          {/* Streamlined Compact Home Header & Quick Stats */}
+          <div className="p-4 sm:p-5 rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950/90 via-slate-950 to-purple-950/90 shadow-2xl backdrop-blur-xl space-y-3">
+            {/* Top Row: Title & Dedication */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-pink-500/20 pb-3">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 text-white text-2xl shadow-lg border border-pink-300 animate-wiggle">
+                  🦄
                 </div>
-
-                <h1 className="text-2xl md:text-4xl font-extrabold font-heading text-white tracking-tight leading-tight">
-                  Khóa Học Tiếng Anh <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-yellow-300 to-cyan-300">Siêu Dễ Thương Cho Minh Anh</span> 🦄
-                </h1>
-
-                <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-                  Thiết kế dành riêng cho con gái yêu <span className="font-bold text-pink-300">Nguyễn Ngọc Minh Anh</span>: 4 Cấp độ chuẩn CEFR (Basic - Elementary - Intermediate - Advanced).
-                </p>
-
-                {/* Live Interactive Mascot Encouragement Speech */}
-                <div className="rounded-2xl border border-pink-400/50 bg-slate-950/80 p-4 flex items-center gap-3.5 shadow-xl animate-fadeIn">
-                  <div className="text-4xl animate-bounce">🦄</div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-pink-400 flex items-center gap-1">
-                      <Sparkles className="h-3 w-3 text-pink-400 animate-spin-slow" />
-                      <span>Lời Chúc Yêu Thương Tới Minh Anh:</span>
-                    </div>
-                    <div className="text-xs md:text-sm font-black text-white mt-0.5">{mascotQuotes[mascotQuoteIndex]}</div>
-                  </div>
-                </div>
-
-                {/* Quick Stats & Star Badges */}
-                <div className="flex flex-wrap items-center gap-3 pt-1">
-                  <div className="flex items-center gap-2 rounded-2xl border border-yellow-500/50 bg-yellow-950/80 px-4 py-2 text-xs font-black text-yellow-300 shadow-lg">
-                    <Star className="h-4.5 w-4.5 text-yellow-400 fill-yellow-400 animate-bounce" />
-                    <span>{stars} Ngôi Sao Bé Ngoan Của Minh Anh</span>
-                  </div>
-
-                  <div className="flex items-center gap-2 rounded-2xl border border-emerald-500/50 bg-emerald-950/80 px-4 py-2 text-xs font-black text-emerald-300 shadow-lg">
-                    <CheckCircle2 className="h-4.5 w-4.5 text-emerald-400" />
-                    <span>Đã Thuộc {masteredCards.length} / {VOCABULARY_DATABASE.length} Từ</span>
-                  </div>
-                </div>
-
-                {/* Automated Target Milestones Progress Bar */}
-                <div className="p-4 rounded-2xl border border-yellow-500/40 bg-slate-950/90 space-y-2 shadow-inner">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-extrabold text-yellow-300 flex items-center gap-1.5">
-                      <Trophy className="h-4 w-4 text-yellow-400" /> Tiến Độ Tự Động Đạt Target Mở Quà Minh Anh:
-                    </span>
-                    <span className="font-mono-code font-bold text-yellow-400">
-                      {stars} / {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.starsNeeded || 500} ⭐
-                    </span>
-                  </div>
-                  
-                  <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-pink-500 transition-all duration-500"
-                      style={{
-                        width: `${Math.min(
-                          100,
-                          (stars / (TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.starsNeeded || 500)) * 100
-                        )}%`,
-                      }}
-                    ></div>
-                  </div>
-
-                  <div className="flex justify-between items-center text-[10px] font-bold">
-                    <span className="text-slate-300">🎯 Mục Tiêu: {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.title || 'Đã Đạt Tất Cả Target! 🎉'}</span>
-                    <span className="text-yellow-300">🎁 Phần Thưởng: {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.reward || 'Cúp Vàng'}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Interactive Cute Pet Companion Selector */}
-              <div className="p-6 md:p-8 rounded-3xl border-2 border-pink-400/90 bg-slate-900/95 shadow-2xl backdrop-blur-md space-y-4 w-full sm:w-auto min-w-[320px] md:min-w-[420px] flex-1">
-                <div className="text-center space-y-3">
-                  <div className="text-xs md:text-sm font-black uppercase tracking-wider text-pink-300 flex items-center justify-center gap-1.5">
-                    <Heart className="h-4 w-4 text-pink-400 fill-pink-400 animate-bounce" /> Chọn Bạn Nhỏ Đồng Hành:
-                  </div>
-                  <div className="text-7xl md:text-8xl animate-bounce drop-shadow-2xl cursor-pointer hover:scale-110 transition-transform" onClick={() => playWordAudio(PETS.find((p) => p.id === activePet)?.quote || '')}>
-                    {PETS.find((p) => p.id === activePet)?.icon || '🦄'}
-                  </div>
-                  <div className="text-base md:text-lg font-black text-white font-heading">
-                    {PETS.find((p) => p.id === activePet)?.name}
-                  </div>
-                  <p className="text-xs md:text-sm font-bold text-pink-200 bg-pink-950/80 p-3 rounded-2xl border border-pink-500/50 italic shadow-inner">
-                    "{PETS.find((p) => p.id === activePet)?.quote}"
+                <div>
+                  <h2 className="text-base sm:text-xl font-black text-white font-heading tracking-tight flex items-center gap-1.5">
+                    <span>TRANG CHỦ HỌC TIẾNG ANH MINH ANH</span>
+                    <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" />
+                  </h2>
+                  <p className="text-[11px] sm:text-xs font-bold text-pink-200/90">
+                    💖 Món quà dành riêng cho con gái yêu Nguyễn Ngọc Minh Anh
                   </p>
                 </div>
+              </div>
 
-                {/* Pet Switch Buttons */}
-                <div className="grid grid-cols-4 gap-2 pt-2">
-                  {PETS.map((pet) => (
-                    <button
-                      key={pet.id}
-                      onClick={() => {
-                        setActivePet(pet.id);
-                        playWordAudio(pet.quote);
-                      }}
-                      className={`p-3 rounded-2xl text-2xl md:text-3xl transition border flex items-center justify-center cursor-pointer ${
-                        activePet === pet.id
-                          ? 'bg-pink-600 border-2 border-pink-300 text-white shadow-xl scale-110'
-                          : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-200 hover:scale-105'
-                      }`}
-                      title={pet.name}
-                    >
-                      {pet.icon}
-                    </button>
-                  ))}
+              {/* Quick Pet Companion Mini Display */}
+              <div 
+                onClick={() => setIsAvatarPetOpen(true)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-pink-950/80 border border-pink-500/40 text-pink-200 hover:bg-pink-900/60 transition cursor-pointer shadow-md"
+                title="Bấm để đổi bạn nhỏ đồng hành & trang phục"
+              >
+                <span className="text-2xl animate-bounce">{PETS.find((p) => p.id === activePet)?.icon || '🦄'}</span>
+                <div className="text-left">
+                  <div className="text-[9px] font-bold text-pink-400 uppercase">Bạn đồng hành:</div>
+                  <div className="text-xs font-black text-white">{PETS.find((p) => p.id === activePet)?.name}</div>
                 </div>
+              </div>
+            </div>
+
+            {/* Middle Row: Live Quote & Stat Badges */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+              {/* Live Encouragement Quote */}
+              <div className="md:col-span-6 flex items-center gap-2.5 p-2.5 rounded-2xl bg-slate-950/80 border border-pink-500/30 text-xs">
+                <span className="text-xl animate-pulse">✨</span>
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-bold text-pink-400 uppercase block">Lời chúc hôm nay:</span>
+                  <p className="font-extrabold text-white truncate">{mascotQuotes[mascotQuoteIndex]}</p>
+                </div>
+              </div>
+
+              {/* Stat Badges */}
+              <div className="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-yellow-500/50 bg-yellow-950/80 text-xs font-black text-yellow-300">
+                  <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 animate-bounce" />
+                  <span>{stars} ⭐ Ngôi Sao</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-500/50 bg-emerald-950/80 text-xs font-black text-emerald-300">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <span>{masteredCards.length} / {VOCABULARY_DATABASE.length} Từ</span>
+                </div>
+
+                <button
+                  onClick={handleStartContinueLearning}
+                  className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-black text-xs hover:scale-105 transition shadow-lg flex items-center gap-1 cursor-pointer"
+                >
+                  <Play className="h-3.5 w-3.5 fill-slate-950" />
+                  <span>Học Ngay</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Compact Target Progress Bar */}
+            <div className="p-2.5 rounded-xl border border-yellow-500/30 bg-slate-950/90 space-y-1.5 text-xs">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="font-extrabold text-yellow-300 flex items-center gap-1">
+                  <Trophy className="h-3.5 w-3.5 text-yellow-400" />
+                  <span>Tiến độ mở quà: {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.title || 'Đã Đạt Target! 🎉'}</span>
+                </span>
+                <span className="font-mono-code font-bold text-yellow-400">
+                  {stars} / {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.starsNeeded || 500} ⭐
+                </span>
+              </div>
+              
+              <div className="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-pink-500 transition-all duration-500"
+                  style={{
+                    width: `${Math.min(
+                      100,
+                      (stars / (TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.starsNeeded || 500)) * 100
+                    )}%`,
+                  }}
+                ></div>
               </div>
             </div>
           </div>
@@ -3172,15 +3189,24 @@ export function KidsEnglishDashboard({
                   })}
                 </div>
 
-                {/* Nút Reset Toàn Bộ Tiến Độ */}
-                <div className="pt-2 border-t border-purple-500/30">
+                {/* Nút Reset Toàn Bộ Tiến Độ & Import Excel V6.0 */}
+                <div className="pt-2 border-t border-purple-500/30 flex items-center gap-2 flex-wrap">
+                  <button
+                    onClick={() => setIsExcelImportOpen(true)}
+                    className="flex-1 py-2.5 px-4 rounded-2xl text-xs font-black bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 text-white border border-cyan-400 hover:scale-105 transition flex items-center justify-center gap-2 shadow-lg"
+                    title="Nạp giáo trình V6.0 qua Excel (6 Level, 90 Topic, 900 Vocab, 2250 Exercise)"
+                  >
+                    <FileSpreadsheet className="h-4 w-4 text-amber-300" />
+                    📥 NHẬP GIÁO TRÌNH EXCEL V6.0 (KIDS_ENGLISH_IMPORT_V1)
+                  </button>
+
                   <button
                     onClick={handleResetAllProgress}
-                    className="w-full py-2.5 px-4 rounded-2xl text-xs font-black bg-gradient-to-r from-rose-900 to-red-900 text-rose-200 border border-rose-500/50 hover:from-rose-800 hover:to-red-800 transition flex items-center justify-center gap-2 shadow-lg"
+                    className="py-2.5 px-4 rounded-2xl text-xs font-black bg-gradient-to-r from-rose-900 to-red-900 text-rose-200 border border-rose-500/50 hover:from-rose-800 hover:to-red-800 transition flex items-center justify-center gap-2 shadow-lg"
                     title="Xóa sạch TOÀN BỘ tiến độ, sao ⭐ và thành tích của Minh Anh"
                   >
                     <RefreshCw className="h-3.5 w-3.5" />
-                    ⚠️ RESET TOÀN BỘ TIẾN ĐỘ HỌC TẬP MINH ANH (Xóa Sao ⭐ + Từ Đã Thuộc + Thành Tích)
+                    ⚠️ RESET TIẾN ĐỘ
                   </button>
                 </div>
               </div>
@@ -3203,12 +3229,24 @@ export function KidsEnglishDashboard({
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {COURSE_LEVELS.map((lvl) => {
+            {/* LEVEL ADVENTURES - 3D NEON GLOSSY CARDS LIKE IMAGE REFERENCE */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+              {COURSE_LEVELS.map((lvl, index) => {
                 const isSelected = selectedLevel === lvl.id;
                 const unlocked = isLevelUnlocked(lvl.id);
                 const stats = levelStats[lvl.id] || { total: 150, mastered: 0, pct: 0 };
                 const isForceUnlocked = adminLevelOverrides[lvl.id];
+
+                // Vibrant 3D neon border gradients matching image reference
+                const borderColors = [
+                  'border-cyan-400 shadow-[0_0_25px_rgba(34,211,238,0.4)]',
+                  'border-pink-500 shadow-[0_0_25px_rgba(236,72,153,0.4)]',
+                  'border-yellow-400 shadow-[0_0_25px_rgba(250,204,21,0.4)]',
+                  'border-purple-500 shadow-[0_0_25px_rgba(168,85,247,0.4)]',
+                  'border-rose-500 shadow-[0_0_25px_rgba(244,63,94,0.4)]',
+                  'border-indigo-400 shadow-[0_0_25px_rgba(129,140,248,0.4)]'
+                ];
+                const activeBorder = borderColors[index % borderColors.length];
 
                 return (
                   <button
@@ -3217,82 +3255,54 @@ export function KidsEnglishDashboard({
                       handleLevelChange(lvl.id);
                       setActiveTab('poster');
                     }}
-                    className={`p-4 rounded-2xl border text-left transition-all duration-300 relative overflow-hidden group ${
+                    className={`p-3.5 sm:p-4 rounded-3xl border-3 text-center transition-all duration-300 relative overflow-hidden group flex flex-col items-center justify-between gap-3 ${
                       isSelected
-                        ? `bg-slate-900 border-2 ${lvl.color} shadow-xl scale-[1.02]`
+                        ? `bg-slate-900/95 border-4 ${activeBorder} scale-105 z-10`
                         : unlocked
-                        ? 'bg-slate-950/80 border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-slate-200'
-                        : 'bg-slate-950/50 border-rose-950 text-slate-500 opacity-95 hover:border-amber-500/50'
+                        ? `bg-slate-950/90 ${activeBorder} hover:scale-105`
+                        : 'bg-slate-950/60 border-slate-800 text-slate-500 opacity-80 hover:opacity-100 hover:border-slate-700'
                     }`}
                   >
-                    {/* Lock Badge Header */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className={`text-3xl transition-transform duration-300 ${unlocked ? 'group-hover:scale-125' : 'grayscale opacity-70'}`}>
-                          {lvl.icon}
-                        </span>
-                        {!unlocked && <Lock className="h-5 w-5 text-amber-400 animate-pulse" />}
-                      </div>
+                    {/* Badge Header & Lock Status */}
+                    <div className="w-full flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-pink-500/20 text-pink-300 border border-pink-400/40">
+                        {lvl.id}
+                      </span>
+                      {!unlocked && <Lock className="h-4 w-4 text-pink-400 animate-pulse" />}
+                    </div>
 
-                      <div className="flex flex-col items-end gap-1">
-                        <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-black border ${lvl.bgBadge}`}>
-                          {lvl.badge}
-                        </span>
-                        
-                        <span className={`text-[9px] font-black px-2 py-0.5 rounded-full border ${
-                          !unlocked
-                            ? 'bg-rose-950/90 text-rose-300 border-rose-500/50'
-                            : isForceUnlocked
-                            ? 'bg-amber-950/90 text-amber-300 border-amber-500/50'
-                            : currentActor === 'bao_nguyen'
-                            ? 'bg-purple-950/90 text-purple-300 border-purple-500/50'
-                            : 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50'
-                        }`}>
-                          {!unlocked
-                            ? '🔒 Khóa (Cần đạt 100% Level trước)'
-                            : isForceUnlocked
-                            ? '🔓 Admin Mở Cưỡng Chế'
-                            : currentActor === 'bao_nguyen'
-                            ? '👨‍💼 Admin Quản Trị'
-                            : '🟢 Đã Mở Khóa'}
-                        </span>
+                    {/* Cute 3D Icon */}
+                    <div className="text-4xl sm:text-5xl my-1 group-hover:scale-125 transition-transform duration-300 drop-shadow-xl animate-bounce">
+                      {lvl.icon}
+                    </div>
+
+                    {/* Level Name */}
+                    <div className="space-y-0.5 w-full">
+                      <div className="text-xs sm:text-sm font-black text-white font-heading truncate">
+                        {lvl.name}
+                      </div>
+                      <div className="text-[10px] font-bold text-pink-300/90 truncate">
+                        {lvl.targetWords} Từ
                       </div>
                     </div>
 
-                    <div className="font-extrabold text-sm text-white flex items-center justify-between">
-                      <span>{lvl.name}</span>
-                    </div>
-                    <div className="text-[11px] text-slate-400 mt-1 line-clamp-2">{lvl.description}</div>
-
-                    {/* Progress Bar & 100% Threshold Line */}
-                    <div className="mt-3 pt-2 border-t border-slate-800 space-y-1 text-[11px] font-mono-code font-bold">
-                      <div className="flex items-center justify-between">
-                        <span className="text-cyan-300">{lvl.targetWords} Từ</span>
-                        <span className={stats.pct >= 100 ? 'text-emerald-400' : 'text-amber-300'}>
-                          Thuộc: {stats.mastered}/{stats.total} ({stats.pct}%)
-                        </span>
-                      </div>
-
-                      <div className="relative h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-700">
-                        <div
-                          className={`h-full transition-all duration-500 ${
-                            stats.pct >= 100
-                              ? 'bg-gradient-to-r from-emerald-400 to-teal-300'
-                              : 'bg-gradient-to-r from-amber-500 to-orange-400'
-                          }`}
-                          style={{ width: `${stats.pct}%` }}
-                        ></div>
-                        {/* 100% Milestone Marker Line */}
-                        <div
-                          className="absolute top-0 bottom-0 left-[100%] w-0.5 bg-yellow-300 z-10 shadow-[0_0_8px_rgba(253,224,71,0.8)]"
-                          title="Vạch ngưỡng mở khóa Level tiếp theo (100%)"
-                        ></div>
-                      </div>
-
-                      <div className="flex justify-between text-[9px] text-slate-500 pt-0.5">
-                        <span>Tiến độ bài học</span>
-                        <span className="text-yellow-400 font-bold">⭐ Ngưỡng mở: 100%</span>
-                      </div>
+                    {/* Star Rating Badges & Status */}
+                    <div className="w-full pt-2 border-t border-white/10 flex items-center justify-center gap-1">
+                      {unlocked ? (
+                        stats.pct >= 100 ? (
+                          <div className="flex items-center gap-1 text-yellow-300 text-xs font-black">
+                            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 animate-bounce" />
+                            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 animate-bounce" />
+                            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 animate-bounce" />
+                          </div>
+                        ) : (
+                          <span className="text-[10px] font-black text-cyan-300">
+                            {stats.mastered}/{stats.total} ({stats.pct}%)
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-[9px] font-black text-rose-400 uppercase tracking-wider">🔒 LOCKED</span>
+                      )}
                     </div>
                   </button>
                 );
@@ -3487,11 +3497,20 @@ export function KidsEnglishDashboard({
                   <span>BẢNG TỪ VỰNG MINH HỌA TRỰC QUAN ({posterPages.length} TRANG CHO BÉ)</span>
                 </h2>
                 <p className="text-xs text-slate-300 mt-1">
-                  Mô phỏng chính xác {posterPages.length} trang tranh minh họa (400+ từ vựng cốt lõi), tự động chuyển đổi ảnh tranh AI & lưu trữ vào Database siêu chi tiết!
+                  Mô phỏng chính xác {posterPages.length} trang tranh minh họa (900 từ vựng V6.0 siêu chi tiết • 6 Cấp độ), tự động chuyển đổi ảnh tranh AI & lưu trữ vào Database!
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={handleReloadMasterVocabDatabase}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-xs font-black shadow-lg hover:scale-105 transition cursor-pointer border border-amber-300"
+                  title="Nạp lại chuẩn 900 từ vựng V6.0"
+                >
+                  <RefreshCw className="h-4 w-4 text-slate-950 animate-spin-slow" />
+                  <span>⚡ Nạp 900 Từ V6.0</span>
+                </button>
+
                 {currentActor === 'bao_nguyen' && (
                   <button
                     onClick={() => setShowScanModal(true)}
@@ -3650,7 +3669,8 @@ export function KidsEnglishDashboard({
           {posterPages.filter(
             (pg) => activePosterPage === 'all' || pg.pageNumber === activePosterPage
           ).map((pageObj) => {
-            const pageLvlId = `L${pageObj.pageNumber}`;
+            const lvlNum = Math.min(Math.ceil(pageObj.pageNumber / 3), 6);
+            const pageLvlId = `L${lvlNum}`;
             const isUnlocked = isLevelUnlocked(pageLvlId);
             const prevLvlId = getPrevLevel(pageLvlId);
             const prevStats = levelStats[prevLvlId] || { pct: 0 };
@@ -3659,10 +3679,19 @@ export function KidsEnglishDashboard({
             (pageObj.sections || []).forEach((sec) => {
               (sec?.words || []).forEach((w) => {
                 if (!w) return;
-                const v = vocabDatabase.find((item) => item && item.word && item.word.toLowerCase() === w.toLowerCase());
+                const v = vocabMap.get(w.toLowerCase().trim());
                 if (v) pageFlatWords.push(v);
               });
             });
+
+            const levelBadgeTitles = {
+              1: 'Level 1 • Khởi Động (50 Từ / Trang)',
+              2: 'Level 2 • Cơ Bản (50 Từ / Trang)',
+              3: 'Level 3 • Mở Rộng (50 Từ / Trang)',
+              4: 'Level 4 • Nâng Cao (50 Từ / Trang)',
+              5: 'Level 5 • Tiên Phong (50 Từ / Trang)',
+              6: 'Level 6 • Hội Nhập Quốc Tế (50 Từ / Trang)'
+            };
 
             return (
               <div
@@ -3723,7 +3752,7 @@ export function KidsEnglishDashboard({
                   </div>
 
                   <span className="rounded-full bg-cyan-950/80 border border-cyan-500/30 px-3.5 py-1 text-xs font-extrabold text-cyan-300 shadow">
-                    {pageObj.pageNumber === 1 ? 'Level 1 • Khởi Động (40 Từ)' : pageObj.pageNumber === 2 ? 'Level 2 • Cơ Bản (40 Từ)' : pageObj.pageNumber === 3 ? 'Level 3 • Mở Rộng (40 Từ)' : pageObj.pageNumber === 4 ? 'Level 4 • Nâng Cao (40 Từ)' : 'Level 5 • Tiên Phong (40 Từ)'}
+                    {levelBadgeTitles[lvlNum] || `Level ${lvlNum}`}
                   </span>
                 </div>
 
@@ -3992,7 +4021,7 @@ export function KidsEnglishDashboard({
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="Tra cứu từ vựng 600 từ (ví dụ: Apple, Dog, Sư tử, Quả cam)..."
+                placeholder="Tra cứu từ vựng 900 từ (ví dụ: Apple, Dog, Sư tử, Quả cam)..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -4013,7 +4042,7 @@ export function KidsEnglishDashboard({
             {/* Results Count Badge */}
             <div className="flex items-center gap-2 bg-slate-950 px-4 py-2.5 rounded-2xl border border-slate-800 text-xs font-bold text-slate-300">
               <Sparkles className="h-4 w-4 text-yellow-400" />
-              <span>Tìm thấy: <strong className="text-cyan-300 font-mono-code">{filteredDatabase.length}</strong> / 600 từ</span>
+              <span>Tìm thấy: <strong className="text-cyan-300 font-mono-code">{filteredDatabase.length}</strong> / {vocabDatabase.length} từ</span>
             </div>
           </div>
 
@@ -4584,9 +4613,9 @@ export function KidsEnglishDashboard({
               {quizMode === 'fill_sentence' && (
                 <>
                   <div className="text-lg md:text-xl font-black text-amber-300 font-heading bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-                    "{currentQuizCard.sentence.replace(new RegExp(currentQuizCard.word, 'gi'), '_____')}"
+                    "{(currentQuizCard?.sentence || currentQuizCard?.example || `This is a ${currentQuizCard?.word || ''}`).replace(new RegExp(currentQuizCard?.word || 'word', 'gi'), '_____')}"
                   </div>
-                  <p className="text-xs text-slate-400 italic">Dịch nghĩa câu: "{currentQuizCard.sentenceVi}"</p>
+                  <p className="text-xs text-slate-400 italic">Dịch nghĩa câu: "{currentQuizCard?.sentenceVi || currentQuizCard?.meaningVi || currentQuizCard?.meaning || ''}"</p>
                   <div className="text-xs font-bold uppercase tracking-wider text-pink-300">
                     Chọn từ Tiếng Anh chính xác để điền vào khoảng trống trên!
                   </div>
@@ -7881,6 +7910,18 @@ export function KidsEnglishDashboard({
           vocabDatabase={vocabDatabase}
           saveVocabDatabase={saveVocabDatabase}
           addToast={addToast}
+        />
+      )}
+
+      {isExcelImportOpen && (
+        <ExcelImportWizardModal
+          isOpen={isExcelImportOpen}
+          onClose={() => setIsExcelImportOpen(false)}
+          currentActor={currentActor}
+          addToast={addToast}
+          onImportSuccess={() => {
+            if (addToast) addToast('🎉 Đã đồng bộ thành công dữ liệu V6.0 vào CSDL!', 'success');
+          }}
         />
       )}
 

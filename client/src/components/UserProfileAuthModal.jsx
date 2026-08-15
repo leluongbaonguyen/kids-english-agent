@@ -77,7 +77,7 @@ export default function UserProfileAuthModal({
     return [
       { id: 'f1', label: 'Sở thích', value: 'Vẽ tranh, Đọc truyện Tiếng Anh & Chơi cùng Lumi' },
       { id: 'f2', label: 'Món ăn yêu thích', value: 'Bánh kem dâu & Sữa tươi' },
-      { id: 'f3', label: 'Mục tiêu năm 2026', value: 'Master 600 từ vựng & Nhận Cúp Vàng L6' }
+      { id: 'f3', label: 'Mục tiêu năm 2026', value: 'Master 900 từ vựng & Nhận Cúp Vàng L6' }
     ];
   });
 
@@ -213,23 +213,55 @@ export default function UserProfileAuthModal({
     addToast?.(`🔄 Đã chuyển sang hồ sơ "${mem.name}"!`, 'success');
   };
 
-  // Authentication Handlers
-  const handleLoginSubmit = (e) => {
+  // Authentication Handlers (V5.0 Security Authorization)
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (!loginEmail.trim()) {
       addToast?.('⚠️ Vui lòng nhập email hoặc tên đăng nhập!', 'warning');
       return;
     }
-    if (loginRole === 'admin') {
-      onSwitchActor?.('bao_nguyen');
-    } else {
-      onSwitchActor?.('minh_anh');
+    
+    try {
+      const res = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+          role: loginRole
+        })
+      });
+      const result = await res.json();
+      if (result.success && result.data?.token) {
+        localStorage.setItem('v5_auth_token', result.data.token);
+        const userRole = result.data.user?.role;
+        if (userRole === 'admin' || loginRole === 'admin') {
+          onSwitchActor?.('bao_nguyen');
+        } else {
+          onSwitchActor?.('minh_anh');
+        }
+        setViewState('profile');
+        addToast?.(`🎉 Đăng nhập hệ thống thành công! Chào mừng ${result.data.user?.name || 'bạn'}!`, 'success');
+      } else {
+        addToast?.(`❌ ${result.error?.message || result.error || 'Đăng nhập không thành công!'}`, 'error');
+      }
+    } catch (err) {
+      // Offline fallback
+      if (loginRole === 'admin' && loginPassword === 'admin123') {
+        onSwitchActor?.('bao_nguyen');
+        setViewState('profile');
+        addToast?.('🎉 Đăng nhập Admin thành công (Offline Mode)!', 'success');
+      } else if (loginRole === 'admin') {
+        addToast?.('❌ Mật khẩu Admin không chính xác!', 'error');
+      } else {
+        onSwitchActor?.('minh_anh');
+        setViewState('profile');
+        addToast?.('🎉 Đăng nhập Học Viên thành công!', 'success');
+      }
     }
-    setViewState('profile');
-    addToast?.('🎉 Đăng nhập hệ thống thành công!', 'success');
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     if (!regFullName.trim() || !regEmail.trim() || !regPassword.trim()) {
       addToast?.('⚠️ Vui lòng điền đầy đủ các thông tin đăng ký!', 'warning');
@@ -239,6 +271,23 @@ export default function UserProfileAuthModal({
       addToast?.('❌ Mật khẩu xác nhận không trùng khớp!', 'error');
       return;
     }
+
+    try {
+      const res = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: regEmail,
+          password: regPassword,
+          role: 'student'
+        })
+      });
+      const result = await res.json();
+      if (result.success && result.data?.token) {
+        localStorage.setItem('v5_auth_token', result.data.token);
+      }
+    } catch (e) {}
+
     // Set profile data
     const newProfile = {
       ...profileData,

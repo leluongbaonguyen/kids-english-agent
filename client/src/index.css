@@ -38,9 +38,35 @@ html, body {
     background-attachment: fixed;
     color: #f8fafc;
     min-height: 100vh;
+    min-height: 100dvh;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
+  }
+}
+
+/* Device Dynamic Viewport Height & Auto Length Scaling Helpers */
+.auto-device-height {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.modal-device-fit {
+  max-height: 85vh;
+  max-height: 85dvh;
+}
+
+@media (min-height: 700px) {
+  .modal-device-fit {
+    max-height: 88vh;
+    max-height: 88dvh;
+  }
+}
+
+@media (min-height: 900px) {
+  .modal-device-fit {
+    max-height: 92vh;
+    max-height: 92dvh;
   }
 }
 
@@ -167,3 +193,91 @@ html, body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ========================================================================= */
+/* ULTRA-CUTE 3D NEON GLOW & GLOSSY UI UTILITIES (MATCHING DESIGN REFERENCE) */
+/* ========================================================================= */
+
+.neon-rainbow-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.98) 100%);
+  border: 3px solid transparent;
+  border-image: linear-gradient(135deg, #f472b6, #38bdf8, #facc15, #a855f7) 1;
+  border-radius: 32px;
+  box-shadow: 0 0 30px rgba(236, 72, 153, 0.25), 0 0 50px rgba(56, 189, 248, 0.2);
+}
+
+.neon-glow-pink {
+  border: 2.5px solid #ec4899;
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.5), inset 0 0 15px rgba(236, 72, 153, 0.2);
+}
+
+.neon-glow-cyan {
+  border: 2.5px solid #06b6d4;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), inset 0 0 15px rgba(6, 182, 212, 0.2);
+}
+
+.neon-glow-yellow {
+  border: 2.5px solid #facc15;
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.5), inset 0 0 15px rgba(250, 204, 21, 0.2);
+}
+
+.btn-3d-pink {
+  background: linear-gradient(180deg, #ff65b5 0%, #e11d48 100%);
+  box-shadow: 0 6px 0 #9f1239, 0 10px 25px rgba(225, 29, 72, 0.5);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-3d-pink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #9f1239, 0 14px 28px rgba(225, 29, 72, 0.6);
+}
+.btn-3d-pink:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #9f1239, 0 4px 10px rgba(225, 29, 72, 0.4);
+}
+
+.btn-3d-yellow {
+  background: linear-gradient(180deg, #fde047 0%, #eab308 100%);
+  color: #0f172a;
+  box-shadow: 0 6px 0 #854d0e, 0 10px 25px rgba(234, 179, 8, 0.5);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-3d-yellow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #854d0e, 0 14px 28px rgba(234, 179, 8, 0.6);
+}
+.btn-3d-yellow:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #854d0e, 0 4px 10px rgba(234, 179, 8, 0.4);
+}
+
+.btn-3d-cyan {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 0 #075985, 0 10px 25px rgba(2, 132, 199, 0.5);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-3d-cyan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #075985, 0 14px 28px rgba(2, 132, 199, 0.6);
+}
+.btn-3d-cyan:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #075985, 0 4px 10px rgba(2, 132, 199, 0.4);
+}
+
+.shimmer-text-rainbow {
+  background: linear-gradient(90deg, #f472b6 0%, #facc15 33%, #38bdf8 66%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s infinite linear;
+  background-size: 200% auto;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+

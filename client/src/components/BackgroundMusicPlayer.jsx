@@ -293,7 +293,9 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
       }
       audioElemRef.current.volume = isMuted ? 0 : volume;
       audioElemRef.current.play().catch((err) => {
-        console.warn('Custom URL audio playback error:', err);
+        if (err.name !== 'AbortError') {
+          console.warn('Custom URL audio playback error:', err);
+        }
       });
     }
   }, [isPlaying, currentTrackIndex, volume, isMuted]);

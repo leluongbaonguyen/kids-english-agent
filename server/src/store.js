@@ -1,12 +1,20 @@
 import { readFile, writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import crypto from 'crypto';
 import pg from 'pg';
+
+import { authenticateUser, generateAuthToken, verifyAuthToken, SYSTEM_USERS } from './modules/identity/auth.service.js';
+import { computeSrsUpdate } from './modules/srs/srs.service.js';
+import { recordQuizAttemptTx } from './modules/assessment/assessment.service.js';
+import { processSyncBatchItem } from './modules/sync/sync.service.js';
+import { savePushSubscription, getLearnerPushSubscriptions } from './modules/notification/push.service.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dataDir = path.resolve(__dirname, '../data');
 const kidsProgressFile = path.join(dataDir, 'kids_progress.json');
+
 
 const defaultProgress = {
   stars: 120,
@@ -27,7 +35,7 @@ if (process.env.DATABASE_URL) {
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
     });
-    console.log('🐘 PostgreSQL Enterprise Pool initialized with 20 Core Tables.');
+    console.log('🐘 PostgreSQL Enterprise Pool V5.0 initialized with 20 Core Canonical Tables.');
   } catch (err) {
     console.warn('⚠️ Could not initialize PostgreSQL pool, falling back to local file storage:', err.message);
     pool = null;
@@ -41,6 +49,34 @@ async function ensureDataDir() {
     console.error('Error creating data directory:', e);
   }
 }
+
+export { authenticateUser, generateAuthToken, verifyAuthToken, SYSTEM_USERS };
+
+// Initialize Canonical DB Tables if needed
+export async function ensureCanonicalTables() {
+  if (!pool) return;
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS idempotency_keys (
+        key TEXT PRIMARY KEY,
+        scope TEXT,
+        result_data JSONB,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+      CREATE TABLE IF NOT EXISTS push_subscriptions (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        learner_id TEXT,
+        endpoint TEXT UNIQUE,
+        p256dh TEXT,
+        auth TEXT,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+  } catch (e) {
+    console.warn('Canonical table check warning:', e.message);
+  }
+}
+ensureCanonicalTables().catch(() => {});
 
 export async function checkDbHealth() {
   if (pool) {
@@ -65,28 +101,33 @@ export async function checkDbHealth() {
 // Core Progress Read/Write (Backwards Compatible)
 // ----------------------------------------------------
 export async function readKidsProgress() {
-  if (pool) {
-    try {
-      const result = await pool.query('SELECT data FROM kids_progress WHERE id = 1 LIMIT 1');
-      if (result.rows.length > 0) {
-        return result.rows[0].data;
-      }
-      await pool.query(
-        'INSERT INTO kids_progress (id, data, updated_at) VALUES (1, $1, NOW()) ON CONFLICT (id) DO NOTHING',
-        [JSON.stringify(defaultProgress)]
-      );
-      return defaultProgress;
-    } catch (err) {
-      console.warn('⚠️ Postgres read error, reading from local JSON fallback:', err.message);
-    }
-  }
-
-  await ensureDataDir();
   try {
-    const raw = await readFile(kidsProgressFile, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    await writeFile(kidsProgressFile, JSON.stringify(defaultProgress, null, 2), 'utf8');
+    if (pool) {
+      try {
+        const result = await pool.query('SELECT data FROM kids_progress WHERE id = 1 LIMIT 1');
+        if (result.rows.length > 0 && result.rows[0].data) {
+          return result.rows[0].data;
+        }
+        await pool.query(
+          'INSERT INTO kids_progress (id, data, updated_at) VALUES (1, $1, NOW()) ON CONFLICT (id) DO NOTHING',
+          [JSON.stringify(defaultProgress)]
+        );
+        return defaultProgress;
+      } catch (err) {
+        console.warn('⚠️ Postgres read error, reading from local JSON fallback:', err.message);
+      }
+    }
+
+    await ensureDataDir();
+    try {
+      const raw = await readFile(kidsProgressFile, 'utf8');
+      return JSON.parse(raw);
+    } catch {
+      await writeFile(kidsProgressFile, JSON.stringify(defaultProgress, null, 2), 'utf8');
+      return defaultProgress;
+    }
+  } catch (globalErr) {
+    console.error('⚠️ Critical readKidsProgress fallback triggered:', globalErr.message);
     return defaultProgress;
   }
 }
@@ -178,59 +219,36 @@ export async function searchVocabulary(query = '', levelCode = null, limit = 50)
   }
 }
 
+// ----------------------------------------------------
+// V5.0 SERVER-AUTHORITATIVE SRS EVIDENCE ENGINE
+// ----------------------------------------------------
+export async function recordSrsEvidence(learnerId, vocabId, accuracy, interactionType = 'flashcard') {
+  return computeSrsUpdate(pool, learnerId, vocabId, accuracy, interactionType);
+}
+
+// ----------------------------------------------------
+// V5.0 QUIZ ATTEMPTS & LEVEL UNLOCK TRANSACTION
+// ----------------------------------------------------
 export async function recordQuizAttempt(attemptData) {
-  if (!pool) return { success: true, local: true };
-  const client = await pool.connect();
-  try {
-    await client.query('BEGIN');
+  return recordQuizAttemptTx(pool, attemptData);
+}
 
-    const attemptRes = await client.query(
-      `INSERT INTO quiz_attempts (learner_id, level_code, quiz_type, mode, total_questions, correct_answers, score_percent, passed, completed_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
-       RETURNING id`,
-      [
-        attemptData.learnerId,
-        attemptData.levelCode,
-        attemptData.quizType || 'practice',
-        attemptData.mode || 'standard',
-        attemptData.totalQuestions || 0,
-        attemptData.correctAnswers || 0,
-        attemptData.scorePercent || 0,
-        attemptData.passed || false
-      ]
-    );
+// ----------------------------------------------------
+// V5.0 IDEMPOTENT BATCH SYNC ENGINE
+// ----------------------------------------------------
+export async function processSyncBatch(actorId, batchItem) {
+  return processSyncBatchItem(pool, actorId, batchItem, writeKidsProgress);
+}
 
-    const attemptId = attemptRes.rows[0].id;
+// ----------------------------------------------------
+// V5.0 WEB PUSH SUBSCRIPTIONS
+// ----------------------------------------------------
+export async function registerPushSubscription(learnerId, subscription) {
+  return savePushSubscription(pool, learnerId, subscription);
+}
 
-    if (Array.isArray(attemptData.answers)) {
-      for (let i = 0; i < attemptData.answers.length; i++) {
-        const a = attemptData.answers[i];
-        await client.query(
-          `INSERT INTO quiz_answers (attempt_id, question_number, vocabulary_id, question_type, selected_answer, correct_answer, is_correct, response_ms)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-          [attemptId, i + 1, a.vocabularyId || null, a.questionType, a.selectedAnswer, a.correctAnswer, a.isCorrect, a.responseMs || 0]
-        );
-      }
-    }
-
-    // Award Stars Transaction
-    if (attemptData.earnedStars && attemptData.earnedStars > 0) {
-      await client.query(
-        `INSERT INTO star_transactions (learner_id, amount, reason, source_type, source_id)
-         VALUES ($1, $2, $3, 'QUIZ', $4)`,
-        [attemptData.learnerId, attemptData.earnedStars, 'Hoàn thành bài tập Quiz tiếng Anh', attemptId]
-      );
-    }
-
-    await client.query('COMMIT');
-    return { success: true, attemptId };
-  } catch (err) {
-    await client.query('ROLLBACK');
-    console.error('Error recording quiz attempt:', err);
-    throw err;
-  } finally {
-    client.release();
-  }
+export async function fetchPushSubscriptions(learnerId) {
+  return getLearnerPushSubscriptions(pool, learnerId);
 }
 
 // ----------------------------------------------------
@@ -388,8 +406,9 @@ export async function getDatabaseStats() {
     totalLevels,
     totalLearners,
     totalAuditLogs,
-    engine: pool ? 'PostgreSQL Enterprise 2.0' : 'JSON Atomic File Database',
+    engine: pool ? 'PostgreSQL Enterprise 5.0 Canonical' : 'JSON Atomic File Database',
     lastSync: new Date().toISOString()
   };
 }
+
 

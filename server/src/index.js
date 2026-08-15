@@ -8,8 +8,23 @@ import {
   getLearnerProfile,
   getCourseLevels,
   searchVocabulary,
-  recordQuizAttempt
+  recordQuizAttempt,
+  authenticateUser,
+  verifyAuthToken,
+  recordSrsEvidence,
+  processSyncBatch,
+  registerPushSubscription
 } from './store.js';
+
+import { generateV6ExcelTemplate } from './modules/import/excel.template.js';
+import {
+  parseAndCreateImportJob,
+  executeImportCheck,
+  commitImportJob,
+  rollbackImportJob,
+  generateImportReportExcel,
+  getImportJob
+} from './modules/import/excel.service.js';
 
 dotenv.config();
 
@@ -24,13 +39,11 @@ const allowedOrigins = rawOrigins
   .map(o => o.trim())
   .filter(Boolean);
 
-// Default development & production origins fallback
 const defaultOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
-  'https://kids-english-agent.pages.dev',
-  'https://kids-english-agent.leluongbaonguyen.workers.dev'
+  'https://kids-english-agent.pages.dev'
 ];
 
 const finalOrigins = [...new Set([...allowedOrigins, ...defaultOrigins])];
@@ -47,6 +60,66 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 
+// ----------------------------------------------------
+// V5.0 ENVELOPE & SECURITY MIDDLEWARES
+// ----------------------------------------------------
+function sendV1Success(res, data, meta = {}, statusCode = 200) {
+  return res.status(statusCode).json({
+    success: true,
+    data,
+    meta: {
+      requestId: `req_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      serverTime: new Date().toISOString(),
+      apiVersion: '5.0.0',
+      ...meta
+    }
+  });
+}
+
+function sendV1Error(res, code, message, statusCode = 400, details = null) {
+  return res.status(statusCode).json({
+    success: false,
+    error: {
+      code,
+      message,
+      details,
+      retryable: statusCode >= 500
+    },
+    meta: {
+      requestId: `req_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      serverTime: new Date().toISOString(),
+      apiVersion: '5.0.0'
+    }
+  });
+}
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : req.headers['x-auth-token'];
+  if (!token) {
+    req.user = { id: 'minh_anh', role: 'student', email: 'minhanh@kidsenglish.edu.vn' };
+    return next();
+  }
+  const payload = verifyAuthToken(token);
+  if (!payload) {
+    req.user = { id: 'minh_anh', role: 'student', email: 'minhanh@kidsenglish.edu.vn' };
+    return next();
+  }
+  req.user = payload;
+  next();
+}
+
+function requireRole(role) {
+  return (req, res, next) => {
+    if (!req.user || (req.user.role !== role && req.user.role !== 'admin')) {
+      return sendV1Error(res, 'FORBIDDEN', `Yêu cầu quyền truy cập cấp ${role}!`, 403);
+    }
+    next();
+  };
+}
+
+app.use(authenticateToken);
+
 // Health Check Endpoint (Both at root /health and /api/health)
 const handleHealthCheck = async (req, res) => {
   const dbHealth = await checkDbHealth();
@@ -54,7 +127,7 @@ const handleHealthCheck = async (req, res) => {
 
   res.status(200).json({
     status: 'ok',
-    service: 'Kids English Learning Agent API Server (Enterprise DB 2.0)',
+    service: 'Kids English Learning Agent API Server (Enterprise V5.0)',
     uptime: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
@@ -71,7 +144,63 @@ const handleHealthCheck = async (req, res) => {
 app.get('/health', handleHealthCheck);
 app.get('/api/health', handleHealthCheck);
 
-// GET Kids English Progress
+// ----------------------------------------------------
+// V5.0 AUTHENTICATION ENDPOINTS
+// ----------------------------------------------------
+app.post('/api/v1/auth/login', (req, res) => {
+  const { email, username, password, role } = req.body;
+  const identifier = email || username || '';
+  if (!identifier) {
+    return sendV1Error(res, 'INVALID_INPUT', 'Vui lòng nhập Email hoặc Tên đăng nhập!');
+  }
+  const result = authenticateUser(identifier, password, role || 'student');
+  if (!result.success) {
+    return sendV1Error(res, 'AUTH_FAILED', result.error, 401);
+  }
+  return sendV1Success(res, { token: result.token, user: result.user });
+});
+
+app.post('/api/v1/auth/logout', (req, res) => {
+  return sendV1Success(res, { loggedOut: true });
+});
+
+app.get('/api/v1/me', (req, res) => {
+  return sendV1Success(res, { user: req.user });
+});
+
+// ----------------------------------------------------
+// V5.0 LEARNER PLAN & PROGRESS ENDPOINTS
+// ----------------------------------------------------
+app.get('/api/v1/learners/:id/today-plan', async (req, res) => {
+  try {
+    const progress = await readKidsProgress();
+    const plan = {
+      learnerId: req.params.id,
+      date: new Date().toISOString().split('T')[0],
+      streakDays: 7,
+      dailyTargetMinutes: 15,
+      completedMinutes: 10,
+      srsReviewDueCount: 5,
+      newWordsCount: 10,
+      recommendedLevel: 'L1',
+      starsBalance: progress.stars || 120,
+      unlockedLevels: progress.unlockedLevels || { L1: true }
+    };
+    return sendV1Success(res, plan);
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
+});
+
+// GET Kids English Progress (V1 & Legacy)
+app.get('/api/v1/kids/progress', async (req, res) => {
+  try {
+    const progress = await readKidsProgress();
+    sendV1Success(res, progress);
+  } catch (error) {
+    sendV1Error(res, 'SERVER_ERROR', error.message, 500);
+  }
+});
 app.get('/api/kids/progress', async (req, res) => {
   try {
     const progress = await readKidsProgress();
@@ -81,28 +210,33 @@ app.get('/api/kids/progress', async (req, res) => {
   }
 });
 
-// POST Update Kids English Progress
+// POST Update Kids English Progress (V1 & Legacy)
+app.post('/api/v1/kids/progress', async (req, res) => {
+  try {
+    const result = await writeKidsProgress(req.body);
+    sendV1Success(res, result);
+  } catch (error) {
+    sendV1Error(res, 'SERVER_ERROR', error.message, 500);
+  }
+});
 app.post('/api/kids/progress', async (req, res) => {
   try {
-    const updatedData = req.body;
-    const result = await writeKidsProgress(updatedData);
+    const result = await writeKidsProgress(req.body);
     res.json({ success: true, progress: result });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// GET Learner Profile
-app.get('/api/learners/default', async (req, res) => {
+// GET Course Levels
+app.get('/api/v1/levels', async (req, res) => {
   try {
-    const learner = await getLearnerProfile('LEARNER_DEFAULT');
-    res.json({ success: true, learner });
+    const levels = await getCourseLevels();
+    sendV1Success(res, levels);
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    sendV1Error(res, 'SERVER_ERROR', error.message, 500);
   }
 });
-
-// GET Course Levels
 app.get('/api/levels', async (req, res) => {
   try {
     const levels = await getCourseLevels();
@@ -112,7 +246,16 @@ app.get('/api/levels', async (req, res) => {
   }
 });
 
-// GET Vocabulary Search/Filter
+// GET Vocabulary Search
+app.get('/api/v1/vocabulary', async (req, res) => {
+  try {
+    const { q, level, limit } = req.query;
+    const words = await searchVocabulary(q || '', level || null, limit ? parseInt(limit, 10) : 50);
+    sendV1Success(res, words, { total: words.length });
+  } catch (error) {
+    sendV1Error(res, 'SERVER_ERROR', error.message, 500);
+  }
+});
 app.get('/api/vocabulary', async (req, res) => {
   try {
     const { q, level, limit } = req.query;
@@ -123,25 +266,75 @@ app.get('/api/vocabulary', async (req, res) => {
   }
 });
 
-// POST Analytics Events Ingestion
-app.post('/api/analytics/events', (req, res) => {
-  const event = req.body;
-  console.log(`[REALTIME EVENT LOG]: ${event.eventName || 'event'}`, event.payload?.actor || 'guest');
-  res.json({ success: true, receivedAt: new Date().toISOString() });
+// ----------------------------------------------------
+// V5.0 SRS & QUIZ AUTHORITATIVE ENDPOINTS
+// ----------------------------------------------------
+app.post('/api/v1/srs/evidence', async (req, res) => {
+  try {
+    const { vocabId, accuracy, interactionType } = req.body;
+    if (!vocabId) return sendV1Error(res, 'INVALID_INPUT', 'Thiếu thông tin vocabId!');
+    const result = await recordSrsEvidence(req.user.id || 'minh_anh', vocabId, accuracy || 1.0, interactionType);
+    return sendV1Success(res, result);
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
 });
 
-// POST Kids Sync Batch Queue
+app.post('/api/v1/quiz-attempts/complete', async (req, res) => {
+  try {
+    const attemptData = { ...req.body, learnerId: req.user.id || 'minh_anh' };
+    const result = await recordQuizAttempt(attemptData);
+    return sendV1Success(res, result);
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
+});
+
+// POST Kids Sync Batch Queue (Idempotent V1 & Legacy)
+app.post('/api/v1/sync/batch', async (req, res) => {
+  try {
+    const batchItem = req.body;
+    const result = await processSyncBatch(req.user.id, batchItem);
+    return sendV1Success(res, result);
+  } catch (error) {
+    return sendV1Error(res, 'SERVER_ERROR', error.message, 500);
+  }
+});
 app.post('/api/kids/sync_batch', async (req, res) => {
   try {
     const batchItem = req.body;
-    console.log(`[BATCH SYNC ITEM]: ${batchItem.type || 'batch'}`, batchItem.idempotencyKey);
-    res.json({ success: true, processedAt: new Date().toISOString() });
+    const result = await processSyncBatch(req.user.id, batchItem);
+    res.json({ success: true, ...result });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
+// Web Push Subscription Endpoint
+app.post('/api/v1/push/subscriptions', async (req, res) => {
+  try {
+    const subscription = req.body;
+    const result = await registerPushSubscription(req.user.id || 'minh_anh', subscription);
+    return sendV1Success(res, result);
+  } catch (error) {
+    return sendV1Error(res, 'SERVER_ERROR', error.message, 500);
+  }
+});
+
 // Dictionary Proxy Endpoint for Kids
+app.get('/api/v1/content/dictionary/lookup', (req, res) => {
+  const word = req.query.word;
+  if (!word) {
+    return sendV1Error(res, 'INVALID_INPUT', 'Missing word parameter');
+  }
+  return sendV1Success(res, {
+    word: word.toLowerCase(),
+    phonetic: `/${word.toLowerCase()}/`,
+    audio: `https://api.dictionaryapi.dev/media/pronunciations/en/${word.toLowerCase()}-us.mp3`,
+    status: 'ready',
+    provenance: 'VERIFIED_DICTIONARY_PROXY'
+  });
+});
 app.get('/api/dictionary/lookup', (req, res) => {
   const word = req.query.word;
   if (!word) {
@@ -155,8 +348,152 @@ app.get('/api/dictionary/lookup', (req, res) => {
 });
 
 // ----------------------------------------------------
-// Enterprise Database API Endpoints
+// V6.0 EXCEL IMPORT ENGINE API ENDPOINTS (SECTION 38 SPEC)
 // ----------------------------------------------------
+
+// 1. GET Download Official V6 Excel Template
+app.get('/api/v1/admin/import-templates/kids-english', (req, res) => {
+  try {
+    const buffer = generateV6ExcelTemplate();
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename="Kids_English_V6_Excel_Import_Template_Full_Data.xlsx"');
+    return res.send(buffer);
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
+});
+
+// 2. POST Upload XLSX File & Create Import Job
+app.post('/api/v1/admin/imports/excel', async (req, res) => {
+  try {
+    let fileBuffer;
+    let fileName = 'Kids_English_Import.xlsx';
+
+    if (req.body && req.body.fileBase64) {
+      const base64Data = req.body.fileBase64.replace(/^data:.*?;base64,/, '');
+      fileBuffer = Buffer.from(base64Data, 'base64');
+      if (req.body.fileName) fileName = req.body.fileName;
+    } else if (Buffer.isBuffer(req.body)) {
+      fileBuffer = req.body;
+    } else {
+      return sendV1Error(res, 'E_FILE_TYPE', 'Vui lòng cung cấp tệp Excel dạng Base64 hoặc Binary Buffer!');
+    }
+
+    const job = await parseAndCreateImportJob(fileBuffer, fileName, req.user);
+    return sendV1Success(res, {
+      job_id: job.id,
+      file_name: job.file_name,
+      file_hash: job.fileHash,
+      state: job.state,
+      is_file_already_imported: job.isFileAlreadyImported,
+      config: job.config,
+      created_at: job.created_at
+    });
+  } catch (err) {
+    return sendV1Error(res, 'E_FILE_TYPE', err.message, 400);
+  }
+});
+
+// 3. POST Pre-Check / Re-Check Dry Run
+app.post('/api/v1/admin/imports/:id/check', async (req, res) => {
+  try {
+    const revisionData = await executeImportCheck(req.params.id);
+    return sendV1Success(res, {
+      job_id: req.params.id,
+      ...revisionData
+    });
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
+});
+
+// 4. GET Import Job Summary
+app.get('/api/v1/admin/imports/:id', (req, res) => {
+  const job = getImportJob(req.params.id);
+  if (!job) return sendV1Error(res, 'NOT_FOUND', `Import job "${req.params.id}" không tồn tại!`, 404);
+  
+  const latestRev = job.checkRevisions[job.checkRevisions.length - 1] || null;
+  return sendV1Success(res, {
+    job_id: job.id,
+    file_name: job.file_name,
+    file_hash: job.fileHash,
+    state: job.state,
+    latest_check_revision: job.latest_check_revision,
+    summary: latestRev ? latestRev.summary : null,
+    can_commit: latestRev ? latestRev.can_commit : false,
+    created_at: job.created_at,
+    committed_at: job.committed_at || null
+  });
+});
+
+// 5. GET Filtered Row Results
+app.get('/api/v1/admin/imports/:id/rows', (req, res) => {
+  const job = getImportJob(req.params.id);
+  if (!job) return sendV1Error(res, 'NOT_FOUND', `Import job "${req.params.id}" không tồn tại!`, 404);
+
+  const statusFilter = req.query.status;
+  const entityFilter = req.query.entity;
+  const latestRev = job.checkRevisions[job.checkRevisions.length - 1];
+  
+  if (!latestRev) return sendV1Success(res, { rows: [], total: 0 });
+
+  let rows = latestRev.rowResults;
+  if (statusFilter) {
+    rows = rows.filter((r) => r.row_status === statusFilter);
+  }
+  if (entityFilter) {
+    rows = rows.filter((r) => r.entity_type === entityFilter);
+  }
+
+  return sendV1Success(res, { rows, total: rows.length });
+});
+
+// 6. GET Single Row Details & Diff
+app.get('/api/v1/admin/imports/:id/rows/:rowId', (req, res) => {
+  const job = getImportJob(req.params.id);
+  if (!job) return sendV1Error(res, 'NOT_FOUND', `Import job "${req.params.id}" không tồn tại!`, 404);
+
+  const latestRev = job.checkRevisions[job.checkRevisions.length - 1];
+  if (!latestRev) return sendV1Error(res, 'NOT_FOUND', 'Chưa có kết quả check nào!', 404);
+
+  const row = latestRev.rowResults.find((r) => r.row_id === req.params.rowId);
+  if (!row) return sendV1Error(res, 'NOT_FOUND', `Dòng "${req.params.rowId}" không tồn tại!`, 404);
+
+  return sendV1Success(res, { row });
+});
+
+// 7. POST Commit READY_INSERT Rows
+app.post('/api/v1/admin/imports/:id/commit', async (req, res) => {
+  try {
+    const result = await commitImportJob(req.params.id, req.user);
+    return sendV1Success(res, result);
+  } catch (err) {
+    return sendV1Error(res, 'E_IMPORT_RACE_CONFLICT', err.message, 400);
+  }
+});
+
+// 8. POST Rollback Imported Job
+app.post('/api/v1/admin/imports/:id/rollback', async (req, res) => {
+  try {
+    const reason = req.body?.reason || 'Admin Yêu Cầu Rollback';
+    const result = await rollbackImportJob(req.params.id, reason);
+    return sendV1Success(res, result);
+  } catch (err) {
+    return sendV1Error(res, 'E_ROLLBACK_BLOCKED', err.message, 400);
+  }
+});
+
+// 9. GET Download Annotated Report Excel
+app.get('/api/v1/admin/imports/:id/report.xlsx', (req, res) => {
+  try {
+    const buffer = generateImportReportExcel(req.params.id);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="Import_Report_${req.params.id}.xlsx"`);
+    return res.send(buffer);
+  } catch (err) {
+    return sendV1Error(res, 'SERVER_ERROR', err.message, 500);
+  }
+});
 
 // GET Database Statistics
 app.get('/api/db/stats', async (req, res) => {
@@ -191,8 +528,8 @@ app.get('/api/db/trash', async (req, res) => {
   }
 });
 
-// POST Create Vocabulary Item
-app.post('/api/vocabulary', async (req, res) => {
+// POST Create Vocabulary Item (Requires Admin Role)
+app.post('/api/vocabulary', requireRole('admin'), async (req, res) => {
   try {
     const { createVocabularyItem } = await import('./store.js');
     const item = await createVocabularyItem(req.body);
@@ -202,8 +539,8 @@ app.post('/api/vocabulary', async (req, res) => {
   }
 });
 
-// PUT Update Vocabulary Item
-app.put('/api/vocabulary/:id', async (req, res) => {
+// PUT Update Vocabulary Item (Requires Admin Role)
+app.put('/api/vocabulary/:id', requireRole('admin'), async (req, res) => {
   try {
     const { updateVocabularyItem } = await import('./store.js');
     const item = await updateVocabularyItem(req.params.id, req.body);
@@ -213,8 +550,8 @@ app.put('/api/vocabulary/:id', async (req, res) => {
   }
 });
 
-// DELETE Vocabulary Item
-app.delete('/api/vocabulary/:id', async (req, res) => {
+// DELETE Vocabulary Item (Requires Admin Role)
+app.delete('/api/vocabulary/:id', requireRole('admin'), async (req, res) => {
   try {
     const { deleteVocabularyItem } = await import('./store.js');
     const result = await deleteVocabularyItem(req.params.id, req.body.reason || 'Xóa thủ công');
@@ -224,20 +561,42 @@ app.delete('/api/vocabulary/:id', async (req, res) => {
   }
 });
 
-const server = app.listen(PORT, HOST, () => {
-  console.log(`========================================================`);
-  console.log(`🚀 Kids English Agent Server running on http://${HOST}:${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`========================================================`);
-});
+function startServer(portToTry) {
+  const currentPort = Number(portToTry);
+  const serverInstance = app.listen(currentPort, HOST, () => {
+    console.log(`========================================================`);
+    console.log(`🚀 Kids English Agent Server V5.0 running on http://${HOST}:${currentPort}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`========================================================`);
+  });
+
+  serverInstance.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`⚠️ Port ${currentPort} is currently in use. Trying alternative port ${currentPort + 1}...`);
+      setTimeout(() => {
+        startServer(currentPort + 1);
+      }, 500);
+    } else {
+      console.error('❌ Server HTTP Error:', err);
+    }
+  });
+
+  return serverInstance;
+}
+
+const server = startServer(PORT);
 
 // Graceful Shutdown Handler for PM2 & system signals
 function shutdown(signal) {
   console.log(`\n⚠️ Received ${signal}. Shutting down gracefully...`);
-  server.close(() => {
-    console.log('🛑 HTTP server closed.');
+  if (server && server.close) {
+    server.close(() => {
+      console.log('🛑 HTTP server closed.');
+      process.exit(0);
+    });
+  } else {
     process.exit(0);
-  });
+  }
   setTimeout(() => {
     console.error('❌ Forced shutdown after 10s timeout');
     process.exit(1);
@@ -246,3 +605,5 @@ function shutdown(signal) {
 
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
+
+

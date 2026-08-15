@@ -8,6 +8,18 @@ import { ToastContainer } from './components/ToastContainer.jsx';
 import { MobileBottomBar } from './components/MobileBottomBar.jsx';
 import SmartReminderNotification from './components/SmartReminderNotification.jsx';
 import IosPwaInstallPrompt from './components/IosPwaInstallPrompt.jsx';
+import { PageLocationBar, ROUTE_MAP } from './components/PageLocationBar.jsx';
+
+const getTabFromHash = () => {
+  try {
+    const hash = window.location.hash.replace(/^#\/?/, '').trim();
+    if (!hash) return 'home';
+    for (const [tabKey, info] of Object.entries(ROUTE_MAP)) {
+      if (info.slug === hash || tabKey === hash) return tabKey;
+    }
+  } catch (e) {}
+  return 'home';
+};
 
 export default function App() {
   const [currentActor, setCurrentActor] = useState(() => {
@@ -18,7 +30,7 @@ export default function App() {
     }
   });
 
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => getTabFromHash());
   const [longmanTrigger, setLongmanTrigger] = useState(0);
   const [aiModalTrigger, setAiModalTrigger] = useState(0);
   const [userProfileTrigger, setUserProfileTrigger] = useState(0);
@@ -76,8 +88,28 @@ export default function App() {
     return () => document.removeEventListener('fullscreenchange', handleFs);
   }, []);
 
+  // Synchronize activeTab with URL hash for easy sharing & clear location display
+  useEffect(() => {
+    const currentSlug = ROUTE_MAP[activeTab]?.slug || activeTab;
+    const targetHash = `#/${currentSlug}`;
+    if (window.location.hash !== targetHash) {
+      window.history.replaceState(null, '', targetHash);
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const newTab = getTabFromHash();
+      if (newTab !== activeTab) {
+        setActiveTab(newTab);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [activeTab]);
+
   return (
-    <div className="min-h-screen w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-20 xl:pb-6">
+    <div className="min-h-screen min-h-[100dvh] w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-20 xl:pb-6">
       {/* 3D Canvas Background */}
       <Dynamic3DBackground activeTab={activeTab} customBgConfig={bgConfig} />
 
@@ -88,7 +120,7 @@ export default function App() {
       <ToastContainer toasts={toasts} />
 
       {/* Auto-Responsive Main Application Container */}
-      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 space-y-4 relative z-10 flex flex-col items-center">
+      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 space-y-3 relative z-10 flex flex-col items-center">
         {/* Unified Main Navigation Menu Header */}
         <Header
           currentActor={currentActor}
@@ -102,6 +134,13 @@ export default function App() {
           onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
           onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
           onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
+        />
+
+        {/* Dynamic Page Location Breadcrumb & URL Routing Indicator Bar */}
+        <PageLocationBar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          currentActor={currentActor}
         />
 
         {/* Main Learning Dashboard Workspace */}

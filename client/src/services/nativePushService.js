@@ -36,6 +36,31 @@ export const NativePushService = {
           '🎉 Đã Bật Thông Báo Nhắc Học Tiếng Anh!',
           'Hệ thống sẽ tự động gửi thông báo hàng ngày để bé giữ chuỗi học tập ⭐'
         );
+
+        // Register Web Push Subscription to V5.0 Backend API
+        try {
+          if ('serviceWorker' in navigator) {
+            const reg = await navigator.serviceWorker.ready;
+            if (reg.pushManager) {
+              const sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: 'BEl62iUYgUivxIkv69yViEuiBIa-40a25KOyM97_X72zB5_N24_y7'
+              }).catch(() => null);
+              if (sub) {
+                const token = localStorage.getItem('v5_auth_token');
+                fetch('/api/v1/push/subscriptions', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                  },
+                  body: JSON.stringify(sub)
+                }).catch(() => {});
+              }
+            }
+          }
+        } catch (e) {}
+
         return { granted: true };
       }
       return { granted: false, reason: permission };
