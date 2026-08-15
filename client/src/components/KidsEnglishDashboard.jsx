@@ -2888,8 +2888,8 @@ export function KidsEnglishDashboard({
         </div>
       </div>
 
-      {/* Menu Chính Navigation Status Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl gpu-accelerated">
+      {/* Menu Chính Navigation Status Bar (Desktop / Tablet view) */}
+      <div className="hidden sm:flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl gpu-accelerated">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs font-black uppercase tracking-wider text-pink-400 flex items-center gap-1.5">
             <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" /> Menu Chức Năng:
@@ -5539,74 +5539,68 @@ export function KidsEnglishDashboard({
       {/* ========================================================================= */}
       {/* STICKY MOBILE APP FLOATING PINK ACTION BAR (TỐI ƯU MOBILE DỄ THƯƠNG FOR MINH ANH) */}
       {/* ========================================================================= */}
-      <div className="fixed bottom-3 left-3 right-3 sm:hidden z-50 rounded-3xl border-2 border-pink-400 bg-gradient-to-r from-pink-950/95 via-slate-950/95 to-purple-950/95 p-2.5 shadow-2xl backdrop-blur-2xl flex items-center justify-between gap-2 shadow-pink-500/40">
+      {/* ========================================================================= */}
+      {/* ULTRA-CLEAN NATIVE MOBILE BOTTOM NAVIGATION DOCK (5 TABS MOBILE APP MODE) */}
+      {/* ========================================================================= */}
+      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 bg-slate-950/95 border-t border-pink-500/40 backdrop-blur-2xl px-1.5 py-1.5 shadow-2xl flex items-center justify-around shadow-pink-500/20">
         <button
           onClick={() => {
-            const nextState = !isAutoPlay;
-            setIsAutoPlay(nextState);
-            setAutoPlayTimer(autoPlaySeconds);
-            if (nextState && filteredDatabase.length > 0) {
-              const curIdx = spotlightCard ? filteredDatabase.findIndex((c) => c.id === spotlightCard.id) : 0;
-              const startIdx = curIdx >= 0 ? curIdx : 0;
-              const targetCard = filteredDatabase[startIdx];
-              if (targetCard) {
-                setSpotlightCard(targetCard);
-                setCurrentPage(Math.floor(startIdx / pageSize) + 1);
-                try {
-                  playWordAudio(targetCard.word);
-                } catch (e) {
-                  console.warn('Audio play error:', e);
-                }
-              }
-            }
+            setActiveTab('home');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className={`flex-1 py-2.5 px-3 rounded-2xl text-[11px] font-black flex items-center justify-center gap-1.5 transition active:scale-95 ${
-            isAutoPlay
-              ? 'bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 animate-pulse border border-yellow-200'
-              : 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-md'
+          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
+            activeTab === 'home' ? 'text-pink-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
           }`}
         >
-          {isAutoPlay ? (
-            <>
-              <Zap className="h-3.5 w-3.5 fill-slate-950" />
-              <span>⏸️ Dừng ({autoPlayTimer}s)</span>
-            </>
-          ) : (
-            <>
-              <Play className="h-3.5 w-3.5 fill-white" />
-              <span>▶️ Tự Động 30s 🌸</span>
-            </>
-          )}
+          <span className="text-xl leading-none">🏠</span>
+          <span className="text-[10px]">Trang Chủ</span>
         </button>
 
-        {spotlightCard && (
-          <>
-            <button
-              onClick={() => playWordAudio(spotlightCard.word, false)}
-              className="p-2.5 rounded-2xl bg-cyan-600 text-white text-xs font-bold shadow-md active:scale-95 flex items-center gap-1"
-              title="Phát Âm Tiếng Anh"
-            >
-              <Volume2 className="h-4 w-4" />
-              <span>Đọc</span>
-            </button>
-
-            <button
-              onClick={() => handleStartVoiceRecording(spotlightCard)}
-              className="p-2.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold shadow-md active:scale-95 flex items-center gap-1"
-              title="AI Chấm Phát Âm"
-            >
-              <Mic className="h-4 w-4 text-yellow-300 animate-bounce" />
-              <span>Chấm</span>
-            </button>
-          </>
-        )}
+        <button
+          onClick={() => {
+            setActiveTab('poster');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
+            activeTab === 'poster' ? 'text-pink-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
+          }`}
+        >
+          <span className="text-xl leading-none">📖</span>
+          <span className="text-[10px]">Khóa Học</span>
+        </button>
 
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="p-2.5 rounded-2xl bg-slate-900 border border-pink-500/40 text-pink-300 text-xs font-bold active:scale-95"
-          title="Lên Đầu Trang"
+          onClick={() => {
+            setActiveTab('flashcards');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
+            activeTab === 'flashcards' ? 'text-cyan-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
+          }`}
         >
-          ⬆️
+          <span className="text-xl leading-none">📚</span>
+          <span className="text-[10px]">Thẻ 3D</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab('quiz');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
+            activeTab === 'quiz' ? 'text-purple-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
+          }`}
+        >
+          <span className="text-xl leading-none">🎮</span>
+          <span className="text-[10px]">Game</span>
+        </button>
+
+        <button
+          onClick={() => handleOpenLongmanModal('apple')}
+          className="flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl text-amber-300 font-bold hover:text-white transition cursor-pointer active:scale-95"
+        >
+          <span className="text-xl leading-none">📖</span>
+          <span className="text-[10px]">Từ Điển</span>
         </button>
       </div>
 
