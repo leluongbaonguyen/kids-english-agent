@@ -1,8 +1,8 @@
 {
   "stars": 120,
-  "masteredWords": [],
-  "unlockedLevels": {
-    "L1": true
-  },
-  "updatedAt": "2026-08-15T18:03:02.546Z"
+  "masteredCards": [
+    "vocab-L1-U01-W3"
+  ],
+  "quizScore": 0,
+  "updatedAt": "2026-08-15T18:48:58.211Z"
 }
