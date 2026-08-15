@@ -43,7 +43,8 @@ const defaultOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
-  'https://kids-english-agent.pages.dev'
+  'https://kids-english-agent.pages.dev',
+  'https://kids-english-agent.leluongbaonguyen.workers.dev'
 ];
 
 const finalOrigins = [...new Set([...allowedOrigins, ...defaultOrigins])];
