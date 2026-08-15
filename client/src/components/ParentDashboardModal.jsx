@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Award, ShieldCheck, BarChart3, Clock, Calendar, Star, Trophy, Download, Printer, CheckCircle2, Target, History, Sparkles, TrendingUp, AlertCircle, Settings } from 'lucide-react';
+import { X, Award, ShieldCheck, BarChart3, Clock, Calendar, Star, Trophy, Download, Printer, CheckCircle2, Target, History, Sparkles, TrendingUp, AlertCircle, Settings, Bell } from 'lucide-react';
 import { DBSyncEngine } from '../services/dbSyncEngine';
+import { NativePushService } from '../services/nativePushService';
 
 export default function ParentDashboardModal({
   isOpen,
@@ -17,6 +18,27 @@ export default function ParentDashboardModal({
   if (!isOpen) return null;
 
   const [activeTab, setActiveTab] = useState('analytics'); // 'analytics' | 'weekly_chart' | 'audit_timeline' | 'certificate'
+  const [pushStatus, setPushStatus] = useState('unknown');
+
+  useEffect(() => {
+    if ('Notification' in window) {
+      setPushStatus(Notification.permission);
+    } else {
+      setPushStatus('unsupported');
+    }
+  }, []);
+
+  const handleEnablePushNotifications = async () => {
+    const res = await NativePushService.requestNotificationPermission();
+    if (res.granted) {
+      setPushStatus('granted');
+      NativePushService.scheduleDailyReminders();
+      if (addToast) addToast('🔔 Đã bật thành công Thông Báo Nhắc Học Nhắc Nhở Hàng Ngày trên iOS/Thiết Bị!', 'success');
+    } else {
+      setPushStatus(res.reason || 'denied');
+      if (addToast) addToast('⚠️ Vui lòng cho phép quyền Thông Báo trong Cài đặt iPhone/iPad của bạn!', 'warning');
+    }
+  };
 
   // Daily goal persistence state
   const [dailyGoalMinutes, setDailyGoalMinutes] = useState(() => {
@@ -236,6 +258,41 @@ export default function ParentDashboardModal({
                       {dailyGoalMinutes === mins && <CheckCircle2 className="h-3.5 w-3.5" />}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* IOS / WEB PUSH NOTIFICATIONS ACTIVATION CARD */}
+              <div className="p-5 rounded-3xl border border-cyan-500/40 bg-gradient-to-r from-slate-950 via-cyan-950/30 to-slate-950 space-y-3 shadow-xl">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">
+                      <Bell className="h-5 w-5 animate-bounce" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-black uppercase text-cyan-300 tracking-wider">
+                        THÔNG BÁO NHẮC HỌC HÀNG NGÀY TRÊN IPHONE / IPAD / WEB:
+                      </h3>
+                      <p className="text-[11px] text-slate-300">
+                        Nhắc bé ôn từ vựng & giữ chuỗi học tập (Streak) vào 9:00 sáng & 19:00 tối hàng ngày
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleEnablePushNotifications}
+                    className={`px-5 py-2.5 rounded-2xl text-xs font-black transition cursor-pointer shadow-lg flex items-center gap-2 ${
+                      pushStatus === 'granted'
+                        ? 'bg-emerald-950 border border-emerald-500 text-emerald-300'
+                        : 'bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-slate-950 hover:scale-105'
+                    }`}
+                  >
+                    <Bell className="h-4 w-4" />
+                    <span>
+                      {pushStatus === 'granted'
+                        ? '✔ Đã Bật Thông Báo iOS'
+                        : '🔔 BẬT THÔNG BÁO NHẮC HỌC NGAY'}
+                    </span>
+                  </button>
                 </div>
               </div>
 
