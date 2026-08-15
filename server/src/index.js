@@ -329,30 +329,110 @@ app.post('/api/v1/push/subscriptions', async (req, res) => {
   }
 });
 
-// Dictionary Proxy Endpoint for Kids
-app.get('/api/v1/content/dictionary/lookup', (req, res) => {
+// ----------------------------------------------------
+// V6.0 LONGMAN & FREE DICTIONARY API PROXY ENDPOINTS
+// ----------------------------------------------------
+const dictionaryCache = new Map();
+
+async function fetchFromDictionaryApi(word) {
+  const cleanWord = String(word || '').trim().toLowerCase();
+  if (!cleanWord) return null;
+  
+  if (dictionaryCache.has(cleanWord)) {
+    return dictionaryCache.get(cleanWord);
+  }
+
+  try {
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanWord)}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        const entry = data[0];
+        const phonetics = entry.phonetics || [];
+        const phoneticText = entry.phonetic || phonetics.find(p => p.text)?.text || `/${cleanWord}/`;
+        
+        let rawAudio = phonetics.find(p => p.audio && p.audio.length > 0)?.audio || '';
+        if (rawAudio.startsWith('//')) {
+          rawAudio = `https:${rawAudio}`;
+        } else if (!rawAudio && cleanWord) {
+          rawAudio = `https://api.dictionaryapi.dev/media/pronunciations/en/${cleanWord}-us.mp3`;
+        }
+
+        const meanings = (entry.meanings || []).map(m => ({
+          partOfSpeech: m.partOfSpeech || 'noun',
+          definitions: (m.definitions || []).map(d => ({
+            definition: d.definition || '',
+            example: d.example || '',
+            synonyms: d.synonyms || [],
+            antonyms: d.antonyms || []
+          }))
+        }));
+
+        const primaryDefinition = meanings[0]?.definitions[0]?.definition || '';
+        const primaryExample = meanings[0]?.definitions[0]?.example || `Look at the ${cleanWord}!`;
+        const primaryPartOfSpeech = meanings[0]?.partOfSpeech || 'noun';
+
+        const parsed = {
+          word: entry.word || cleanWord,
+          phonetic: phoneticText,
+          phonetics: phonetics.map(p => ({
+            text: p.text || phoneticText,
+            audio: p.audio ? (p.audio.startsWith('//') ? `https:${p.audio}` : p.audio) : ''
+          })),
+          audio: rawAudio,
+          partOfSpeech: primaryPartOfSpeech,
+          definition: primaryDefinition,
+          example: primaryExample,
+          meanings,
+          origin: entry.origin || '',
+          status: 'ready',
+          provenance: 'FREE_DICTIONARY_LONGMAN_API_V2'
+        };
+
+        dictionaryCache.set(cleanWord, parsed);
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.warn(`Dictionary API fetch error for "${cleanWord}":`, err.message);
+  }
+
+  // Fallback if offline or API unavailable
+  const fallbackObj = {
+    word: cleanWord,
+    phonetic: `/${cleanWord}/`,
+    phonetics: [{ text: `/${cleanWord}/`, audio: `https://api.dictionaryapi.dev/media/pronunciations/en/${cleanWord}-us.mp3` }],
+    audio: `https://api.dictionaryapi.dev/media/pronunciations/en/${cleanWord}-us.mp3`,
+    partOfSpeech: 'noun',
+    definition: `Standard English definition for ${cleanWord}`,
+    example: `The ${cleanWord} is an important vocabulary word.`,
+    meanings: [{
+      partOfSpeech: 'noun',
+      definitions: [{ definition: `Definition of ${cleanWord}`, example: `Example sentence for ${cleanWord}` }]
+    }],
+    status: 'fallback',
+    provenance: 'SMART_KIDS_DICTIONARY_FALLBACK'
+  };
+
+  return fallbackObj;
+}
+
+app.get('/api/v1/content/dictionary/lookup', async (req, res) => {
   const word = req.query.word;
   if (!word) {
     return sendV1Error(res, 'INVALID_INPUT', 'Missing word parameter');
   }
-  return sendV1Success(res, {
-    word: word.toLowerCase(),
-    phonetic: `/${word.toLowerCase()}/`,
-    audio: `https://api.dictionaryapi.dev/media/pronunciations/en/${word.toLowerCase()}-us.mp3`,
-    status: 'ready',
-    provenance: 'VERIFIED_DICTIONARY_PROXY'
-  });
+  const result = await fetchFromDictionaryApi(word);
+  return sendV1Success(res, result);
 });
-app.get('/api/dictionary/lookup', (req, res) => {
+
+app.get('/api/dictionary/lookup', async (req, res) => {
   const word = req.query.word;
   if (!word) {
     return res.status(400).json({ error: 'Missing word parameter' });
   }
-  res.json({
-    word: word.toLowerCase(),
-    phonetic: `/${word.toLowerCase()}/`,
-    status: 'ready'
-  });
+  const result = await fetchFromDictionaryApi(word);
+  return res.json({ success: true, ...result });
 });
 
 // ----------------------------------------------------

@@ -48,21 +48,39 @@ export const OnlineVocabFetcher = {
 
         let ipa = `/${wordStr}/`;
         let audioUrl = '';
+        let definitionEn = '';
+        let exampleEn = `Look at the ${wordStr}!`;
+        let partOfSpeech = 'noun';
 
         try {
-          // Gọi FreeDictionaryAPI lấy IPA và Audio
-          const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordStr}`);
+          // Gọi FreeDictionaryAPI lấy IPA, Audio, Definitions, Examples
+          const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(wordStr)}`);
           if (dictRes.ok) {
             const dictData = await dictRes.json();
-            const phonetics = dictData[0]?.phonetics || [];
-            ipa = dictData[0]?.phonetic || phonetics.find(p => p.text)?.text || ipa;
-            audioUrl = phonetics.find(p => p.audio)?.audio || '';
+            if (Array.isArray(dictData) && dictData.length > 0) {
+              const entry = dictData[0];
+              const phonetics = entry.phonetics || [];
+              ipa = entry.phonetic || phonetics.find(p => p.text)?.text || ipa;
+              
+              const rawAudio = phonetics.find(p => p.audio && p.audio.length > 0)?.audio || '';
+              audioUrl = rawAudio.startsWith('//') ? `https:${rawAudio}` : rawAudio;
+
+              const meanings = entry.meanings || [];
+              if (meanings.length > 0) {
+                partOfSpeech = meanings[0].partOfSpeech || 'noun';
+                const firstDef = meanings[0].definitions?.[0];
+                if (firstDef) {
+                  definitionEn = firstDef.definition || '';
+                  if (firstDef.example) exampleEn = firstDef.example;
+                }
+              }
+            }
           }
         } catch (e) {
           // Fallback nếu 1 từ không gọi được dictionary API
         }
 
-        const meaning = VIETNAMESE_DICT[wordStr] || `Từ vựng chủ đề ${keyword}`;
+        const meaning = VIETNAMESE_DICT[wordStr] || (definitionEn ? `${definitionEn}` : `Từ vựng chủ đề ${keyword}`);
         const image = EMOJI_MAP[wordStr] || '✨';
 
         fetchedWords.push({
@@ -73,7 +91,9 @@ export const OnlineVocabFetcher = {
           audioUrl,
           image,
           category: keyword,
-          example: `Look at the ${wordStr}!`,
+          partOfSpeech,
+          definitionEn,
+          example: exampleEn,
           hint: `Từ vựng tiếng Anh chủ đề ${keyword}`
         });
       }
