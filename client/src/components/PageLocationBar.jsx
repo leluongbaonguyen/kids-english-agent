@@ -47,7 +47,7 @@ export function PageLocationBar({ activeTab, setActiveTab, currentActor }) {
       </div>
 
       {/* Right: Quick Tab Switching Pills */}
-      <div className="flex items-center gap-1.5 overflow-x-auto max-w-full py-0.5 no-scrollbar">
+      <div className="flex items-center gap-1.5 overflow-x-auto max-w-full py-1.5 no-scrollbar">
         {Object.entries(ROUTE_MAP).map(([tabKey, info]) => {
           // Hide admin tabs if child mode active
           if (isMinhAnh && ['db_table', 'import_wizard', 'trash_can', 'audit_log', 'qa_checklist'].includes(tabKey)) {
@@ -55,18 +55,24 @@ export function PageLocationBar({ activeTab, setActiveTab, currentActor }) {
           }
           const isActive = activeTab === tabKey;
           return (
-            <button
-              key={tabKey}
-              onClick={() => setActiveTab(tabKey)}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold transition whitespace-nowrap cursor-pointer touch-manipulation border ${
-                isActive
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white border-pink-300 shadow-md scale-105 font-black'
-                  : 'bg-slate-800/60 text-slate-300 hover:text-white hover:bg-slate-700/80 border-slate-700/50'
-              }`}
-            >
-              <span>{info.icon}</span>
-              <span>{info.title.split(' ')[0]}</span>
-            </button>
+            <div key={tabKey} className="relative pt-1">
+              {tabKey === 'db_table' && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-sm animate-wiggle pointer-events-none z-10 select-none drop-shadow-md">
+                  🧸
+                </div>
+              )}
+              <button
+                onClick={() => setActiveTab(tabKey)}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold transition whitespace-nowrap cursor-pointer touch-manipulation border ${
+                  isActive
+                    ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white border-pink-300 shadow-md scale-105 font-black'
+                    : 'bg-slate-800/60 text-slate-300 hover:text-white hover:bg-slate-700/80 border-slate-700/50'
+                }`}
+              >
+                <span>{info.icon}</span>
+                <span>{info.title.split(' ')[0]}</span>
+              </button>
+            </div>
           );
         })}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   FileSpreadsheet, Upload, Download, CheckCircle, AlertTriangle, XCircle, RefreshCw, Database,
   ArrowRight, ArrowLeft, Shield, FileText, ChevronRight, Filter, Eye, RotateCcw, Sparkles
@@ -184,9 +185,9 @@ export function ExcelImportWizardModal({ isOpen, onClose, currentActor, addToast
     return true;
   });
 
-  return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-3 md:p-6 animate-fadeIn font-sans overflow-y-auto">
-      <div className="w-full max-w-5xl rounded-3xl border-2 border-cyan-500/60 bg-gradient-to-br from-slate-950 via-cyan-950/40 to-slate-950 p-5 md:p-8 space-y-6 shadow-2xl my-auto text-white">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn font-sans cursor-pointer" onClick={onClose}>
+      <div className="w-full max-w-5xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-cyan-500/60 bg-gradient-to-br from-slate-950 via-cyan-950/40 to-slate-950 p-5 md:p-8 space-y-6 shadow-2xl text-white cursor-default custom-scrollbar" onClick={(e) => e.stopPropagation()}>
         
         {/* Header & Step Wizard Track */}
         <div className="flex items-center justify-between border-b border-cyan-500/30 pb-4 flex-wrap gap-3">
@@ -600,6 +601,7 @@ export function ExcelImportWizardModal({ isOpen, onClose, currentActor, addToast
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

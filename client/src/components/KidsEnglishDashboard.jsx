@@ -20,6 +20,7 @@ import AvatarPetCustomizationModal from './AvatarPetCustomizationModal.jsx';
 import VocabBookModal from './VocabBookModal.jsx';
 import UserProfileAuthModal from './UserProfileAuthModal.jsx';
 import TodayPlanModal from './TodayPlanModal.jsx';
+import DailyPath5StepSection from './DailyPath5StepSection.jsx';
 import CMSContentAuthoringModal from './CMSContentAuthoringModal.jsx';
 import { ExcelImportWizardModal } from './ExcelImportWizardModal.jsx';
 
@@ -942,6 +943,33 @@ export function KidsEnglishDashboard({
       handleOpenLongmanModal('apple');
     }
   }, [longmanTrigger]);
+
+  // Global Escape Key Listener for Modals
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowVocabModal(false);
+        setShowAiModal(false);
+        setShowVoiceModal(false);
+        setShowScanModal(false);
+        setShowAdminAuthModal(false);
+        setShowLevelUpTestModal(false);
+        setShowLongmanModal(false);
+        setZoomCard(null);
+        if (setIsParentModalOpen) setIsParentModalOpen(false);
+        if (setIsAvatarModalOpen) setIsAvatarModalOpen(false);
+        if (setIsVocabBookOpen) setIsVocabBookOpen(false);
+        if (setIsUserProfileOpen) setIsUserProfileOpen(false);
+        if (setIsTodayPlanOpen) setIsTodayPlanOpen(false);
+        if (setIsCmsOpen) setIsCmsOpen(false);
+        if (setIsImportWizardOpen) setIsImportWizardOpen(false);
+        if (setIsMiniGamesOpen) setIsMiniGamesOpen(false);
+        if (setIsLessonRunnerOpen) setIsLessonRunnerOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     if (aiModalTrigger && aiModalTrigger > 0) {
@@ -2353,6 +2381,14 @@ export function KidsEnglishDashboard({
   };
 
   // Filter Vocabulary Database — hiển thị đầy đủ 900 từ vựng theo lựa chọn của người dùng
+  const [isTabLoading, setIsTabLoading] = useState(false);
+
+  useEffect(() => {
+    setIsTabLoading(true);
+    const timer = setTimeout(() => setIsTabLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, [activeTab]);
+
   const filteredDatabase = useMemo(() => {
     const safeVocab = Array.isArray(vocabDatabase) ? vocabDatabase : [];
     return safeVocab.filter((item) => {
@@ -2888,6 +2924,14 @@ export function KidsEnglishDashboard({
         </div>
       </div>
 
+      {/* GLOBAL SYSTEM TAB LOADING OVERLAY BANNER */}
+      {isTabLoading && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[999999] px-6 py-2.5 rounded-full bg-slate-950/95 border-2 border-amber-400 text-amber-300 font-black text-xs shadow-2xl flex items-center gap-3 backdrop-blur-xl animate-bounce pointer-events-none">
+          <RotateCw className="h-4 w-4 animate-spin text-amber-400" />
+          <span>✨ Đang đồng bộ CSDL từ vựng V6.0, SRS Engine & Giao diện...</span>
+        </div>
+      )}
+
       {/* Menu Chính Navigation Status Bar (Desktop / Tablet view) */}
       <div className="hidden sm:flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl gpu-accelerated">
         <div className="flex items-center gap-2 flex-wrap">
@@ -2896,6 +2940,7 @@ export function KidsEnglishDashboard({
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-black bg-pink-500/20 text-pink-200 border border-pink-400/40">
             {activeTab === 'home' && '🏠 Trang Chủ Overview'}
+            {activeTab === 'daily_path' && '🎯 Lộ Trình 5 Bước & 6 Cấp Độ'}
             {activeTab === 'poster' && `📖 Khóa Học (${posterPages.length} Trang)`}
             {activeTab === 'flashcards' && `📚 Thư Viện Thẻ (${vocabDatabase.length} Từ)`}
             {activeTab === 'quiz' && '🎮 Bài Tập & Game ⏰'}
@@ -2916,6 +2961,15 @@ export function KidsEnglishDashboard({
             }`}
           >
             🏠 Trang Chủ
+          </button>
+
+          <button
+            onClick={() => setActiveTab('daily_path')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
+              activeTab === 'daily_path' ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 text-slate-950 shadow-md scale-105 border border-amber-300' : 'bg-slate-900 text-amber-300 hover:text-white'
+            }`}
+          >
+            🎯 Lộ Trình 5 Bước
           </button>
 
           <button
@@ -3070,12 +3124,12 @@ export function KidsEnglishDashboard({
             </button>
 
             <button
-              onClick={() => setViewMode((v) => (v === 'adventure_path' ? 'roadmap' : 'adventure_path'))}
+              onClick={() => setActiveTab('daily_path')}
               className="p-4 rounded-3xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-950 via-slate-900 to-blue-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
             >
-              <div className="text-3xl group-hover:scale-110 transition">🗺️</div>
-              <div className="text-xs font-black text-cyan-300">Bản Đồ Phiêu Lưu</div>
-              <div className="text-[10px] text-slate-300">{viewMode === 'adventure_path' ? 'Đang xem Con Đường' : 'Xem dạng Con Đường'}</div>
+              <div className="text-3xl group-hover:scale-110 transition">🎯</div>
+              <div className="text-xs font-black text-cyan-300">Trang Lộ Trình 5 Bước</div>
+              <div className="text-[10px] text-slate-300">Mở Trang Lộ Trình Riêng</div>
             </button>
 
             <button
@@ -3112,6 +3166,42 @@ export function KidsEnglishDashboard({
               <div className="text-3xl group-hover:scale-110 transition">📊</div>
               <div className="text-xs font-black text-yellow-300">Báo Cáo & Certificate</div>
               <div className="text-[10px] text-slate-300">Radar 6 kỹ năng & Bằng cấp</div>
+            </button>
+          </div>
+
+          {/* HERO BANNER LINKING TO DEDICATED LEARNING PATH PAGE */}
+          <div
+            onClick={() => setActiveTab('daily_path')}
+            className="p-5 sm:p-6 rounded-3xl border-2 border-amber-400/80 bg-gradient-to-r from-amber-950/90 via-slate-900 to-purple-950/90 shadow-2xl backdrop-blur-xl flex flex-wrap items-center justify-between gap-4 cursor-pointer hover:scale-[1.01] transition group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-pink-500 text-slate-950 text-3xl font-black shadow-lg animate-bounce border-2 border-amber-300 shrink-0">
+                🎯
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black uppercase tracking-wider">
+                    TRANG LỘ TRÌNH DÀNH RIÊNG • 15 PHÚT HỌC MỖI NGÀY
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-black text-white font-heading group-hover:text-amber-300 transition-colors">
+                  🎯 TRANG LỘ TRÌNH 5 BƯỚC CÁ NHÂN HÓA & 6 CẤP ĐỘ CEFR
+                </h3>
+                <p className="text-xs text-slate-300 font-medium">
+                  Ôn SRS ➔ Bài Mới ➔ Phonics AI ➔ 8 Mini Games ➔ Daily Challenge • Bấm để vào trang lộ trình riêng biệt!
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveTab('daily_path');
+              }}
+              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 text-slate-950 font-black text-xs hover:scale-105 transition shadow-xl border border-amber-300 flex items-center gap-2 cursor-pointer shrink-0 animate-pulse"
+            >
+              <Play className="h-4 w-4 fill-slate-950" />
+              <span>▶ MỞ TRANG LỘ TRÌNH 5 BƯỚC</span>
             </button>
           </div>
 
@@ -3488,7 +3578,85 @@ export function KidsEnglishDashboard({
       )}
 
       {/* ========================================================================= */}
+      {/* VIEW DEDICATED PAGE: 5-STEP PERSONALIZED LEARNING PATH & 6 CEFR ROADMAP */}
+      {/* ========================================================================= */}
+      {activeTab === 'daily_path' && (
+        <div className="space-y-6 animate-fadeIn font-sans">
+          {/* Header Banner for Dedicated Learning Path Page */}
+          <div className="p-4 sm:p-6 rounded-3xl border-2 border-amber-400/60 bg-gradient-to-r from-amber-950/90 via-slate-950 to-purple-950/90 shadow-2xl backdrop-blur-xl space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-amber-500/30 pb-3">
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-pink-500 text-slate-950 text-2xl font-black shadow-lg animate-bounce border border-amber-300">
+                  🎯
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black uppercase tracking-wider">
+                      TRANG LỘ TRÌNH DÀNH RIÊNG • V6.0
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white font-heading tracking-tight flex items-center gap-2">
+                    <span>TRANG LỘ TRÌNH HỌC TẬP 5 BƯỚC & BẢN ĐỒ 6 CẤP ĐỘ CEFR</span>
+                  </h2>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setActiveTab('home')}
+                  className="px-4 py-2 rounded-2xl bg-slate-900 border border-slate-700 text-slate-300 text-xs font-bold hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Home className="h-4 w-4 text-pink-400" />
+                  <span>🏠 Trang Chủ</span>
+                </button>
+              </div>
+            </div>
+            <p className="text-xs text-amber-200/90 font-medium leading-relaxed">
+              🎯 Lộ trình cá nhân hóa 15 phút mỗi ngày bao gồm 5 bước tự động điều chỉnh (SRS, Lesson, Phonics AI, Mini Games, Thử thách) và Bản đồ phiêu lưu 6 Cấp độ.
+            </p>
+          </div>
+
+          {/* 1. LỘ TRÌNH 5 BƯỚC CÁ NHÂN HÓA SECTION */}
+          <DailyPath5StepSection
+            learnerName="Bé Minh Anh"
+            totalStars={stars}
+            streakDays={5}
+            selectedLevel={selectedLevel === 'all' ? 'L1' : selectedLevel}
+            vocabDatabase={vocabDatabase}
+            masteredCards={masteredCards}
+            onStartLesson={handleStartContinueLearning}
+            onStartReview={() => setIsVocabBookOpen(true)}
+            onStartPhonics={() => {
+              addToast?.('🎙️ Mở Phonics Lab & AI Voice Recorder!', 'info');
+              setIsLessonRunnerOpen(true);
+            }}
+            onStartGame={() => setIsMiniGamesOpen(true)}
+            onAddStars={(amount) => setStars((s) => s + amount)}
+            addToast={addToast}
+          />
+
+          {/* 2. DYNAMIC LEARNING PATH ADVENTURE MAP VIEW TOGGLE */}
+          {viewMode === 'adventure_path' && (
+            <LearningPathView
+              levelId={selectedLevel === 'all' ? 'L1' : selectedLevel}
+              levelName={COURSE_LEVELS.find((l) => l.id === selectedLevel)?.name || 'Cấp độ L1: Khởi Động'}
+              topics={VOCAB_CATEGORIES.filter((c) => c.level === (selectedLevel === 'all' ? 'L1' : selectedLevel))}
+              unlockedLevels={unlockedLevelsSet}
+              completedTopics={new Set(masteredCards)}
+              onSelectTopic={(topicId) => {
+                const targetTopic = VOCAB_CATEGORIES.find((c) => c.id === topicId);
+                setActiveRunnerTopic(targetTopic || { id: topicId, name: topicId });
+                setIsLessonRunnerOpen(true);
+              }}
+              onStartContinue={handleStartContinueLearning}
+            />
+          )}
+        </div>
+      )}
+
+      {/* ========================================================================= */}
       {/* VIEW 0: DYNAMIC ILLUSTRATED VOCABULARY POSTER PAGES (PAGES 1 -> N) */}
+      {/* ========================================================================= */}
       {/* ========================================================================= */}
       {activeTab === 'poster' && (
         <div className="space-y-6 animate-fadeIn font-sans">
@@ -5083,8 +5251,8 @@ export function KidsEnglishDashboard({
       {/* ADMIN EDIT / CREATE VOCABULARY MODAL */}
       {/* ========================================================================= */}
       {showVocabModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-md animate-fadeIn font-sans">
-          <div className="w-full max-w-2xl rounded-3xl border border-emerald-500/50 bg-slate-900 p-6 md:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-md animate-fadeIn font-sans cursor-pointer" onClick={() => setShowVocabModal(false)}>
+          <div className="w-full max-w-2xl rounded-3xl border border-emerald-500/50 bg-slate-900 p-6 md:p-8 shadow-2xl space-y-6 relative overflow-hidden cursor-default" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400">
@@ -5232,8 +5400,8 @@ export function KidsEnglishDashboard({
       {/* AI MANAGER & REMINDER ASSISTANT MODAL FOR DAUGHTER MINH ANH */}
       {/* ========================================================================= */}
       {showAiModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0">
-          <div className="relative m-auto w-full max-w-xl rounded-3xl border-2 border-pink-400 bg-slate-900 p-6 md:p-8 shadow-2xl space-y-6 overflow-hidden max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0 cursor-pointer" onClick={() => setShowAiModal(false)}>
+          <div className="relative m-auto w-full max-w-xl rounded-3xl border-2 border-pink-400 bg-slate-900 p-6 md:p-8 shadow-2xl space-y-6 overflow-hidden max-h-[90vh] overflow-y-auto cursor-default" onClick={(e) => e.stopPropagation()}>
             <div className="absolute top-0 right-0 -mt-10 -mr-10 h-60 w-60 rounded-full bg-pink-500/20 blur-3xl pointer-events-none"></div>
 
             <div className="flex items-center justify-between border-b border-pink-500/30 pb-4">
@@ -5366,8 +5534,8 @@ export function KidsEnglishDashboard({
       {/* AI VOICE PRONUNCIATION GRADER MODAL DIALOG */}
       {/* ========================================================================= */}
       {showVoiceModal && voiceTargetWord && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-xl animate-fadeIn font-sans">
-          <div className="w-full max-w-lg rounded-3xl border-2 border-cyan-400 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-6 md:p-8 shadow-2xl space-y-6 text-center relative overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-xl animate-fadeIn font-sans cursor-pointer" onClick={() => setShowVoiceModal(false)}>
+          <div className="w-full max-w-lg rounded-3xl border-2 border-cyan-400 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-6 md:p-8 shadow-2xl space-y-6 text-center relative overflow-hidden cursor-default" onClick={(e) => e.stopPropagation()}>
             {/* Ambient Animated Glows */}
             <div className="absolute top-0 right-0 -mt-10 -mr-10 h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-48 w-48 rounded-full bg-pink-500/20 blur-3xl pointer-events-none"></div>
@@ -6705,8 +6873,8 @@ export function KidsEnglishDashboard({
       {/* MODAL 1: AI POSTER IMAGE SCANNER & LIVE CRUD EDITOR SUITE */}
       {/* ========================================================================= */}
       {showScanModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-xl p-4 overflow-y-auto font-sans animate-fadeIn">
-          <div className="relative w-full max-w-4xl rounded-3xl border-2 border-cyan-400 bg-slate-900/95 p-6 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-xl p-4 overflow-y-auto font-sans animate-fadeIn cursor-pointer" onClick={() => setShowScanModal(false)}>
+          <div className="relative w-full max-w-4xl rounded-3xl border-2 border-cyan-400 bg-slate-900/95 p-6 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto cursor-default" onClick={(e) => e.stopPropagation()}>
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-cyan-500/30 pb-4">
               <div className="flex items-center gap-3">
@@ -7167,8 +7335,8 @@ export function KidsEnglishDashboard({
       {/* ADMIN AUTHENTICATION SECURITY LOCK MODAL */}
       {/* ========================================================================= */}
       {showAdminAuthModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn">
-          <div className="relative w-full max-w-md rounded-3xl border-2 border-purple-500/60 bg-gradient-to-b from-slate-900 via-slate-950 to-purple-950 p-6 md:p-8 shadow-2xl space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn cursor-pointer" onClick={() => setShowAdminAuthModal(false)}>
+          <div className="relative w-full max-w-md rounded-3xl border-2 border-purple-500/60 bg-gradient-to-b from-slate-900 via-slate-950 to-purple-950 p-6 md:p-8 shadow-2xl space-y-6 cursor-default" onClick={(e) => e.stopPropagation()}>
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-purple-500/30 pb-4">
               <div className="flex items-center gap-3">
@@ -7442,8 +7610,8 @@ export function KidsEnglishDashboard({
       {/* BÀI TEST ĐÁNH GIÁ TRÌNH ĐỘ LÊN LEVEL MODAL (LEVEL UP TEST ENGINE) */}
       {/* ========================================================================= */}
       {showLevelUpTestModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0">
-          <div className="relative m-auto w-full max-w-2xl rounded-3xl border-2 border-yellow-400/80 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 p-6 md:p-8 shadow-[0_0_50px_rgba(234,179,8,0.3)] space-y-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0 cursor-pointer" onClick={() => setShowLevelUpTestModal(false)}>
+          <div className="relative m-auto w-full max-w-2xl rounded-3xl border-2 border-yellow-400/80 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 p-6 md:p-8 shadow-[0_0_50px_rgba(234,179,8,0.3)] space-y-6 max-h-[90vh] overflow-y-auto cursor-default" onClick={(e) => e.stopPropagation()}>
             
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-yellow-500/30 pb-4">
@@ -7634,8 +7802,8 @@ export function KidsEnglishDashboard({
       {showLongmanModal && (() => {
         const detail = LongmanEngine.lookupSuperDetailed(longmanSearchTerm);
         return (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0">
-            <div className="relative m-auto w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 border-2 border-cyan-500/50 rounded-3xl p-4 sm:p-6 md:p-8 shadow-[0_0_50px_rgba(6,182,212,0.3)] space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-xl animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0 cursor-pointer" onClick={() => setShowLongmanModal(false)}>
+            <div className="relative m-auto w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 border-2 border-cyan-500/50 rounded-3xl p-4 sm:p-6 md:p-8 shadow-[0_0_50px_rgba(6,182,212,0.3)] space-y-5 max-h-[90vh] overflow-y-auto cursor-default" onClick={(e) => e.stopPropagation()}>
               
               {/* Header Badge & Close Button */}
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -7892,10 +8060,17 @@ export function KidsEnglishDashboard({
           learnerName="Bé Minh Anh"
           totalStars={stars}
           streakDays={5}
-          dueReviewCount={8}
+          selectedLevel={selectedLevel === 'all' ? 'L1' : selectedLevel}
+          vocabDatabase={vocabDatabase}
+          masteredCards={masteredCards}
           onStartLesson={handleStartContinueLearning}
           onStartReview={() => setIsVocabBookOpen(true)}
+          onStartPhonics={() => {
+            addToast?.('🎙️ Mở Phonics Lab & AI Voice Recorder!', 'info');
+            setIsLessonRunnerOpen(true);
+          }}
           onStartGame={() => setIsMiniGamesOpen(true)}
+          onAddStars={(amount) => setStars((s) => s + amount)}
           addToast={addToast}
         />
       )}

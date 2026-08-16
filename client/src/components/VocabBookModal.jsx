@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Volume2, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export default function VocabBookModal({
@@ -13,6 +14,13 @@ export default function VocabBookModal({
 
   const [activeStateFilter, setActiveStateFilter] = useState('all'); // all, mastered, weak, review, new
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 350);
+    return () => clearTimeout(timer);
+  }, [activeStateFilter, isOpen]);
 
   const playAudio = (text, slow = false) => {
     if (!('speechSynthesis' in window)) return;
@@ -34,9 +42,9 @@ export default function VocabBookModal({
     return matchesSearch;
   });
 
-  return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-emerald-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-4 text-white shadow-2xl custom-scrollbar">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+      <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-indigo-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
         
         {/* HEADER */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
@@ -97,7 +105,15 @@ export default function VocabBookModal({
         </div>
 
         {/* VOCABULARY CARDS GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto custom-scrollbar p-1">
+        {isLoading ? (
+          <div className="p-12 rounded-3xl bg-slate-950/80 border border-emerald-500/30 flex flex-col items-center justify-center gap-3 animate-pulse my-4">
+            <RotateCw className="h-8 w-8 text-emerald-400 animate-spin" />
+            <span className="text-xs font-bold text-emerald-300 font-mono-code">
+              ⚡ Đang nạp Sổ từ vựng 7 trạng thái & SRS Matrix...
+            </span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto custom-scrollbar p-1">
           {filteredVocab.map((w) => {
             const isMastered = masteredCards.includes(w.id || w.word);
 
@@ -142,8 +158,10 @@ export default function VocabBookModal({
             );
           })}
         </div>
+        )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

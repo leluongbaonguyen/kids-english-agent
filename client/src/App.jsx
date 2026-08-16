@@ -120,31 +120,34 @@ export default function App() {
       <ToastContainer toasts={toasts} />
 
       {/* Auto-Responsive Main Application Container */}
-      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 space-y-3 relative z-10 flex flex-col items-center">
-        {/* Unified Main Navigation Menu Header */}
-        <Header
-          currentActor={currentActor}
-          onSwitchActor={handleSwitchActor}
-          isFullscreen={isFullscreen}
-          onToggleFullscreen={handleToggleFullscreen}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          onOpenLongman={() => setLongmanTrigger((prev) => prev + 1)}
-          onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
-          onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
-          onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
-          onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
-        />
+      <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 flex flex-col items-center">
+        {/* Sticky Fixed Navigation Header & Page Location Bar */}
+        <div className="sticky top-0 z-30 w-full pt-2 pb-2 space-y-2 backdrop-blur-xl bg-[#070a12]/90 shadow-2xl transition-all duration-300">
+          {/* Unified Main Navigation Menu Header */}
+          <Header
+            currentActor={currentActor}
+            onSwitchActor={handleSwitchActor}
+            isFullscreen={isFullscreen}
+            onToggleFullscreen={handleToggleFullscreen}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            onOpenLongman={() => setLongmanTrigger((prev) => prev + 1)}
+            onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
+            onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
+            onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
+            onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
+          />
 
-        {/* Dynamic Page Location Breadcrumb & URL Routing Indicator Bar */}
-        <PageLocationBar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          currentActor={currentActor}
-        />
+          {/* Dynamic Page Location Breadcrumb & URL Routing Indicator Bar */}
+          <PageLocationBar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            currentActor={currentActor}
+          />
+        </div>
 
         {/* Main Learning Dashboard Workspace */}
-        <main className="relative z-10 w-full flex flex-col items-center">
+        <main className="w-full flex flex-col items-center pt-3 sm:pt-4">
           <KidsEnglishDashboard
             plan={null}
             addToast={addToast}

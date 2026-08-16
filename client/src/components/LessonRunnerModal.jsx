@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X, Volume2, Mic, Star, Sparkles, CheckCircle2, RotateCw, Play, Pause,
   ChevronRight, HelpCircle, Trophy, Flame, Heart, ArrowRight, ShieldCheck,
@@ -269,9 +270,9 @@ export default function LessonRunnerModal({
     { title: '11. Tổng Kết Thành Quả', icon: '🏆' }
   ];
 
-  return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-amber-400/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 shadow-2xl p-4 sm:p-6 space-y-4 text-white flex flex-col justify-between custom-scrollbar">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+      <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-pink-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
 
         {/* ========================================================================= */}
         {/* FULLSCREEN LESSON HEADER */}
@@ -924,6 +925,7 @@ export default function LessonRunnerModal({
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

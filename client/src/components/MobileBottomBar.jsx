@@ -1,9 +1,10 @@
 import React from 'react';
-import { Home, Sparkles, BookOpen, Gamepad2, Bot } from 'lucide-react';
+import { Home, Target, Sparkles, BookOpen, Gamepad2, Bot } from 'lucide-react';
 
 export function MobileBottomBar({ activeTab, setActiveTab, onOpenAiModal }) {
   const tabs = [
     { id: 'home', label: 'Trang Chủ', icon: Home, color: 'text-pink-400' },
+    { id: 'daily_path', label: 'Lộ Trình', icon: Target, color: 'text-amber-400' },
     { id: 'poster', label: 'Khóa Học', icon: Sparkles, color: 'text-yellow-300' },
     { id: 'flashcards', label: 'Thẻ Từ', icon: BookOpen, color: 'text-cyan-400' },
     { id: 'quiz', label: 'Bài Tập', icon: Gamepad2, color: 'text-purple-400' },

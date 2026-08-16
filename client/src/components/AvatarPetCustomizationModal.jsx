@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Sparkles, Trophy, Star, CheckCircle2, Lock, Heart, Wand2 } from 'lucide-react';
 
 export default function AvatarPetCustomizationModal({
@@ -30,9 +31,9 @@ export default function AvatarPetCustomizationModal({
 
   const [dialogueIdx, setDialogueIdx] = useState(0);
 
-  return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-3xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-purple-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-4 text-white shadow-2xl custom-scrollbar">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+      <div className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-purple-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
         
         {/* HEADER */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -130,6 +131,7 @@ export default function AvatarPetCustomizationModal({
         </div>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

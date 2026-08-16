@@ -42,7 +42,7 @@ export function Dynamic3DBackground({ activeTab, customBgConfig }) {
     window.addEventListener('resize', handleResize);
 
     // Particle definitions for 3D simulation — giảm số lượng để tối ưu hiệu năng
-    const particleCount = effectiveTheme === 'galaxy3d' ? 60 : effectiveTheme === 'neonwaves' ? 40 : 30;
+    const particleCount = effectiveTheme === 'galaxy3d' ? 30 : effectiveTheme === 'neonwaves' ? 20 : 15;
     const particles = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -134,10 +134,10 @@ export function Dynamic3DBackground({ activeTab, customBgConfig }) {
         ctx.lineWidth = 1.5;
         waveAngle += 0.02 * config.speed;
 
-        const gridStep = 45;
+        const gridStep = 90;
         for (let x = 0; x < width; x += gridStep) {
           ctx.beginPath();
-          for (let y = 0; y < height; y += 20) {
+          for (let y = 0; y < height; y += 45) {
             const z = Math.sin(x * 0.005 + waveAngle) * Math.cos(y * 0.005 + waveAngle) * 35;
             const drawX = x + z * 0.3;
             const drawY = y + z * 0.5;

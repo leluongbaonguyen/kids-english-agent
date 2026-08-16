@@ -515,8 +515,8 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
 
       {/* Admin Music & 3D Background Controller Modal (👨‍💼 Lê Lương Bảo Nguyên Only) */}
       {showAdminModal && currentActor === 'bao_nguyen' && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 animate-fadeIn font-sans overflow-y-auto">
-          <div className="w-full max-w-3xl rounded-3xl border-2 border-purple-500/60 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 p-6 md:p-8 space-y-6 shadow-2xl my-auto">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 animate-fadeIn font-sans overflow-y-auto cursor-pointer" onClick={() => setShowAdminModal(false)}>
+          <div className="w-full max-w-3xl rounded-3xl border-2 border-purple-500/60 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 p-6 md:p-8 space-y-6 shadow-2xl my-auto cursor-default" onClick={(e) => e.stopPropagation()}>
             
             {/* Header & Tabs */}
             <div className="flex items-center justify-between border-b border-purple-500/30 pb-4 flex-wrap gap-3">

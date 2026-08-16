@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X, User, Lock, Mail, Phone, Calendar, Heart, ShieldCheck, Key, LogOut,
   Edit, Plus, Trash2, CheckCircle2, Sparkles, Star, Trophy, Flame, Eye, EyeOff,
@@ -319,23 +320,23 @@ export default function UserProfileAuthModal({
 
   const avatarPresets = ['🦄', '👧', '👨‍💼', '🦁', '🚀', '👑', '🌟', '🐣', '🐱', '🐶', '🍎', '⭐'];
 
-  return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/90 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-pink-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-5 text-white shadow-2xl custom-scrollbar">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+      <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-pink-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
 
         {/* HEADER BAR */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 border border-pink-400 text-white text-2xl shadow-lg">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 border border-pink-400 text-white text-xl shadow-lg">
               {profileData.avatarIcon || '🦄'}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="rounded-full bg-pink-500/20 border border-pink-400 px-2.5 py-0.5 text-[10px] font-black text-pink-300">
+                <span className="rounded-full bg-pink-500/20 border border-pink-400 px-2 py-0.5 text-[10px] font-black text-pink-300">
                   Hồ Sơ Cá Nhân & Quản Lý Tài Khoản
                 </span>
               </div>
-              <h2 className="text-xl md:text-2xl font-black font-heading text-white">
+              <h2 className="text-lg md:text-xl font-black font-heading text-white">
                 {viewState === 'profile' && `TRANG CÁ NHÂN: ${profileData.fullName.toUpperCase()}`}
                 {viewState === 'login' && 'ĐĂNG NHẬP HỆ THỐNG KIDS ENGLISH'}
                 {viewState === 'register' && 'ĐĂNG KÝ TÀI KHOẢN HỌC VIÊN MỚI'}
@@ -367,35 +368,35 @@ export default function UserProfileAuthModal({
         {/* VIEW 1: TRANG CÁ NHÂN CHI TIẾT (PROFILE VIEW WITH MULTI-TAB & CRUD) */}
         {/* ========================================================================= */}
         {viewState === 'profile' && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-4 animate-fadeIn">
 
             {/* HERO PROFILE COVER BANNER */}
-            <div className="relative overflow-hidden rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950 via-purple-950 to-slate-950 p-6 md:p-8 shadow-2xl backdrop-blur-2xl">
-              <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
+            <div className="relative overflow-hidden rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950 via-purple-950 to-slate-950 p-4 md:p-5 shadow-2xl backdrop-blur-2xl">
+              <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
                   {/* Avatar Frame with Badge */}
                   <div className="relative">
-                    <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 border-4 border-amber-400 flex items-center justify-center text-6xl shadow-2xl animate-pulse">
+                    <div className="h-16 w-16 md:h-20 md:w-20 rounded-3xl bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 border-4 border-amber-400 flex items-center justify-center text-4xl md:text-5xl shadow-2xl animate-pulse">
                       {profileData.avatarIcon}
                     </div>
-                    <span className="absolute -bottom-2 -right-2 p-1.5 rounded-full bg-amber-500 text-slate-950 border-2 border-amber-300 shadow">
-                      <Crown className="h-4 w-4 fill-slate-950" />
+                    <span className="absolute -bottom-1 -right-1 p-1 rounded-full bg-amber-500 text-slate-950 border-2 border-amber-300 shadow">
+                      <Crown className="h-3.5 w-3.5 fill-slate-950" />
                     </span>
                   </div>
 
-                  <div className="space-y-1">
+                  <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
-                      <h1 className="text-2xl md:text-3xl font-black font-heading text-white">
+                      <h1 className="text-xl md:text-2xl font-black font-heading text-white">
                         {profileData.fullName}
                       </h1>
-                      <span className="px-3 py-1 rounded-full text-xs font-black bg-pink-500/30 text-pink-200 border border-pink-400">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-pink-500/30 text-pink-200 border border-pink-400">
                         {currentActor === 'bao_nguyen' ? '👑 Super Admin Ba Bảo Nguyên' : '👧 Học Viên Bé Minh Anh'}
                       </span>
                     </div>
 
-                    <p className="text-xs text-amber-300 italic font-medium">"{profileData.motto}"</p>
+                    <p className="text-[11px] text-amber-300 italic font-medium">"{profileData.motto}"</p>
 
-                    <div className="flex items-center gap-3 pt-1 text-xs font-mono-code text-slate-300 font-bold">
+                    <div className="flex items-center gap-3 pt-0.5 text-[11px] font-mono-code text-slate-300 font-bold">
                       <span>📧 {profileData.email}</span>
                       <span>• 📱 {profileData.phone}</span>
                     </div>
@@ -406,14 +407,14 @@ export default function UserProfileAuthModal({
                 <div className="flex flex-col sm:flex-row items-center gap-2">
                   <button
                     onClick={() => setIsEditingProfile(true)}
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-amber-500 text-slate-950 font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-amber-500 text-slate-950 font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Edit className="h-4 w-4" /> ✏️ Sửa Hồ Sơ
                   </button>
 
                   <button
                     onClick={() => setViewState('login')}
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-indigo-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-indigo-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Key className="h-4 w-4" /> 🔑 Đăng Nhập / Đổi TK
                   </button>
@@ -423,7 +424,7 @@ export default function UserProfileAuthModal({
                       onSwitchActor?.('minh_anh');
                       addToast?.('🚪 Đã đăng xuất khỏi tài khoản!', 'info');
                     }}
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 font-black text-xs hover:bg-rose-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 font-black text-xs hover:bg-rose-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <LogOut className="h-4 w-4" /> Đăng Xuất
                   </button>
@@ -431,7 +432,7 @@ export default function UserProfileAuthModal({
               </div>
 
               {/* QUICK STATS BAR */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-pink-500/30 mt-6">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-pink-500/30 mt-3.5">
                 <div className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-0.5">
                   <div className="text-[10px] text-slate-400 font-bold">Tổng XP Tích Lũy</div>
                   <div className="text-xl font-black text-indigo-300 font-mono-code">+{totalXP} XP</div>
@@ -1136,6 +1137,7 @@ export default function UserProfileAuthModal({
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

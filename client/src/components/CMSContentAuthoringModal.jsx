@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Plus, Edit3, Trash2, CheckCircle2, ShieldCheck, Lock, Unlock, Database, Layers, BookOpen, Volume2, Sparkles, AlertTriangle, ArrowUpRight, History, Save, RotateCcw, Download, UploadCloud, RefreshCw, Search } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { X, Plus, Edit3, Trash2, CheckCircle2, ShieldCheck, Lock, Unlock, Database, Layers, BookOpen, Volume2, Sparkles, AlertTriangle, ArrowUpRight, History, Save, RotateCcw, Download, UploadCloud, RefreshCw, Search, Wrench } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES } from '../constants/kidsVocabularyDatabase';
 import { DBSyncEngine } from '../services/dbSyncEngine';
 
@@ -166,16 +167,17 @@ export default function CMSContentAuthoringModal({
     return matchesSearch && matchesLevel;
   });
 
-  return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/90 backdrop-blur-2xl p-3 sm:p-6 overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-5xl modal-device-fit max-h-[85vh] md:max-h-[88vh] overflow-y-auto rounded-3xl border-2 border-cyan-500/60 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-4 sm:p-6 space-y-4 text-white shadow-2xl custom-scrollbar flex flex-col justify-between">
+  return createPortal(
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+      <div className="relative w-full max-w-5xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-purple-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar flex flex-col justify-between cursor-default" onClick={(e) => e.stopPropagation()}>
 
         <div>
           {/* HEADER BAR */}
           <div className="flex items-center justify-between border-b border-slate-800 pb-4">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-slate-950 text-2xl shadow-lg font-black">
-                🛠️
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-slate-950 shadow-lg font-black flex items-center gap-1.5">
+                <Wrench className="h-6 w-6 text-slate-950" />
+                <span className="text-xl">🛠️</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -673,6 +675,7 @@ export default function CMSContentAuthoringModal({
         </div>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

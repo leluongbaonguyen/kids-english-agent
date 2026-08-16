@@ -8,7 +8,7 @@
     "server"
   ],
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail --names \"SERVER,CLIENT\" -c \"cyan,magenta\" \"node --watch server/src/index.js\" \"vite client\"",
+    "dev": "concurrently --kill-others-on-fail --names \"SERVER,CLIENT\" -c \"cyan,magenta\" \"node --watch server/src/index.js\" \"vite client --open\"",
     "dev:workspace": "concurrently \"npm run dev --workspace server\" \"npm run dev --workspace client\"",
     "build": "npm run build --workspace client",
     "start": "npm run build && npm run start --workspace server",
