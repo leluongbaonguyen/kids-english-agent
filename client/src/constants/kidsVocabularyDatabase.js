@@ -453,9 +453,9 @@ export const VOCAB_CATEGORIES = [
   { "id": "L6-U07", "name": "L6 • 07. Đạo Đức Học (Ethics)", "icon": "⚖️", "level": "L6" },
   { "id": "L6-U08", "name": "L6 • 08. Vấn Đề Toàn Cầu (Global Issues)", "icon": "🌍", "level": "L6" },
   { "id": "L6-U09", "name": "L6 • 09. Lãnh Đạo (Leadership)", "icon": "📌", "level": "L6" },
-  { "id": "L6-U10", "name": "L6 • 10. Sức Khỏe Tâm Thần (Mental Health)", "icon": "🧨", "level": "L6" },
+  { "id": "L6-U10", "name": "L6 • 10. Sức Khỏe Tâm Thần (Mental Health)", "icon": "🧠💚", "level": "L6" },
   { "id": "L6-U11", "name": "L6 • 11. Giao Tiếp Ưu Việt (Excellent Communication)", "icon": "🗣️", "level": "L6" },
-  { "id": "L6-U12", "name": "L6 • 12. Chính Trị Học (Basic Political Science)", "icon": "🏦", "level": "L6" },
+  { "id": "L6-U12", "name": "L6 • 12. Chính Trị Học (Basic Political Science)", "icon": "🏛️", "level": "L6" },
   { "id": "L6-U13", "name": "L6 • 13. IELTS / TOEFL Từ Vựng (Academic Vocabulary)", "icon": "📝", "level": "L6" },
   { "id": "L6-U14", "name": "L6 • 14. Thành Ngữ Nâng Cao (Advanced Idioms & Proverbs)", "icon": "📖", "level": "L6" },
   { "id": "L6-U15", "name": "L6 • 15. Tư Duy Hệ Thống (Systems Thinking)", "icon": "♾️", "level": "L6" }
@@ -8731,7 +8731,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Practice daily mental wellness.",
     "exampleVi": "Thực hành chăm sóc sức khỏe toàn diện hàng ngày.",
-    "image": "🧨",
+    "image": "🌿",
     "level": "L6",
     "category": "L6-U10",
     "unit": 10

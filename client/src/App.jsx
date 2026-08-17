@@ -9,24 +9,58 @@ import { MobileBottomBar } from './components/MobileBottomBar.jsx';
 import SmartReminderNotification from './components/SmartReminderNotification.jsx';
 import IosPwaInstallPrompt from './components/IosPwaInstallPrompt.jsx';
 import { PageLocationBar, ROUTE_MAP } from './components/PageLocationBar.jsx';
+import LandingIntroHero from './components/LandingIntroHero.jsx';
+import AuthGateScreen from './components/AuthGateScreen.jsx';
+import GlobalAgentCommandHub from './components/GlobalAgentCommandHub.jsx';
+import AdminSuperCrudStudioModal from './components/AdminSuperCrudStudioModal.jsx';
+import AdminDashboardView from './components/AdminDashboardView.jsx';
+import SmartErrorAlertBanner from './components/SmartErrorAlertBanner.jsx';
+import CuteMiniAppLauncherModal from './components/CuteMiniAppLauncherModal.jsx';
+import { Zap } from 'lucide-react';
 
 const getTabFromHash = () => {
   try {
     const hash = window.location.hash.replace(/^#\/?/, '').trim();
-    if (!hash) return 'home';
+    if (!hash) return 'intro';
     for (const [tabKey, info] of Object.entries(ROUTE_MAP)) {
       if (info.slug === hash || tabKey === hash) return tabKey;
     }
   } catch (e) {}
-  return 'home';
+  return 'intro';
 };
 
 export default function App() {
+  const [activeSystemError, setActiveSystemError] = useState(null);
+
+  useEffect(() => {
+    errorReporter.init();
+    const unsubscribe = errorReporter.subscribe((errorData) => {
+      setActiveSystemError(errorData);
+    });
+    return () => unsubscribe();
+  }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    try {
+      return localStorage.getItem('kids_authenticated') === 'true' && Boolean(localStorage.getItem('v5_auth_token'));
+    } catch {
+      return false;
+    }
+  });
+
   const [currentActor, setCurrentActor] = useState(() => {
     try {
       return localStorage.getItem('kids_active_actor') || 'minh_anh';
     } catch {
       return 'minh_anh';
+    }
+  });
+
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('v5_user_info');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
     }
   });
 
@@ -36,6 +70,11 @@ export default function App() {
   const [userProfileTrigger, setUserProfileTrigger] = useState(0);
   const [todayPlanTrigger, setTodayPlanTrigger] = useState(0);
   const [cmsTrigger, setCmsTrigger] = useState(0);
+  const [homeworkTrigger, setHomeworkTrigger] = useState(0);
+  const [agentHubOpen, setAgentHubOpen] = useState(false);
+  const [adminCrudOpen, setAdminCrudOpen] = useState(false);
+  const [miniAppModalOpen, setMiniAppModalOpen] = useState(false);
+  const [studentPreviewMode, setStudentPreviewMode] = useState(false);
   const [toasts, setToasts] = useState([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -57,19 +96,61 @@ export default function App() {
     }, 5000);
   };
 
+  // Verify server session on load
+  useEffect(() => {
+    const token = localStorage.getItem('v5_auth_token');
+    if (token) {
+      fetch('/api/v1/me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.data?.user) {
+            const user = data.data.user;
+            setCurrentUser(user);
+            setIsAuthenticated(true);
+            const actor = user.role === 'admin' ? 'bao_nguyen' : 'minh_anh';
+            setCurrentActor(actor);
+            localStorage.setItem('kids_active_actor', actor);
+            localStorage.setItem('v5_user_info', JSON.stringify(user));
+          } else {
+            handleLogout();
+          }
+        })
+        .catch(() => {
+          // If server error, do not fail completely if local token exists, but fail closed on invalid session
+        });
+    }
+  }, []);
+
+  const handleLoginSuccess = (actorId, userObj) => {
+    setIsAuthenticated(true);
+    setCurrentActor(actorId);
+    setCurrentUser(userObj || null);
+    try {
+      localStorage.setItem('kids_authenticated', 'true');
+      localStorage.setItem('kids_active_actor', actorId);
+      if (userObj) localStorage.setItem('v5_user_info', JSON.stringify(userObj));
+    } catch (e) {}
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('kids_authenticated');
+      localStorage.removeItem('v5_auth_token');
+      localStorage.removeItem('v5_user_info');
+    } catch (e) {}
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+    setActiveTab('intro');
+    addToast('🔒 Đã đăng xuất an toàn khỏi hệ thống!', 'info');
+  };
+
   const handleSwitchActor = (actorId) => {
     setCurrentActor(actorId);
     try {
       localStorage.setItem('kids_active_actor', actorId);
     } catch (e) {}
-    if (actorId === 'minh_anh') {
-      addToast('👧 Đã chuyển sang Tác nhân Nguyễn Ngọc Minh Anh', 'info');
-      if (['db_table', 'import_wizard', 'trash_can', 'audit_log', 'qa_checklist'].includes(activeTab)) {
-        setActiveTab('home');
-      }
-    } else {
-      addToast('👨‍💼 Đã chuyển sang Tác nhân Ba Bảo Nguyên (Admin)', 'info');
-    }
   };
 
   const handleToggleFullscreen = () => {
@@ -87,6 +168,15 @@ export default function App() {
     document.addEventListener('fullscreenchange', handleFs);
     return () => document.removeEventListener('fullscreenchange', handleFs);
   }, []);
+
+  // Admin route protection guard
+  const adminTabs = ['db_table', 'import_wizard', 'trash_can', 'audit_log', 'qa_checklist'];
+  useEffect(() => {
+    if (adminTabs.includes(activeTab) && currentActor !== 'bao_nguyen' && currentUser?.role !== 'admin') {
+      addToast('⚠️ Bạn không có quyền truy cập trang Quản Trị Viên! (Yêu cầu tài khoản Admin)', 'warning');
+      setActiveTab('home');
+    }
+  }, [activeTab, currentActor, currentUser]);
 
   // Synchronize activeTab with URL hash for easy sharing & clear location display
   useEffect(() => {
@@ -108,8 +198,74 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [activeTab]);
 
+  // 1. FIRST RENDER: LANDING INTRO HERO PAGE
+  if (activeTab === 'intro') {
+    return (
+      <div className="relative w-full min-h-screen bg-[#070a12]">
+        <ToastContainer toasts={toasts} />
+        <LandingIntroHero
+          onEnterApp={() => setActiveTab('home')}
+          onNavigateTab={(tab) => setActiveTab(tab)}
+        />
+        <BackgroundMusicPlayer
+          currentActor={currentActor}
+          addToast={addToast}
+          onBgConfigChange={setBgConfig}
+          currentBgConfig={bgConfig}
+        />
+      </div>
+    );
+  }
+
+  // 2. SECOND CHECK: MANDATORY AUTHENTICATION GATE WHEN ENTERING APP
+  if (!isAuthenticated) {
+    return (
+      <div className="relative w-full min-h-screen bg-[#070a12]">
+        <ToastContainer toasts={toasts} />
+        <AuthGateScreen
+          onLoginSuccess={handleLoginSuccess}
+          onGoToIntro={() => setActiveTab('intro')}
+          addToast={addToast}
+        />
+      </div>
+    );
+  }
+
+  const isAdmin = currentActor === 'bao_nguyen' || (currentUser && currentUser.role === 'admin');
+
+  // 3. THIRD CHECK: DEDICATED ADMIN SYSTEM WORKSPACE (100% SEPARATE FROM STUDENT VIEW)
+  if (isAdmin && !studentPreviewMode) {
+    return (
+      <div className="relative w-full min-h-screen bg-[#070a12] text-slate-100 font-sans overflow-x-hidden">
+        <Dynamic3DBackground activeTab="admin" customBgConfig={bgConfig} />
+        <ToastContainer toasts={toasts} />
+        <AdminDashboardView
+          currentActor={currentActor}
+          currentUser={currentUser}
+          onSwitchActor={handleSwitchActor}
+          onLogout={handleLogout}
+          addToast={addToast}
+          onOpenStudentPreview={() => setStudentPreviewMode(true)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen min-h-[100dvh] w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-20 xl:pb-6">
+      {/* Admin Student Preview Mode Alert Banner */}
+      {isAdmin && studentPreviewMode && (
+        <div className="sticky top-0 z-[99999] w-full bg-amber-500 text-slate-950 text-xs font-black py-1.5 px-4 flex items-center justify-between shadow-lg">
+          <span>👁️ Đang ở Chế Độ Xem Trước Giao Diện Học Sinh (Admin Student Preview Mode)</span>
+          <button
+            onClick={() => setStudentPreviewMode(false)}
+            className="px-3 py-1 rounded-lg bg-slate-950 text-amber-300 font-bold hover:bg-slate-900 cursor-pointer"
+          >
+            ⬅️ Quay Lại Trang Quản Trị Admin
+          </button>
+        </div>
+      )}
+
       {/* 3D Canvas Background */}
       <Dynamic3DBackground activeTab={activeTab} customBgConfig={bgConfig} />
 
@@ -119,14 +275,25 @@ export default function App() {
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} />
 
+      {/* Real-time Ultra Smart Error Alert Banner */}
+      <SmartErrorAlertBanner
+        activeError={activeSystemError}
+        onClose={() => setActiveSystemError(null)}
+        onSelfDiagnose={(err) => {
+          setAdminCrudOpen(true);
+          setActiveSystemError(null);
+          addToast('🔧 Đã kích hoạt Self-Diagnosis & Tự động mở Smart Error Studio!', 'success');
+        }}
+      />
+
       {/* Auto-Responsive Main Application Container */}
       <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 flex flex-col items-center">
-        {/* Sticky Fixed Navigation Header & Page Location Bar */}
-        <div className="sticky top-0 z-30 w-full pt-2 pb-2 space-y-2 backdrop-blur-xl bg-[#070a12]/90 shadow-2xl transition-all duration-300">
-          {/* Unified Main Navigation Menu Header */}
+        {/* Sticky Minimal Navigation Header */}
+        <div className="sticky top-0 z-30 w-full pt-2 pb-1 backdrop-blur-2xl bg-[#070a12]/80 shadow-lg transition-all duration-300">
           <Header
             currentActor={currentActor}
             onSwitchActor={handleSwitchActor}
+            onLogout={handleLogout}
             isFullscreen={isFullscreen}
             onToggleFullscreen={handleToggleFullscreen}
             activeTab={activeTab}
@@ -136,13 +303,9 @@ export default function App() {
             onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
             onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
             onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
-          />
-
-          {/* Dynamic Page Location Breadcrumb & URL Routing Indicator Bar */}
-          <PageLocationBar
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            currentActor={currentActor}
+            onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
+            onOpenAgentHub={() => setAgentHubOpen(true)}
+            onOpenMiniAppHub={() => setMiniAppModalOpen(true)}
           />
         </div>
 
@@ -158,6 +321,7 @@ export default function App() {
             userProfileTrigger={userProfileTrigger}
             todayPlanTrigger={todayPlanTrigger}
             cmsTrigger={cmsTrigger}
+            homeworkTrigger={homeworkTrigger}
             currentActorProps={currentActor}
             onSwitchActorProps={handleSwitchActor}
           />
@@ -179,9 +343,8 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
+        onOpenMiniAppHub={() => setMiniAppModalOpen(true)}
       />
-
-      {/* Background Music Player */}
 
       {/* Background Music Player */}
       <BackgroundMusicPlayer
@@ -190,6 +353,52 @@ export default function App() {
         onBgConfigChange={setBgConfig}
         currentBgConfig={bgConfig}
       />
+
+      {/* Global Agent Command Hub Modal */}
+      <GlobalAgentCommandHub
+        isOpen={agentHubOpen}
+        onClose={() => setAgentHubOpen(false)}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        currentActor={currentActor}
+        onSwitchActor={handleSwitchActor}
+        onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
+        onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
+        onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
+        onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
+        onOpenAdminCrud={() => setAdminCrudOpen(true)}
+      />
+
+      {/* Cute Mini App Hub Launcher Modal */}
+      <CuteMiniAppLauncherModal
+        isOpen={miniAppModalOpen}
+        onClose={() => setMiniAppModalOpen(false)}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
+        onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
+        onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
+        onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
+      />
+
+      {/* Admin Super CRUD Studio Modal */}
+      <AdminSuperCrudStudioModal
+        isOpen={adminCrudOpen}
+        onClose={() => setAdminCrudOpen(false)}
+        addToast={addToast}
+      />
+
+      {/* Sleek Glassmorphic Agent Hub Launcher Button (Admin Only) */}
+      {isAdmin && (
+        <button
+          onClick={() => setAgentHubOpen(true)}
+          className="fixed bottom-5 right-5 z-[99999] px-4 py-2.5 rounded-full bg-slate-900/90 text-white font-extrabold text-xs shadow-[0_0_20px_rgba(236,72,153,0.4)] border border-pink-500/40 hover:border-pink-400 hover:scale-105 active:scale-95 transition flex items-center gap-2 backdrop-blur-xl cursor-pointer group"
+          title="Mở Menu Ẩn Tác Nhân Hệ Thống & Truy Xuất Dữ Liệu Chi Tiết"
+        >
+          <Zap className="h-4 w-4 text-yellow-300 animate-bounce" />
+          <span className="font-heading tracking-wide text-pink-200 group-hover:text-white">⚡ MENU ẨN AGENT</span>
+        </button>
+      )}
     </div>
   );
 }

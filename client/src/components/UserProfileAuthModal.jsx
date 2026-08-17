@@ -318,6 +318,49 @@ export default function UserProfileAuthModal({
     addToast?.('🔑 Đổi mật khẩu thành công! Hãy ghi nhớ mật khẩu mới nhé!', 'success');
   };
 
+  // Fresh state reset for new user
+  const handleResetFreshUserData = () => {
+    if (window.confirm('✨ Bạn có chắc chắn muốn làm mới dữ liệu cho Học Viên Mới? (Toàn bộ tiến trình sẽ được đưa về 0 để bắt đầu từ đầu)')) {
+      const freshProfile = {
+        fullName: 'Học Viên Nhí Mới',
+        nickname: 'Bé Mới Học',
+        email: 'hocvien_moi@kidsenglish.edu.vn',
+        phone: '0900 000 000',
+        birthday: new Date().toISOString().split('T')[0],
+        gender: 'Nữ',
+        motto: 'Khởi đầu hành trình Tiếng Anh siêu vui mỗi ngày! 🌟',
+        coverTheme: 'gradient-purple',
+        avatarIcon: '🐣'
+      };
+      const freshProgress = {
+        stars: 0,
+        masteredWords: [],
+        unlockedLevels: { L1: true },
+        totalXP: 0,
+        updatedAt: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem('kids_user_profile_data', JSON.stringify(freshProfile));
+        localStorage.setItem('kids_progress_cache', JSON.stringify(freshProgress));
+        localStorage.setItem('kids_active_actor', 'minh_anh');
+      } catch (e) {}
+      setProfileData(freshProfile);
+      onSwitchActor?.('minh_anh');
+      setViewState('profile');
+      addToast?.('✨ Đã khởi tạo dữ liệu làm mới cho Học Viên Mới thành công!', 'success');
+    }
+  };
+
+  // Quick preset login handler
+  const handleQuickPresetLogin = (role, email, pass, actorId, name) => {
+    setLoginRole(role);
+    setLoginEmail(email);
+    setLoginPassword(pass);
+    onSwitchActor?.(actorId);
+    setViewState('profile');
+    addToast?.(`🎉 Đã đăng nhập nhanh tác nhân: ${name}!`, 'success');
+  };
+
   const avatarPresets = ['🦄', '👧', '👨‍💼', '🦁', '🚀', '👑', '🌟', '🐣', '🐱', '🐶', '🍎', '⭐'];
 
   return createPortal(
@@ -404,19 +447,26 @@ export default function UserProfileAuthModal({
                 </div>
 
                 {/* Quick Action Controls */}
-                <div className="flex flex-col sm:flex-row items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-center gap-2 flex-wrap">
                   <button
                     onClick={() => setIsEditingProfile(true)}
-                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-amber-500 text-slate-950 font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 rounded-2xl bg-amber-500 text-slate-950 font-black text-xs shadow hover:scale-105 transition flex items-center gap-1.5 cursor-pointer"
                   >
-                    <Edit className="h-4 w-4" /> ✏️ Sửa Hồ Sơ
+                    <Edit className="h-4 w-4" /> Sửa Hồ Sơ
                   </button>
 
                   <button
                     onClick={() => setViewState('login')}
-                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-indigo-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 rounded-2xl bg-indigo-600 text-white font-black text-xs shadow hover:scale-105 transition flex items-center gap-1.5 cursor-pointer"
                   >
-                    <Key className="h-4 w-4" /> 🔑 Đăng Nhập / Đổi TK
+                    <Key className="h-4 w-4" /> Đăng Nhập / Đổi TK
+                  </button>
+
+                  <button
+                    onClick={handleResetFreshUserData}
+                    className="px-3 py-1.5 rounded-2xl bg-emerald-600 text-white font-black text-xs shadow hover:scale-105 transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Sparkles className="h-4 w-4" /> ✨ Làm Mới Dữ Liệu Bé
                   </button>
 
                   <button
@@ -424,7 +474,7 @@ export default function UserProfileAuthModal({
                       onSwitchActor?.('minh_anh');
                       addToast?.('🚪 Đã đăng xuất khỏi tài khoản!', 'info');
                     }}
-                    className="w-full sm:w-auto px-3.5 py-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 font-black text-xs hover:bg-rose-900 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 font-black text-xs hover:bg-rose-900 transition flex items-center gap-1.5 cursor-pointer"
                   >
                     <LogOut className="h-4 w-4" /> Đăng Xuất
                   </button>
@@ -875,14 +925,66 @@ export default function UserProfileAuthModal({
         {/* VIEW 2: ĐĂNG NHẬP HỆ THỐNG (LOGIN VIEW) */}
         {/* ========================================================================= */}
         {viewState === 'login' && (
-          <div className="max-w-md mx-auto space-y-6 animate-fadeIn p-4">
-            <div className="text-center space-y-2">
-              <div className="text-6xl animate-bounce">🦄</div>
-              <h3 className="text-2xl font-black font-heading text-white">ĐĂNG NHẬP HỌC VIÊN</h3>
-              <p className="text-xs text-slate-300">Nhập email hoặc tên đăng nhập để tiếp tục lộ trình học tập!</p>
+          <div className="max-w-md mx-auto space-y-5 animate-fadeIn p-4">
+            <div className="text-center space-y-1.5">
+              <div className="text-5xl animate-bounce">🦄</div>
+              <h3 className="text-xl font-black font-heading text-white">ĐĂNG NHẬP HỆ THỐNG PHÂN QUYỀN</h3>
+              <p className="text-xs text-slate-300">Chọn tài khoản tác nhân hoặc nhập thông tin đăng nhập!</p>
             </div>
 
-            <form onSubmit={handleLoginSubmit} className="space-y-4 text-xs">
+            {/* QUICK PRESET ACTOR BUTTONS */}
+            <div className="space-y-1.5">
+              <div className="text-[11px] font-black uppercase text-pink-300 tracking-wider text-center">
+                ⚡ Đăng nhập nhanh 1-Click theo Tác nhân:
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleQuickPresetLogin('admin', 'baonguyen@kidsenglish.edu.vn', 'admin123', 'bao_nguyen', 'Ba Bảo Nguyên (Admin)')}
+                  className="p-2.5 rounded-2xl bg-amber-950/80 border border-amber-500/40 hover:bg-amber-900 text-left transition space-y-0.5 cursor-pointer"
+                >
+                  <div className="text-xs font-black text-amber-300 flex items-center gap-1">
+                    <span>👨‍💼</span> Ba Bảo Nguyên
+                  </div>
+                  <div className="text-[10px] text-amber-200/70 font-mono-code">Admin • Full Quyền</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickPresetLogin('student', 'minhanh@kidsenglish.edu.vn', 'minhanh123', 'minh_anh', 'Bé Minh Anh (Học Viên)')}
+                  className="p-2.5 rounded-2xl bg-pink-950/80 border border-pink-500/40 hover:bg-pink-900 text-left transition space-y-0.5 cursor-pointer"
+                >
+                  <div className="text-xs font-black text-pink-300 flex items-center gap-1">
+                    <span>👧</span> Bé Minh Anh
+                  </div>
+                  <div className="text-[10px] text-pink-200/70 font-mono-code">Học Viên • L1</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickPresetLogin('parent', 'parent@kidsenglish.edu.vn', 'parent123', 'minh_anh', 'Phụ Huynh Học Viên')}
+                  className="p-2.5 rounded-2xl bg-indigo-950/80 border border-indigo-500/40 hover:bg-indigo-900 text-left transition space-y-0.5 cursor-pointer"
+                >
+                  <div className="text-xs font-black text-indigo-300 flex items-center gap-1">
+                    <span>👨‍👩‍👧</span> Phụ Huynh
+                  </div>
+                  <div className="text-[10px] text-indigo-200/70 font-mono-code">Phụ Huynh • Theo Dõi</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleResetFreshUserData}
+                  className="p-2.5 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 hover:bg-emerald-900 text-left transition space-y-0.5 cursor-pointer"
+                >
+                  <div className="text-xs font-black text-emerald-300 flex items-center gap-1">
+                    <span>🐣</span> Học Viên Mới
+                  </div>
+                  <div className="text-[10px] text-emerald-200/70 font-mono-code">Làm Mới Dữ Liệu</div>
+                </button>
+              </div>
+            </div>
+
+            <form onSubmit={handleLoginSubmit} className="space-y-3.5 text-xs border-t border-slate-800 pt-4">
               <div>
                 <label className="text-slate-300 font-bold block mb-1">Email / Tên Đăng Nhập:</label>
                 <input
@@ -890,7 +992,7 @@ export default function UserProfileAuthModal({
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   placeholder="VD: minhanh@kidsenglish.edu.vn"
-                  className="w-full p-3 rounded-2xl border border-slate-700 bg-slate-950 text-white font-bold"
+                  className="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-bold"
                 />
               </div>
 

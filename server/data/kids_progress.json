@@ -1,6 +1,8 @@
 {
-  "stars": 130,
-  "masteredCards": [],
-  "quizScore": 2,
-  "updatedAt": "2026-08-16T18:42:10.306Z"
+  "stars": 120,
+  "masteredWords": [],
+  "unlockedLevels": {
+    "L1": true
+  },
+  "updatedAt": "2026-08-17T17:19:39.621Z"
 }

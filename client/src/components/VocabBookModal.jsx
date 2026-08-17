@@ -22,12 +22,16 @@ export default function VocabBookModal({
     return () => clearTimeout(timer);
   }, [activeStateFilter, isOpen]);
 
-  const playAudio = (text, slow = false) => {
+  const [vocabSpeed, setVocabSpeed] = useState(1.0);
+
+  const playAudio = (text, slow = false, customRate = null) => {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = slow ? 0.6 : (voiceGender === 'male' ? 0.85 : 0.88);
+    const rateMultiplier = customRate ?? vocabSpeed;
+    const baseRate = slow ? 0.5 : (voiceGender === 'male' ? 0.85 : 0.88);
+    u.rate = Math.min(2.0, Math.max(0.3, baseRate * rateMultiplier));
     window.speechSynthesis.speak(u);
   };
 
@@ -62,13 +66,13 @@ export default function VocabBookModal({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition"
+            className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition cursor-pointer"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* SEARCH BAR & 7 MASTERY STATE FILTERS */}
+        {/* SEARCH BAR, SPEED SELECTOR & 7 MASTERY STATE FILTERS */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           {/* Search Input */}
           <div className="relative flex-1 min-w-[200px]">
@@ -82,6 +86,30 @@ export default function VocabBookModal({
             />
           </div>
 
+          {/* Speed Selector */}
+          <div className="flex items-center gap-1 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+            <span className="text-[11px] font-black text-amber-300 px-1">⚡ Tốc độ:</span>
+            {[
+              { rate: 0.5, label: '0.5x 🐢' },
+              { rate: 0.75, label: '0.75x 🐢' },
+              { rate: 1.0, label: '1.0x ⚡' },
+              { rate: 1.25, label: '1.25x 🚀' },
+              { rate: 1.5, label: '1.5x 🏎️' }
+            ].map((sp) => (
+              <button
+                key={sp.rate}
+                onClick={() => setVocabSpeed(sp.rate)}
+                className={`px-2 py-0.5 rounded-xl text-[10px] font-black transition cursor-pointer ${
+                  vocabSpeed === sp.rate
+                    ? 'bg-amber-400 text-slate-950 shadow scale-105 border border-amber-200'
+                    : 'bg-slate-900 text-slate-400 hover:text-white'
+                }`}
+              >
+                {sp.label}
+              </button>
+            ))}
+          </div>
+
           {/* Filter Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar">
             {[
@@ -92,7 +120,7 @@ export default function VocabBookModal({
               <button
                 key={f.id}
                 onClick={() => setActiveStateFilter(f.id)}
-                className={`px-3.5 py-2 rounded-2xl text-xs font-black shrink-0 transition ${
+                className={`px-3.5 py-2 rounded-2xl text-xs font-black shrink-0 transition cursor-pointer ${
                   activeStateFilter === f.id
                     ? 'bg-emerald-600 text-white shadow'
                     : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
@@ -141,17 +169,17 @@ export default function VocabBookModal({
 
                 <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1">
                   <button
-                    onClick={() => playAudio(w.word)}
-                    className="flex-1 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-cyan-600/30"
+                    onClick={() => playAudio(w.word, false)}
+                    className="flex-1 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-cyan-600/30 cursor-pointer"
                   >
-                    <Volume2 className="h-3 w-3" /> Nghe Thường
+                    <Volume2 className="h-3 w-3" /> Nghe ({vocabSpeed}x)
                   </button>
 
                   <button
-                    onClick={() => playAudio(w.word, true)}
-                    className="flex-1 py-1.5 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-indigo-600/30"
+                    onClick={() => playAudio(w.word, true, 0.5)}
+                    className="flex-1 py-1.5 rounded-xl bg-amber-600/20 text-amber-300 border border-amber-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-amber-600/30 cursor-pointer"
                   >
-                    <span>🐢</span> Nghe Chậm
+                    <span>🐢</span> Nghe 0.5x
                   </button>
                 </div>
               </div>

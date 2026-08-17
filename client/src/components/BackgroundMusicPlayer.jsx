@@ -127,7 +127,7 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
   });
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(10); // Auto-default to Track #11
-  const [isPlaying, setIsPlaying] = useState(true); // Auto-play enabled by default
+  const [isPlaying, setIsPlaying] = useState(false); // Music disabled by default on startup
   const [volume, setVolume] = useState(0.35);
   const [isMuted, setIsMuted] = useState(false);
   const [showWidget, setShowWidget] = useState(true);
@@ -153,27 +153,6 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
   const audioCtxRef = useRef(null);
   const synthTimerRef = useRef(null);
   const audioElemRef = useRef(null);
-  const autoplayUnlockedRef = useRef(false);
-
-  // ── Autoplay Unlock: play BGM on first user interaction (browser policy bypass) ──
-  useEffect(() => {
-    const unlockAndPlay = () => {
-      if (autoplayUnlockedRef.current) return;
-      autoplayUnlockedRef.current = true;
-      setIsPlaying(true);
-      document.removeEventListener('click', unlockAndPlay, { capture: true });
-      document.removeEventListener('keydown', unlockAndPlay, { capture: true });
-      document.removeEventListener('touchstart', unlockAndPlay, { capture: true });
-    };
-    document.addEventListener('click', unlockAndPlay, { capture: true });
-    document.addEventListener('keydown', unlockAndPlay, { capture: true });
-    document.addEventListener('touchstart', unlockAndPlay, { capture: true });
-    return () => {
-      document.removeEventListener('click', unlockAndPlay, { capture: true });
-      document.removeEventListener('keydown', unlockAndPlay, { capture: true });
-      document.removeEventListener('touchstart', unlockAndPlay, { capture: true });
-    };
-  }, []);
 
   // Save tracks to localStorage
   const saveTracks = (newTracks) => {
@@ -424,7 +403,7 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
               className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white font-black text-xl shadow-lg border border-pink-300 hover:scale-110 transition cursor-pointer"
               title="Click để thu nhỏ trình phát nhạc"
             >
-              <span className={isPlaying ? 'animate-bounce' : ''}>🎵</span>
+              <span className={isPlaying ? 'animate-pulse-glow' : ''}>🎵</span>
               {isPlaying && (
                 <span className="absolute -top-1 -right-1 flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
@@ -507,7 +486,7 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
             className="flex items-center gap-2 px-3 py-2 rounded-full border-2 border-pink-400 bg-pink-950/90 text-pink-200 font-extrabold text-xs shadow-xl backdrop-blur-md hover:scale-110 transition cursor-pointer"
             title="Mở trình phát nhạc du dương cute"
           >
-            <Music className={`h-4 w-4 text-pink-400 ${isPlaying ? 'animate-bounce' : ''}`} />
+            <Music className={`h-4 w-4 text-pink-400 ${isPlaying ? 'animate-pulse-glow' : ''}`} />
             <span>🎵 Nhạc Du Dương</span>
           </button>
         )}

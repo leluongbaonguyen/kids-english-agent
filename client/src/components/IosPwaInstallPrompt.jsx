@@ -89,9 +89,9 @@ export default function IosPwaInstallPrompt({ addToast }) {
 
         <button
           onClick={handleEnablePush}
-          className="px-4 py-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-black shadow-lg flex items-center gap-1.5 hover:scale-105 transition cursor-pointer"
+          className="btn-white-pink px-4 py-2 rounded-2xl text-xs font-black shadow-lg flex items-center gap-1.5 hover:scale-105 transition cursor-pointer"
         >
-          <Bell className="h-4 w-4 text-yellow-300 animate-bounce" />
+          <Bell className="h-4 w-4 text-pink-700 animate-pulse-glow" />
           <span>🔔 Bật Thông Báo iOS Ngay</span>
         </button>
       </div>

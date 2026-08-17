@@ -30,7 +30,7 @@ export default function SmartReminderNotification({
   if (!showReminder) return null;
 
   return (
-    <div className="fixed bottom-20 right-4 z-[999990] max-w-sm w-full p-4 rounded-3xl border-2 border-amber-400 bg-gradient-to-br from-slate-900 via-amber-950/80 to-slate-950 text-white shadow-2xl animate-bounce space-y-3">
+    <div className="fixed top-20 right-4 z-[999990] max-w-sm w-full p-4 rounded-3xl border-2 border-pink-400/80 bg-gradient-to-br from-slate-900 via-pink-950/80 to-slate-950 text-white shadow-[0_0_30px_rgba(236,72,153,0.35)] space-y-3 transition-all duration-300 animate-toast-in animate-pulse-glow">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-2xl bg-amber-500/20 border border-amber-400 text-2xl text-amber-300">

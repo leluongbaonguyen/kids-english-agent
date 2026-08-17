@@ -24,12 +24,16 @@ export default function MiniGamesHubModal({
     { word: 'Milk', meaning: 'Sữa', image: '🥛', category: 'food' }
   ];
 
-  const playAudio = (text) => {
+  const [gameSpeed, setGameSpeed] = useState(1.0);
+
+  const playAudio = (text, slow = false, customRate = null) => {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = 0.9;
+    const rateMultiplier = customRate ?? gameSpeed;
+    const baseRate = slow ? 0.5 : 0.9;
+    u.rate = Math.min(2.0, Math.max(0.3, baseRate * rateMultiplier));
     window.speechSynthesis.speak(u);
   };
 
@@ -75,7 +79,34 @@ export default function MiniGamesHubModal({
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Game Speed Control Bar */}
+            <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 p-1 rounded-2xl">
+              <span className="text-[11px] font-black text-amber-300 px-1">⚡ Tốc độ:</span>
+              {[
+                { rate: 0.5, label: '0.5x 🐢' },
+                { rate: 0.75, label: '0.75x 🐢' },
+                { rate: 1.0, label: '1.0x ⚡' },
+                { rate: 1.25, label: '1.25x 🚀' },
+                { rate: 1.5, label: '1.5x 🏎️' }
+              ].map((sp) => (
+                <button
+                  key={sp.rate}
+                  onClick={() => {
+                    setGameSpeed(sp.rate);
+                    playAudio('Ready', false, sp.rate);
+                  }}
+                  className={`px-2 py-0.5 rounded-xl text-[10px] font-black transition cursor-pointer ${
+                    gameSpeed === sp.rate
+                      ? 'bg-amber-400 text-slate-950 shadow scale-105 border border-amber-200'
+                      : 'bg-slate-950 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {sp.label}
+                </button>
+              ))}
+            </div>
+
             <div className="flex items-center gap-1.5 bg-amber-950 border border-amber-500/40 px-3 py-1.5 rounded-2xl text-xs font-black text-amber-300">
               <Trophy className="h-4 w-4 text-yellow-400" />
               <span>Điểm: {score}</span>
@@ -83,7 +114,7 @@ export default function MiniGamesHubModal({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition"
+              className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>

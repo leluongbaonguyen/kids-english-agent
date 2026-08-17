@@ -55,13 +55,17 @@ export default function LessonRunnerModal({
     setIsFetchingOnline(false);
   };
 
-  // Speech synthesis helper
-  const playAudio = (text, slow = false) => {
+  // Speech synthesis helper with Speed Control
+  const [audioSpeed, setAudioSpeed] = useState(1.0);
+
+  const playAudio = (text, slow = false, customRate = null) => {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = slow ? 0.6 : (voiceGender === 'male' ? 0.85 : 0.88);
+    const rateMultiplier = customRate ?? audioSpeed;
+    const baseRate = slow ? 0.5 : (voiceGender === 'male' ? 0.85 : 0.88);
+    u.rate = Math.min(2.0, Math.max(0.3, baseRate * rateMultiplier));
     u.pitch = voiceGender === 'male' ? 0.85 : 1.05;
     window.speechSynthesis.speak(u);
   };
@@ -374,20 +378,49 @@ export default function LessonRunnerModal({
                   "{currentWord.example}"
                 </div>
 
-                <div className="flex justify-center gap-3">
-                  <button
-                    onClick={() => playAudio(currentWord.word)}
-                    className="px-5 py-2.5 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
-                  >
-                    <Volume2 className="h-4 w-4" /> Nghe Âm Thường
-                  </button>
+                {/* Interactive Audio Speed Adjustment Bar */}
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-center gap-1.5 bg-slate-950 p-2 rounded-2xl border border-slate-800 flex-wrap">
+                    <span className="text-xs font-black text-amber-300 mr-1">⚡ Tốc độ đọc:</span>
+                    {[
+                      { rate: 0.5, label: '0.5x 🐢' },
+                      { rate: 0.75, label: '0.75x 🐢' },
+                      { rate: 1.0, label: '1.0x ⚡' },
+                      { rate: 1.25, label: '1.25x 🚀' },
+                      { rate: 1.5, label: '1.5x 🏎️' }
+                    ].map((sp) => (
+                      <button
+                        key={sp.rate}
+                        onClick={() => {
+                          setAudioSpeed(sp.rate);
+                          playAudio(currentWord.word, false, sp.rate);
+                        }}
+                        className={`px-3 py-1 rounded-xl text-xs font-black transition cursor-pointer ${
+                          audioSpeed === sp.rate
+                            ? 'bg-amber-400 text-slate-950 shadow scale-105 border border-amber-200'
+                            : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                        }`}
+                      >
+                        {sp.label}
+                      </button>
+                    ))}
+                  </div>
 
-                  <button
-                    onClick={() => playAudio(currentWord.word, true)}
-                    className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
-                  >
-                    <span>🐢</span> Nghe Chậm
-                  </button>
+                  <div className="flex justify-center gap-3">
+                    <button
+                      onClick={() => playAudio(currentWord.word, false)}
+                      className="px-5 py-2.5 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
+                    >
+                      <Volume2 className="h-4 w-4" /> Phát Âm Chuẩn ({audioSpeed}x)
+                    </button>
+
+                    <button
+                      onClick={() => playAudio(currentWord.word, true, 0.5)}
+                      className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 hover:opacity-90 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
+                    >
+                      <span>🐢 Nghe Rất Chậm (0.5x)</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
