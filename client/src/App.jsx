@@ -21,7 +21,7 @@ import { Zap } from 'lucide-react';
 const getTabFromHash = () => {
   try {
     const rawHash = window.location.hash.replace(/^#\/?/, '').trim();
-    if (!rawHash) return 'intro';
+    if (!rawHash) return 'home';
     const decodedHash = decodeURIComponent(rawHash);
     const normalizedHash = decodedHash.replace(/\s+/g, '-').toLowerCase();
     
@@ -37,7 +37,7 @@ const getTabFromHash = () => {
       }
     }
   } catch (e) {}
-  return 'intro';
+  return 'home';
 };
 
 export default function App() {
@@ -50,11 +50,14 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     try {
-      return localStorage.getItem('kids_authenticated') === 'true' && Boolean(localStorage.getItem('v5_auth_token'));
+      const auth = localStorage.getItem('kids_authenticated');
+      if (auth === 'false') return false;
+      return true; // Default to true for instant student app entry
     } catch {
-      return false;
+      return true;
     }
   });
 
@@ -124,12 +127,10 @@ export default function App() {
             setCurrentActor(actor);
             localStorage.setItem('kids_active_actor', actor);
             localStorage.setItem('v5_user_info', JSON.stringify(user));
-          } else {
-            handleLogout();
           }
         })
-        .catch(() => {
-          // If server error, do not fail completely if local token exists, but fail closed on invalid session
+        .catch((err) => {
+          console.warn('Backend server session check offline, using cached session state:', err);
         });
     }
   }, []);
