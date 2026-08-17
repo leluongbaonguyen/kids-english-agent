@@ -20,10 +20,21 @@ import { Zap } from 'lucide-react';
 
 const getTabFromHash = () => {
   try {
-    const hash = window.location.hash.replace(/^#\/?/, '').trim();
-    if (!hash) return 'intro';
+    const rawHash = window.location.hash.replace(/^#\/?/, '').trim();
+    if (!rawHash) return 'intro';
+    const decodedHash = decodeURIComponent(rawHash);
+    const normalizedHash = decodedHash.replace(/\s+/g, '-').toLowerCase();
+    
     for (const [tabKey, info] of Object.entries(ROUTE_MAP)) {
-      if (info.slug === hash || tabKey === hash) return tabKey;
+      const normalizedSlug = (info.slug || '').toLowerCase();
+      if (
+        tabKey === rawHash ||
+        tabKey === normalizedHash ||
+        normalizedSlug === rawHash ||
+        normalizedSlug === normalizedHash
+      ) {
+        return tabKey;
+      }
     }
   } catch (e) {}
   return 'intro';
