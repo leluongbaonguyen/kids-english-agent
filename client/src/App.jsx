@@ -14,30 +14,20 @@ import AuthGateScreen from './components/AuthGateScreen.jsx';
 import GlobalAgentCommandHub from './components/GlobalAgentCommandHub.jsx';
 import AdminSuperCrudStudioModal from './components/AdminSuperCrudStudioModal.jsx';
 import AdminDashboardView from './components/AdminDashboardView.jsx';
+import { errorReporter } from './services/errorReporter.js';
 import SmartErrorAlertBanner from './components/SmartErrorAlertBanner.jsx';
 import CuteMiniAppLauncherModal from './components/CuteMiniAppLauncherModal.jsx';
 import { Zap } from 'lucide-react';
 
 const getTabFromHash = () => {
   try {
-    const rawHash = window.location.hash.replace(/^#\/?/, '').trim();
-    if (!rawHash) return 'home';
-    const decodedHash = decodeURIComponent(rawHash);
-    const normalizedHash = decodedHash.replace(/\s+/g, '-').toLowerCase();
-    
+    const hash = window.location.hash.replace(/^#\/?/, '').trim();
+    if (!hash) return 'intro';
     for (const [tabKey, info] of Object.entries(ROUTE_MAP)) {
-      const normalizedSlug = (info.slug || '').toLowerCase();
-      if (
-        tabKey === rawHash ||
-        tabKey === normalizedHash ||
-        normalizedSlug === rawHash ||
-        normalizedSlug === normalizedHash
-      ) {
-        return tabKey;
-      }
+      if (info.slug === hash || tabKey === hash) return tabKey;
     }
   } catch (e) {}
-  return 'home';
+  return 'intro';
 };
 
 export default function App() {
@@ -50,14 +40,11 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
-
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     try {
-      const auth = localStorage.getItem('kids_authenticated');
-      if (auth === 'false') return false;
-      return true; // Default to true for instant student app entry
+      return localStorage.getItem('kids_authenticated') === 'true' && Boolean(localStorage.getItem('v5_auth_token'));
     } catch {
-      return true;
+      return false;
     }
   });
 
@@ -127,10 +114,12 @@ export default function App() {
             setCurrentActor(actor);
             localStorage.setItem('kids_active_actor', actor);
             localStorage.setItem('v5_user_info', JSON.stringify(user));
+          } else {
+            handleLogout();
           }
         })
-        .catch((err) => {
-          console.warn('Backend server session check offline, using cached session state:', err);
+        .catch(() => {
+          // If server error, do not fail completely if local token exists, but fail closed on invalid session
         });
     }
   }, []);

@@ -549,114 +549,123 @@ export default function ParentDashboardModal({
                 </div>
               )}
 
-              {/* ROYAL 4K LUXURY PRINTABLE DIPLOMA CARD */}
-              <div className="relative p-6 sm:p-10 md:p-14 rounded-[32px] border-[6px] border-amber-400/90 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 text-center shadow-[0_0_50px_rgba(245,158,11,0.25)] space-y-6 overflow-hidden select-none">
+              {/* ROYAL 4K LUXURY PRINTABLE DIPLOMA CARD (IVORY PARCHMENT & 24K GOLD) */}
+              <div className="relative p-8 sm:p-12 md:p-16 rounded-[40px] border-[10px] border-amber-500/90 bg-gradient-to-br from-[#FFFDF2] via-[#FAF3E0] to-[#FFFDF2] text-center shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_0_60px_rgba(212,175,55,0.2)] space-y-7 overflow-hidden select-none text-slate-900 border-double">
                 
                 {/* Filigree Corner Flourishes */}
-                <div className="absolute top-3 left-3 text-amber-400 opacity-80 text-2xl font-serif">⚜️</div>
-                <div className="absolute top-3 right-3 text-amber-400 opacity-80 text-2xl font-serif">⚜️</div>
-                <div className="absolute bottom-3 left-3 text-amber-400 opacity-80 text-2xl font-serif">⚜️</div>
-                <div className="absolute bottom-3 right-3 text-amber-400 opacity-80 text-2xl font-serif">⚜️</div>
+                <div className="absolute top-4 left-4 text-amber-600 text-4xl font-serif drop-shadow-sm">⚜️</div>
+                <div className="absolute top-4 right-4 text-amber-600 text-4xl font-serif drop-shadow-sm">⚜️</div>
+                <div className="absolute bottom-4 left-4 text-amber-600 text-4xl font-serif drop-shadow-sm">⚜️</div>
+                <div className="absolute bottom-4 right-4 text-amber-600 text-4xl font-serif drop-shadow-sm">⚜️</div>
 
                 {/* Inner Gold Fine Border */}
-                <div className="absolute inset-3 border-2 border-amber-300/40 rounded-[24px] pointer-events-none"></div>
+                <div className="absolute inset-4 border-2 border-amber-600/60 rounded-[30px] pointer-events-none shadow-[inset_0_0_15px_rgba(212,175,55,0.2)]"></div>
+                <div className="absolute inset-6 border border-amber-500/30 rounded-[26px] pointer-events-none"></div>
 
                 {/* Background Watermark Crest */}
-                <div className="absolute inset-0 pointer-events-none opacity-5 flex items-center justify-center font-mono-code text-7xl font-black text-amber-300 rotate-[-12deg]">
+                <div className="absolute inset-0 pointer-events-none opacity-[0.04] flex items-center justify-center font-serif text-8xl font-black text-amber-900 rotate-[-12deg]">
                   KIDS ENGLISH ACADEMY
                 </div>
 
                 {/* Top Header & Crest */}
-                <div className="space-y-2">
-                  <div className="inline-flex items-center justify-center gap-2 px-4 py-1 rounded-full bg-amber-500/10 border border-amber-400/50 text-amber-300 font-mono-code text-[11px] font-black tracking-widest uppercase shadow">
-                    <Sparkles className="h-3.5 w-3.5 text-amber-300 animate-pulse-glow" />
-                    <span>ROYAL DIPLOMA OF ACCOMPLISHMENT • SYSTEM VERIFIED</span>
-                    <Sparkles className="h-3.5 w-3.5 text-amber-300 animate-pulse-glow" />
+                <div className="space-y-3 relative z-10">
+                  <div className="inline-flex items-center justify-center gap-3 px-6 py-1.5 rounded-full bg-amber-500/10 border-2 border-amber-600/70 text-amber-900 font-serif text-xs font-black tracking-widest uppercase shadow-sm">
+                    <Sparkles className="h-4 w-4 text-amber-600 animate-spin" />
+                    <span>ROYAL DIPLOMA OF ACCOMPLISHMENT • SYSTEM VERIFIED 2026</span>
+                    <Sparkles className="h-4 w-4 text-amber-600 animate-spin" />
                   </div>
 
-                  <div className="flex justify-center text-amber-400 text-xl font-bold tracking-widest pt-1">
+                  <div className="flex justify-center text-amber-500 text-2xl font-bold tracking-widest pt-1 drop-shadow-sm">
                     ★ ★ ★ ★ ★
                   </div>
                 </div>
 
                 {/* Main Certificate Title (Normalized NFC text) */}
-                <h1 className="text-2xl sm:text-3xl md:text-5xl font-black font-sans tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.4)] max-w-4xl mx-auto uppercase">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-black font-serif tracking-tight text-slate-900 drop-shadow-sm max-w-5xl mx-auto uppercase relative z-10 leading-tight">
                   {fixVietnameseFont(activeCert.certificateTitle || 'CHỨNG NHẬN HOÀN THÀNH KHÓA HỌC TIẾNG ANH SIÊU CẤP')}
                 </h1>
 
-                <div className="text-xs sm:text-sm font-medium text-slate-300 tracking-wide uppercase">
-                  Bằng khen hoàng gia này được trân trọng trao tặng cho học viên:
+                <div className="text-xs sm:text-base font-bold text-amber-900/80 tracking-widest uppercase relative z-10 font-serif">
+                  BẰNG KHEN HOÀNG GIA NÀY ĐƯỢC TRÂN TRỌNG TRAO TẶNG CHO HỌC VIÊN:
                 </div>
 
                 {/* Student Name Display (Normalized NFC text) */}
-                <div className="py-2">
-                  <div className="text-3xl sm:text-4xl md:text-6xl font-black font-sans text-white tracking-wide uppercase drop-shadow-[0_4px_20px_rgba(255,255,255,0.4)]">
+                <div className="py-3 relative z-10">
+                  <div className="text-4xl sm:text-5xl md:text-7xl font-black font-serif text-indigo-950 tracking-wider uppercase drop-shadow-md">
                     {fixVietnameseFont(activeCert.studentName || childName).toUpperCase()}
                   </div>
-                  <div className="h-1 w-64 md:w-96 mx-auto mt-2 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                  <div className="h-1.5 w-72 md:w-[450px] mx-auto mt-3 bg-gradient-to-r from-transparent via-amber-500 to-transparent rounded-full shadow-sm"></div>
                 </div>
 
                 {/* Achievement Description */}
-                <p className="text-xs sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed font-sans font-medium px-2">
+                <p className="text-sm sm:text-lg text-slate-700 max-w-3xl mx-auto leading-relaxed font-serif font-semibold px-4 relative z-10">
                   {fixVietnameseFont(activeCert.achievementText)}
                 </p>
 
                 {/* Real-time KPI Stats Pills */}
-                <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-                  <span className="px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/60 text-amber-300 font-mono-code text-xs font-black shadow-md flex items-center gap-1.5">
-                    <Trophy className="h-3.5 w-3.5 text-amber-400" />
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-3 relative z-10">
+                  <span className="px-4 py-2 rounded-2xl bg-amber-500/15 border border-amber-600/50 text-amber-950 font-serif text-xs font-black shadow-sm flex items-center gap-2">
+                    <Trophy className="h-4 w-4 text-amber-700" />
                     <span>{fixVietnameseFont(activeCert.honorBadge || 'EXCELLENCE HONORS')}</span>
                   </span>
 
-                  <span className="px-3.5 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/60 text-indigo-300 font-mono-code text-xs font-black shadow-md flex items-center gap-1.5">
-                    <Star className="h-3.5 w-3.5 text-indigo-400" />
+                  <span className="px-4 py-2 rounded-2xl bg-indigo-500/15 border border-indigo-600/50 text-indigo-950 font-serif text-xs font-black shadow-sm flex items-center gap-2">
+                    <Star className="h-4 w-4 text-indigo-700 animate-pulse" />
                     <span>{totalXP} XP • ⭐ {totalStars} SAO</span>
                   </span>
 
-                  <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/60 text-emerald-300 font-mono-code text-xs font-black shadow-md flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                  <span className="px-4 py-2 rounded-2xl bg-emerald-500/15 border border-emerald-600/50 text-emerald-950 font-serif text-xs font-black shadow-sm flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-700" />
                     <span>THÀNH THẠO {realMetrics.masteredCount} TỪ</span>
                   </span>
 
-                  <span className="px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/60 text-rose-300 font-mono-code text-xs font-black shadow-md flex items-center gap-1.5">
-                    <Flame className="h-3.5 w-3.5 text-rose-400" />
+                  <span className="px-4 py-2 rounded-2xl bg-rose-500/15 border border-rose-600/50 text-rose-950 font-serif text-xs font-black shadow-sm flex items-center gap-2">
+                    <Flame className="h-4 w-4 text-rose-700 animate-bounce" />
                     <span>🔥 {streakDays} NGÀY CHUỖI</span>
                   </span>
                 </div>
 
                 {/* Personal Note */}
                 {activeCert.personalNote && (
-                  <div className="text-xs sm:text-sm font-sans italic text-pink-300 max-w-xl mx-auto pt-1 bg-pink-950/20 border border-pink-500/30 py-2 px-4 rounded-2xl">
+                  <div className="text-xs sm:text-base font-serif italic text-pink-900 max-w-2xl mx-auto pt-2 bg-amber-500/10 border border-amber-500/30 py-3 px-6 rounded-3xl shadow-inner relative z-10">
                     "{fixVietnameseFont(activeCert.personalNote)}"
                   </div>
                 )}
 
                 {/* Footer Section: Left Wax Seal Stamp, Right Signature */}
-                <div className="flex justify-between items-end pt-8 border-t border-amber-500/30 text-xs font-mono-code font-bold text-amber-300 flex-wrap gap-4 text-left">
+                <div className="flex justify-between items-end pt-10 border-t border-amber-600/40 text-xs font-serif font-bold text-slate-800 flex-wrap gap-4 text-left relative z-10">
                   {/* Left: Wax Seal Badge simulation & Serial Info */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-600 via-yellow-500 to-amber-700 p-0.5 shadow-[0_0_15px_rgba(245,158,11,0.6)] flex items-center justify-center shrink-0 border-2 border-white">
-                      <div className="w-full h-full rounded-full border border-amber-900/60 flex flex-col items-center justify-center text-[8px] font-black text-amber-950 leading-none">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-700 via-red-600 to-amber-600 p-1 shadow-[0_4px_15px_rgba(185,28,28,0.4)] flex items-center justify-center shrink-0 border-2 border-amber-300">
+                      <div className="w-full h-full rounded-full border border-amber-200/80 flex flex-col items-center justify-center text-[9px] font-black text-amber-100 leading-none bg-rose-800">
                         <span>ROYAL</span>
-                        <Crown className="h-3 w-3 my-0.5 text-amber-950" />
+                        <Crown className="h-4 w-4 my-0.5 text-amber-200" />
                         <span>SEAL</span>
                       </div>
                     </div>
 
-                    <div className="space-y-0.5 text-[11px]">
-                      <div>Mã Bằng: <span className="text-cyan-300">{activeCert.serialId}</span></div>
-                      <div>Ngày Cấp: <span className="text-white">{activeCert.issueDate}</span></div>
-                      <div className="text-[9px] text-emerald-400 font-bold">✔ VERIFIED BY KIDS ENGLISH AGENT</div>
+                    <div className="space-y-1 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-slate-600 font-medium">Mã Bằng:</span>
+                        <span className="text-indigo-950 font-mono-code font-black bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-200">{activeCert.serialId}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-slate-600 font-medium">Ngày Cấp:</span>
+                        <span className="text-slate-900 font-bold">{activeCert.issueDate}</span>
+                      </div>
+                      <div className="text-[10px] text-emerald-700 font-extrabold flex items-center gap-1">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-700" /> VERIFIED BY KIDS ENGLISH AGENT ACADEMY
+                      </div>
                     </div>
                   </div>
 
                   {/* Right: Gold Signature */}
-                  <div className="text-right space-y-1">
-                    <div className="text-slate-400 text-[10px] uppercase font-bold">Xác nhận của Phụ huynh:</div>
-                    <div className="text-lg sm:text-xl font-black text-white font-sans tracking-wide underline decoration-amber-400">
+                  <div className="text-right space-y-1.5">
+                    <div className="text-slate-500 text-xs uppercase font-black tracking-wider">XÁC NHẬN CỦA PHỤ HUYNH:</div>
+                    <div className="text-xl sm:text-2xl font-black text-slate-900 font-serif tracking-wide underline decoration-amber-500 decoration-2">
                       {fixVietnameseFont(activeCert.issuerName)}
                     </div>
-                    <div className="text-[10px] text-amber-200/80">Đại diện Phụ huynh & Chuyên gia Giảng dạy</div>
+                    <div className="text-xs text-amber-900/80 font-medium">Đại diện Phụ huynh & Chuyên gia Giảng dạy</div>
                   </div>
                 </div>
 
@@ -974,76 +983,83 @@ async function exportMasterCertificate4KPNG(cert, totalXP, totalStars, masteredC
         .trim();
     };
 
-    // 1. Dark Royal Indigo Background
-    const bgGrad = ctx.createRadialGradient(1200, 775, 100, 1200, 775, 1400);
-    bgGrad.addColorStop(0, '#1a1636');
-    bgGrad.addColorStop(0.5, '#0d0a1f');
-    bgGrad.addColorStop(1, '#05030c');
+    // 1. Rich Warm Ivory Parchment Background
+    const bgGrad = ctx.createRadialGradient(1200, 775, 200, 1200, 775, 1400);
+    bgGrad.addColorStop(0, '#FFFDF4');
+    bgGrad.addColorStop(0.6, '#FAF0DB');
+    bgGrad.addColorStop(1, '#F3E5C8');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, 2400, 1550);
 
-    // 2. Guilloché Concentric Waves (Authentic Diploma Security Pattern)
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.05)';
+    // 2. Guilloché Concentric Waves (Authentic Diploma Security Watermark)
+    ctx.strokeStyle = 'rgba(180, 140, 50, 0.08)';
     ctx.lineWidth = 1.5;
-    for (let r = 40; r < 1300; r += 25) {
+    for (let r = 50; r < 1300; r += 28) {
       ctx.beginPath();
       ctx.arc(1200, 775, r, 0, Math.PI * 2);
       ctx.stroke();
     }
 
-    // 3. Ornate Double Gold Metallic Frame
-    // Outer Gold Line
-    ctx.strokeStyle = '#d97706';
-    ctx.lineWidth = 16;
-    ctx.strokeRect(50, 50, 2300, 1450);
+    // 3. 24K Gold Metallic Frame (Triple Layer Ornate Gold)
+    // Outer Thick Dark Gold Line
+    ctx.strokeStyle = '#996515';
+    ctx.lineWidth = 18;
+    ctx.strokeRect(45, 45, 2310, 1460);
 
-    // Middle Bright Gold Line
-    ctx.strokeStyle = '#fef08a';
-    ctx.lineWidth = 5;
-    ctx.strokeRect(72, 72, 2256, 1406);
+    // Bright 24K Gold Foil Line
+    const foilGrad = ctx.createLinearGradient(0, 0, 2400, 1550);
+    foilGrad.addColorStop(0, '#B8860B');
+    foilGrad.addColorStop(0.3, '#FFD700');
+    foilGrad.addColorStop(0.5, '#FFF8DC');
+    foilGrad.addColorStop(0.7, '#DAA520');
+    foilGrad.addColorStop(1, '#996515');
 
-    // Inner Fine Gold Line
-    ctx.strokeStyle = '#f59e0b';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(86, 86, 2228, 1378);
+    ctx.strokeStyle = foilGrad;
+    ctx.lineWidth = 10;
+    ctx.strokeRect(68, 68, 2264, 1414);
 
-    // 4. Filigree Corner Flourishes (Vector Ornaments at 4 Corners)
+    // Inner Fine Dark Line
+    ctx.strokeStyle = '#8B5A2B';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(84, 84, 2232, 1382);
+
+    // 4. Filigree Corner Flourishes
     const drawFiligreeCorner = (x, y, sx, sy) => {
       ctx.save();
       ctx.translate(x, y);
       ctx.scale(sx, sy);
       
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#B8860B';
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.lineTo(90, 0);
+      ctx.lineTo(100, 0);
       ctx.moveTo(0, 0);
-      ctx.lineTo(0, 90);
+      ctx.lineTo(0, 100);
       ctx.stroke();
 
-      // Corner Gold Gem
-      ctx.fillStyle = '#fef08a';
+      // Corner Gold Gem Rosette
+      ctx.fillStyle = '#DAA520';
       ctx.beginPath();
-      ctx.arc(20, 20, 10, 0, Math.PI * 2);
+      ctx.arc(24, 24, 12, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = '#d97706';
+      ctx.strokeStyle = '#5C3A21';
       ctx.lineWidth = 2;
       ctx.stroke();
 
       ctx.restore();
     };
 
-    drawFiligreeCorner(50, 50, 1, 1);
-    drawFiligreeCorner(2350, 50, -1, 1);
-    drawFiligreeCorner(50, 1500, 1, -1);
-    drawFiligreeCorner(2350, 1500, -1, -1);
+    drawFiligreeCorner(45, 45, 1, 1);
+    drawFiligreeCorner(2355, 45, -1, 1);
+    drawFiligreeCorner(45, 1505, 1, -1);
+    drawFiligreeCorner(2355, 1505, -1, -1);
 
-    // 5. Header Subtitle
-    ctx.fillStyle = '#fbbf24';
-    ctx.font = 'bold 26px "Courier New", monospace';
+    // 5. Header Subtitle & Laurel Wreath Banner
+    ctx.fillStyle = '#8B5A2B';
+    ctx.font = 'bold 24px "Times New Roman", "Georgia", serif';
     ctx.textAlign = 'center';
-    ctx.fillText('ROYAL DIPLOMA OF ACCOMPLISHMENT • KIDS ENGLISH AGENT', 1200, 180);
+    ctx.fillText('ROYAL DIPLOMA OF ACCOMPLISHMENT • KIDS ENGLISH AGENT', 1200, 175);
 
     // 6. Draw 5 Vector Golden Stars
     const drawStar = (cx, cy, spikes, outerRadius, innerRadius) => {
@@ -1069,90 +1085,80 @@ async function exportMasterCertificate4KPNG(cert, totalXP, totalStars, masteredC
       ctx.closePath();
 
       const starGrad = ctx.createLinearGradient(cx - outerRadius, cy - outerRadius, cx + outerRadius, cy + outerRadius);
-      starGrad.addColorStop(0, '#fef08a');
-      starGrad.addColorStop(0.5, '#f59e0b');
-      starGrad.addColorStop(1, '#b45309');
+      starGrad.addColorStop(0, '#FFE57F');
+      starGrad.addColorStop(0.5, '#FFC107');
+      starGrad.addColorStop(1, '#FF8F00');
       ctx.fillStyle = starGrad;
       ctx.fill();
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#8B5A2B';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
     };
 
     const starXPositions = [1040, 1120, 1200, 1280, 1360];
-    starXPositions.forEach((sx) => drawStar(sx, 235, 5, 18, 9));
+    starXPositions.forEach((sx) => drawStar(sx, 230, 5, 20, 10));
 
-    // 7. Main Certificate Title (Robust Sans/Serif Vietnamese Stack)
-    const titleGoldGrad = ctx.createLinearGradient(600, 310, 1800, 310);
-    titleGoldGrad.addColorStop(0, '#fef08a');
-    titleGoldGrad.addColorStop(0.3, '#f59e0b');
-    titleGoldGrad.addColorStop(0.5, '#ffffff');
-    titleGoldGrad.addColorStop(0.7, '#f59e0b');
-    titleGoldGrad.addColorStop(1, '#fef08a');
-
-    ctx.fillStyle = titleGoldGrad;
-    ctx.font = 'bold 54px "Arial", "Nunito", "Segoe UI", sans-serif';
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
-    ctx.shadowBlur = 18;
+    // 7. Main Certificate Title (Classic Elegant Imperial Navy / Dark Bronze)
+    ctx.fillStyle = '#1E1B4B';
+    ctx.font = 'bold 58px "Times New Roman", "Georgia", "Playfair Display", serif';
+    ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+    ctx.shadowBlur = 10;
     ctx.fillText(cleanText(cert.certificateTitle || 'CHỨNG NHẬN HOÀN THÀNH KHÓA HỌC TIẾNG ANH SIÊU CẤP').toUpperCase(), 1200, 335);
     ctx.shadowBlur = 0;
 
     // 8. Award Subtitle
-    ctx.fillStyle = '#cbd5e1';
-    ctx.font = '30px "Arial", "Nunito", "Segoe UI", sans-serif';
+    ctx.fillStyle = '#5C3A21';
+    ctx.font = 'bold 28px "Times New Roman", "Georgia", serif';
     ctx.fillText(cleanText('Bằng khen hoàng gia này được trân trọng trao tặng cho học viên:'), 1200, 430);
 
-    // 9. Student Name (Huge Metallic Gold / White Display)
-    const nameGrad = ctx.createLinearGradient(600, 550, 1800, 550);
-    nameGrad.addColorStop(0, '#ffffff');
-    nameGrad.addColorStop(0.5, '#fef08a');
-    nameGrad.addColorStop(1, '#ffffff');
-
-    ctx.fillStyle = nameGrad;
-    ctx.font = 'bold 88px "Arial", "Nunito", "Segoe UI", sans-serif';
-    ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
-    ctx.shadowBlur = 24;
+    // 9. Student Name (Imperial Deep Navy Bold Serif Display)
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 92px "Times New Roman", "Georgia", serif';
+    ctx.shadowColor = 'rgba(15, 23, 42, 0.2)';
+    ctx.shadowBlur = 15;
     ctx.fillText(cleanText(cert.studentName || 'BÉ MINH ANH').toUpperCase(), 1200, 565);
     ctx.shadowBlur = 0;
 
-    // Underline Ribbon with Center Diamond
-    const lineGrad = ctx.createLinearGradient(500, 605, 1900, 605);
-    lineGrad.addColorStop(0, 'rgba(245, 158, 11, 0)');
-    lineGrad.addColorStop(0.5, '#f59e0b');
-    lineGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+    // Underline Ribbon with Gold Diamond
+    const lineGrad = ctx.createLinearGradient(450, 605, 1950, 605);
+    lineGrad.addColorStop(0, 'rgba(184, 134, 11, 0)');
+    lineGrad.addColorStop(0.5, '#B8860B');
+    lineGrad.addColorStop(1, 'rgba(184, 134, 11, 0)');
     ctx.strokeStyle = lineGrad;
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.moveTo(500, 605);
-    ctx.lineTo(1900, 605);
+    ctx.moveTo(450, 605);
+    ctx.lineTo(1950, 605);
     ctx.stroke();
 
-    // Center Diamond Ornament
-    ctx.fillStyle = '#fef08a';
+    // Center Gold Diamond
+    ctx.fillStyle = '#FFD700';
     ctx.beginPath();
-    ctx.moveTo(1200, 595);
-    ctx.lineTo(1212, 605);
-    ctx.lineTo(1200, 615);
-    ctx.lineTo(1188, 605);
+    ctx.moveTo(1200, 593);
+    ctx.lineTo(1214, 605);
+    ctx.lineTo(1200, 617);
+    ctx.lineTo(1186, 605);
     ctx.closePath();
     ctx.fill();
+    ctx.strokeStyle = '#8B5A2B';
+    ctx.stroke();
 
     // 10. Achievement Description Text
-    ctx.fillStyle = '#e2e8f0';
-    ctx.font = '500 28px "Arial", "Nunito", "Segoe UI", sans-serif';
+    ctx.fillStyle = '#334155';
+    ctx.font = '600 28px "Times New Roman", "Georgia", serif';
     ctx.fillText(cleanText(cert.achievementText || 'Đã xuất sắc hoàn thành chương trình Tiếng Anh Trẻ Em Super Agent'), 1200, 695);
 
-    // 11. DYNAMIC DIPLOMA PILLS (Auto-Calculated Width & Spacing - NO TEXT OVERFLOW!)
+    // 11. ELEGANT DIPLOMA PILLS (Gold Parchment Medallions)
     const pillData = [
-      { text: cleanText(cert.honorBadge || 'VALEDICTORIAN • EXCELLENCE HONORS 2026'), bg: '#78350f', border: '#f59e0b', color: '#fef08a' },
-      { text: `${totalXP} XP • ${totalStars} STARS`, bg: '#1e1b4b', border: '#6366f1', color: '#a5b4fc' },
-      { text: `SRS: ${masteredCount} WORDS`, bg: '#064e3b', border: '#10b981', color: '#a7f3d0' },
-      { text: `STREAK: ${streakDays} DAYS`, bg: '#881337', border: '#f43f5e', color: '#fecdd3' }
+      { text: cleanText(cert.honorBadge || 'VALEDICTORIAN • EXCELLENCE HONORS 2026'), bg: '#FEF3C7', border: '#D97706', color: '#78350F' },
+      { text: `${totalXP} XP • ${totalStars} STARS`, bg: '#E0E7FF', border: '#4F46E5', color: '#1E1B4B' },
+      { text: `SRS: ${masteredCount} WORDS`, bg: '#D1FAE5', border: '#059669', color: '#064E3B' },
+      { text: `STREAK: ${streakDays} DAYS`, bg: '#FFE4E6', border: '#E11D48', color: '#881337' }
     ];
 
-    ctx.font = 'bold 20px "Courier New", monospace';
-    const pillPadding = 48; // padding left & right
-    const pillGap = 20;
+    ctx.font = 'bold 22px "Georgia", serif';
+    const pillPadding = 40;
+    const pillGap = 24;
 
     const measuredPills = pillData.map((p) => {
       const w = ctx.measureText(p.text).width + pillPadding * 2;
@@ -1169,11 +1175,11 @@ async function exportMasterCertificate4KPNG(cert, totalXP, totalStars, masteredC
       ctx.fill();
 
       ctx.strokeStyle = p.border;
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 2;
       ctx.stroke();
 
       ctx.fillStyle = p.color;
-      ctx.font = 'bold 20px "Courier New", monospace';
+      ctx.font = 'bold 22px "Georgia", serif';
       ctx.textAlign = 'center';
       ctx.fillText(p.text, currentPillX + p.width / 2, 792);
 
@@ -1183,59 +1189,64 @@ async function exportMasterCertificate4KPNG(cert, totalXP, totalStars, masteredC
     // 12. Personal Note Section (Luxury Quote Box)
     if (cert.personalNote) {
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#f472b6';
-      ctx.font = 'italic 28px "Arial", "Nunito", "Georgia", serif';
+      ctx.fillStyle = '#831843';
+      ctx.font = 'italic 28px "Georgia", serif';
       ctx.fillText(`"${cleanText(cert.personalNote)}"`, 1200, 900);
     }
 
-    // 13. REALISTIC 3D GOLDEN WAX SEAL MEDAL WITH HANGING RIBBONS
+    // 13. AUTHENTIC CRIMSON & GOLD WAX SEAL MEDAL WITH SILK RIBBONS
     ctx.save();
-    ctx.translate(340, 1180);
+    ctx.translate(360, 1170);
 
-    // Hanging Red Ribbons
-    ctx.fillStyle = '#b91c1c';
+    // Hanging Crimson Silk Ribbons
+    ctx.fillStyle = '#991B1B';
     ctx.beginPath();
     ctx.moveTo(-25, 30);
-    ctx.lineTo(-45, 140);
-    ctx.lineTo(-20, 125);
-    ctx.lineTo(0, 140);
+    ctx.lineTo(-48, 145);
+    ctx.lineTo(-20, 130);
+    ctx.lineTo(0, 145);
     ctx.lineTo(-5, 30);
     ctx.closePath();
     ctx.fill();
 
     ctx.beginPath();
     ctx.moveTo(5, 30);
-    ctx.lineTo(0, 140);
-    ctx.lineTo(20, 125);
-    ctx.lineTo(45, 140);
+    ctx.lineTo(0, 145);
+    ctx.lineTo(20, 130);
+    ctx.lineTo(48, 145);
     ctx.lineTo(25, 30);
     ctx.closePath();
     ctx.fill();
 
-    // Gold Wax Medal Outer Scallop
-    ctx.fillStyle = '#b45309';
+    // Wax Medal Outer Scallop (Deep Crimson)
+    ctx.fillStyle = '#7F1D1D';
     ctx.beginPath();
-    ctx.arc(0, 0, 78, 0, Math.PI * 2);
+    ctx.arc(0, 0, 82, 0, Math.PI * 2);
     ctx.fill();
 
-    const sealGrad = ctx.createRadialGradient(0, 0, 10, 0, 0, 70);
-    sealGrad.addColorStop(0, '#fef08a');
-    sealGrad.addColorStop(0.6, '#f59e0b');
-    sealGrad.addColorStop(1, '#b45309');
+    // Gold Bezel Ring
+    const sealGrad = ctx.createRadialGradient(0, 0, 10, 0, 0, 75);
+    sealGrad.addColorStop(0, '#FFE57F');
+    sealGrad.addColorStop(0.6, '#D4AF37');
+    sealGrad.addColorStop(1, '#996515');
 
     ctx.fillStyle = sealGrad;
     ctx.beginPath();
-    ctx.arc(0, 0, 70, 0, Math.PI * 2);
+    ctx.arc(0, 0, 75, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 2;
+    // Inner Crimson Core
+    ctx.fillStyle = '#991B1B';
     ctx.beginPath();
-    ctx.arc(0, 0, 58, 0, Math.PI * 2);
+    ctx.arc(0, 0, 60, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#FFE57F';
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    ctx.fillStyle = '#78350f';
-    ctx.font = 'bold 15px sans-serif';
+    ctx.fillStyle = '#FEF3C7';
+    ctx.font = 'bold 15px "Georgia", serif';
     ctx.textAlign = 'center';
     ctx.fillText('ROYAL SEAL', 0, -12);
     ctx.fillText('★ ★ ★', 0, 8);
@@ -1245,34 +1256,34 @@ async function exportMasterCertificate4KPNG(cert, totalXP, totalStars, masteredC
 
     // 14. Left Footer: Serial Code & Date
     ctx.textAlign = 'left';
-    ctx.fillStyle = '#f59e0b';
-    ctx.font = 'bold 24px "Courier New", monospace';
-    ctx.fillText(`Mã Bằng: ${cleanText(cert.serialId || 'KEA-2026-ROYAL-8899')}`, 460, 1165);
-    ctx.fillText(`Ngày Cấp: ${cleanText(cert.issueDate || new Date().toLocaleDateString('vi-VN'))}`, 460, 1205);
-    ctx.fillStyle = '#10b981';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.fillText('✔ VERIFIED BY KIDS ENGLISH ACADEMY SYSTEM', 460, 1245);
+    ctx.fillStyle = '#78350F';
+    ctx.font = 'bold 24px "Times New Roman", "Georgia", monospace';
+    ctx.fillText(`Mã Bằng: ${cleanText(cert.serialId || 'KEA-2026-ROYAL-8899')}`, 480, 1155);
+    ctx.fillText(`Ngày Cấp: ${cleanText(cert.issueDate || new Date().toLocaleDateString('vi-VN'))}`, 480, 1195);
+    ctx.fillStyle = '#047857';
+    ctx.font = 'bold 20px "Times New Roman", "Georgia", serif';
+    ctx.fillText('✔ VERIFIED BY KIDS ENGLISH ACADEMY SYSTEM', 480, 1235);
 
     // 15. Right Footer: Issuer Digital Signature
     ctx.textAlign = 'right';
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 40px "Arial", "Nunito", "Segoe UI", sans-serif';
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
-    ctx.shadowBlur = 10;
-    ctx.fillText(cleanText(cert.issuerName || 'Ba Lê Lương Bảo Nguyên'), 2100, 1175);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 42px "Times New Roman", "Georgia", serif';
+    ctx.shadowColor = 'rgba(15, 23, 42, 0.2)';
+    ctx.shadowBlur = 8;
+    ctx.fillText(cleanText(cert.issuerName || 'Ba Lê Lương Bảo Nguyên'), 2080, 1165);
     ctx.shadowBlur = 0;
 
     // Gold Signature Line
-    ctx.strokeStyle = '#f59e0b';
+    ctx.strokeStyle = '#B8860B';
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.moveTo(1500, 1195);
-    ctx.lineTo(2100, 1195);
+    ctx.moveTo(1480, 1185);
+    ctx.lineTo(2080, 1185);
     ctx.stroke();
 
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '500 22px "Arial", "Nunito", "Segoe UI", sans-serif';
-    ctx.fillText(cleanText('Đại diện Phụ huynh & Hệ thống Kids English Agent'), 2100, 1235);
+    ctx.fillStyle = '#64748B';
+    ctx.font = 'bold 22px "Times New Roman", "Georgia", serif';
+    ctx.fillText(cleanText('Đại diện Phụ huynh & Hệ thống Kids English Agent'), 2080, 1225);
 
     // 16. Trigger Download of PNG File
     const dataUrl = canvas.toDataURL('image/png');

@@ -149,30 +149,24 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
         {/* ROLE SELECTION TABS */}
         <div className="space-y-2">
           <div className="text-xs font-black uppercase text-slate-400 tracking-wider text-center">
-            CHỌN VAI TRÒ TÁC NHÂN:
+            CHỌN VAI TRÒ ĐĂNG NHẬP (ROLE):
           </div>
           <div className="grid grid-cols-3 gap-2">
             {rolePresets.map((r) => (
               <button
                 key={r.id}
                 type="button"
-                onClick={() => {
-                  handleRoleSelect(r);
-                  performLoginCall(r.defaultEmail, r.defaultPassword, r.id);
-                }}
+                onClick={() => handleRoleSelect(r)}
                 className={`p-3 rounded-2xl border transition flex flex-col items-center justify-center gap-1 cursor-pointer ${
                   role === r.id
                     ? `bg-slate-800 ${r.border} ring-2 ring-indigo-400 shadow-lg scale-105`
                     : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
                 }`}
-                title={`Click để đăng nhập nhanh với ${r.label}`}
+                title={`Chọn vai trò ${r.label}`}
               >
                 <span className="text-2xl">{r.icon}</span>
                 <span className={`text-xs font-black ${role === r.id ? 'text-white' : 'text-slate-400'}`}>
                   {r.label}
-                </span>
-                <span className="text-[10px] text-pink-300 font-bold bg-pink-500/20 px-1.5 py-0.5 rounded-full border border-pink-400/30">
-                  ⚡ Vào Nhanh
                 </span>
               </button>
             ))}
