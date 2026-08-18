@@ -130,7 +130,13 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
   const [isPlaying, setIsPlaying] = useState(false); // Music disabled by default on startup
   const [volume, setVolume] = useState(0.35);
   const [isMuted, setIsMuted] = useState(false);
-  const [showWidget, setShowWidget] = useState(true);
+  const [showWidget, setShowWidget] = useState(() => {
+    try {
+      return typeof window !== 'undefined' && window.innerWidth >= 640;
+    } catch {
+      return false;
+    }
+  });
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState('music'); // 'music' or 'background3d'
 

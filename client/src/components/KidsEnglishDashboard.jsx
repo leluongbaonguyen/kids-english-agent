@@ -1929,7 +1929,7 @@ export function KidsEnglishDashboard({
     const itemToDelete = vocabDatabase.find(i => i.id === cardId);
     if (itemToDelete) {
       handleSoftDeleteVocab(itemToDelete);
-      if (activeTab === 'quiz') {
+      if (activeTab === 'quiz' || activeTab === 'games') {
         handleNextQuiz();
       }
     }
@@ -2590,7 +2590,7 @@ export function KidsEnglishDashboard({
 
   // Timed Quiz Countdown Timer (Thời Gian Đếm Nguồn 15 Giây)
   useEffect(() => {
-    if (activeTab !== 'quiz' || quizAnswered) return;
+    if ((activeTab !== 'quiz' && activeTab !== 'games') || quizAnswered) return;
 
     const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
 
@@ -2679,7 +2679,7 @@ export function KidsEnglishDashboard({
 
   // Auto-advance to next exercise 1.4 seconds after answering
   useEffect(() => {
-    if (quizAnswered && activeTab === 'quiz') {
+    if (quizAnswered && (activeTab === 'quiz' || activeTab === 'games')) {
       autoNextTimerRef.current = setTimeout(() => {
         handleNextQuiz();
       }, 1400);
@@ -2987,7 +2987,7 @@ export function KidsEnglishDashboard({
             {activeTab === 'daily_path' && '🎯 Lộ Trình 5 Bước & 6 Cấp Độ'}
             {activeTab === 'poster' && `📖 Khóa Học (${posterPages.length} Trang)`}
             {activeTab === 'flashcards' && `📚 Thư Viện Thẻ (${vocabDatabase.length} Từ)`}
-            {activeTab === 'quiz' && '🎮 Bài Tập & Game ⏰'}
+            {(activeTab === 'quiz' || activeTab === 'games') && '🎮 Bài Tập & Game ⏰'}
             {activeTab === 'review_cycles' && '🔄 Chu Kỳ Ôn Tập'}
             {activeTab === 'db_table' && '🗃️ CSDL & Excel'}
             {activeTab === 'import_wizard' && '🚀 Wizard Nhập Dữ Liệu'}
@@ -3044,9 +3044,9 @@ export function KidsEnglishDashboard({
           </button>
 
           <button
-            onClick={() => setActiveTab('quiz')}
+            onClick={() => setActiveTab('games')}
             className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
-              activeTab === 'quiz' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105' : 'bg-slate-900 text-slate-400 hover:text-white'
+              (activeTab === 'quiz' || activeTab === 'games') ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105' : 'bg-slate-900 text-slate-400 hover:text-white'
             }`}
           >
             <span className="animate-bounce">🎮</span> Game
@@ -4305,8 +4305,8 @@ export function KidsEnglishDashboard({
       {/* ========================================================================= */}
       {/* VIEW 2: 2,000 EXERCISES & TIMED TEST ENGINE FOR MINH ANH */}
       {/* ========================================================================= */}
-      {activeTab === 'quiz' && (
-        <div className="glass-panel max-w-3xl mx-auto rounded-3xl border-2 border-pink-400/50 bg-slate-900/95 p-6 md:p-8 space-y-6 shadow-2xl backdrop-blur-2xl relative overflow-hidden">
+      {(activeTab === 'quiz' || activeTab === 'games') && (
+        <div className="glass-panel max-w-3xl mx-auto rounded-3xl border-2 border-pink-400/50 bg-slate-900/95 p-4 sm:p-6 md:p-8 space-y-6 shadow-2xl backdrop-blur-2xl relative overflow-hidden mb-12 sm:mb-6">
           {selectedLevel !== 'all' && !isLevelUnlocked(selectedLevel) ? (
             <div className="p-8 rounded-3xl border-2 border-rose-500/60 bg-gradient-to-r from-rose-950/90 via-slate-950 to-slate-900 shadow-2xl text-center space-y-4">
               <div className="text-6xl animate-bounce">🔒</div>

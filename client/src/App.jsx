@@ -253,7 +253,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-20 xl:pb-6">
+    <div className="min-h-screen min-h-[100dvh] w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-36 sm:pb-28 xl:pb-8">
       {/* Admin Student Preview Mode Alert Banner */}
       {isAdmin && studentPreviewMode && (
         <div className="sticky top-0 z-[99999] w-full bg-amber-500 text-slate-950 text-xs font-black py-1.5 px-4 flex items-center justify-between shadow-lg">
