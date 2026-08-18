@@ -393,7 +393,7 @@ export default function App() {
       {isAdmin && (
         <button
           onClick={() => setAgentHubOpen(true)}
-          className="fixed bottom-5 right-5 z-[99999] px-4 py-2.5 rounded-full bg-slate-900/90 text-white font-extrabold text-xs shadow-[0_0_20px_rgba(236,72,153,0.4)] border border-pink-500/40 hover:border-pink-400 hover:scale-105 active:scale-95 transition flex items-center gap-2 backdrop-blur-xl cursor-pointer group"
+          className="fixed bottom-20 right-3 sm:bottom-5 sm:right-5 z-[95] px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-slate-950/95 text-white font-extrabold text-[11px] sm:text-xs shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/50 hover:border-pink-400 hover:scale-105 active:scale-95 transition flex items-center gap-1.5 backdrop-blur-xl cursor-pointer group"
           title="Mở Menu Ẩn Tác Nhân Hệ Thống & Truy Xuất Dữ Liệu Chi Tiết"
         >
           <Zap className="h-4 w-4 text-yellow-300 animate-bounce" />

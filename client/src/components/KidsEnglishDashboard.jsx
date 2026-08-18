@@ -6,7 +6,7 @@ import {
   Bot, Clock, BellRing, Send, MessageSquare, ShieldCheck, Plus, Edit, Trash2,
   Download, Upload, Settings, FileText, Mic, MicOff, Radio, Activity, Camera,
   History, Shield, FileCheck, Lock, UserCheck, ListChecks, UploadCloud, Database,
-  AlertTriangle, AlertCircle, Archive, Sliders, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key, Home
+  AlertTriangle, AlertCircle, Archive, Sliders, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key, Home, Compass
 } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES, VOCABULARY_DATABASE, ILLUSTRATED_POSTER_PAGES, getSuperDetailedVocabInfo } from '../constants/kidsVocabularyDatabase.js';
 import LongmanEngine from '../services/longmanDictionary.js';
@@ -2714,7 +2714,7 @@ export function KidsEnglishDashboard({
   }, [quizAnswered, activeTab]);
 
   return (
-    <div className="w-full space-y-6 animate-fadeIn font-sans relative">
+    <div className="w-full space-y-4 sm:space-y-6 animate-fadeIn font-sans relative">
       {/* GLOBAL SYSTEM-WIDE FLOATING ANIMATED AMBIENT PARTICLES (BACKGROUND FX) */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         {['✨', '⭐', '🦄', '🏆', '👑', '🌟', '🚀', '💖', '🔥', '🎈', '✨', '⭐'].map((emoji, idx) => (
@@ -2733,14 +2733,12 @@ export function KidsEnglishDashboard({
         ))}
       </div>
 
-
-      {/* Full-Screen Fireworks & Icon Burst Overlay (5 Correct Answers / Mastered Words) */}
+      {/* Full-Screen Fireworks Overlay */}
       {showFireworksOverlay && (
         <div
           onClick={() => setShowFireworksOverlay(false)}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-950/90 backdrop-blur-md p-6 animate-fadeIn cursor-pointer"
         >
-          {/* Floating fireworks icons burst */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {['🎆', '🎉', '✨', '⭐', '🏆', '🦄', '💖', '🎈', '🌟', '👑', '🎆', '🎉'].map((emoji, idx) => (
               <div
@@ -2776,13 +2774,12 @@ export function KidsEnglishDashboard({
         </div>
       )}
 
-      {/* Full-Screen Sad Face Overlay on Incorrect Answer */}
+      {/* Full-Screen Sad Face Overlay */}
       {showSadOverlay && (
         <div
           onClick={() => setShowSadOverlay(false)}
           className="fixed inset-0 z-[9998] flex flex-col items-center justify-center bg-slate-950/85 backdrop-blur-sm p-6 animate-fadeIn cursor-pointer"
         >
-          {/* Floating sad icons */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {['😢', '💔', '🌧️', '🥺', '😿', '🌧️', '😢', '💔'].map((emoji, idx) => (
               <div
@@ -2817,44 +2814,45 @@ export function KidsEnglishDashboard({
         </div>
       )}
 
-      {/* Persistent Glowing Parent Reminder Banner for Minh Anh */}
+      {/* Persistent Parent Reminder Banner */}
       {parentReminder && (
-        <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl border-2 border-amber-400/80 bg-gradient-to-r from-amber-950/90 via-slate-900 to-pink-950/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-fadeIn">
+        <div className="p-2.5 sm:p-3 rounded-2xl border border-amber-400/60 bg-gradient-to-r from-amber-950/80 via-slate-950 to-pink-950/80 shadow-md flex flex-row items-center justify-between gap-2.5 animate-fadeIn">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="p-2 sm:p-3 rounded-2xl bg-amber-500/20 border border-amber-400 text-xl sm:text-2xl animate-bounce shrink-0">
-              👨‍💼
+            <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-yellow-500 to-orange-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.6)] border-2 border-white/60 shrink-0 font-bold">
+              <ShieldCheck className="h-5 w-5 text-slate-950" />
             </div>
             <div className="min-w-0">
-              <div className="text-[11px] sm:text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1 truncate">
-                <BellRing className="h-3.5 w-3.5 text-amber-400 animate-pulse shrink-0" />
-                <span>Nhắc nhở từ Ba Bảo Nguyên:</span>
+              <div className="text-[10px] sm:text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1 truncate">
+                <BellRing className="h-3 w-3 text-amber-400 shrink-0 animate-bounce" />
+                <span>BA BẢO NGUYÊN DẶN:</span>
               </div>
-              <p className="text-xs sm:text-sm font-extrabold text-white mt-0.5 break-words">{parentReminder}</p>
+              <p className="text-xs font-bold text-white truncate">{parentReminder}</p>
             </div>
           </div>
 
           <button
             onClick={() => playWordAudio(parentReminder)}
-            className="w-full sm:w-auto shrink-0 px-3.5 py-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-500 to-pink-600 text-slate-950 font-black text-xs hover:opacity-90 transition shadow-lg flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation"
+            className="shrink-0 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 font-black text-[11px] hover:opacity-90 transition shadow flex items-center justify-center gap-1 cursor-pointer touch-manipulation"
           >
-            <Volume2 className="h-4 w-4 text-slate-950 shrink-0" />
-            <span>Nghe Ba Nhắc Nhở</span>
+            <Volume2 className="h-3.5 w-3.5 text-slate-950 shrink-0" />
+            <span className="hidden sm:inline">Nghe Nhắc Nhở</span>
+            <span className="sm:hidden">Nghe</span>
           </button>
         </div>
       )}
 
       {/* Admin Parent Learning Reminders & Progress Control Box (Bảo Nguyên Only) */}
       {currentActor === 'bao_nguyen' && (
-        <div className="p-5 rounded-3xl border-2 border-purple-500/50 bg-gradient-to-br from-purple-950/90 via-slate-900 to-slate-950 space-y-4 shadow-xl">
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-2 border-purple-500/50 bg-gradient-to-br from-purple-950/90 via-slate-900 to-slate-950 space-y-4 shadow-xl">
           <div className="flex items-center justify-between border-b border-purple-500/20 pb-3 flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-purple-400" />
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                👨‍💼 QUẢN TRỊ VIÊN BẢO NGUYÊN: XEM TIẾN ĐỘ & GỬI NHẮC NHỞ HỌC TẬP TỚI BÉ MINH ANH
+              <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">
+                👨‍💼 QUẢN TRỊ VIÊN BẢO NGUYÊN: TIẾN ĐỘ & NHẮC NHỜ MINH ANH
               </h3>
             </div>
             <span className="text-xs text-purple-300 font-mono-code font-bold">
-              Minh Anh Mastered: {masteredCards.length} từ | Quiz Streak: {streakCount} | Stars: {stars} ⭐
+              Mastered: {masteredCards.length} | Streak: {streakCount} | Stars: {stars} ⭐
             </span>
           </div>
 
@@ -2864,7 +2862,7 @@ export function KidsEnglishDashboard({
                 type="text"
                 value={parentReminderInput || parentReminder}
                 onChange={(e) => setParentReminderInput(e.target.value)}
-                placeholder="Nhập nội dung nhắc nhở học tập gửi tới màn hình Bé Minh Anh..."
+                placeholder="Nhập nội dung nhắc nhở gửi tới Bé Minh Anh..."
                 className="w-full rounded-2xl border border-purple-500/40 bg-slate-950 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-purple-400 focus:outline-none font-bold"
               />
             </div>
@@ -2884,7 +2882,7 @@ export function KidsEnglishDashboard({
                 className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-600 text-white font-black text-xs hover:from-purple-400 hover:to-pink-500 shadow-lg flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
               >
                 <Send className="h-4 w-4" />
-                <span>Gửi Nhắc Nhở Ngay</span>
+                <span>Gửi Nhắc Nhở</span>
               </button>
             </div>
           </div>
@@ -2916,37 +2914,53 @@ export function KidsEnglishDashboard({
           </div>
         </div>
       )}
-      {/* Interactive AI Voice Selector Control Bar (Male / Female Toggle & Speed Control) */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-slate-950 via-purple-950/80 to-slate-950 border border-purple-500/30 shadow-xl backdrop-blur-lg">
-        <div className="flex items-center gap-2">
-          <Volume2 className="h-5 w-5 text-pink-400 animate-pulse shrink-0" />
-          <div className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5 flex-wrap">
-            <span>Cài Đặt Giọng Đọc AI & Tốc Độ:</span>
-            <span className="px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-400/40 text-[10px] font-black">
-              {voiceGender === 'female' ? '👩 Giọng Nữ' : '👨 Giọng Nam'} • Tốc Độ {speechRate || 1.0}x
+
+      {/* Sleek Compact AI Voice Selector & Controls Bar */}
+      <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-purple-500/20 shadow-md backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="flex items-center gap-2">
+            <Volume2 className="h-4 w-4 text-pink-400 shrink-0" />
+            <span className="text-xs font-extrabold text-slate-200">
+              Giọng AI: <strong className="text-pink-300">{voiceGender === 'female' ? '👩 Nữ' : '👨 Nam'}</strong> ({speechRate || 1.0}x)
             </span>
+          </div>
+
+          {/* Quick Gender Toggle Buttons */}
+          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+            <button
+              onClick={() => handleVoiceGenderChange('female')}
+              className={`px-2 py-0.5 rounded-lg text-[10px] font-black transition cursor-pointer ${
+                voiceGender === 'female' ? 'bg-pink-500 text-white shadow' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              👩 Nữ
+            </button>
+            <button
+              onClick={() => handleVoiceGenderChange('male')}
+              className={`px-2 py-0.5 rounded-lg text-[10px] font-black transition cursor-pointer ${
+                voiceGender === 'male' ? 'bg-cyan-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              👨 Nam
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap">
-          {/* Speed Adjustment Control Buttons */}
-          <div className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-            <span className="text-[11px] font-extrabold text-amber-300 px-1">⚡ Tốc độ:</span>
+        <div className="flex items-center gap-1.5 flex-wrap w-full sm:w-auto justify-end">
+          {/* Speed Adjustment Buttons */}
+          <div className="flex items-center gap-0.5 bg-slate-900 p-1 rounded-xl border border-slate-800 overflow-x-auto max-w-full">
             {[
-              { rate: 0.5, label: '0.5x 🐢', tooltip: 'Rất chậm (Cho bé nghe từng âm)' },
-              { rate: 0.75, label: '0.75x 🐢', tooltip: 'Chậm vừa' },
-              { rate: 1.0, label: '1.0x ⚡', tooltip: 'Chuẩn mặc định' },
-              { rate: 1.25, label: '1.25x 🚀', tooltip: 'Nhanh vừa' },
-              { rate: 1.5, label: '1.5x 🏎️', tooltip: 'Tốc độ nhanh' }
+              { rate: 0.75, label: '0.75x' },
+              { rate: 1.0, label: '1.0x' },
+              { rate: 1.25, label: '1.25x' }
             ].map(sp => (
               <button
                 key={sp.rate}
                 onClick={() => handleSpeechRateChange(sp.rate)}
-                title={sp.tooltip}
-                className={`px-2 py-1 rounded-lg text-[11px] font-black transition cursor-pointer ${
+                className={`px-2 py-0.5 rounded-lg text-[10px] font-black transition cursor-pointer ${
                   speechRate === sp.rate
-                    ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 shadow scale-105 border border-amber-200'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    ? 'bg-amber-400 text-slate-950 font-extrabold'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {sp.label}
@@ -2955,44 +2969,23 @@ export function KidsEnglishDashboard({
           </div>
 
           <button
-            onClick={() => handleVoiceGenderChange('female')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer ${
-              voiceGender === 'female'
-                ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg border border-pink-300 scale-105'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800'
-            }`}
+            onClick={() => playWordAudio("Hello Bé Minh Anh! Welcome to English class!")}
+            className="px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-pink-950/80 text-pink-300 border border-pink-500/30 hover:bg-pink-900 transition flex items-center gap-1 cursor-pointer"
           >
-            <span>👩 Giọng Nữ</span>
+            <Volume2 className="h-3 w-3" />
+            <span>Thử Âm</span>
           </button>
 
-          <button
-            onClick={() => handleVoiceGenderChange('male')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer ${
-              voiceGender === 'male'
-                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg border border-cyan-300 scale-105'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800'
-            }`}
-          >
-            <span>👨 Giọng Nam</span>
-          </button>
-
-          <button
-            onClick={() => playWordAudio("Hello Bé Minh Anh! Welcome to English class! Chào mừng con gái đến với lớp học Tiếng Anh!")}
-            className="px-3 py-1.5 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 hover:scale-105 shadow-md transition flex items-center gap-1 cursor-pointer"
-            title="Nghe thử giọng phát âm AI song ngữ Anh - Việt"
-          >
-            <Volume2 className="h-3.5 w-3.5" />
-            <span>🔊 Nghe Thử Mẫu</span>
-          </button>
-
-          <button
-            onClick={handleReloadMasterVocabDatabase}
-            className="px-3 py-1.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 hover:scale-105 shadow-md transition flex items-center gap-1 cursor-pointer border border-emerald-300"
-            title="Nạp lại toàn bộ 900 Từ Vựng V6.0 Siêu Chi Tiết vào bộ nhớ"
-          >
-            <Database className="h-3.5 w-3.5" />
-            <span>🔄 Nạp 900 Từ V6.0</span>
-          </button>
+          {currentActor === 'bao_nguyen' && (
+            <button
+              onClick={handleReloadMasterVocabDatabase}
+              className="px-2.5 py-1 rounded-xl text-[11px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900 transition flex items-center gap-1 cursor-pointer"
+              title="Nạp lại kho từ vựng V6.0"
+            >
+              <Database className="h-3 w-3" />
+              <span>Reset DB</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -3113,19 +3106,20 @@ export function KidsEnglishDashboard({
       {activeTab === 'home' && (
         <div className="space-y-6 animate-fadeIn font-sans">
           {/* Streamlined Compact Home Header & Quick Stats */}
-          <div className="p-4 sm:p-5 rounded-3xl border-2 border-pink-400/60 bg-gradient-to-r from-pink-950/90 via-slate-950 to-purple-950/90 shadow-2xl backdrop-blur-xl space-y-3">
+          <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-pink-500/40 bg-gradient-to-r from-pink-950/90 via-slate-950 to-purple-950/90 shadow-2xl backdrop-blur-xl space-y-3">
             {/* Top Row: Title & Dedication */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-pink-500/20 pb-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 text-white text-2xl shadow-lg border border-pink-300 animate-wiggle">
-                  🦄
+            <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-pink-500/20 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="relative flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 text-white text-xl sm:text-2xl shadow-[0_0_20px_rgba(236,72,153,0.5)] border-2 border-white/40 animate-wiggle shrink-0">
+                  <div className="absolute top-0 inset-x-0 h-1 bg-white/40 rounded-t-2xl" />
+                  <span>🦄</span>
                 </div>
                 <div>
-                  <h2 className="text-base sm:text-xl font-black text-white font-heading tracking-tight flex items-center gap-1.5">
+                  <h2 className="text-sm sm:text-lg font-black text-white font-heading tracking-tight flex items-center gap-1.5">
                     <span>TRANG CHỦ HỌC TIẾNG ANH MINH ANH</span>
-                    <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" />
+                    <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse shrink-0" />
                   </h2>
-                  <p className="text-[11px] sm:text-xs font-bold text-pink-200/90">
+                  <p className="text-[10px] sm:text-xs font-bold text-pink-200/90">
                     💖 Món quà dành riêng cho con gái yêu Nguyễn Ngọc Minh Anh
                   </p>
                 </div>
@@ -3137,7 +3131,7 @@ export function KidsEnglishDashboard({
                 className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-pink-950/80 border border-pink-500/40 text-pink-200 hover:bg-pink-900/60 transition cursor-pointer shadow-md"
                 title="Bấm để đổi bạn nhỏ đồng hành & trang phục"
               >
-                <span className="text-2xl animate-bounce">{PETS.find((p) => p.id === activePet)?.icon || '🦄'}</span>
+                <span className="text-xl sm:text-2xl animate-bounce">{PETS.find((p) => p.id === activePet)?.icon || '🦄'}</span>
                 <div className="text-left">
                   <div className="text-[9px] font-bold text-pink-400 uppercase">Bạn đồng hành:</div>
                   <div className="text-xs font-black text-white">{PETS.find((p) => p.id === activePet)?.name}</div>
@@ -3146,31 +3140,33 @@ export function KidsEnglishDashboard({
             </div>
 
             {/* Middle Row: Live Quote & Stat Badges */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-center">
               {/* Live Encouragement Quote */}
-              <div className="md:col-span-6 flex items-center gap-2.5 p-2.5 rounded-2xl bg-slate-950/80 border border-pink-500/30 text-xs">
-                <span className="text-xl animate-pulse">✨</span>
+              <div className="md:col-span-6 flex items-center gap-2.5 p-2 sm:p-2.5 rounded-2xl bg-slate-950/80 border border-pink-500/30 text-xs">
+                <div className="p-1.5 rounded-xl bg-pink-500/20 border border-pink-400/40 shrink-0">
+                  <Sparkles className="h-4 w-4 text-pink-300 animate-pulse" />
+                </div>
                 <div className="min-w-0 flex-1">
-                  <span className="text-[10px] font-bold text-pink-400 uppercase block">Lời chúc hôm nay:</span>
-                  <p className="font-extrabold text-white truncate">{mascotQuotes[mascotQuoteIndex]}</p>
+                  <span className="text-[9px] sm:text-[10px] font-bold text-pink-400 uppercase block">Lời chúc hôm nay:</span>
+                  <p className="font-extrabold text-white truncate text-xs">{mascotQuotes[mascotQuoteIndex]}</p>
                 </div>
               </div>
 
               {/* Stat Badges */}
               <div className="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-yellow-500/50 bg-yellow-950/80 text-xs font-black text-yellow-300">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-yellow-500/50 bg-yellow-950/80 text-xs font-black text-yellow-300 shadow">
                   <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 animate-bounce" />
                   <span>{stars} ⭐ Ngôi Sao</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-500/50 bg-emerald-950/80 text-xs font-black text-emerald-300">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-500/50 bg-emerald-950/80 text-xs font-black text-emerald-300 shadow">
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   <span>{masteredCards.length} / {VOCABULARY_DATABASE.length} Từ</span>
                 </div>
 
                 <button
                   onClick={handleStartContinueLearning}
-                  className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-black text-xs hover:scale-105 transition shadow-lg flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black text-xs hover:scale-105 transition shadow-lg flex items-center gap-1 cursor-pointer"
                 >
                   <Play className="h-3.5 w-3.5 fill-slate-950" />
                   <span>Học Ngay</span>
@@ -3179,20 +3175,20 @@ export function KidsEnglishDashboard({
             </div>
 
             {/* Compact Target Progress Bar */}
-            <div className="p-2.5 rounded-xl border border-yellow-500/30 bg-slate-950/90 space-y-1.5 text-xs">
-              <div className="flex items-center justify-between text-[11px]">
+            <div className="p-2 sm:p-2.5 rounded-xl border border-yellow-500/30 bg-slate-950/90 space-y-1 text-xs">
+              <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
                 <span className="font-extrabold text-yellow-300 flex items-center gap-1">
-                  <Trophy className="h-3.5 w-3.5 text-yellow-400" />
-                  <span>Tiến độ mở quà: {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.title || 'Đã Đạt Target! 🎉'}</span>
+                  <Trophy className="h-3.5 w-3.5 text-yellow-400 shrink-0" />
+                  <span className="truncate">Tiến độ mở quà: {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.title || 'Đã Đạt Target! 🎉'}</span>
                 </span>
-                <span className="font-mono-code font-bold text-yellow-400">
+                <span className="font-mono-code font-bold text-yellow-400 shrink-0">
                   {stars} / {TARGET_MILESTONES.find((m) => !claimedRewards.includes(m.id))?.starsNeeded || 500} ⭐
                 </span>
               </div>
               
-              <div className="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+              <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-pink-500 transition-all duration-500"
+                  className="h-full rounded-full bg-gradient-to-r from-yellow-400 via-amber-400 to-pink-500 transition-all duration-500 shadow-[0_0_10px_rgba(250,204,21,0.6)]"
                   style={{
                     width: `${Math.min(
                       100,
@@ -3204,60 +3200,84 @@ export function KidsEnglishDashboard({
             </div>
           </div>
 
-          {/* FEATURE LAUNCHPAD: 6 MAIN INTERACTIVE SYSTEMS FROM BUSINESS SPECIFICATIONS */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {/* FEATURE LAUNCHPAD: 6 MAIN INTERACTIVE SYSTEMS WITH ULTRA 3D GLOSSY ICONS */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
             <button
               onClick={handleStartContinueLearning}
-              className="p-4 rounded-3xl border-2 border-amber-400 bg-gradient-to-br from-amber-950 via-slate-900 to-orange-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-amber-400/80 bg-gradient-to-br from-amber-950/90 via-slate-900 to-orange-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">▶️</div>
-              <div className="text-xs font-black text-amber-300">Tiếp Tục Bài Học</div>
-              <div className="text-[10px] text-slate-300">Nhìn ➔ Nghe ➔ Nói ➔ Quiz 11 bước</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-yellow-500 to-orange-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <Play className="h-5 w-5 fill-slate-950" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-amber-300">Tiếp Tục Bài Học</div>
+                <div className="text-[10px] text-slate-300 font-medium">Nhìn ➔ Nghe ➔ Nói</div>
+              </div>
             </button>
 
             <button
               onClick={() => setActiveTab('daily_path')}
-              className="p-4 rounded-3xl border-2 border-cyan-400 bg-gradient-to-br from-cyan-950 via-slate-900 to-blue-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-cyan-400/80 bg-gradient-to-br from-cyan-950/90 via-slate-900 to-blue-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">🎯</div>
-              <div className="text-xs font-black text-cyan-300">Trang Lộ Trình 5 Bước</div>
-              <div className="text-[10px] text-slate-300">Mở Trang Lộ Trình Riêng</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <Compass className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-cyan-300">Lộ Trình 5 Bước</div>
+                <div className="text-[10px] text-slate-300 font-medium">Khám phá 6 Cấp Độ</div>
+              </div>
             </button>
 
             <button
               onClick={() => setIsMiniGamesOpen(true)}
-              className="p-4 rounded-3xl border-2 border-pink-400 bg-gradient-to-br from-pink-950 via-slate-900 to-purple-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-pink-400/80 bg-gradient-to-br from-pink-950/90 via-slate-900 to-purple-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">🎮</div>
-              <div className="text-xs font-black text-pink-300">8 Mini Games Hub</div>
-              <div className="text-[10px] text-slate-300">Đập bóng, Memory, Quái vật</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-pink-500 via-rose-500 to-purple-600 text-white shadow-[0_0_15px_rgba(236,72,153,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <Gamepad2 className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-pink-300">8 Mini Games Hub</div>
+                <div className="text-[10px] text-slate-300 font-medium">Đập bóng, Memory</div>
+              </div>
             </button>
 
             <button
               onClick={() => setIsVocabBookOpen(true)}
-              className="p-4 rounded-3xl border-2 border-emerald-400 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-emerald-400/80 bg-gradient-to-br from-emerald-950/90 via-slate-900 to-teal-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">📖</div>
-              <div className="text-xs font-black text-emerald-300">Sổ Từ Vựng 7 Trạng Thái</div>
-              <div className="text-[10px] text-slate-300">New, Learning, Mastered, Weak</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-cyan-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <BookOpen className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-emerald-300">Sổ Từ Vựng 7 Hộp</div>
+                <div className="text-[10px] text-slate-300 font-medium">Flashcards & SRS</div>
+              </div>
             </button>
 
             <button
               onClick={() => setIsAvatarPetOpen(true)}
-              className="p-4 rounded-3xl border-2 border-purple-400 bg-gradient-to-br from-purple-950 via-slate-900 to-indigo-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-purple-400/80 bg-gradient-to-br from-purple-950/90 via-slate-900 to-indigo-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">🦄</div>
-              <div className="text-xs font-black text-purple-300">Thú Củng Lumi & Avatar</div>
-              <div className="text-[10px] text-slate-300">Tiến hóa thú & Mũ trang phục</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-purple-500 via-indigo-600 to-violet-700 text-white shadow-[0_0_15px_rgba(168,85,247,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <Sparkles className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-purple-300">Thú Cưng & Avatar</div>
+                <div className="text-[10px] text-slate-300 font-medium">Trang phục & Pet</div>
+              </div>
             </button>
 
             <button
               onClick={() => setIsParentDashboardOpen(true)}
-              className="p-4 rounded-3xl border-2 border-yellow-400 bg-gradient-to-br from-yellow-950 via-slate-900 to-amber-950 hover:scale-105 transition shadow-2xl space-y-2 text-left cursor-pointer group"
+              className="p-3.5 rounded-2xl border-2 border-yellow-400/80 bg-gradient-to-br from-yellow-950/90 via-slate-900 to-amber-950/90 hover:scale-105 active:scale-95 transition shadow-xl space-y-2 text-left cursor-pointer group relative overflow-hidden"
             >
-              <div className="text-3xl group-hover:scale-110 transition">📊</div>
-              <div className="text-xs font-black text-yellow-300">Báo Cáo & Certificate</div>
-              <div className="text-[10px] text-slate-300">Radar 6 kỹ năng & Bằng cấp</div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-yellow-400 via-amber-500 to-orange-600 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.6)] border border-white/60 group-hover:scale-110 transition">
+                <Award className="h-5 w-5 text-slate-950" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-yellow-300">Phụ Huynh Admin</div>
+                <div className="text-[10px] text-slate-300 font-medium">Báo cáo & Nhắc nhở</div>
+              </div>
             </button>
           </div>
 
@@ -5285,73 +5305,7 @@ export function KidsEnglishDashboard({
           </div>
         </div>
       )}
-      {/* ========================================================================= */}
-      {/* STICKY MOBILE APP FLOATING PINK ACTION BAR (TỐI ƯU MOBILE DỄ THƯƠNG FOR MINH ANH) */}
-      {/* ========================================================================= */}
-      {/* ========================================================================= */}
-      {/* ULTRA-CLEAN NATIVE MOBILE BOTTOM NAVIGATION DOCK (5 TABS MOBILE APP MODE) */}
-      {/* ========================================================================= */}
-      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 bg-slate-950/95 border-t border-pink-500/40 backdrop-blur-2xl px-1.5 py-1.5 shadow-2xl flex items-center justify-around shadow-pink-500/20">
-        <button
-          onClick={() => {
-            setActiveTab('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
-            activeTab === 'home' ? 'text-pink-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
-          }`}
-        >
-          <span className="text-xl leading-none">🏠</span>
-          <span className="text-[10px]">Trang Chủ</span>
-        </button>
 
-        <button
-          onClick={() => {
-            setActiveTab('poster');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
-            activeTab === 'poster' ? 'text-pink-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
-          }`}
-        >
-          <span className="text-xl leading-none">📖</span>
-          <span className="text-[10px]">Khóa Học</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveTab('flashcards');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
-            activeTab === 'flashcards' ? 'text-cyan-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
-          }`}
-        >
-          <span className="text-xl leading-none">📚</span>
-          <span className="text-[10px]">Thẻ 3D</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveTab('quiz');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl transition cursor-pointer active:scale-95 ${
-            activeTab === 'quiz' ? 'text-purple-300 font-black scale-105' : 'text-slate-400 font-bold hover:text-white'
-          }`}
-        >
-          <span className="text-xl leading-none">🎮</span>
-          <span className="text-[10px]">Game</span>
-        </button>
-
-        <button
-          onClick={() => handleOpenLongmanModal('apple')}
-          className="flex-1 flex flex-col items-center gap-0.5 py-1 rounded-2xl text-amber-300 font-bold hover:text-white transition cursor-pointer active:scale-95"
-        >
-          <span className="text-xl leading-none">📖</span>
-          <span className="text-[10px]">Từ Điển</span>
-        </button>
-      </div>
 
       {/* ========================================================================= */}
       {/* VIEW 5: PERSISTENT DATABASE DATA TABLE VIEW (BẢNG CƠ SỞ DỮ LIỆU SỐ) */}

@@ -126,16 +126,16 @@ export default function SrsReviewCard({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-3xl border-2 border-purple-500/50 bg-gradient-to-br from-slate-900 via-purple-950/80 to-slate-950 p-6 md:p-8 space-y-6 shadow-[0_0_40px_rgba(168,85,247,0.3)] backdrop-blur-2xl text-white font-sans transition-all duration-300">
+    <div className="w-full max-w-2xl mx-auto rounded-2xl sm:rounded-3xl border border-purple-500/40 bg-gradient-to-br from-slate-950 via-purple-950/90 to-slate-950 p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 shadow-2xl backdrop-blur-2xl text-white font-sans transition-all duration-300">
       
       {/* Top Header: Step Indicator & Card Counter */}
-      <div className="flex items-center justify-between border-b border-purple-500/30 pb-4">
+      <div className="flex items-center justify-between border-b border-purple-500/30 pb-3">
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 text-xs font-black uppercase tracking-wider">
+          <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 text-[11px] sm:text-xs font-black uppercase tracking-wider">
             Mốc: {item.stageCode || 'D1'}
           </span>
           {item.overdueDays > 0 && (
-            <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 text-[11px] font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 text-[10px] sm:text-[11px] font-bold">
               🔥 Quá hạn {item.overdueDays} ngày
             </span>
           )}
@@ -147,16 +147,16 @@ export default function SrsReviewCard({
       </div>
 
       {/* STEP 1: RECALL PROMPT (Covered word/meaning) */}
-      <div className="text-center space-y-4 py-2">
-        <div className="text-7xl md:text-8xl select-none animate-float-up-down drop-shadow-[0_10px_20px_rgba(236,72,153,0.3)]">
+      <div className="text-center space-y-3 py-1">
+        <div className="text-5xl sm:text-7xl md:text-8xl select-none animate-float-up-down drop-shadow-[0_10px_20px_rgba(236,72,153,0.3)]">
           {item.imageEmoji || item.image || item.emoji || ({
             red: '🔴', blue: '🔵', yellow: '🟡', green: '🟢', orange: '🟠', purple: '🟣', pink: '🌸', black: '🖤', white: '⚪', brown: '🟤'
           })[(item.word || '').toLowerCase()] || '📖'}
         </div>
 
         {!revealed ? (
-          <div className="space-y-4">
-            <div className="p-4 rounded-2xl bg-purple-950/60 border border-purple-500/40 text-purple-200 text-sm font-medium">
+          <div className="space-y-3">
+            <div className="p-3 sm:p-4 rounded-2xl bg-purple-950/60 border border-purple-500/40 text-purple-200 text-xs sm:text-sm font-medium">
               💡 Gợi ý chủ đề: <strong className="text-yellow-300 font-bold">{item.vietnamesePhonetic || 'Đọc & Đoán Từ Vựng'}</strong>
             </div>
 
@@ -165,22 +165,22 @@ export default function SrsReviewCard({
                 setRevealed(true);
                 setStep(2);
               }}
-              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-600 text-white font-black text-sm shadow-xl hover:scale-105 active:scale-95 transition cursor-pointer flex items-center gap-2 mx-auto"
+              className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-600 text-white font-black text-xs sm:text-sm shadow-xl hover:scale-105 active:scale-95 transition cursor-pointer flex items-center gap-2 mx-auto"
             >
-              <Sparkles className="h-5 w-5 text-yellow-300 animate-spin" />
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-300 animate-spin" />
               <span>Con Nhớ Rồi! Lật Xem Đáp Án</span>
             </button>
           </div>
         ) : (
-          <div className="space-y-3 animate-fadeIn">
-            <h2 className="text-4xl md:text-5xl font-black font-heading tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-200">
+          <div className="space-y-2.5 animate-fadeIn">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-cyan-200">
               {item.word}
             </h2>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-sm font-mono-code font-bold text-cyan-300 bg-cyan-950/80 px-3 py-1 rounded-xl border border-cyan-400/40">
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-xs sm:text-sm font-mono-code font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded-xl border border-cyan-400/40">
                 {item.ipa}
               </span>
-              <span className="text-sm font-extrabold text-pink-300">
+              <span className="text-xs sm:text-sm font-extrabold text-pink-300">
                 ({item.meaning})
               </span>
             </div>

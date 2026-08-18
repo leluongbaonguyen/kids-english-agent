@@ -156,13 +156,13 @@ export default function DailyPath5StepSection({
     }
   };
 
-  // Helper icons and colors per step
+  // Helper icons and 3D glossy badge styles per step
   const stepConfigs = [
-    { vectorIcon: RotateCw, color: 'from-amber-500 to-orange-500 border-amber-400 text-amber-300', ctaBg: 'bg-gradient-to-r from-amber-500 to-orange-600' },
-    { vectorIcon: Target, color: 'from-pink-500 to-purple-500 border-pink-400 text-pink-300', ctaBg: 'bg-gradient-to-r from-pink-500 to-purple-600' },
-    { vectorIcon: Mic, color: 'from-cyan-500 to-blue-500 border-cyan-400 text-cyan-300', ctaBg: 'bg-gradient-to-r from-cyan-500 to-blue-600' },
-    { vectorIcon: Gamepad2, color: 'from-emerald-500 to-teal-500 border-emerald-400 text-emerald-300', ctaBg: 'bg-gradient-to-r from-emerald-500 to-teal-600' },
-    { vectorIcon: Gift, color: 'from-yellow-400 to-amber-500 border-yellow-300 text-yellow-300', ctaBg: 'bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950' }
+    { vectorIcon: RotateCw, gradient: 'from-purple-500 via-pink-500 to-indigo-600 shadow-[0_0_18px_rgba(168,85,247,0.6)]', ctaBg: 'bg-gradient-to-r from-purple-500 to-pink-600' },
+    { vectorIcon: Target, gradient: 'from-amber-400 via-orange-500 to-yellow-500 shadow-[0_0_18px_rgba(245,158,11,0.6)]', ctaBg: 'bg-gradient-to-r from-amber-400 to-orange-500' },
+    { vectorIcon: Mic, gradient: 'from-cyan-400 via-blue-500 to-indigo-600 shadow-[0_0_18px_rgba(6,182,212,0.6)]', ctaBg: 'bg-gradient-to-r from-cyan-400 to-blue-600' },
+    { vectorIcon: Gamepad2, gradient: 'from-emerald-400 via-teal-500 to-cyan-500 shadow-[0_0_18px_rgba(16,185,129,0.6)]', ctaBg: 'bg-gradient-to-r from-emerald-400 to-teal-600' },
+    { vectorIcon: Gift, gradient: 'from-yellow-400 via-amber-500 to-orange-500 shadow-[0_0_18px_rgba(250,204,21,0.6)]', ctaBg: 'bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950' }
   ];
 
   return (
@@ -283,10 +283,10 @@ export default function DailyPath5StepSection({
               >
                 {/* Left Side: Icon Box & Quick Info */}
                 <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
-                  {/* DOUBLE ICON BOX */}
-                  <div className="flex flex-col items-center justify-center h-12 w-14 sm:h-14 sm:w-16 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-2 border-amber-400/40 shrink-0 shadow-xl relative overflow-hidden group">
-                    <VectorIcon className="h-4 w-4 sm:h-5 sm:w-5 text-amber-300 group-hover:scale-110 transition" />
-                    <span className="text-lg sm:text-xl mt-0.5">{step.icon}</span>
+                  {/* 3D GLOSSY GEMSTONE ICON BOX */}
+                  <div className={`relative flex items-center justify-center h-11 w-11 sm:h-13 sm:w-13 rounded-2xl bg-gradient-to-tr ${config.gradient} text-white border-2 border-white/80 shrink-0 shadow-lg group-hover:scale-105 transition-all duration-300`}>
+                    <div className="absolute top-0 inset-x-0 h-1 bg-white/40 rounded-t-2xl pointer-events-none" />
+                    <VectorIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
                   </div>
 
                   {/* Title & Badges */}

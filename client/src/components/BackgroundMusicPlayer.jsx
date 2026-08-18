@@ -394,16 +394,16 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
     <>
       <audio ref={audioElemRef} loop />
 
-      {/* Floating 3D Cute BGM Music Player Widget (Bottom Left - Mobile Adjusted) */}
-      <div className="no-print fixed bottom-20 left-3 xl:bottom-4 xl:left-4 z-40 select-none font-sans touch-manipulation">
+      {/* Floating BGM Music Player Widget (Mobile Optimized - Compact Pill) */}
+      <div className="no-print fixed bottom-20 left-3 md:bottom-4 md:left-4 z-40 select-none font-sans touch-manipulation">
         {showWidget ? (
-          <div className="flex items-center gap-2 p-2.5 rounded-3xl border-2 border-pink-400/80 bg-gradient-to-r from-pink-950/95 via-purple-950/95 to-slate-900 shadow-[0_10px_30px_rgba(236,72,153,0.4)] backdrop-blur-xl animate-fadeIn">
+          <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-full md:rounded-3xl border-2 border-pink-400/80 bg-slate-950/90 shadow-[0_10px_30px_rgba(236,72,153,0.4)] backdrop-blur-xl animate-fadeIn max-w-[calc(100vw-24px)] overflow-hidden">
             <button
               onClick={() => setShowWidget(false)}
-              className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white font-black text-xl shadow-lg border border-pink-300 hover:scale-110 transition cursor-pointer"
+              className="relative flex h-9 w-9 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-full md:rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white font-black text-lg md:text-xl shadow-lg border border-pink-300 hover:scale-105 active:scale-95 transition cursor-pointer"
               title="Click để thu nhỏ trình phát nhạc"
             >
-              <span className={isPlaying ? 'animate-pulse-glow' : ''}>🎵</span>
+              <span className={isPlaying ? 'animate-pulse' : ''}>🎵</span>
               {isPlaying && (
                 <span className="absolute -top-1 -right-1 flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
@@ -412,44 +412,44 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
               )}
             </button>
 
-            <div className="space-y-1 pr-1 max-w-[180px] md:max-w-[220px]">
-              <div className="flex items-center justify-between text-[11px] font-black text-pink-200 truncate">
+            <div className="space-y-0.5 pr-1 max-w-[130px] sm:max-w-[180px] md:max-w-[220px]">
+              <div className="flex items-center justify-between text-[10px] md:text-[11px] font-black text-pink-200 truncate">
                 <span className="truncate flex items-center gap-1">
                   <Sparkles className="h-3 w-3 text-yellow-300 shrink-0" />
                   {currentTrack.title}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <button
                   onClick={handleTogglePlay}
-                  className={`p-1.5 rounded-xl font-bold text-xs transition flex items-center justify-center ${
+                  className={`p-1 md:p-1.5 rounded-xl font-bold text-xs transition flex items-center justify-center ${
                     isPlaying
                       ? 'bg-pink-500 text-white shadow-md'
                       : 'bg-slate-800 text-pink-300 hover:bg-slate-700'
                   }`}
-                  title={isPlaying ? 'Tạm dừng nhạc' : 'Phát nhạc nền du dương'}
+                  title={isPlaying ? 'Tạm dừng nhạc' : 'Phát nhạc nền'}
                 >
-                  {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 fill-current" />}
+                  {isPlaying ? <Pause className="h-3 w-3 md:h-3.5 md:w-3.5" /> : <Play className="h-3 w-3 md:h-3.5 md:w-3.5 fill-current" />}
                 </button>
 
                 <button
                   onClick={handleNextTrack}
-                  className="p-1.5 rounded-xl bg-slate-800 text-pink-300 hover:bg-slate-700 transition"
+                  className="p-1 md:p-1.5 rounded-xl bg-slate-800 text-pink-300 hover:bg-slate-700 transition"
                   title="Bài nhạc tiếp theo"
                 >
-                  <SkipForward className="h-3.5 w-3.5" />
+                  <SkipForward className="h-3 w-3 md:h-3.5 md:w-3.5" />
                 </button>
 
                 <button
                   onClick={() => setIsMuted(!isMuted)}
-                  className="p-1.5 rounded-xl bg-slate-800 text-pink-300 hover:bg-slate-700 transition"
+                  className="p-1 md:p-1.5 rounded-xl bg-slate-800 text-pink-300 hover:bg-slate-700 transition"
                   title={isMuted ? 'Mở âm thanh' : 'Tắt âm thanh'}
                 >
                   {isMuted || volume === 0 ? (
-                    <VolumeX className="h-3.5 w-3.5 text-rose-400" />
+                    <VolumeX className="h-3 w-3 md:h-3.5 md:w-3.5 text-rose-400" />
                   ) : (
-                    <Volume2 className="h-3.5 w-3.5" />
+                    <Volume2 className="h-3 w-3 md:h-3.5 md:w-3.5" />
                   )}
                 </button>
 
@@ -464,8 +464,8 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
                     setVolume(val);
                     if (val > 0) setIsMuted(false);
                   }}
-                  className="w-14 md:w-20 accent-pink-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
-                  title="Điều chỉnh âm lượng nhạc nền"
+                  className="w-10 sm:w-14 md:w-20 accent-pink-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer hidden sm:block"
+                  title="Âm lượng"
                 />
               </div>
             </div>
@@ -473,21 +473,21 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
             {currentActor === 'bao_nguyen' && (
               <button
                 onClick={() => setShowAdminModal(true)}
-                className="p-2 rounded-2xl bg-purple-900/60 border border-purple-500/40 text-purple-300 hover:bg-purple-800 transition cursor-pointer"
-                title="👨‍💼 Admin Bảo Nguyên: Quản lý Nhạc Nền & Background 3D"
+                className="p-1.5 md:p-2 rounded-xl md:rounded-2xl bg-purple-900/60 border border-purple-500/40 text-purple-300 hover:bg-purple-800 transition cursor-pointer shrink-0"
+                title="👨‍💼 Admin Quản lý Nhạc"
               >
-                <Settings className="h-4 w-4 text-purple-300" />
+                <Settings className="h-3.5 w-3.5 md:h-4 md:w-4 text-purple-300" />
               </button>
             )}
           </div>
         ) : (
           <button
             onClick={() => setShowWidget(true)}
-            className="flex items-center gap-2 px-3 py-2 rounded-full border-2 border-pink-400 bg-pink-950/90 text-pink-200 font-extrabold text-xs shadow-xl backdrop-blur-md hover:scale-110 transition cursor-pointer"
-            title="Mở trình phát nhạc du dương cute"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-400/70 bg-slate-950/90 text-pink-200 font-black text-xs shadow-xl backdrop-blur-md hover:scale-105 transition cursor-pointer"
+            title="Mở nhạc nền"
           >
-            <Music className={`h-4 w-4 text-pink-400 ${isPlaying ? 'animate-pulse-glow' : ''}`} />
-            <span>🎵 Nhạc Du Dương</span>
+            <Music className={`h-3.5 w-3.5 text-pink-400 ${isPlaying ? 'animate-pulse' : ''}`} />
+            <span className="hidden sm:inline">🎵 Nhạc Nền</span>
           </button>
         )}
       </div>
