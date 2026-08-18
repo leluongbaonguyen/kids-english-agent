@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { DBSyncEngine } from '../services/dbSyncEngine';
 import { NativePushService } from '../services/nativePushService';
+import PaginationControl from './PaginationControl.jsx';
 
 // Helper to repair decomposed Vietnamese diacritics (NFD -> NFC) permanently
 function fixVietnameseFont(str) {
@@ -35,6 +36,10 @@ export default function ParentDashboardModal({
 
   const [activeTab, setActiveTab] = useState('certificate');
   const [pushStatus, setPushStatus] = useState('unknown');
+
+  // Pagination State for Real Event Logs
+  const [eventLogPage, setEventLogPage] = useState(1);
+  const [eventLogPageSize, setEventLogPageSize] = useState(10);
 
   // Real Database Calculated Metrics
   const [realMetrics, setRealMetrics] = useState(() => computeRealDatabaseMetrics(propsMastered));
@@ -872,16 +877,36 @@ export default function ParentDashboardModal({
               </h3>
 
               <div className="border border-slate-800 rounded-2xl p-4 bg-slate-950 max-h-72 overflow-y-auto custom-scrollbar font-mono-code text-[11px] space-y-2">
-                {realMetrics.eventLogs.map((log, idx) => (
-                  <div key={log.id || idx} className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1 flex justify-between items-center">
-                    <div className="space-y-0.5">
-                      <div className="font-bold text-pink-300">[{log.eventName}]</div>
-                      <div className="text-slate-300 truncate max-w-lg">{JSON.stringify(log.payload || {})}</div>
-                    </div>
-                    <span className="text-[10px] text-slate-500 font-bold shrink-0">{log.timestamp}</span>
-                  </div>
-                ))}
+                {realMetrics.eventLogs.length === 0 ? (
+                  <p className="text-slate-500 italic">Chưa có bản ghi nhật ký sự kiện nào.</p>
+                ) : (
+                  realMetrics.eventLogs
+                    .slice((eventLogPage - 1) * eventLogPageSize, eventLogPage * eventLogPageSize)
+                    .map((log, idx) => (
+                      <div key={log.id || idx} className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1 flex justify-between items-center">
+                        <div className="space-y-0.5">
+                          <div className="font-bold text-pink-300">[{log.eventName}]</div>
+                          <div className="text-slate-300 truncate max-w-lg">{JSON.stringify(log.payload || {})}</div>
+                        </div>
+                        <span className="text-[10px] text-slate-500 font-bold shrink-0">{log.timestamp}</span>
+                      </div>
+                    ))
+                )}
               </div>
+
+              <PaginationControl
+                currentPage={eventLogPage}
+                totalPages={Math.ceil(realMetrics.eventLogs.length / eventLogPageSize) || 1}
+                totalItems={realMetrics.eventLogs.length}
+                pageSize={eventLogPageSize}
+                onPageChange={(pg) => setEventLogPage(pg)}
+                onPageSizeChange={(sz) => {
+                  setEventLogPageSize(sz);
+                  setEventLogPage(1);
+                }}
+                pageSizeOptions={[5, 10, 25, 50]}
+                itemLabel="nhật ký sự kiện"
+              />
             </div>
           )}
 

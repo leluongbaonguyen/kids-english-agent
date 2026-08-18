@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Volume2, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import PaginationControl from './PaginationControl.jsx';
 
 export default function VocabBookModal({
   isOpen,
@@ -15,12 +16,15 @@ export default function VocabBookModal({
   const [activeStateFilter, setActiveStateFilter] = useState('all'); // all, mastered, weak, review, new
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(18);
 
   useEffect(() => {
     setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 350);
+    setCurrentPage(1);
+    const timer = setTimeout(() => setIsLoading(false), 250);
     return () => clearTimeout(timer);
-  }, [activeStateFilter, isOpen]);
+  }, [activeStateFilter, searchQuery, isOpen]);
 
   const [vocabSpeed, setVocabSpeed] = useState(1.0);
 
@@ -46,6 +50,9 @@ export default function VocabBookModal({
     return matchesSearch;
   });
 
+  const totalPages = Math.ceil(filteredVocab.length / pageSize) || 1;
+  const paginatedVocab = filteredVocab.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   return createPortal(
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
       <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-indigo-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
@@ -60,7 +67,7 @@ export default function VocabBookModal({
               <h2 className="text-xl md:text-2xl font-black font-heading text-white">
                 SỔ TỪ VỰNG THÔNG MINH (MY VOCABULARY BOOK • 7 TRẠNG THÁI)
               </h2>
-              <p className="text-xs text-slate-300">Quản lý từ mới, từ đã nhớ, từ yếu & tự động đưa từ yếu vào chu kỳ ôn tập!</p>
+              <p className="text-xs text-slate-300">Quản lý từ mới, từ đã nhớ, từ yếu & tự động phân trang hiệu năng cao!</p>
             </div>
           </div>
 
@@ -72,7 +79,7 @@ export default function VocabBookModal({
           </button>
         </div>
 
-        {/* SEARCH BAR, SPEED SELECTOR & 7 MASTERY STATE FILTERS */}
+        {/* SEARCH BAR, SPEED SELECTOR & MASTERY STATE FILTERS */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           {/* Search Input */}
           <div className="relative flex-1 min-w-[200px]">
@@ -137,55 +144,72 @@ export default function VocabBookModal({
           <div className="p-12 rounded-3xl bg-slate-950/80 border border-emerald-500/30 flex flex-col items-center justify-center gap-3 animate-pulse my-4">
             <RotateCw className="h-8 w-8 text-emerald-400 animate-spin" />
             <span className="text-xs font-bold text-emerald-300 font-mono-code">
-              ⚡ Đang nạp Sổ từ vựng 7 trạng thái & SRS Matrix...
+              ⚡ Đang nạp Sổ từ vựng thông minh (Phân trang mượt mà)...
             </span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto custom-scrollbar p-1">
-          {filteredVocab.map((w) => {
-            const isMastered = masteredCards.includes(w.id || w.word);
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[46vh] overflow-y-auto custom-scrollbar p-1">
+              {paginatedVocab.map((w) => {
+                const isMastered = masteredCards.includes(w.id || w.word);
 
-            return (
-              <div
-                key={w.id || w.word}
-                className="p-4 rounded-3xl border border-slate-800 bg-slate-900/90 space-y-2 hover:border-emerald-400 transition shadow"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-3xl">{w.image || '✨'}</span>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
-                    isMastered
-                      ? 'bg-emerald-950 text-emerald-300 border-emerald-500/40'
-                      : 'bg-amber-950 text-amber-300 border-amber-500/40'
-                  }`}>
-                    {isMastered ? '👑 Mastered' : '📖 Learning'}
-                  </span>
-                </div>
-
-                <div>
-                  <div className="text-lg font-black text-white font-heading">{w.word}</div>
-                  <div className="text-xs font-mono-code text-cyan-300 font-bold">{w.ipa}</div>
-                  <div className="text-xs text-amber-300 font-bold">"{w.meaning}"</div>
-                </div>
-
-                <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1">
-                  <button
-                    onClick={() => playAudio(w.word, false)}
-                    className="flex-1 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-cyan-600/30 cursor-pointer"
+                return (
+                  <div
+                    key={w.id || w.word}
+                    className="p-4 rounded-3xl border border-slate-800 bg-slate-900/90 space-y-2 hover:border-emerald-400 transition shadow"
                   >
-                    <Volume2 className="h-3 w-3" /> Nghe ({vocabSpeed}x)
-                  </button>
+                    <div className="flex items-center justify-between">
+                      <span className="text-3xl">{w.image || '✨'}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
+                        isMastered
+                          ? 'bg-emerald-950 text-emerald-300 border-emerald-500/40'
+                          : 'bg-amber-950 text-amber-300 border-amber-500/40'
+                      }`}>
+                        {isMastered ? '👑 Mastered' : '📖 Learning'}
+                      </span>
+                    </div>
 
-                  <button
-                    onClick={() => playAudio(w.word, true, 0.5)}
-                    className="flex-1 py-1.5 rounded-xl bg-amber-600/20 text-amber-300 border border-amber-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-amber-600/30 cursor-pointer"
-                  >
-                    <span>🐢</span> Nghe 0.5x
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                    <div>
+                      <div className="text-lg font-black text-white font-heading">{w.word}</div>
+                      <div className="text-xs font-mono-code text-cyan-300 font-bold">{w.ipa}</div>
+                      <div className="text-xs text-amber-300 font-bold">"{w.meaning}"</div>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1">
+                      <button
+                        onClick={() => playAudio(w.word, false)}
+                        className="flex-1 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-cyan-600/30 cursor-pointer"
+                      >
+                        <Volume2 className="h-3 w-3" /> Nghe ({vocabSpeed}x)
+                      </button>
+
+                      <button
+                        onClick={() => playAudio(w.word, true, 0.5)}
+                        className="flex-1 py-1.5 rounded-xl bg-amber-600/20 text-amber-300 border border-amber-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-amber-600/30 cursor-pointer"
+                      >
+                        <span>🐢</span> Nghe 0.5x
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* PAGINATION CONTROL */}
+            <PaginationControl
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={filteredVocab.length}
+              pageSize={pageSize}
+              onPageChange={(pg) => setCurrentPage(pg)}
+              onPageSizeChange={(sz) => {
+                setPageSize(sz);
+                setCurrentPage(1);
+              }}
+              pageSizeOptions={[12, 18, 36, 72]}
+              itemLabel="từ vựng"
+            />
+          </>
         )}
 
       </div>

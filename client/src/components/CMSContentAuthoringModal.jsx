@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Plus, Edit3, Trash2, CheckCircle2, ShieldCheck, Lock, Unlock, Database, Layers, BookOpen, Volume2, Sparkles, AlertTriangle, ArrowUpRight, History, Save, RotateCcw, Download, UploadCloud, RefreshCw, Search, Wrench } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES } from '../constants/kidsVocabularyDatabase';
 import { DBSyncEngine } from '../services/dbSyncEngine';
 import { saveCustomVocabItem, saveCustomCourse } from '../services/localPersistentStore';
+import PaginationControl from './PaginationControl.jsx';
 
 export default function CMSContentAuthoringModal({
   isOpen,
@@ -21,6 +22,16 @@ export default function CMSContentAuthoringModal({
   const [selectedLevel, setSelectedLevel] = useState('L1');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Pagination States
+  const [vocabPage, setVocabPage] = useState(1);
+  const [vocabPageSize, setVocabPageSize] = useState(15);
+  const [auditPage, setAuditPage] = useState(1);
+  const [auditPageSize, setAuditPageSize] = useState(10);
+
+  useEffect(() => {
+    setVocabPage(1);
+  }, [searchQuery, selectedLevel]);
 
   // Fast Creator State
   const [newWord, setNewWord] = useState('');
@@ -520,7 +531,7 @@ export default function CMSContentAuthoringModal({
                   </select>
 
                   <span className="px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-black">
-                    Hiển thị {filteredVocab.length} / {vocabDatabase.length} từ
+                    Tổng số {filteredVocab.length} / {vocabDatabase.length} từ
                   </span>
                 </div>
               </div>
@@ -538,19 +549,35 @@ export default function CMSContentAuthoringModal({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/60 font-medium text-slate-200">
-                    {filteredVocab.slice(0, 40).map((v, i) => (
-                      <tr key={v.id || i} className="hover:bg-slate-900/60 transition">
-                        <td className="p-3 text-lg">{v.imageEmoji || '🌟'}</td>
-                        <td className="p-3 font-bold text-cyan-300">{v.word}</td>
-                        <td className="p-3">{v.meaning}</td>
-                        <td className="p-3 text-slate-400 font-mono-code">{v.phonetics}</td>
-                        <td className="p-3 text-amber-300 font-bold">{v.level}</td>
-                        <td className="p-3">{v.category}</td>
-                      </tr>
-                    ))}
+                    {filteredVocab
+                      .slice((vocabPage - 1) * vocabPageSize, vocabPage * vocabPageSize)
+                      .map((v, i) => (
+                        <tr key={v.id || i} className="hover:bg-slate-900/60 transition">
+                          <td className="p-3 text-lg">{v.imageEmoji || v.image || '🌟'}</td>
+                          <td className="p-3 font-bold text-cyan-300">{v.word}</td>
+                          <td className="p-3">{v.meaning}</td>
+                          <td className="p-3 text-slate-400 font-mono-code">{v.phonetics || v.ipa}</td>
+                          <td className="p-3 text-amber-300 font-bold">{v.level}</td>
+                          <td className="p-3">{v.category}</td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
+
+              <PaginationControl
+                currentPage={vocabPage}
+                totalPages={Math.ceil(filteredVocab.length / vocabPageSize) || 1}
+                totalItems={filteredVocab.length}
+                pageSize={vocabPageSize}
+                onPageChange={(pg) => setVocabPage(pg)}
+                onPageSizeChange={(sz) => {
+                  setVocabPageSize(sz);
+                  setVocabPage(1);
+                }}
+                pageSizeOptions={[10, 15, 30, 60]}
+                itemLabel="từ vựng"
+              />
             </div>
           )}
 
@@ -657,17 +684,33 @@ export default function CMSContentAuthoringModal({
                 {auditLogs.length === 0 ? (
                   <p className="text-slate-500 italic">Chưa có bản ghi audit log nào.</p>
                 ) : (
-                  auditLogs.map((log, idx) => (
-                    <div key={log.id || idx} className="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                      <div className="flex items-center justify-between text-cyan-400 font-bold">
-                        <span>[{log.eventName}]</span>
-                        <span className="text-slate-500 text-[10px]">{log.timestamp}</span>
+                  auditLogs
+                    .slice((auditPage - 1) * auditPageSize, auditPage * auditPageSize)
+                    .map((log, idx) => (
+                      <div key={log.id || idx} className="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
+                        <div className="flex items-center justify-between text-cyan-400 font-bold">
+                          <span>[{log.eventName}]</span>
+                          <span className="text-slate-500 text-[10px]">{log.timestamp}</span>
+                        </div>
+                        <p className="text-slate-300">{JSON.stringify(log.payload)}</p>
                       </div>
-                      <p className="text-slate-300">{JSON.stringify(log.payload)}</p>
-                    </div>
-                  ))
+                    ))
                 )}
               </div>
+
+              <PaginationControl
+                currentPage={auditPage}
+                totalPages={Math.ceil(auditLogs.length / auditPageSize) || 1}
+                totalItems={auditLogs.length}
+                pageSize={auditPageSize}
+                onPageChange={(pg) => setAuditPage(pg)}
+                onPageSizeChange={(sz) => {
+                  setAuditPageSize(sz);
+                  setAuditPage(1);
+                }}
+                pageSizeOptions={[5, 10, 20, 50]}
+                itemLabel="bản ghi audit log"
+              />
             </div>
           )}
         </div>

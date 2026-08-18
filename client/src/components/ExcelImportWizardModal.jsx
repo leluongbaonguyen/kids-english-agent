@@ -4,6 +4,7 @@ import {
   FileSpreadsheet, Upload, Download, CheckCircle, AlertTriangle, XCircle, RefreshCw, Database,
   ArrowRight, ArrowLeft, Shield, FileText, ChevronRight, Filter, Eye, RotateCcw, Sparkles
 } from 'lucide-react';
+import PaginationControl from './PaginationControl.jsx';
 
 export function ExcelImportWizardModal({ isOpen, onClose, currentActor, addToast, onImportSuccess }) {
   const [step, setStep] = useState(1);
@@ -16,6 +17,14 @@ export function ExcelImportWizardModal({ isOpen, onClose, currentActor, addToast
   const [isProcessing, setIsProcessing] = useState(false);
   const [rollbackReason, setRollbackReason] = useState('');
   const [showRollbackModal, setShowRollbackModal] = useState(false);
+
+  // Pagination State for Step 5
+  const [reviewPage, setReviewPage] = useState(1);
+  const [reviewPageSize, setReviewPageSize] = useState(20);
+
+  useEffect(() => {
+    setReviewPage(1);
+  }, [selectedStatusFilter, checkResult]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -435,36 +444,52 @@ export function ExcelImportWizardModal({ isOpen, onClose, currentActor, addToast
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/80 font-mono-code text-[11px]">
-                  {filteredRows.slice(0, 100).map((r) => (
-                    <tr
-                      key={r.row_id}
-                      onClick={() => setSelectedRowDetail(r)}
-                      className="hover:bg-slate-800/60 cursor-pointer transition"
-                    >
-                      <td className="p-3 text-slate-400">#{r.excel_row}</td>
-                      <td className="p-3 text-cyan-300">{r.sheet_name}</td>
-                      <td className="p-3 text-slate-300">{r.entity_type}</td>
-                      <td className="p-3 font-bold text-white">{r.source_code}</td>
-                      <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
-                          r.row_status === 'READY_INSERT'
-                            ? 'bg-emerald-950 text-emerald-300 border-emerald-500/50'
-                            : r.row_status === 'DUPLICATE_EXACT_SKIP'
-                            ? 'bg-blue-950 text-blue-300 border-blue-500/50'
-                            : r.row_status === 'CONFLICT_REVIEW'
-                            ? 'bg-rose-950 text-rose-300 border-rose-500/50'
-                            : 'bg-amber-950 text-amber-300 border-amber-500/50'
-                        }`}>
-                          {r.row_status}
-                        </span>
-                      </td>
-                      <td className="p-3 font-bold text-yellow-300">{r.action}</td>
-                      <td className="p-3 text-slate-300 truncate max-w-xs">{r.message}</td>
-                    </tr>
-                  ))}
+                  {filteredRows
+                    .slice((reviewPage - 1) * reviewPageSize, reviewPage * reviewPageSize)
+                    .map((r) => (
+                      <tr
+                        key={r.row_id}
+                        onClick={() => setSelectedRowDetail(r)}
+                        className="hover:bg-slate-800/60 cursor-pointer transition"
+                      >
+                        <td className="p-3 text-slate-400">#{r.excel_row}</td>
+                        <td className="p-3 text-cyan-300">{r.sheet_name}</td>
+                        <td className="p-3 text-slate-300">{r.entity_type}</td>
+                        <td className="p-3 font-bold text-white">{r.source_code}</td>
+                        <td className="p-3">
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
+                            r.row_status === 'READY_INSERT'
+                              ? 'bg-emerald-950 text-emerald-300 border-emerald-500/50'
+                              : r.row_status === 'DUPLICATE_EXACT_SKIP'
+                              ? 'bg-blue-950 text-blue-300 border-blue-500/50'
+                              : r.row_status === 'CONFLICT_REVIEW'
+                              ? 'bg-rose-950 text-rose-300 border-rose-500/50'
+                              : 'bg-amber-950 text-amber-300 border-amber-500/50'
+                          }`}>
+                            {r.row_status}
+                          </span>
+                        </td>
+                        <td className="p-3 font-bold text-yellow-300">{r.action}</td>
+                        <td className="p-3 text-slate-300 truncate max-w-xs">{r.message}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
+
+            <PaginationControl
+              currentPage={reviewPage}
+              totalPages={Math.ceil(filteredRows.length / reviewPageSize) || 1}
+              totalItems={filteredRows.length}
+              pageSize={reviewPageSize}
+              onPageChange={(pg) => setReviewPage(pg)}
+              onPageSizeChange={(sz) => {
+                setReviewPageSize(sz);
+                setReviewPage(1);
+              }}
+              pageSizeOptions={[10, 20, 50, 100]}
+              itemLabel="dòng đối soát Excel"
+            />
 
             <div className="flex justify-between items-center pt-3 border-t border-slate-800">
               <button

@@ -27,6 +27,7 @@ import { ExcelImportWizardModal } from './ExcelImportWizardModal.jsx';
 import HomeworkGradingStudioModal from './HomeworkGradingStudioModal.jsx';
 import Detailed6LevelPathPage from './Detailed6LevelPathPage.jsx';
 import ReviewCyclesPage from './ReviewCyclesPage.jsx';
+import PaginationControl from './PaginationControl.jsx';
 
 // ============================================================
 // SCROLL BOUNCE CARD - Tự phóng to & nhún nhảy khi scroll đến
@@ -4800,29 +4801,15 @@ export function KidsEnglishDashboard({
           </div>
 
           {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
-              <span className="text-slate-400 font-bold">
-                Trang {currentPage} / {totalPages} (Tổng {filteredDatabase.length} từ)
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-1.5 font-bold text-slate-300 disabled:opacity-40"
-                >
-                  Trang Trước
-                </button>
-                <button
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-1.5 font-bold text-slate-300 disabled:opacity-40"
-                >
-                  Trang Kế
-                </button>
-              </div>
-            </div>
-          )}
+          <PaginationControl
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={filteredDatabase.length}
+            pageSize={pageSize}
+            onPageChange={(pg) => setCurrentPage(pg)}
+            pageSizeOptions={[12, 24, 48, 96]}
+            itemLabel="từ vựng"
+          />
         </div>
       )}
 
