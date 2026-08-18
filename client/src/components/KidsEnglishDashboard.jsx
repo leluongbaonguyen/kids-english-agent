@@ -11,6 +11,7 @@ import {
 import { COURSE_LEVELS, VOCAB_CATEGORIES, VOCABULARY_DATABASE, ILLUSTRATED_POSTER_PAGES, getSuperDetailedVocabInfo } from '../constants/kidsVocabularyDatabase.js';
 import LongmanEngine from '../services/longmanDictionary.js';
 import { DBSyncEngine } from '../services/dbSyncEngine.js';
+import { getCombinedVocabDatabase } from '../services/localPersistentStore.js';
 
 import LessonRunnerModal from './LessonRunnerModal.jsx';
 import LearningPathView from './LearningPathView.jsx';
@@ -348,41 +349,18 @@ export function KidsEnglishDashboard({
   const [isHomeworkGradingOpen, setIsHomeworkGradingOpen] = useState(false);
   const pageSize = 12;
 
-  // 900 Vocabulary V6.0 Database State & Performance Optimization
-  const [vocabDatabase, setVocabDatabase] = useState(() => {
-    try {
-      const v6Version = localStorage.getItem('kids_vocab_version_v6');
-      if (v6Version !== 'v6.0_final') {
-        localStorage.setItem('kids_vocab_version_v6', 'v6.0_final');
-        localStorage.removeItem('kids_custom_vocabulary_2000');
-        localStorage.removeItem('kids_custom_poster_pages_2000');
-        return VOCABULARY_DATABASE;
-      }
-      const saved = localStorage.getItem('kids_custom_vocabulary_2000');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      }
-      return VOCABULARY_DATABASE;
-    } catch {
-      return VOCABULARY_DATABASE;
-    }
-  });
+  // 900 Vocabulary V6.0 + Persistent Custom Vocab Database Engine
+  const [vocabDatabase, setVocabDatabase] = useState(() => getCombinedVocabDatabase());
 
-  // Force Auto-Sync: Upgrade stale browser cache to complete 900 V6.0 words
+  // Ensure Base 900 V6.0 Words are synced without wiping custom user words
   useEffect(() => {
-    const v6Version = localStorage.getItem('kids_vocab_version_v6');
-    if (v6Version !== 'v6.0_final' || !Array.isArray(vocabDatabase) || vocabDatabase.length !== VOCABULARY_DATABASE.length) {
-      try {
-        localStorage.setItem('kids_vocab_version_v6', 'v6.0_final');
-        localStorage.removeItem('kids_custom_vocabulary_2000');
-        localStorage.removeItem('kids_custom_poster_pages_2000');
-        setVocabDatabase(VOCABULARY_DATABASE);
-      } catch (e) {
-        console.error('Error auto-syncing V6.0 database:', e);
+    try {
+      const customWords = getCombinedVocabDatabase();
+      if (!Array.isArray(vocabDatabase) || vocabDatabase.length < VOCABULARY_DATABASE.length) {
+        setVocabDatabase(customWords);
       }
+    } catch (e) {
+      console.error('Error auto-syncing V6.0 database:', e);
     }
   }, []);
 

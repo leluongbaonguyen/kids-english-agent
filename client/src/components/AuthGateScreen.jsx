@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lock, User, Eye, EyeOff, Sparkles, CheckCircle2, Key, ArrowRight, Shield } from 'lucide-react';
+import { registerUserAccount, authenticateLocalUser } from '../services/localPersistentStore.js';
 
 export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }) {
   const [role, setRole] = useState('student'); // 'student' | 'admin' | 'parent'
@@ -63,7 +64,7 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
           result = await response.json();
         }
       } catch (e) {
-        console.warn('Server auth endpoint unavailable, falling back to local auth:', e);
+        console.warn('Server auth endpoint unavailable, using local persistent auth:', e);
       }
 
       if (result && result.success && result.data?.token) {
@@ -80,23 +81,30 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
         return;
       }
 
-      // Robust Instant Fallback Authentication
-      const roleProfiles = {
-        student: { id: 'minh_anh', name: 'Bé Minh Anh', role: 'student', email: emailToUse || 'minhanh@kidsenglish.edu.vn', level: 'L1', stars: 120 },
-        parent: { id: 'parent_user', name: 'Phụ Huynh Bé Minh Anh', role: 'parent', email: emailToUse || 'parent@kidsenglish.edu.vn', level: 'L1', stars: 120 },
-        admin: { id: 'bao_nguyen', name: 'Bảo Nguyễn', role: 'admin', email: emailToUse || 'baonguyen@kidsenglish.edu.vn', level: 'L6', stars: 999 }
-      };
+      // Persistent Local Account Authentication
+      let finalUser;
+      if (isRegisterMode) {
+        finalUser = registerUserAccount({
+          name: registerName || emailToUse,
+          email: emailToUse,
+          password: passToUse,
+          role: roleToUse
+        });
+        addToast?.(`🎉 Đã tạo & lưu trữ thành công tài khoản mới: "${finalUser.name}"!`, 'success');
+      } else {
+        finalUser = authenticateLocalUser(emailToUse, passToUse, roleToUse);
+        addToast?.(`🎉 Đăng nhập thành công! Chào mừng ${finalUser.name}!`, 'success');
+      }
 
-      const fallbackUser = roleProfiles[roleToUse] || roleProfiles.student;
       const fakeToken = `token_v6_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
       localStorage.setItem('v5_auth_token', fakeToken);
       localStorage.setItem('kids_authenticated', 'true');
-      localStorage.setItem('v5_user_info', JSON.stringify(fallbackUser));
-      localStorage.setItem('kids_active_actor', fallbackUser.id);
+      localStorage.setItem('v5_user_info', JSON.stringify(finalUser));
+      const actorId = finalUser.role === 'admin' ? 'bao_nguyen' : (finalUser.role === 'parent' ? 'parent_user' : (finalUser.id || 'minh_anh'));
+      localStorage.setItem('kids_active_actor', actorId);
 
-      addToast?.(`🎉 Đăng nhập thành công! Chào mừng ${fallbackUser.name}!`, 'success');
-      onLoginSuccess(fallbackUser.id, fallbackUser);
+      onLoginSuccess(actorId, finalUser);
 
     } catch (err) {
       addToast?.(`❌ Lỗi hệ thống: ${err.message}`, 'error');

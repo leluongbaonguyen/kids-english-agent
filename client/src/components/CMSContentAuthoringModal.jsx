@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { X, Plus, Edit3, Trash2, CheckCircle2, ShieldCheck, Lock, Unlock, Database, Layers, BookOpen, Volume2, Sparkles, AlertTriangle, ArrowUpRight, History, Save, RotateCcw, Download, UploadCloud, RefreshCw, Search, Wrench } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES } from '../constants/kidsVocabularyDatabase';
 import { DBSyncEngine } from '../services/dbSyncEngine';
+import { saveCustomVocabItem, saveCustomCourse } from '../services/localPersistentStore';
 
 export default function CMSContentAuthoringModal({
   isOpen,
@@ -101,7 +102,8 @@ export default function CMSContentAuthoringModal({
       isCustom: true
     };
 
-    const updated = [newItem, ...vocabDatabase];
+    saveCustomVocabItem(newItem);
+    const updated = [newItem, ...(vocabDatabase || [])];
     if (saveVocabDatabase) saveVocabDatabase(updated);
 
     DBSyncEngine.trackEvent('cms_add_vocab_word', { word: newWord, level: newLevel, actor: 'bao_nguyen' });
@@ -109,7 +111,7 @@ export default function CMSContentAuthoringModal({
     setNewWord('');
     setNewMeaning('');
     setNewIPA('');
-    if (addToast) addToast(`✅ Đã thêm từ vựng mới: "${newItem.word}" vào kho CSDL!`, 'success');
+    if (addToast) addToast(`✅ Đã lưu trữ thành công từ vựng mới "${newItem.word}" vào bộ nhớ!`, 'success');
   };
 
   const handleAdminOverride = (e) => {
@@ -139,14 +141,20 @@ export default function CMSContentAuthoringModal({
   };
 
   const handleCreateDraftLesson = () => {
+    saveCustomCourse({
+      title: draftLessonTitle,
+      topicId: draftTopicId,
+      activityType: draftActivityType
+    });
+
     DBSyncEngine.trackEvent('cms_create_draft_lesson', {
       title: draftLessonTitle,
       topicId: draftTopicId,
       activityType: draftActivityType,
-      status: 'DRAFT'
+      status: 'PUBLISHED'
     });
 
-    if (addToast) addToast(`📝 Đã tạo bản nháp bài học: "${draftLessonTitle}" (Trạng thái: DRAFT)`, 'success');
+    if (addToast) addToast(`📝 Đã lưu trữ bài học mới "${draftLessonTitle}" vào bộ nhớ!`, 'success');
   };
 
   // Export JSON catalog
