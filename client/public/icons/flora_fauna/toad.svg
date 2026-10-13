@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="toadWarty" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A8A29E"/>
+      <stop offset="50%" stop-color="#78716C"/>
+      <stop offset="100%" stop-color="#57534E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#78716C" stroke-width="2.5"/>
+  <!-- PLUMP WIDE SQUAT BODY (Thân mập béo, ngồi bệt) -->
+  <ellipse cx="50" cy="62" rx="28" ry="20" fill="url(#toadWarty)"/>
+  <!-- Parotoid Poison Glands Behind Eyes (Tuyến độc lớn mang tai) -->
+  <ellipse cx="32" cy="42" rx="6" ry="10" transform="rotate(-20, 32, 42)" fill="#57534E"/>
+  <ellipse cx="68" cy="42" rx="6" ry="10" transform="rotate(20, 68, 42)" fill="#57534E"/>
+  <!-- Broad Flat Head -->
+  <ellipse cx="50" cy="48" rx="20" ry="14" fill="url(#toadWarty)"/>
+  <!-- Horizontal Slit Eyes -->
+  <circle cx="36" cy="38" r="6.5" fill="#CA8A04"/>
+  <circle cx="64" cy="38" r="6.5" fill="#CA8A04"/>
+  <ellipse cx="36" cy="38" rx="4.5" ry="1.8" fill="#000000"/>
+  <ellipse cx="64" cy="38" rx="4.5" ry="1.8" fill="#000000"/>
+  <!-- NUMEROUS WARTY BUMPS (Vô số nốt mụn cóc sần sùi khắp da) -->
+  <circle cx="44" cy="54" r="2.5" fill="#44403C"/>
+  <circle cx="56" cy="54" r="2.2" fill="#44403C"/>
+  <circle cx="34" cy="62" r="3" fill="#44403C"/>
+  <circle cx="48" cy="66" r="3.2" fill="#44403C"/>
+  <circle cx="62" cy="62" r="3" fill="#44403C"/>
+  <circle cx="40" cy="72" r="2.5" fill="#44403C"/>
+  <circle cx="58" cy="72" r="2.5" fill="#44403C"/>
+  <!-- Short Ground Legs -->
+  <ellipse cx="22" cy="70" rx="8" ry="4" fill="#57534E"/>
+  <ellipse cx="78" cy="70" rx="8" ry="4" fill="#57534E"/>
+</svg>

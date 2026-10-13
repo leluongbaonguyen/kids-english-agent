@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="hyenaBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A16207"/>
+      <stop offset="50%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+    <linearGradient id="hyenaEars" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#451A03"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#78350F" stroke-width="2.5"/>
+  <!-- Massive High Shoulders & Sloping Silhouette -->
+  <path d="M 20,82 C 22,58 32,42 50,42 C 68,42 78,58 80,82 Z" fill="#B45309"/>
+  <!-- Head Profile -->
+  <ellipse cx="50" cy="52" rx="22" ry="20" fill="url(#hyenaBody)"/>
+  <!-- Large Round Broad Ears (Tai tròn to) -->
+  <circle cx="26" cy="32" r="12" fill="url(#hyenaEars)"/>
+  <circle cx="26" cy="32" r="7" fill="#CA8A04"/>
+  <circle cx="74" cy="32" r="12" fill="url(#hyenaEars)"/>
+  <circle cx="74" cy="32" r="7" fill="#CA8A04"/>
+  <!-- Coarse Erect Neck Mane (Bờm dựng đứng gáy) -->
+  <path d="M 45,26 L 47,36 M 50,23 L 50,34 M 55,26 L 53,36" stroke="#292524" stroke-width="3" stroke-linecap="round"/>
+  <!-- Heavy Dark Muzzle (Mõm to đen quai hàm khỏe) -->
+  <ellipse cx="50" cy="64" rx="13" ry="10" fill="#1C1917"/>
+  <ellipse cx="50" cy="58" rx="6" ry="3.5" fill="#000000"/>
+  <!-- Laughing/Smirking mouth with fangs -->
+  <path d="M 42,67 Q 50,72 58,67" stroke="#E7E5E4" stroke-width="2" fill="none"/>
+  <polygon points="44,67 46,71 48,67" fill="#FFFFFF"/>
+  <polygon points="56,67 54,71 52,67" fill="#FFFFFF"/>
+  <!-- Cunning Amber Eyes -->
+  <circle cx="39" cy="48" r="4.5" fill="#EAB308"/>
+  <circle cx="61" cy="48" r="4.5" fill="#EAB308"/>
+  <circle cx="39" cy="48" r="2.5" fill="#000000"/>
+  <circle cx="61" cy="48" r="2.5" fill="#000000"/>
+  <!-- Irregular Spotted Body Marks (Đốm nâu đen) -->
+  <circle cx="28" cy="68" r="3" fill="#292524"/>
+  <circle cx="72" cy="68" r="3" fill="#292524"/>
+  <circle cx="32" cy="78" r="3.5" fill="#292524"/>
+  <circle cx="68" cy="78" r="3.5" fill="#292524"/>
+  <circle cx="50" cy="80" r="3" fill="#292524"/>
+</svg>

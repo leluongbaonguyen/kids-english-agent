@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="pearlSphere" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="45%" stop-color="#EAE0C8"/>
+      <stop offset="80%" stop-color="#D6CBB0"/>
+      <stop offset="100%" stop-color="#C2B291"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#D1C7AC" stroke-width="2.5"/>
+  <!-- South Sea Cultured Pearl with Iridescent Oyster Shell -->
+  <ellipse cx="50" cy="62" rx="36" ry="16" fill="#F5EFE1" stroke="#C7BBA0" stroke-width="2"/>
+  <!-- Radiant Spherical Pearl -->
+  <circle cx="50" cy="46" r="22" fill="url(#pearlSphere)" stroke="#D9CDB2" stroke-width="1.5"/>
+  <!-- High Pearlescent Specular Shimmer -->
+  <ellipse cx="44" cy="38" rx="6" ry="3.5" transform="rotate(-30, 44, 38)" fill="#FFFFFF"/>
+  <polygon points="56,36 58,40 62,42 58,44 56,48 54,44 50,42 54,40" fill="#FFFFFF"/>
+</svg>

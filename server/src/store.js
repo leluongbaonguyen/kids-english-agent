@@ -19,7 +19,7 @@ const kidsProgressFile = path.join(dataDir, 'kids_progress.json');
 const defaultProgress = {
   stars: 120,
   masteredWords: [],
-  unlockedLevels: { L1: true },
+  unlockedLevels: { L1: true, BIO: true, COLOR: true, NUM: true },
   updatedAt: new Date().toISOString()
 };
 
@@ -170,7 +170,7 @@ export async function updateLearnerLevelLockStatus(learnerId, unlockedLevels, ov
   const currentProgress = await readKidsProgress();
   const updatedProgress = {
     ...currentProgress,
-    unlockedLevels: unlockedLevels || currentProgress.unlockedLevels || { L1: true, L2: false, L3: false, L4: false, L5: false, L6: false },
+    unlockedLevels: unlockedLevels || currentProgress.unlockedLevels || { L1: true, L2: false, L3: false, L4: false, L5: false, L6: false, BIO: true, COLOR: true, NUM: true },
     overrideAutoProgression: typeof overrideAutoProgression === 'boolean' ? overrideAutoProgression : (currentProgress.overrideAutoProgression || false),
     updatedAt: new Date().toISOString()
   };
@@ -194,8 +194,31 @@ export async function getLearnerProfile(code = 'LEARNER_DEFAULT') {
   }
 }
 
+let memoryVocabCache = null;
+
+async function getMasterVocabList() {
+  if (memoryVocabCache) return memoryVocabCache;
+  try {
+    const raw = await readFile(path.join(dataDir, 'master_vocabulary_900.json'), 'utf8');
+    memoryVocabCache = JSON.parse(raw);
+    return memoryVocabCache;
+  } catch {
+    return [];
+  }
+}
+
 export async function getCourseLevels() {
-  if (!pool) return [];
+  if (!pool) {
+    return [
+      { id: 'L1', code: 'L1', name: 'Cấp độ L1: Khởi Động (4–5 tuổi)', target_words: 150 },
+      { id: 'L2', code: 'L2', name: 'Cấp độ L2: Cơ Bản (5–7 tuổi)', target_words: 150 },
+      { id: 'L3', code: 'L3', name: 'Cấp độ L3: Mở Rộng (7–9 tuổi)', target_words: 150 },
+      { id: 'L4', code: 'L4', name: 'Cấp độ L4: Nâng Cao Cho Bé (8–10 tuổi)', target_words: 150 },
+      { id: 'L5', code: 'L5', name: 'Cấp độ L5: Tiên Phong (10–12 tuổi)', target_words: 150 },
+      { id: 'L6', code: 'L6', name: 'Cấp độ L6: Hội Nhập Quốc Tế (12+ tuổi)', target_words: 150 },
+      { id: 'BIO', code: 'BIO', name: 'Chuyên Đề: Bách Khoa Động Thực Vật Toàn Cầu (Flora & Fauna)', target_words: 120 }
+    ];
+  }
   try {
     const res = await pool.query('SELECT * FROM course_levels ORDER BY sort_order ASC');
     return res.rows;
@@ -206,7 +229,23 @@ export async function getCourseLevels() {
 }
 
 export async function searchVocabulary(query = '', levelCode = null, limit = 50) {
-  if (!pool) return [];
+  if (!pool) {
+    const all = await getMasterVocabList();
+    let filtered = all;
+    if (levelCode) {
+      filtered = filtered.filter(v => v.level === levelCode);
+    }
+    if (query) {
+      const q = query.toLowerCase().trim();
+      filtered = filtered.filter(v => 
+        (v.word && v.word.toLowerCase().includes(q)) ||
+        (v.meaning && v.meaning.toLowerCase().includes(q)) ||
+        (v.ipa && v.ipa.toLowerCase().includes(q)) ||
+        (v.vietnamesePhonetic && v.vietnamesePhonetic.toLowerCase().includes(q))
+      );
+    }
+    return filtered.slice(0, limit);
+  }
   try {
     let sql = 'SELECT * FROM vocabulary WHERE deleted_at IS NULL';
     const params = [];

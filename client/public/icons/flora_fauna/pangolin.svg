@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="scaleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="50%" stop-color="#B45309"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#78350F" stroke-width="2.5"/>
+  <!-- OVERLAPPING KERATIN ARMOR SCALES (Thân phủ vảy sừng xếp lớp như mái ngói) -->
+  <!-- Layer 1 (chóp lưng) -->
+  <path d="M 40,32 C 40,24 60,24 60,32 C 60,38 40,38 40,32 Z" fill="url(#scaleGrad)"/>
+  <!-- Layer 2 -->
+  <path d="M 30,42 C 30,34 46,34 46,44 C 46,48 30,48 30,42 Z" fill="url(#scaleGrad)"/>
+  <path d="M 44,40 C 44,32 56,32 56,42 C 56,48 44,48 44,40 Z" fill="url(#scaleGrad)"/>
+  <path d="M 54,42 C 54,34 70,34 70,44 C 70,48 54,48 54,42 Z" fill="url(#scaleGrad)"/>
+  <!-- Layer 3 -->
+  <path d="M 24,56 C 24,46 42,46 42,58 C 42,64 24,64 24,56 Z" fill="url(#scaleGrad)"/>
+  <path d="M 40,54 C 40,44 60,44 60,56 C 60,64 40,64 40,54 Z" fill="url(#scaleGrad)"/>
+  <path d="M 58,56 C 58,46 76,46 76,58 C 76,64 58,64 58,56 Z" fill="url(#scaleGrad)"/>
+  <!-- Layer 4 -->
+  <path d="M 32,68 C 32,58 50,58 50,70 C 50,76 32,76 32,68 Z" fill="url(#scaleGrad)"/>
+  <path d="M 50,68 C 50,58 68,58 68,70 C 68,76 50,76 50,68 Z" fill="url(#scaleGrad)"/>
+  <!-- Pointed Cone Snout (Mõm nhọn thuôn dài) -->
+  <polygon points="50,22 42,34 58,34" fill="#A8A29E"/>
+  <circle cx="50" cy="22" r="2" fill="#1C1917"/>
+  <!-- Little Beady Eyes -->
+  <circle cx="45" cy="28" r="1.5" fill="#000000"/>
+  <circle cx="55" cy="28" r="1.5" fill="#000000"/>
+  <!-- Curled Scaly Tail -->
+  <path d="M 50,76 Q 50,86 42,90 Q 34,88 36,80" stroke="#78350F" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>

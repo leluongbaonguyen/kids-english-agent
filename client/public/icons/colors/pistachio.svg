@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="pistaNut" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#C2E6A7"/>
+      <stop offset="55%" stop-color="#93C572"/>
+      <stop offset="100%" stop-color="#557A3A"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F7FEE7" stroke="#7aac59" stroke-width="2.5"/>
+  <!-- Cracked Pistachio Shell with Green Kernel -->
+  <!-- Left Shell -->
+  <path d="M 46,24 C 28,32 20,54 30,72 C 34,78 44,80 44,80 C 34,68 32,46 46,24 Z" fill="#E6D5B8" stroke="#C4B08B" stroke-width="1.8"/>
+  <!-- Right Shell -->
+  <path d="M 54,24 C 72,32 80,54 70,72 C 66,78 56,80 56,80 C 66,68 68,46 54,24 Z" fill="#E6D5B8" stroke="#C4B08B" stroke-width="1.8"/>
+  <!-- Radiant Green Nut Kernel -->
+  <ellipse cx="50" cy="52" rx="14" ry="20" fill="url(#pistaNut)"/>
+  <!-- Kernel skin blush -->
+  <path d="M 42,40 Q 52,36 58,44" stroke="#991B1B" stroke-width="1.8" fill="none" opacity="0.6"/>
+  <ellipse cx="46" cy="46" rx="3" ry="5" fill="#DCFCE7" opacity="0.7"/>
+</svg>

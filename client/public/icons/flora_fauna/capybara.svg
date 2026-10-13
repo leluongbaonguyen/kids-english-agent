@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="capyFur" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A16207"/>
+      <stop offset="50%" stop-color="#854D0E"/>
+      <stop offset="100%" stop-color="#713F12"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#854D0E" stroke-width="2.5"/>
+  <!-- Zen Peaceful Capybara Profile with Flat Top & BLUNT SQUARE MUZZLE (Mõm vuông đặc trưng) -->
+  <path d="M 32,40 C 32,32 68,32 68,40 L 72,58 C 72,72 64,76 50,76 C 36,76 28,72 28,58 Z" fill="url(#capyFur)"/>
+  <!-- Small Round High-set Ears on Top of Head -->
+  <circle cx="32" cy="34" r="5.5" fill="#451A03"/>
+  <circle cx="68" cy="34" r="5.5" fill="#451A03"/>
+  <circle cx="32" cy="34" r="3" fill="#A16207"/>
+  <circle cx="68" cy="34" r="3" fill="#A16207"/>
+  <!-- Relaxed, Half-closed Zen Eyes (Mắt khép hờ thư thái) -->
+  <path d="M 34,44 Q 40,42 44,46" stroke="#1C1917" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 66,44 Q 60,42 56,46" stroke="#1C1917" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Broad Square Snout with slit nostrils -->
+  <path d="M 40,60 L 60,60 L 58,70 L 42,70 Z" fill="#451A03"/>
+  <ellipse cx="46" cy="64" rx="2" ry="1.2" fill="#1C1917"/>
+  <ellipse cx="54" cy="64" rx="2" ry="1.2" fill="#1C1917"/>
+  <line x1="50" y1="65" x2="50" y2="70" stroke="#1C1917" stroke-width="1.8"/>
+  <!-- Little Yuzu orange or green leaf on head (iconic capybara vibe) -->
+  <ellipse cx="50" cy="28" rx="6" ry="5.5" fill="#F97316"/>
+  <circle cx="50" cy="24" r="1.2" fill="#65A30D"/>
+  <path d="M 50,23 Q 54,20 56,22" stroke="#65A30D" stroke-width="1.5" fill="none"/>
+</svg>

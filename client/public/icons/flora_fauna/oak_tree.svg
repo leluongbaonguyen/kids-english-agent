@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="oakCanopy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#15803D" stroke-width="2.5"/>
+  <!-- Sturdy Gnarled Trunk (Thân to cành ngang gân guốc) -->
+  <path d="M 44,84 L 46,58 L 38,48 M 46,58 L 54,58 L 62,48 M 54,58 L 56,84" stroke="#78350F" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Buttress Roots -->
+  <line x1="44" y1="84" x2="36" y2="88" stroke="#78350F" stroke-width="4" stroke-linecap="round"/>
+  <line x1="56" y1="84" x2="64" y2="88" stroke="#78350F" stroke-width="4" stroke-linecap="round"/>
+  <!-- BROAD SPREADING CLOUD CANOPY (Tán cây vòm tròn rộng lớn) -->
+  <circle cx="34" cy="42" r="15" fill="url(#oakCanopy)"/>
+  <circle cx="66" cy="42" r="15" fill="url(#oakCanopy)"/>
+  <circle cx="50" cy="32" r="18" fill="url(#oakCanopy)"/>
+  <circle cx="38" cy="28" r="14" fill="#4ADE80"/>
+  <circle cx="62" cy="28" r="14" fill="#4ADE80"/>
+  <!-- CAPPED ACORN EMBLEM IN FOREGROUND (Quả sồi có mũ hạt) -->
+  <ellipse cx="50" cy="84" rx="4.5" ry="5.5" fill="#92400E"/>
+  <path d="M 45,80 C 45,76 55,76 55,80 Z" fill="#78350F"/>
+  <line x1="50" y1="76" x2="50" y2="73" stroke="#78350F" stroke-width="1.2"/>
+</svg>

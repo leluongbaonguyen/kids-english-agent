@@ -6,23 +6,20 @@ import { BackgroundMusicPlayer } from './components/BackgroundMusicPlayer.jsx';
 import { Dynamic3DBackground } from './components/Dynamic3DBackground.jsx';
 import { ToastContainer } from './components/ToastContainer.jsx';
 import { MobileBottomBar } from './components/MobileBottomBar.jsx';
-import SmartReminderNotification from './components/SmartReminderNotification.jsx';
 import IosPwaInstallPrompt from './components/IosPwaInstallPrompt.jsx';
 import { PageLocationBar, ROUTE_MAP } from './components/PageLocationBar.jsx';
-import LandingIntroHero from './components/LandingIntroHero.jsx';
 import AuthGateScreen from './components/AuthGateScreen.jsx';
-import GlobalAgentCommandHub from './components/GlobalAgentCommandHub.jsx';
+import LandingIntroHero from './components/LandingIntroHero.jsx';
 import AdminSuperCrudStudioModal from './components/AdminSuperCrudStudioModal.jsx';
 import AdminDashboardView from './components/AdminDashboardView.jsx';
 import { errorReporter } from './services/errorReporter.js';
 import SmartErrorAlertBanner from './components/SmartErrorAlertBanner.jsx';
-import CuteMiniAppLauncherModal from './components/CuteMiniAppLauncherModal.jsx';
-import { Zap } from 'lucide-react';
 
 const getTabFromHash = () => {
   try {
     const hash = window.location.hash.replace(/^#\/?/, '').trim();
-    if (!hash) return 'intro';
+    if (!hash || hash === 'intro' || hash === 'gioi-thieu') return 'intro';
+    if (hash === 'auth' || hash === 'dang-nhap') return 'auth';
     for (const [tabKey, info] of Object.entries(ROUTE_MAP)) {
       if (info.slug === hash || tabKey === hash) return tabKey;
     }
@@ -67,14 +64,10 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState(() => getTabFromHash());
   const [longmanTrigger, setLongmanTrigger] = useState(0);
-  const [aiModalTrigger, setAiModalTrigger] = useState(0);
   const [userProfileTrigger, setUserProfileTrigger] = useState(0);
-  const [todayPlanTrigger, setTodayPlanTrigger] = useState(0);
   const [cmsTrigger, setCmsTrigger] = useState(0);
   const [homeworkTrigger, setHomeworkTrigger] = useState(0);
-  const [agentHubOpen, setAgentHubOpen] = useState(false);
   const [adminCrudOpen, setAdminCrudOpen] = useState(false);
-  const [miniAppModalOpen, setMiniAppModalOpen] = useState(false);
   const [studentPreviewMode, setStudentPreviewMode] = useState(false);
   const [toasts, setToasts] = useState([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -132,6 +125,10 @@ export default function App() {
       localStorage.setItem('kids_authenticated', 'true');
       localStorage.setItem('kids_active_actor', actorId);
       if (userObj) localStorage.setItem('v5_user_info', JSON.stringify(userObj));
+    } catch (e) {}
+    setActiveTab('flashcards');
+    try {
+      window.location.hash = '#/tu-vung-toan-he-thong';
     } catch (e) {}
   };
 
@@ -199,14 +196,39 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [activeTab]);
 
-  // 1. FIRST RENDER: LANDING INTRO HERO PAGE
+  // 1. FIRST RENDER: LANDING INTRO HERO PAGE (PUBLIC SHOWCASE FOR ALL VISITORS)
   if (activeTab === 'intro') {
     return (
       <div className="relative w-full min-h-screen bg-[#070a12]">
         <ToastContainer toasts={toasts} />
         <LandingIntroHero
-          onEnterApp={() => setActiveTab('home')}
-          onNavigateTab={(tab) => setActiveTab(tab)}
+          onEnterApp={() => {
+            if (isAuthenticated) {
+              setActiveTab('flashcards');
+            } else {
+              setActiveTab('auth');
+            }
+          }}
+          onNavigateTab={(tab) => {
+            if (!isAuthenticated && tab !== 'intro') {
+              setActiveTab('auth');
+            } else {
+              setActiveTab(tab);
+            }
+          }}
+          onOpenAuth={() => setActiveTab('auth')}
+          onQuickLogin={(roleId = 'minh_anh') => {
+            const defaultProfiles = {
+              minh_anh: { id: 'minh_anh', name: 'Bé Nguyễn Ngọc Minh Anh', role: 'student' },
+              parent_user: { id: 'parent_user', name: 'Phụ Huynh Bé Minh Anh', role: 'parent' },
+              bao_nguyen: { id: 'bao_nguyen', name: 'Ba Bảo Nguyên', role: 'admin' }
+            };
+            const user = defaultProfiles[roleId] || defaultProfiles.minh_anh;
+            handleLoginSuccess(roleId, user);
+            addToast(`🎉 Đăng nhập nhanh thành công! Chào mừng ${user.name}!`, 'success');
+          }}
+          isAuthenticated={isAuthenticated}
+          currentActor={currentActor}
         />
         <BackgroundMusicPlayer
           currentActor={currentActor}
@@ -218,8 +240,8 @@ export default function App() {
     );
   }
 
-  // 2. SECOND CHECK: MANDATORY AUTHENTICATION GATE WHEN ENTERING APP
-  if (!isAuthenticated) {
+  // 2. MANDATORY AUTHENTICATION GATE WHEN ENTERING APP
+  if (!isAuthenticated || activeTab === 'auth') {
     return (
       <div className="relative w-full min-h-screen bg-[#070a12]">
         <ToastContainer toasts={toasts} />
@@ -300,13 +322,9 @@ export default function App() {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             onOpenLongman={() => setLongmanTrigger((prev) => prev + 1)}
-            onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
             onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
-            onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
             onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
             onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
-            onOpenAgentHub={() => setAgentHubOpen(true)}
-            onOpenMiniAppHub={() => setMiniAppModalOpen(true)}
           />
         </div>
 
@@ -318,9 +336,7 @@ export default function App() {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             longmanTrigger={longmanTrigger}
-            aiModalTrigger={aiModalTrigger}
             userProfileTrigger={userProfileTrigger}
-            todayPlanTrigger={todayPlanTrigger}
             cmsTrigger={cmsTrigger}
             homeworkTrigger={homeworkTrigger}
             currentActorProps={currentActor}
@@ -332,19 +348,10 @@ export default function App() {
       {/* iOS Mobile Native App Push & PWA Banner */}
       <IosPwaInstallPrompt addToast={addToast} />
 
-      {/* Smart Automated Reminder Notification System */}
-      <SmartReminderNotification
-        learnerName="Bé Minh Anh"
-        onOpenTodayPlan={() => setTodayPlanTrigger((prev) => prev + 1)}
-        addToast={addToast}
-      />
-
       {/* iOS Native Mobile Bottom Navigation Bar */}
       <MobileBottomBar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
-        onOpenMiniAppHub={() => setMiniAppModalOpen(true)}
       />
 
       {/* Background Music Player */}
@@ -355,51 +362,12 @@ export default function App() {
         currentBgConfig={bgConfig}
       />
 
-      {/* Global Agent Command Hub Modal */}
-      <GlobalAgentCommandHub
-        isOpen={agentHubOpen}
-        onClose={() => setAgentHubOpen(false)}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        currentActor={currentActor}
-        onSwitchActor={handleSwitchActor}
-        onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
-        onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
-        onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
-        onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
-        onOpenAdminCrud={() => setAdminCrudOpen(true)}
-      />
-
-      {/* Cute Mini App Hub Launcher Modal */}
-      <CuteMiniAppLauncherModal
-        isOpen={miniAppModalOpen}
-        onClose={() => setMiniAppModalOpen(false)}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        onOpenAiModal={() => setAiModalTrigger((prev) => prev + 1)}
-        onOpenHomework={() => setHomeworkTrigger((prev) => prev + 1)}
-        onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
-        onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
-      />
-
       {/* Admin Super CRUD Studio Modal */}
       <AdminSuperCrudStudioModal
         isOpen={adminCrudOpen}
         onClose={() => setAdminCrudOpen(false)}
         addToast={addToast}
       />
-
-      {/* Sleek Glassmorphic Agent Hub Launcher Button (Admin Only) */}
-      {isAdmin && (
-        <button
-          onClick={() => setAgentHubOpen(true)}
-          className="fixed bottom-20 right-3 sm:bottom-5 sm:right-5 z-[95] px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-slate-950/95 text-white font-extrabold text-[11px] sm:text-xs shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/50 hover:border-pink-400 hover:scale-105 active:scale-95 transition flex items-center gap-1.5 backdrop-blur-xl cursor-pointer group"
-          title="Mở Menu Ẩn Tác Nhân Hệ Thống & Truy Xuất Dữ Liệu Chi Tiết"
-        >
-          <Zap className="h-4 w-4 text-yellow-300 animate-bounce" />
-          <span className="font-heading tracking-wide text-pink-200 group-hover:text-white">⚡ MENU ẨN AGENT</span>
-        </button>
-      )}
     </div>
   );
 }

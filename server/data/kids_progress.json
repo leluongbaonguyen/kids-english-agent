@@ -1,8 +1,8 @@
 {
-  "stars": 120,
+  "stars": 135,
   "masteredWords": [],
-  "unlockedLevels": {
-    "L1": true
-  },
-  "updatedAt": "2026-08-17T17:19:39.621Z"
+  "needsReviewWords": [],
+  "currentLevel": "L1",
+  "lastUpdated": "2026-10-12T08:23:54.640Z",
+  "updatedAt": "2026-10-12T08:23:54.647Z"
 }

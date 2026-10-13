@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="baobabBark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78716C"/>
+      <stop offset="50%" stop-color="#A8A29E"/>
+      <stop offset="100%" stop-color="#57534E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#B45309" stroke-width="2.5"/>
+  <!-- Ground horizon -->
+  <rect x="10" y="82" width="80" height="8" rx="2" fill="#D97706"/>
+  <!-- MASSIVE BOTTLE-SHAPED SWOLLEN TRUNK (Thân gỗ khổng lồ phình to như bình nước) -->
+  <path d="M 32,84 C 28,64 36,52 42,42 L 58,42 C 64,52 72,64 68,84 Z" fill="url(#baobabBark)"/>
+  <!-- Bark vertical fissures -->
+  <line x1="44" y1="50" x2="42" y2="80" stroke="#44403C" stroke-width="1.8"/>
+  <line x1="50" y1="46" x2="50" y2="82" stroke="#44403C" stroke-width="1.8"/>
+  <line x1="56" y1="50" x2="58" y2="80" stroke="#44403C" stroke-width="1.8"/>
+  <!-- SPARSE ROOT-LIKE ROOTED BRANCHES AT TOP (Cành khẳng khiu trên ngọn như rễ chỉ trời) -->
+  <path d="M 44,42 L 32,24 M 40,34 L 24,34 M 50,42 L 50,20 M 56,42 L 68,24 M 60,34 L 76,34" stroke="#57534E" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Sparse green leaf tufts -->
+  <circle cx="32" cy="24" r="3" fill="#15803D"/>
+  <circle cx="24" cy="34" r="3" fill="#15803D"/>
+  <circle cx="50" cy="20" r="3.5" fill="#15803D"/>
+  <circle cx="68" cy="24" r="3" fill="#15803D"/>
+  <circle cx="76" cy="34" r="3" fill="#15803D"/>
+</svg>

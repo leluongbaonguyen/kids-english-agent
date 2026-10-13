@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="sunRay" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="45%" stop-color="#FFD300"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#e6ba00" stroke-width="2.5"/>
+  <!-- Blazing Solar Disk with Radiant Sunbeams -->
+  <circle cx="50" cy="50" r="22" fill="url(#sunRay)"/>
+  <!-- 8 Sun Rays -->
+  <line x1="50" y1="14" x2="50" y2="22" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="50" y1="78" x2="50" y2="86" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="14" y1="50" x2="22" y2="50" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="78" y1="50" x2="86" y2="50" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="25" y1="25" x2="31" y2="31" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="69" y1="69" x2="75" y2="75" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="75" y1="25" x2="69" y2="31" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="31" y1="69" x2="25" y2="75" stroke="#F59E0B" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="44" cy="44" r="4" fill="#FFFFFF" opacity="0.9"/>
+</svg>

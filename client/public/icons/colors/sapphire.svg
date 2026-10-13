@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="sapphireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="50%" stop-color="#0F52BA"/>
+      <stop offset="100%" stop-color="#021C4F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0039a1" stroke-width="2.5"/>
+  <!-- Sapphire Octagonal Gem -->
+  <polygon points="32,20 68,20 84,36 84,64 68,80 32,80 16,64 16,36" fill="url(#sapphireGrad)" stroke="#1E40AF" stroke-width="1.8"/>
+  <polygon points="38,30 62,30 72,40 72,60 62,70 38,70 28,60 28,40" fill="#0F52BA"/>
+  <!-- Facet Connectors -->
+  <line x1="32" y1="20" x2="38" y2="30" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="68" y1="20" x2="62" y2="30" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="84" y1="36" x2="72" y2="40" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="84" y1="64" x2="72" y2="60" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="68" y1="80" x2="62" y2="70" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="32" y1="80" x2="38" y2="70" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="16" y1="64" x2="28" y2="60" stroke="#93C5FD" stroke-width="1.5"/>
+  <line x1="16" y1="36" x2="28" y2="40" stroke="#93C5FD" stroke-width="1.5"/>
+  <!-- Specular Shimmer Star -->
+  <polygon points="48,32 50,38 56,40 50,42 48,48 46,42 40,40 46,38" fill="#FFFFFF"/>
+  <circle cx="64" cy="56" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

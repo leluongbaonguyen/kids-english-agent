@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="seahorseGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2.5"/>
+  <!-- Green seagrass to hold on to -->
+  <path d="M 32,90 Q 28,60 34,30 Q 38,15 34,10" stroke="#10B981" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- UPRIGHT HORSE-LIKE HEAD WITH CORONET (Đầu ngựa có vương miện gai) -->
+  <polygon points="54,20 52,14 56,16 58,12 60,16" fill="#F59E0B"/>
+  <circle cx="56" cy="24" r="9" fill="url(#seahorseGold)"/>
+  <!-- Tubular Snout -->
+  <polygon points="50,26 38,30 40,34 50,30" fill="url(#seahorseGold)"/>
+  <!-- Intelligent Little Eye -->
+  <circle cx="55" cy="24" r="2.2" fill="#000000"/>
+  <circle cx="54" cy="23" r="0.8" fill="#FFFFFF"/>
+  <!-- Plump Segmented Belly -->
+  <path d="M 56,32 C 64,40 64,54 56,62 C 52,56 50,42 56,32 Z" fill="url(#seahorseGold)"/>
+  <!-- Segment ridges on belly -->
+  <line x1="53" y1="38" x2="62" y2="40" stroke="#B45309" stroke-width="1.5"/>
+  <line x1="52" y1="44" x2="63" y2="46" stroke="#B45309" stroke-width="1.5"/>
+  <line x1="52" y1="50" x2="62" y2="52" stroke="#B45309" stroke-width="1.5"/>
+  <!-- Delicate Dorsal Fin -->
+  <path d="M 62,42 C 68,44 68,50 62,52 Z" fill="#93C5FD" opacity="0.8"/>
+  <!-- PREHENSILE SPIRAL COILED TAIL (Đuôi cuộn xoắn bám chặt vào cỏ biển) -->
+  <path d="M 56,62 C 52,70 42,74 38,72 C 34,70 34,64 38,64 C 42,64 42,68 40,68" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+</svg>

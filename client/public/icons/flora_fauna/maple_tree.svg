@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="autumnFire" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="40%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#EA580C" stroke-width="2.5"/>
+  <!-- Sturdy Trunk -->
+  <rect x="46" y="68" width="8" height="20" rx="2" fill="#78350F"/>
+  <!-- BLAZING SCARLET & ORANGE AUTUMN CANOPY (Tán lá phong đỏ rực mùa thu) -->
+  <circle cx="34" cy="44" r="16" fill="url(#autumnFire)"/>
+  <circle cx="66" cy="44" r="16" fill="url(#autumnFire)"/>
+  <circle cx="50" cy="34" r="19" fill="url(#autumnFire)"/>
+  <!-- DISTINCTIVE 5-LOBED PALMATE MAPLE LEAF IN CENTER (Chiếc lá phong xẻ 5 thùy) -->
+  <path d="M 50,24 L 52,32 L 60,30 L 56,38 L 62,42 L 52,44 L 50,52 L 48,44 L 38,42 L 44,38 L 40,30 L 48,32 Z" fill="#FEF08A"/>
+</svg>

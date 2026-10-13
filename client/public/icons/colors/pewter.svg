@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="pewterStein" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#B8C0C4"/>
+      <stop offset="55%" stop-color="#899499"/>
+      <stop offset="100%" stop-color="#555E62"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#64748B" stroke-width="2.5"/>
+  <!-- Antique Medieval Pewter Tankard / Goblet -->
+  <path d="M 34,32 L 66,32 L 62,74 L 38,74 Z" fill="url(#pewterStein)" stroke="#475569" stroke-width="2"/>
+  <ellipse cx="50" cy="32" rx="16" ry="4" fill="#B8C0C4"/>
+  <!-- Handle -->
+  <path d="M 64,38 C 76,42 76,64 62,68" stroke="#475569" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Soft matte luster -->
+  <path d="M 42,42 L 44,66" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+</svg>

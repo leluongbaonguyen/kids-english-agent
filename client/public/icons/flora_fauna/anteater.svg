@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="anteaterFur" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78716C"/>
+      <stop offset="100%" stop-color="#44403C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#78716C" stroke-width="2.5"/>
+  <!-- GIANT BUSHY FEATHER-DUSTER TAIL (Đuôi rậm xù như cây chổi lớn) -->
+  <path d="M 36,66 C 14,64 8,44 14,32 C 22,34 26,44 38,56 Z" fill="#292524"/>
+  <path d="M 12,38 C 16,30 24,34 30,44" stroke="#78716C" stroke-width="3" fill="none"/>
+  <!-- Body with iconic DIAGONAL CHEST STRIPE (Dải sọc đen viền trắng chéo qua ngực) -->
+  <ellipse cx="50" cy="64" rx="22" ry="14" fill="url(#anteaterFur)"/>
+  <path d="M 44,54 L 62,72" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M 45,55 L 61,71" stroke="#18181B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- DISTINCTIVE LONG TUBULAR SNOUT (Mõm dài cong hình ống) -->
+  <path d="M 58,54 C 68,52 82,54 88,60 C 82,64 70,64 58,62 Z" fill="#A8A29E"/>
+  <circle cx="87" cy="60" r="1.8" fill="#18181B"/>
+  <!-- Tiny Sticky Wormlike Tongue (Lưỡi dính thò ra bắt kiến) -->
+  <path d="M 88,61 Q 93,64 96,62" stroke="#F43F5E" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <!-- Tiny Eye & Ear -->
+  <circle cx="64" cy="54" r="1.8" fill="#000000"/>
+  <circle cx="58" cy="48" r="2.5" fill="#44403C"/>
+  <!-- Strong Curved Foreclaw -->
+  <path d="M 68,74 Q 72,82 68,86" stroke="#18181B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>

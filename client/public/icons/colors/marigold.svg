@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="marigoldBloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFDD55"/>
+      <stop offset="55%" stop-color="#EAA221"/>
+      <stop offset="100%" stop-color="#B36B00"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#d18908" stroke-width="2.5"/>
+  <!-- Dense Multi-Petaled Aztec Marigold (Cúc Vạn Thọ) -->
+  <circle cx="50" cy="50" r="33" fill="url(#marigoldBloom)"/>
+  <!-- Concentric Petal Ruffles -->
+  <circle cx="50" cy="50" r="24" stroke="#FBBF24" stroke-width="3" stroke-dasharray="5,3" fill="none"/>
+  <circle cx="50" cy="50" r="16" stroke="#D97706" stroke-width="3" stroke-dasharray="4,2" fill="none"/>
+  <circle cx="50" cy="50" r="8" fill="#B45309"/>
+  <!-- Petal Dewdrop -->
+  <circle cx="40" cy="38" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="hornRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78716C"/>
+      <stop offset="50%" stop-color="#44403C"/>
+      <stop offset="100%" stop-color="#1C1917"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#78716C" stroke-width="2.5"/>
+  <!-- PAIR OF SPIRAL RIDGED WILD ANIMAL HORNS (Cặp sừng xoắn chắc khỏe có gờ) -->
+  <!-- Left Horn -->
+  <path d="M 38,76 C 20,70 14,44 26,24 C 36,40 38,56 42,74 Z" fill="url(#hornRing)"/>
+  <!-- Ridges on left horn -->
+  <line x1="22" y1="48" x2="34" y2="52" stroke="#A8A29E" stroke-width="2"/>
+  <line x1="22" y1="58" x2="36" y2="62" stroke="#A8A29E" stroke-width="2"/>
+  <line x1="28" y1="68" x2="40" y2="70" stroke="#A8A29E" stroke-width="2"/>
+  <!-- Right Horn -->
+  <path d="M 62,76 C 80,70 86,44 74,24 C 64,40 62,56 58,74 Z" fill="url(#hornRing)"/>
+  <!-- Ridges on right horn -->
+  <line x1="78" y1="48" x2="66" y2="52" stroke="#A8A29E" stroke-width="2"/>
+  <line x1="78" y1="58" x2="64" y2="62" stroke="#A8A29E" stroke-width="2"/>
+  <line x1="72" y1="68" x2="60" y2="70" stroke="#A8A29E" stroke-width="2"/>
+  <!-- Skull base connect -->
+  <rect x="38" y="74" width="24" height="8" rx="3" fill="#D6D3D1"/>
+</svg>

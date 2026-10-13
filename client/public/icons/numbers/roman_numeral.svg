@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="romanGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#EAB308"/>
+      <stop offset="100%" stop-color="#A16207"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#B45309" stroke-width="2.5"/>
+  <!-- Roman Arch Pillar Frame -->
+  <rect x="22" y="22" width="56" height="56" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+  <text x="50" y="58" font-family="'Times New Roman', serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#78350F">I·V·X</text>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#D97706" stroke-width="1.5"/>
+</svg>

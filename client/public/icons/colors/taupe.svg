@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="taupeLeather" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6E5E52"/>
+      <stop offset="50%" stop-color="#483C32"/>
+      <stop offset="100%" stop-color="#2B231D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F7F5F2" stroke="#2f2319" stroke-width="2.5"/>
+  <!-- Sophisticated Grey-Brown Taupe Leather Pouch -->
+  <path d="M 30,36 C 36,24 64,24 70,36 L 74,68 C 74,78 62,82 50,82 C 38,82 26,78 26,68 Z" fill="url(#taupeLeather)"/>
+  <line x1="34" y1="42" x2="66" y2="42" stroke="#9C8B7F" stroke-width="1.8" stroke-dasharray="3,2"/>
+  <circle cx="50" cy="54" r="4" fill="#C4B5A5"/>
+  <circle cx="42" cy="46" r="2" fill="#FFFFFF" opacity="0.6"/>
+</svg>

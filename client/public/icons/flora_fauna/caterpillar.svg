@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#16A34A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#22C55E" stroke-width="2.5"/>
+  <!-- Fresh juicy green leaf with bite mark -->
+  <path d="M 12,74 C 20,44 60,34 88,40 C 88,68 56,86 12,74 Z" fill="url(#leafGrad)"/>
+  <path d="M 70,38 C 76,42 78,48 74,52" fill="#F0FDF4"/>
+  <!-- MULTI-SEGMENTED ROUND BODY (Thân nhiều đốt tròn màu xanh non) -->
+  <circle cx="26" cy="62" r="7.5" fill="#84CC16" stroke="#4D7C0F" stroke-width="1"/>
+  <circle cx="36" cy="58" r="8" fill="#84CC16" stroke="#4D7C0F" stroke-width="1"/>
+  <circle cx="48" cy="54" r="8" fill="#84CC16" stroke="#4D7C0F" stroke-width="1"/>
+  <circle cx="60" cy="52" r="8" fill="#84CC16" stroke="#4D7C0F" stroke-width="1"/>
+  <circle cx="72" cy="50" r="8.5" fill="#84CC16" stroke="#4D7C0F" stroke-width="1"/>
+  <!-- Round Head with Cheerful Eye -->
+  <circle cx="82" cy="46" r="8.5" fill="#EAB308" stroke="#CA8A04" stroke-width="1"/>
+  <circle cx="84" cy="44" r="2.2" fill="#000000"/>
+  <circle cx="83.5" cy="43.5" r="0.8" fill="#FFFFFF"/>
+  <!-- Colorful dots / Spiracles on each segment -->
+  <circle cx="26" cy="62" r="1.5" fill="#EF4444"/>
+  <circle cx="36" cy="58" r="1.5" fill="#EF4444"/>
+  <circle cx="48" cy="54" r="1.5" fill="#EF4444"/>
+  <circle cx="60" cy="52" r="1.5" fill="#EF4444"/>
+  <circle cx="72" cy="50" r="1.5" fill="#EF4444"/>
+  <!-- True legs and prolegs holding leaf -->
+  <line x1="36" y1="66" x2="36" y2="70" stroke="#4D7C0F" stroke-width="2" stroke-linecap="round"/>
+  <line x1="48" y1="62" x2="48" y2="67" stroke="#4D7C0F" stroke-width="2" stroke-linecap="round"/>
+  <line x1="60" y1="60" x2="60" y2="65" stroke="#4D7C0F" stroke-width="2" stroke-linecap="round"/>
+</svg>

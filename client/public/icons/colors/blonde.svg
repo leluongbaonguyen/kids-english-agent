@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="blondeSilk" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#FAF0BE"/>
+      <stop offset="80%" stop-color="#D9C88A"/>
+      <stop offset="100%" stop-color="#B8A468"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#e1d7a5" stroke-width="2.5"/>
+  <!-- Flowing Silky Flaxen Hair Lock -->
+  <path d="M 34,20 C 44,20 54,28 54,42 C 54,58 38,68 44,82 C 48,84 56,84 62,80 C 56,66 66,54 66,40 C 66,24 50,18 34,20 Z" fill="url(#blondeSilk)"/>
+  <!-- Silky strand highlights -->
+  <path d="M 40,24 Q 50,38 48,56 Q 44,68 50,80" stroke="#FFFFFF" stroke-width="1.8" fill="none" opacity="0.8"/>
+  <path d="M 46,22 Q 58,34 58,52 Q 56,68 60,78" stroke="#FFFFFF" stroke-width="1.5" fill="none" opacity="0.8"/>
+</svg>

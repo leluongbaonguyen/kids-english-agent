@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="smokeWisps" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#738276"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#64748B" stroke-width="2.5"/>
+  <!-- Billowing Volumetric Smoke Plumes Swirling Upward -->
+  <path d="M 48,82 Q 42,66 54,54 Q 68,42 58,26 Q 50,14 42,18" stroke="url(#smokeWisps)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M 54,82 Q 62,64 48,46 Q 34,28 50,16" stroke="url(#smokeWisps)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <circle cx="56" cy="36" r="6" fill="#CBD5E1" opacity="0.8"/>
+</svg>

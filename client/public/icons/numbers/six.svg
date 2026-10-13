@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="sixAmber" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#D97706" stroke-width="2.5"/>
+  <!-- Hexagon grid lines -->
+  <polygon points="50,18 78,34 78,66 50,82 22,66 22,34" fill="none" stroke="#FDE68A" stroke-width="2"/>
+  <!-- Number 6 Loop -->
+  <path d="M 60,24 L 52,28 C 40,36 32,50 32,64 C 32,76 40,82 50,82 C 62,82 70,74 70,62 C 70,50 60,44 50,44 C 44,44 38,48 34,54 C 36,44 44,34 56,28 Z M 50,54 C 56,54 60,58 60,63 C 60,68 56,72 50,72 C 44,72 40,68 40,63 C 40,58 44,54 50,54 Z" fill="url(#sixAmber)" stroke="#78350F" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(217,119,6,0.3))"/>
+  <circle cx="50" cy="63" r="3" fill="#FFFFFF" opacity="0.6"/>
+</svg>

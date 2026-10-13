@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="barkMacro" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#57534E"/>
+      <stop offset="50%" stop-color="#78716C"/>
+      <stop offset="100%" stop-color="#44403C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#78716C" stroke-width="2.5"/>
+  <!-- MACRO CLOSE-UP OF RUGGED CRACKED WOOD BARK (Cận cảnh vỏ cây nứt dọc sần sùi) -->
+  <rect x="14" y="14" width="72" height="72" rx="10" fill="url(#barkMacro)"/>
+  <!-- Deep Longitudinal Fissures / Cracks (Các rãnh nứt dọc sâu) -->
+  <path d="M 28,14 Q 32,36 28,52 Q 34,70 30,86" stroke="#1C1917" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 48,14 Q 44,32 50,50 Q 46,68 48,86" stroke="#1C1917" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M 68,14 Q 72,34 66,54 Q 70,72 68,86" stroke="#1C1917" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Natural moss/lichen patches on bark -->
+  <ellipse cx="38" cy="42" rx="4" ry="7" fill="#84CC16" opacity="0.8"/>
+  <ellipse cx="58" cy="62" rx="5" ry="6" fill="#65A30D" opacity="0.8"/>
+</svg>

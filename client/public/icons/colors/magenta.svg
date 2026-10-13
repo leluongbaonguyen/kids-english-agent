@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="magentaCore" cx="40%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FF66FF"/>
+      <stop offset="60%" stop-color="#FF00FF"/>
+      <stop offset="100%" stop-color="#990099"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FDF4FF" stroke="#e600e6" stroke-width="2.5"/>
+  <!-- Glowing Optical Flower / Geometric Crystal -->
+  <circle cx="50" cy="50" r="34" fill="url(#magentaCore)" filter="drop-shadow(0 0 8px #FF00FF88)"/>
+  <circle cx="50" cy="28" r="14" fill="#FF1493" opacity="0.7"/>
+  <circle cx="70" cy="44" r="14" fill="#FF1493" opacity="0.7"/>
+  <circle cx="62" cy="68" r="14" fill="#C71585" opacity="0.7"/>
+  <circle cx="38" cy="68" r="14" fill="#C71585" opacity="0.7"/>
+  <circle cx="30" cy="44" r="14" fill="#FF1493" opacity="0.7"/>
+  <!-- Pure Center Diamond Glint -->
+  <polygon points="50,38 54,48 64,50 54,52 50,62 46,52 36,50 46,48" fill="#FFFFFF"/>
+</svg>

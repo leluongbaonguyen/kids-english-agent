@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#047857" stroke-width="2.5"/>
+  <!-- Brown Trunk -->
+  <rect x="46" y="74" width="8" height="14" fill="#78350F"/>
+  <!-- LAYERED CONICAL EVERGREEN PAGODA TIERS (Tán hình nón tầng tầng lớp lớp) -->
+  <polygon points="50,14 26,40 74,40" fill="#065F46"/>
+  <polygon points="50,28 22,54 78,54" fill="#047857"/>
+  <polygon points="50,42 16,74 84,74" fill="#064E3B"/>
+  <!-- Needle branch tufts highlights -->
+  <polygon points="50,18 32,38 68,38" fill="#10B981" opacity="0.4"/>
+  <polygon points="50,32 28,52 72,52" fill="#10B981" opacity="0.4"/>
+  <!-- Brown Pinecone hanging on branch -->
+  <ellipse cx="64" cy="56" rx="3.5" ry="4.5" fill="#B45309"/>
+  <ellipse cx="36" cy="56" rx="3.5" ry="4.5" fill="#B45309"/>
+</svg>

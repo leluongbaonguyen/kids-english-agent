@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="flaxSheaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9D6"/>
+      <stop offset="50%" stop-color="#EEDC82"/>
+      <stop offset="100%" stop-color="#A89445"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#d5c369" stroke-width="2.5"/>
+  <!-- Harvested Flaxen Wheat Sheaf / Spun Thread -->
+  <path d="M 38,20 Q 50,45 36,80 M 50,18 L 50,82 M 62,20 Q 50,45 64,80" stroke="url(#flaxSheaf)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Blue Flax Blossom in center -->
+  <circle cx="50" cy="45" r="5" fill="#38BDF8"/>
+  <circle cx="50" cy="45" r="2" fill="#FACC15"/>
+  <!-- Tie Ribbon -->
+  <rect x="42" y="48" width="16" height="5" rx="2" fill="#CA8A04"/>
+  <circle cx="44" cy="30" r="2" fill="#FFFFFF" opacity="0.8"/>
+</svg>

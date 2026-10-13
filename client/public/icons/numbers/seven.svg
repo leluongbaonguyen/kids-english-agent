@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="sevenSky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- Seven Stars Constellation dot ring -->
+  <circle cx="50" cy="50" r="32" fill="none" stroke="#BAE6FD" stroke-width="2" stroke-dasharray="8,6"/>
+  <!-- Sleek Modern Number 7 -->
+  <path d="M 32,24 L 68,24 L 68,32 L 48,82 L 36,82 L 56,34 L 32,34 Z" fill="url(#sevenSky)" stroke="#0C4A6E" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(2,132,199,0.3))"/>
+  <!-- Top Specular -->
+  <line x1="34" y1="26" x2="66" y2="26" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="64" cy="30" r="2.5" fill="#FFFFFF"/>
+</svg>

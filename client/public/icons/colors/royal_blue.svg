@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="royalGrad" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="45%" stop-color="#4169E1"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#EFF6FF" stroke="#2850c8" stroke-width="2.5"/>
+  <!-- Regal Imperial Shield -->
+  <path d="M 50,18 C 72,18 78,32 78,54 C 78,74 50,86 50,86 C 50,86 22,74 22,54 C 22,32 28,18 50,18 Z" fill="url(#royalGrad)"/>
+  <!-- Fleur-de-lis Gold Emblem -->
+  <path d="M 50,34 C 52,44 58,48 58,56 C 58,62 52,64 50,66 C 48,64 42,62 42,56 C 42,48 48,44 50,34 Z" fill="#FBBF24"/>
+  <path d="M 50,56 C 44,56 36,50 36,44 C 36,40 40,40 42,44 C 44,48 48,54 50,56 Z" fill="#FBBF24"/>
+  <path d="M 50,56 C 56,56 64,50 64,44 C 64,40 60,40 58,44 C 56,48 52,54 50,56 Z" fill="#FBBF24"/>
+  <rect x="44" y="58" width="12" height="3" fill="#D97706"/>
+  <!-- Shield Specular -->
+  <path d="M 30,26 C 36,22 48,20 60,22" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75"/>
+</svg>

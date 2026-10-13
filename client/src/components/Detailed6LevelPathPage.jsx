@@ -13,11 +13,11 @@ export default function Detailed6LevelPathPage({ onNavigateTab, addToast, curren
     } catch (e) {}
     return {
       L1: { count: 0, total: 150, percent: 0, unlocked: true },
-      L2: { count: 0, total: 150, percent: 0, unlocked: false },
-      L3: { count: 0, total: 150, percent: 0, unlocked: false },
-      L4: { count: 0, total: 150, percent: 0, unlocked: false },
-      L5: { count: 0, total: 150, percent: 0, unlocked: false },
-      L6: { count: 0, total: 150, percent: 0, unlocked: false }
+      L2: { count: 0, total: 150, percent: 0, unlocked: true },
+      L3: { count: 0, total: 150, percent: 0, unlocked: true },
+      L4: { count: 0, total: 150, percent: 0, unlocked: true },
+      L5: { count: 0, total: 150, percent: 0, unlocked: true },
+      L6: { count: 0, total: 150, percent: 0, unlocked: true }
     };
   });
 

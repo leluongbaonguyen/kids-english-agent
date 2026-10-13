@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="chalkCylinder" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4D4D4"/>
+      <stop offset="40%" stop-color="#F6F6F6"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2.5"/>
+  <!-- White School Chalk Stick & Blackboard Dust Stroke -->
+  <!-- Chalk stroke background -->
+  <path d="M 20,74 Q 50,68 80,74" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+  <!-- Chalk Cylinder Stick -->
+  <path d="M 32,32 L 68,68 L 60,76 L 24,40 Z" fill="url(#chalkCylinder)" stroke="#A3A3A3" stroke-width="1.5"/>
+  <ellipse cx="28" cy="36" rx="6" ry="4" transform="rotate(45, 28, 36)" fill="#FFFFFF"/>
+  <circle cx="68" cy="68" r="3" fill="#E5E5E5"/>
+</svg>

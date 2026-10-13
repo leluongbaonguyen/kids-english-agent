@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="crimsonGlow" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FF4D6D"/>
+      <stop offset="45%" stop-color="#DC143C"/>
+      <stop offset="100%" stop-color="#690000"/>
+    </radialGradient>
+    <linearGradient id="crimsonLiquid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF758F"/>
+      <stop offset="70%" stop-color="#DC143C"/>
+      <stop offset="100%" stop-color="#590D22"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF0F3" stroke="#c30023" stroke-width="2.5"/>
+  <!-- Velvet Swatch Shield -->
+  <path d="M 28,26 C 38,20 62,20 72,26 C 74,48 66,74 50,82 C 34,74 26,48 28,26 Z" fill="url(#crimsonGlow)" filter="drop-shadow(0 4px 6px rgba(128,0,32,0.3))"/>
+  <!-- Glossy Swirl -->
+  <path d="M 34,34 Q 50,26 66,34 Q 58,54 44,60 Q 32,54 34,34 Z" fill="url(#crimsonLiquid)" opacity="0.6"/>
+  <!-- Specular Light Curves -->
+  <path d="M 36,30 Q 50,24 64,30" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <circle cx="42" cy="38" r="3.5" fill="#FFFFFF" opacity="0.75"/>
+  <circle cx="48" cy="46" r="1.8" fill="#FFFFFF" opacity="0.8"/>
+  <!-- Pure Gold Crown Accent -->
+  <path d="M 44,18 L 47,23 L 50,19 L 53,23 L 56,18 L 55,26 L 45,26 Z" fill="#F59E0B"/>
+</svg>

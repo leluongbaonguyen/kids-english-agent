@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="rubyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5D8F"/>
+      <stop offset="50%" stop-color="#E0115F"/>
+      <stop offset="100%" stop-color="#590D22"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF0F5" stroke="#c70046" stroke-width="2.5"/>
+  <!-- Brilliant Cut Ruby Gemstone -->
+  <polygon points="32,32 68,32 82,48 50,84 18,48" fill="url(#rubyGrad)" stroke="#800020" stroke-width="1.5"/>
+  <!-- Gemstone Facets -->
+  <polygon points="32,32 50,42 68,32" fill="#FF758F"/>
+  <polygon points="32,32 18,48 36,48 50,42" fill="#C9184A"/>
+  <polygon points="68,32 82,48 64,48 50,42" fill="#FF4D6D"/>
+  <polygon points="18,48 50,84 36,48" fill="#800F2F"/>
+  <polygon points="82,48 50,84 64,48" fill="#590D22"/>
+  <polygon points="36,48 64,48 50,84" fill="#E0115F"/>
+  <!-- Specular Shimmer -->
+  <polygon points="36,35 44,35 40,40" fill="#FFFFFF" opacity="0.85"/>
+  <polygon points="70,42 74,45 71,48 68,45" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="30" cy="44" r="2" fill="#FFFFFF" opacity="0.75"/>
+</svg>

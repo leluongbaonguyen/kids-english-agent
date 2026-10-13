@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="halfPie" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="60%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#EFF6FF" stroke="#2563EB" stroke-width="2.5"/>
+  <!-- Complete Circle Base -->
+  <circle cx="50" cy="50" r="32" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1.5"/>
+  <!-- 1/2 Sliced Half Circle (Left Half) -->
+  <path d="M 50,18 A 32 32 0 0 0 50,82 Z" fill="url(#halfPie)" stroke="#1E40AF" stroke-width="2"/>
+  <line x1="50" y1="18" x2="50" y2="82" stroke="#FFFFFF" stroke-width="2.5"/>
+  <!-- Fraction Text "1/2" -->
+  <text x="50" y="92" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#1E40AF">1/2</text>
+  <circle cx="38" cy="38" r="3" fill="#FFFFFF" opacity="0.8"/>
+</svg>

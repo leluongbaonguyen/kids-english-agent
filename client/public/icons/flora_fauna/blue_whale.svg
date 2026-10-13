@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="whaleBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- STREAMLINED IMMENSE BLUE BODY (Thân xanh lam thon dài khổng lồ) -->
+  <path d="M 12,46 C 24,36 60,34 82,46 C 88,50 82,56 74,56 C 54,58 32,64 16,58 C 10,54 10,50 12,46 Z" fill="url(#whaleBlue)"/>
+  <!-- Broad Tail Flukes (Đuôi xòe ngang hùng vĩ) -->
+  <polygon points="82,46 94,36 90,48 94,60" fill="url(#whaleBlue)"/>
+  <!-- Ventral Pleats / Grooves (Rãnh bụng xếp nếp chạy dọc họng) -->
+  <path d="M 16,56 Q 32,60 48,58 M 18,53 Q 34,57 52,55 M 20,50 Q 36,54 54,52" stroke="#BAE6FD" stroke-width="1.3" fill="none"/>
+  <!-- Tiny Dorsal Fin set far back -->
+  <polygon points="70,44 74,40 76,45" fill="#0369A1"/>
+  <!-- Pectoral Flipper -->
+  <ellipse cx="40" cy="56" rx="10" ry="3.5" transform="rotate(25, 40, 56)" fill="#0369A1"/>
+  <!-- Peaceful Whale Eye & Blowhole spout -->
+  <circle cx="24" cy="48" r="1.8" fill="#082F49"/>
+  <!-- Water spout -->
+  <path d="M 30,36 C 30,26 26,22 24,20 M 30,26 C 32,22 36,20 38,20" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

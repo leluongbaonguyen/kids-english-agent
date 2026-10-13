@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="platGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="45%" stop-color="#E5E4E2"/>
+      <stop offset="85%" stop-color="#BDBBB7"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAFAFA" stroke="#D4D4D8" stroke-width="2.5"/>
+  <!-- Platinum Crown Ring with Super Brilliant Refraction -->
+  <circle cx="50" cy="50" r="32" fill="url(#platGrad)" stroke="#A1A1AA" stroke-width="2"/>
+  <circle cx="50" cy="50" r="22" fill="#FAFAFA" stroke="#A1A1AA" stroke-width="1.5"/>
+  <!-- White Specular Sparkles -->
+  <polygon points="50,20 52,24 56,26 52,28 50,32 48,28 44,26 48,24" fill="#FFFFFF"/>
+  <polygon points="74,50 72,53 68,55 72,57 74,60 76,57 80,55 76,53" fill="#FFFFFF"/>
+</svg>

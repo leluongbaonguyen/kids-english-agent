@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="raySlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#64748B"/>
+      <stop offset="50%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- FLAT RHOMBOID WIDE WINGED DISC (Thân dẹt hình thoi cánh rộng uốn lượn) -->
+  <path d="M 50,18 C 66,28 88,44 86,52 C 78,58 64,62 50,66 C 36,62 22,58 14,52 C 12,44 34,28 50,18 Z" fill="url(#raySlate)"/>
+  <!-- Undulating Wingtip Highlights -->
+  <path d="M 14,52 Q 24,50 34,54" stroke="#94A3B8" stroke-width="1.8" fill="none"/>
+  <path d="M 86,52 Q 76,50 66,54" stroke="#94A3B8" stroke-width="1.8" fill="none"/>
+  <!-- Raised Eyes & Spiracles on top of head -->
+  <circle cx="45" cy="28" r="3" fill="#0F172A"/>
+  <circle cx="55" cy="28" r="3" fill="#0F172A"/>
+  <circle cx="45" cy="27" r="1" fill="#FFFFFF"/>
+  <circle cx="55" cy="27" r="1" fill="#FFFFFF"/>
+  <!-- LONG WHIP-LIKE TAIL WITH BARB (Đuôi dài mảnh như cây roi) -->
+  <path d="M 50,66 Q 50,82 54,92" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Toxic Barb -->
+  <polygon points="50,74 52,70 52,76" fill="#F8FAFC"/>
+  <!-- Pale Blue Spots (Đốm xanh ngọc như cá đuối hoa) -->
+  <circle cx="42" cy="40" r="2" fill="#38BDF8"/>
+  <circle cx="58" cy="40" r="2" fill="#38BDF8"/>
+  <circle cx="34" cy="48" r="2.2" fill="#38BDF8"/>
+  <circle cx="66" cy="48" r="2.2" fill="#38BDF8"/>
+  <circle cx="50" cy="52" r="2" fill="#38BDF8"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="camoLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="50%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- Giant Background Leaf with Veins -->
+  <path d="M 16,84 C 18,40 56,20 86,16 C 82,60 60,82 16,84 Z" fill="url(#camoLeaf)"/>
+  <line x1="16" y1="84" x2="86" y2="16" stroke="#14532D" stroke-width="2.5"/>
+  <line x1="38" y1="62" x2="30" y2="52" stroke="#14532D" stroke-width="1.8"/>
+  <line x1="56" y1="44" x2="48" y2="34" stroke="#14532D" stroke-width="1.8"/>
+  <line x1="56" y1="44" x2="68" y2="52" stroke="#14532D" stroke-width="1.8"/>
+  <!-- CRYPTIC CAMOUFLAGED GECKO / INSECT SEAMLESSLY BLENDING IN (Con vật hòa màu hoàn toàn vào gân lá) -->
+  <path d="M 40,64 Q 54,46 62,38" stroke="#16A34A" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- Matching Body & Disguised Eyes -->
+  <ellipse cx="58" cy="42" rx="5" ry="4" transform="rotate(-40, 58, 42)" fill="#22C55E"/>
+  <!-- Only subtle eye gives away camouflage -->
+  <circle cx="56" cy="40" r="1.5" fill="#FACC15"/>
+  <circle cx="56" cy="40" r="0.8" fill="#000000"/>
+  <!-- Camouflaged legs matching leaf lateral veins -->
+  <path d="M 46,54 Q 38,50 36,44" stroke="#16A34A" stroke-width="2" fill="none"/>
+  <path d="M 52,48 Q 62,48 66,54" stroke="#16A34A" stroke-width="2" fill="none"/>
+</svg>

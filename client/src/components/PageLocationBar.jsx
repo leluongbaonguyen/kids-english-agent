@@ -2,14 +2,13 @@ import React from 'react';
 import { Compass } from 'lucide-react';
 
 export const ROUTE_MAP = {
-  'intro': { slug: 'gioi-thieu', title: 'Trang Giới Thiệu (Hero Intro)', icon: '✨', path: 'Trang giới thiệu', badge: 'HERO' },
-  'home': { slug: 'trang-chu', title: 'Trang Chủ Dashboard', icon: '🏠', path: 'Trang chủ', badge: 'MAIN' },
-  'daily_path': { slug: 'lo-trinh-15-phut', title: '🎯 Lộ Trình 15 Phút', icon: '🎯', path: 'Lộ trình học 15 phút', badge: '15 MIN' },
+  'intro': { slug: 'gioi-thieu', title: '✨ Trang Giới Thiệu V6.1 Siêu Chi Tiết', icon: '✨', path: 'Giới thiệu', badge: '1,260 Từ' },
+  'auth': { slug: 'dang-nhap', title: '🔐 Đăng Nhập Hệ Thống', icon: '🔐', path: 'Đăng nhập', badge: 'Bảo Mật' },
+  'flashcards': { slug: 'tu-vung-toan-he-thong', title: 'Toàn Bộ 1,260 Từ Vựng Siêu Chi Tiết', icon: '🌟', path: 'Từ vựng toàn hệ thống', badge: '1,260 Từ' },
   'detailed_path': { slug: 'lo-trinh-6-cap-do', title: '🗺️ Lộ Trình 6 Cấp Độ Siêu Chi Tiết', icon: '🗺️', path: 'Lộ trình 6 cấp độ', badge: 'L1 - L6' },
   'poster': { slug: 'khoa-hoc', title: 'Khóa Học & 90 Bài Học', icon: '🎨', path: 'Khóa học', badge: '90 Bài' },
-  'flashcards': { slug: 'thu-vien-tu-vung', title: 'Thư Viện Từ Vựng', icon: '📚', path: 'Thư viện từ vựng', badge: '900 Từ' },
   'quiz': { slug: 'bai-tap-game', title: 'Bài Tập & Game Center', icon: '🎮', path: 'Bài tập & Games', badge: 'Games' },
-  'games': { slug: 'games', title: 'Bài Tập & Trò Chơi Mini Games', icon: '🎮', path: 'Bài tập & Games', badge: 'Games' },
+  'games': { slug: 'games', title: 'Bài Tập & Trò Chơi Games', icon: '🎮', path: 'Bài tập & Games', badge: 'Games' },
   'review_cycles': { slug: 'chu-ky-on-tap', title: 'Chu Kỳ Ôn Tập SRS', icon: '🔄', path: 'Chu kỳ SRS', badge: 'SRS' },
   'db_table': { slug: 'quan-ly-csdl', title: 'Quản Lý CSDL & Excel', icon: '📁', path: 'Admin CSDL', badge: 'Admin' },
   'import_wizard': { slug: 'nhap-du-lieu', title: 'Wizard Nhập Dữ Liệu', icon: '📤', path: 'Nhập dữ liệu', badge: 'Admin' },
@@ -19,7 +18,7 @@ export const ROUTE_MAP = {
 };
 
 export function PageLocationBar({ activeTab }) {
-  const currentRoute = ROUTE_MAP[activeTab] || ROUTE_MAP['home'];
+  const currentRoute = ROUTE_MAP[activeTab] || ROUTE_MAP['flashcards'];
 
   return (
     <div className="w-full glass-panel rounded-xl px-3 py-1.5 border border-pink-500/25 shadow-sm mb-2.5 flex items-center justify-between text-xs bg-slate-900/80 backdrop-blur-md">

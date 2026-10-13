@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="twoTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="50%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#115E59"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDFA" stroke="#0D9488" stroke-width="2.5"/>
+  <!-- Twin Stars background -->
+  <circle cx="28" cy="28" r="4" fill="#99F6E4"/>
+  <circle cx="72" cy="72" r="4" fill="#99F6E4"/>
+  <!-- Sculpted Number 2 Swan Curve -->
+  <path d="M 34,34 C 34,22 66,22 66,36 C 66,48 42,66 34,74 L 68,74 L 68,82 L 30,82 L 30,72 C 40,62 60,46 58,36 C 58,28 42,28 42,34 Z" fill="url(#twoTeal)" stroke="#134E4A" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(13,148,136,0.3))"/>
+  <!-- Specular Highlight -->
+  <path d="M 38,32 C 44,26 58,26 62,32" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

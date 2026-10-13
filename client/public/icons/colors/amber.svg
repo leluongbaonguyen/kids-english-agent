@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="amberGlow" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFE066"/>
+      <stop offset="50%" stop-color="#FFBF00"/>
+      <stop offset="100%" stop-color="#B26B00"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#e6a600" stroke-width="2.5"/>
+  <!-- Prehistoric Fossilized Amber Gem with Ancient Mosquito Leaf Inside -->
+  <path d="M 50,18 C 68,18 82,32 80,52 C 78,72 64,82 50,82 C 34,82 20,70 20,50 C 20,32 32,18 50,18 Z" fill="url(#amberGlow)"/>
+  <!-- Fossil Silhouette inside -->
+  <circle cx="48" cy="50" r="3" fill="#582900"/>
+  <path d="M 48,50 L 42,42 M 48,50 L 40,50 M 48,50 L 44,58 M 48,50 L 56,44 M 48,50 L 58,52" stroke="#582900" stroke-width="1.2"/>
+  <!-- Glassy Honey Sheen -->
+  <ellipse cx="38" cy="30" rx="8" ry="4" transform="rotate(-20, 38, 30)" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="62" cy="62" r="2.5" fill="#FFFFFF" opacity="0.75"/>
+</svg>

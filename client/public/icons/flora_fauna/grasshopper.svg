@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- MASSIVE CHEVRON JUMPING HIND LEGS (Chân sau cực to hình chữ V để bật nhảy) -->
+  <polyline points="46,54 26,24 20,68" stroke="#15803D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polyline points="54,54 74,24 80,68" stroke="#15803D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Long slender green body with folded wings -->
+  <ellipse cx="50" cy="54" rx="10" ry="20" fill="#22C55E"/>
+  <polygon points="46,38 50,30 54,38" fill="#15803D"/>
+  <!-- Large Head & Compound Eye -->
+  <circle cx="46" cy="34" r="2.5" fill="#A3E635"/>
+  <circle cx="54" cy="34" r="2.5" fill="#A3E635"/>
+  <circle cx="46" cy="34" r="1" fill="#000000"/>
+  <circle cx="54" cy="34" r="1" fill="#000000"/>
+  <!-- Threadlike Antennae -->
+  <path d="M 46,30 Q 38,16 32,12" stroke="#15803D" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M 54,30 Q 62,16 68,12" stroke="#15803D" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+</svg>

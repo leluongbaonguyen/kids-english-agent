@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="cypressSpire" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#064E3B"/>
+      <stop offset="50%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#047857" stroke-width="2.5"/>
+  <!-- Sunny Rolling Mediterranean Hill -->
+  <path d="M 6,86 Q 50,78 94,86 L 94,94 L 6,94 Z" fill="#FACC15"/>
+  <!-- Trunk Base -->
+  <rect x="48" y="78" width="4" height="10" fill="#78350F"/>
+  <!-- SLENDER COLUMNAR SPIRE (Tán hẹp thon dài vuốt nhọn hình ngọn tháp/cột) -->
+  <path d="M 50,10 C 44,24 40,58 43,80 L 57,80 C 60,58 56,24 50,10 Z" fill="url(#cypressSpire)"/>
+  <!-- Feathered flame-like scale texture -->
+  <path d="M 50,16 Q 46,30 50,38" stroke="#10B981" stroke-width="1.5" fill="none"/>
+  <path d="M 50,34 Q 44,48 50,56" stroke="#10B981" stroke-width="1.5" fill="none"/>
+  <path d="M 50,52 Q 44,66 50,74" stroke="#10B981" stroke-width="1.5" fill="none"/>
+</svg>

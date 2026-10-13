@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="nineRose" cx="45%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="50%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF1F2" stroke="#F43F5E" stroke-width="2.5"/>
+  <!-- Inverted Spiral Number 9 -->
+  <path d="M 40,76 L 48,72 C 60,64 68,50 68,36 C 68,24 60,18 50,18 C 38,18 30,26 30,38 C 30,50 40,56 50,56 C 56,56 62,52 66,46 C 64,56 56,66 44,72 Z M 50,46 C 44,46 40,42 40,37 C 40,32 44,28 50,28 C 56,28 60,32 60,37 C 60,42 56,46 50,46 Z" fill="url(#nineRose)" stroke="#9F1239" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(244,63,94,0.3))"/>
+  <circle cx="46" cy="34" r="2.5" fill="#FFFFFF"/>
+</svg>

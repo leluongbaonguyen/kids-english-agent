@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="ceruleanWave" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="60%" stop-color="#007BA7"/>
+      <stop offset="100%" stop-color="#034561"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#00628e" stroke-width="2.5"/>
+  <!-- Cerulean Horizon Ocean Crest -->
+  <path d="M 50,18 C 70,18 82,32 82,50 C 82,72 68,82 50,82 C 32,82 18,72 18,50 C 18,32 30,18 50,18 Z" fill="url(#ceruleanWave)"/>
+  <!-- Wave Creasts -->
+  <path d="M 22,50 Q 34,42 46,50 T 70,50 T 80,48" stroke="#E0F2FE" stroke-width="2.5" fill="none"/>
+  <path d="M 26,62 Q 38,56 50,62 T 74,62" stroke="#BAE6FD" stroke-width="2" fill="none"/>
+  <!-- Specular Sunlight Sparkles -->
+  <circle cx="38" cy="34" r="3" fill="#FFFFFF" opacity="0.9"/>
+  <polygon points="56,28 58,32 62,34 58,36 56,40 54,36 50,34 54,32" fill="#FFFFFF"/>
+</svg>

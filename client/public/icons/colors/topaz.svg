@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="topazGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="50%" stop-color="#FFC87C"/>
+      <stop offset="100%" stop-color="#B87314"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#e6af63" stroke-width="2.5"/>
+  <!-- Imperial Golden Topaz Diamond -->
+  <polygon points="50,18 78,38 70,78 30,78 22,38" fill="url(#topazGrad)" stroke="#D97706" stroke-width="1.8"/>
+  <polygon points="50,28 68,42 62,68 38,68 32,42" fill="#FFC87C"/>
+  <!-- Internal facets -->
+  <line x1="50" y1="18" x2="50" y2="28" stroke="#FEF3C7" stroke-width="1.5"/>
+  <line x1="78" y1="38" x2="68" y2="42" stroke="#FEF3C7" stroke-width="1.5"/>
+  <line x1="70" y1="78" x2="62" y2="68" stroke="#FEF3C7" stroke-width="1.5"/>
+  <line x1="30" y1="78" x2="38" y2="68" stroke="#FEF3C7" stroke-width="1.5"/>
+  <line x1="22" y1="38" x2="32" y2="42" stroke="#FEF3C7" stroke-width="1.5"/>
+  <!-- Sun Glint -->
+  <polygon points="48,32 50,36 54,38 50,40 48,44 46,40 42,38 46,36" fill="#FFFFFF"/>
+</svg>

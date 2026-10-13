@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="slateRock" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#94A3B8"/>
+      <stop offset="50%" stop-color="#708090"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#64748B" stroke-width="2.5"/>
+  <!-- Sharp Cleaved Metamorphic Slate Tile with Chiseled Edge -->
+  <polygon points="20,32 72,18 82,68 30,82" fill="url(#slateRock)" stroke="#334155" stroke-width="2"/>
+  <!-- Natural cleavage layer striations -->
+  <line x1="30" y1="42" x2="72" y2="32" stroke="#CBD5E1" stroke-width="1.8"/>
+  <line x1="28" y1="58" x2="76" y2="48" stroke="#CBD5E1" stroke-width="1.8"/>
+  <circle cx="44" cy="36" r="2.5" fill="#FFFFFF" opacity="0.6"/>
+</svg>

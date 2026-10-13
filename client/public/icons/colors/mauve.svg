@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="mauveVelvet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D0FE"/>
+      <stop offset="55%" stop-color="#E0B0FF"/>
+      <stop offset="100%" stop-color="#701A75"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5FF" stroke="#c797e6" stroke-width="2.5"/>
+  <!-- Victorian Antique Velvet Cameo Brooch -->
+  <ellipse cx="50" cy="50" rx="26" ry="34" fill="url(#mauveVelvet)" stroke="#A21CAF" stroke-width="2"/>
+  <ellipse cx="50" cy="50" rx="21" ry="29" stroke="#E879F9" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+  <!-- Vintage Cameo Profile Stencil -->
+  <circle cx="50" cy="44" r="8" fill="#FDF4FF"/>
+  <path d="M 44,56 C 44,50 56,50 56,56 L 56,64 L 44,64 Z" fill="#FDF4FF"/>
+  <circle cx="42" cy="32" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

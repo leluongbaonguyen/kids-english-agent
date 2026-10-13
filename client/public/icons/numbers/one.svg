@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="oneGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#EAB308"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#EAB308" stroke-width="2.5"/>
+  <!-- Starburst background -->
+  <circle cx="50" cy="50" r="32" fill="#FEF08A" opacity="0.4"/>
+  <!-- Beveled 3D Number 1 Pillar -->
+  <path d="M 40,32 L 50,22 L 54,22 L 54,72 L 64,72 L 64,80 L 36,80 L 36,72 L 46,72 L 46,36 L 38,40 Z" fill="url(#oneGold)" stroke="#A16207" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(161,98,7,0.3))"/>
+  <!-- Specular Edge -->
+  <path d="M 40,32 L 50,22 L 54,22 L 54,72" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <polygon points="50,14 52,18 56,20 52,22 50,26 48,22 44,20 48,18" fill="#F59E0B"/>
+</svg>

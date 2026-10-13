@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="goldMedal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="35%" stop-color="#FCD34D"/>
+      <stop offset="70%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#F59E0B" stroke-width="2.5"/>
+  <!-- Blue Victory Ribbon Hangings -->
+  <polygon points="42,20 32,54 42,48 50,54" fill="#2563EB"/>
+  <polygon points="58,20 68,54 58,48 50,54" fill="#1D4ED8"/>
+  <!-- Gold Medal Medallion -->
+  <circle cx="50" cy="54" r="28" fill="url(#goldMedal)" stroke="#92400E" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/>
+  <circle cx="50" cy="54" r="23" stroke="#FFFBEB" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+  <!-- Chiseled "1st" Typography -->
+  <text x="50" y="62" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="22" font-weight="900" text-anchor="middle" fill="#78350F">1st</text>
+  <!-- Laurel sprig left & right -->
+  <circle cx="36" cy="42" r="3" fill="#FFFFFF" opacity="0.8"/>
+  <polygon points="50,14 52,18 56,19 52,21 50,25 48,21 44,19 48,18" fill="#F59E0B"/>
+</svg>

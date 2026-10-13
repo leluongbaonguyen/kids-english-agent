@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="bioglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="60%" stop-color="#A3E635"/>
+      <stop offset="100%" stop-color="#A3E635" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#0F172A" stroke="#EAB308" stroke-width="2.5"/>
+  <!-- RADIATING BIOLUMINESCENT GLOW (Ánh sáng huỳnh quang vàng xanh lung linh) -->
+  <circle cx="50" cy="70" r="24" fill="url(#bioglow)"/>
+  <!-- Glow rays -->
+  <line x1="50" y1="62" x2="50" y2="92" stroke="#FEF08A" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="36" y1="70" x2="64" y2="70" stroke="#FEF08A" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- GLOWING ABDOMEN LANTERN (Bụng phát sáng) -->
+  <ellipse cx="50" cy="70" rx="8" ry="10" fill="#FACC15"/>
+  <!-- Hard Dark Elytra Wing Covers Spread Open (Hai cánh mở nhẹ) -->
+  <path d="M 48,46 C 42,48 24,56 22,68 C 32,68 44,56 48,46 Z" fill="#334155"/>
+  <path d="M 52,46 C 58,48 76,56 78,68 C 68,68 56,56 52,46 Z" fill="#334155"/>
+  <!-- Delicate flying wings underneath -->
+  <ellipse cx="32" cy="54" rx="14" ry="4" transform="rotate(25, 32, 54)" fill="#BAE6FD" opacity="0.6"/>
+  <ellipse cx="68" cy="54" rx="14" ry="4" transform="rotate(-25, 68, 54)" fill="#BAE6FD" opacity="0.6"/>
+  <!-- Black Head with Reddish Pronotum Shield -->
+  <ellipse cx="50" cy="42" rx="6" ry="4" fill="#EF4444"/>
+  <circle cx="50" cy="34" r="4" fill="#09090B"/>
+  <!-- Feathery antennae -->
+  <path d="M 48,32 Q 40,24 38,20" stroke="#94A3B8" stroke-width="1.2" fill="none"/>
+  <path d="M 52,32 Q 60,24 62,20" stroke="#94A3B8" stroke-width="1.2" fill="none"/>
+</svg>

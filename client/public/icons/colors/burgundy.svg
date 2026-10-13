@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="burgundyWine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B31B45"/>
+      <stop offset="50%" stop-color="#800020"/>
+      <stop offset="100%" stop-color="#400010"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF0F5" stroke="#670007" stroke-width="2.5"/>
+  <!-- Wine Glass Goblet with Rich Burgundy Wine -->
+  <path d="M 32,24 C 32,54 44,64 50,66 C 56,64 68,54 68,24 Z" fill="none" stroke="#D1D5DB" stroke-width="2"/>
+  <path d="M 34,36 C 38,52 46,60 50,62 C 54,60 62,52 66,36 Q 50,42 34,36 Z" fill="url(#burgundyWine)"/>
+  <!-- Surface reflection ellipse -->
+  <ellipse cx="50" cy="36" rx="16" ry="4" fill="#B31B45"/>
+  <ellipse cx="48" cy="35" rx="10" ry="2" fill="#E65C84" opacity="0.6"/>
+  <!-- Stem & Base -->
+  <line x1="50" y1="66" x2="50" y2="82" stroke="#9CA3AF" stroke-width="2.5"/>
+  <ellipse cx="50" cy="82" rx="14" ry="3.5" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+  <!-- Wine Glint -->
+  <path d="M 38,42 C 40,50 44,56 46,58" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <circle cx="60" cy="44" r="1.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

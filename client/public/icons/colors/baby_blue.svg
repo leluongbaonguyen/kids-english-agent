@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="babyGrad" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="55%" stop-color="#89CFF0"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#70b6d7" stroke-width="2.5"/>
+  <!-- Soft Cotton Teddy Cloud / Pacifier Charm -->
+  <circle cx="50" cy="50" r="30" fill="url(#babyGrad)"/>
+  <!-- Gentle Fluffy Rims -->
+  <circle cx="32" cy="40" r="10" fill="#E0F2FE" opacity="0.8"/>
+  <circle cx="68" cy="40" r="10" fill="#E0F2FE" opacity="0.8"/>
+  <circle cx="40" cy="62" r="12" fill="#BAE6FD" opacity="0.7"/>
+  <circle cx="60" cy="62" r="12" fill="#BAE6FD" opacity="0.7"/>
+  <!-- Innocent White Ribbon Bow -->
+  <path d="M 40,48 C 44,42 46,42 50,46 C 54,42 56,42 60,48 C 56,52 54,52 50,48 C 46,52 44,52 40,48 Z" fill="#FFFFFF"/>
+  <circle cx="50" cy="47" r="2.5" fill="#93C5FD"/>
+  <circle cx="44" cy="36" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+</svg>

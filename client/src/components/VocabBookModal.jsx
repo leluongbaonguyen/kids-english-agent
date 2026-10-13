@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Volume2, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { X, Volume2, Download, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 import PaginationControl from './PaginationControl.jsx';
+import VocabSmartIcon from './VocabSmartIcon.jsx';
 
 export default function VocabBookModal({
   isOpen,
@@ -71,12 +72,22 @@ export default function VocabBookModal({
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition cursor-pointer"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <a
+              href="/Kids_English_Vocabulary_Full_Database.xlsx"
+              download="Kids_English_Vocabulary_Full_Database.xlsx"
+              className="px-3 py-2 rounded-2xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/50 hover:bg-emerald-600/50 text-xs font-black flex items-center gap-1.5 transition"
+            >
+              <Download className="h-4 w-4" />
+              <span>Xuất Excel 900 Từ</span>
+            </a>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-2xl bg-rose-950 border border-rose-500/40 text-rose-300 hover:bg-rose-900 transition cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         {/* SEARCH BAR, SPEED SELECTOR & MASTERY STATE FILTERS */}
@@ -159,7 +170,7 @@ export default function VocabBookModal({
                     className="p-4 rounded-3xl border border-slate-800 bg-slate-900/90 space-y-2 hover:border-emerald-400 transition shadow"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-3xl">{w.image || '✨'}</span>
+                      <VocabSmartIcon item={w} className="w-10 h-10 text-3xl" />
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
                         isMastered
                           ? 'bg-emerald-950 text-emerald-300 border-emerald-500/40'
@@ -169,10 +180,28 @@ export default function VocabBookModal({
                       </span>
                     </div>
 
-                    <div>
+                    <div className="space-y-1">
                       <div className="text-lg font-black text-white font-heading">{w.word}</div>
-                      <div className="text-xs font-mono-code text-cyan-300 font-bold">{w.ipa}</div>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-xs font-mono-code text-cyan-300 font-bold">{w.ipa}</span>
+                        {w.vietnamesePhonetic && (
+                          <span className="text-[10px] font-bold text-pink-300 bg-pink-950/60 px-1.5 py-0.5 rounded border border-pink-500/30">
+                            Đọc: "{w.vietnamesePhonetic}"
+                          </span>
+                        )}
+                        {w.level && (
+                          <span className="text-[10px] font-black text-amber-300 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-500/30">
+                            {w.level}
+                          </span>
+                        )}
+                      </div>
                       <div className="text-xs text-amber-300 font-bold">"{w.meaning}"</div>
+                      {w.example && (
+                        <div className="text-[11px] text-slate-300 bg-slate-950/70 p-2 rounded-xl border border-slate-800 space-y-0.5">
+                          <div className="font-semibold text-slate-200">"{w.example}"</div>
+                          {w.exampleVi && <div className="text-slate-400 italic text-[10px]">({w.exampleVi})</div>}
+                        </div>
+                      )}
                     </div>
 
                     <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1">

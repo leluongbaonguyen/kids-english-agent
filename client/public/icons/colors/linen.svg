@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="linenWeave" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="65%" stop-color="#FAF0E6"/>
+      <stop offset="100%" stop-color="#E0D2C1"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FDFCF7" stroke="#E6DCCE" stroke-width="2.5"/>
+  <!-- Crisp Natural Folded Linen Napkin / Fabric Swatch -->
+  <polygon points="26,30 74,24 68,76 22,70" fill="url(#linenWeave)" stroke="#D9CCBD" stroke-width="1.8"/>
+  <!-- Woven Cross-Thread Texture -->
+  <line x1="30" y1="42" x2="70" y2="38" stroke="#E8DED1" stroke-width="1.5"/>
+  <line x1="28" y1="56" x2="68" y2="52" stroke="#E8DED1" stroke-width="1.5"/>
+  <line x1="42" y1="28" x2="38" y2="72" stroke="#E8DED1" stroke-width="1.5"/>
+  <line x1="56" y1="26" x2="52" y2="74" stroke="#E8DED1" stroke-width="1.5"/>
+</svg>

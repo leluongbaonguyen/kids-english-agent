@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="amethystCrystal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D8B4FE"/>
+      <stop offset="50%" stop-color="#9966CC"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5FF" stroke="#804db3" stroke-width="2.5"/>
+  <!-- Amethyst Geode Pointed Crystal Cluster -->
+  <polygon points="50,14 36,36 38,76 62,76 64,36" fill="url(#amethystCrystal)" stroke="#6B21A8" stroke-width="1.8"/>
+  <polygon points="50,14 50,76 62,76 64,36" fill="#7E22CE" opacity="0.6"/>
+  <!-- Secondary Crystal Left -->
+  <polygon points="26,42 18,54 22,78 36,78 34,50" fill="url(#amethystCrystal)"/>
+  <!-- Secondary Crystal Right -->
+  <polygon points="74,42 82,54 78,78 64,78 66,50" fill="url(#amethystCrystal)"/>
+  <!-- Shimmer -->
+  <polygon points="46,26 50,22 54,26 50,30" fill="#FFFFFF"/>
+  <circle cx="44" cy="48" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

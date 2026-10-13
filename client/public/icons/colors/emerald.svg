@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="50%" stop-color="#50C878"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#ECFDF5" stroke="#37af5f" stroke-width="2.5"/>
+  <!-- Emerald Cut Gemstone (Bát giác hình chữ nhật chuẩn mực) -->
+  <polygon points="26,24 74,24 84,36 84,64 74,76 26,76 16,64 16,36" fill="url(#emeraldGrad)" stroke="#047857" stroke-width="1.8"/>
+  <polygon points="34,34 66,34 74,42 74,58 66,66 34,66 26,58 26,42" fill="#50C878"/>
+  <!-- Facet Edge Lines -->
+  <line x1="26" y1="24" x2="34" y2="34" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="74" y1="24" x2="66" y2="34" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="84" y1="36" x2="74" y2="42" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="84" y1="64" x2="74" y2="58" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="74" y1="76" x2="66" y2="66" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="26" y1="76" x2="34" y2="66" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="16" y1="64" x2="26" y2="58" stroke="#A7F3D0" stroke-width="1.5"/>
+  <line x1="16" y1="36" x2="26" y2="42" stroke="#A7F3D0" stroke-width="1.5"/>
+  <!-- Glint -->
+  <polygon points="40,36 46,36 42,42" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="62" cy="54" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

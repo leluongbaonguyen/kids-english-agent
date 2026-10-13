@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="siennaGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#BA4E36"/>
+      <stop offset="60%" stop-color="#882D17"/>
+      <stop offset="100%" stop-color="#451207"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#6f1400" stroke-width="2.5"/>
+  <!-- Tuscan Terra di Siena Earth Sphere & Artist Palette Dab -->
+  <circle cx="50" cy="50" r="32" fill="url(#siennaGrad)"/>
+  <!-- Artistic brushstroke ring -->
+  <path d="M 32,40 Q 50,26 68,40 Q 60,68 36,60" stroke="#E07A5F" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <circle cx="42" cy="38" r="3" fill="#FFFFFF" opacity="0.7"/>
+</svg>

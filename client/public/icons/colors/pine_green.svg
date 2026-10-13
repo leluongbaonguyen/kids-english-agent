@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="pineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14B8A6"/>
+      <stop offset="50%" stop-color="#01796F"/>
+      <stop offset="100%" stop-color="#00332E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDFA" stroke="#006056" stroke-width="2.5"/>
+  <!-- Pine Cone & Needle Sprig -->
+  <path d="M 28,32 L 68,72 M 38,24 L 62,80 M 24,42 L 76,64" stroke="#0D9488" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Pine Cone Body -->
+  <ellipse cx="50" cy="54" rx="16" ry="22" fill="#78350F"/>
+  <!-- Overlapping Scales -->
+  <path d="M 40,40 C 44,36 56,36 60,40 C 56,46 44,46 40,40 Z" fill="#92400E"/>
+  <path d="M 36,48 C 42,44 58,44 64,48 C 60,54 40,54 36,48 Z" fill="#B45309"/>
+  <path d="M 38,58 C 44,54 56,54 62,58 C 58,64 42,64 38,58 Z" fill="#92400E"/>
+  <!-- Frost Glint -->
+  <circle cx="48" cy="38" r="2" fill="#CCFBF1" opacity="0.9"/>
+</svg>

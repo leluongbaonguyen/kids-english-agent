@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#FDF2F8" stroke="#DB2777" stroke-width="2.5"/>
+  <!-- Furry Paw Outline -->
+  <ellipse cx="50" cy="54" rx="26" ry="24" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="2"/>
+  <!-- LARGE MAIN HEART-SHAPED METACARPAL PAD (Đệm chính lớn hình trái tim) -->
+  <path d="M 50,50 C 42,46 32,54 36,66 C 40,74 50,80 50,80 C 50,80 60,74 64,66 C 68,54 58,46 50,50 Z" fill="#F472B6"/>
+  <!-- FOUR ROUNDED DIGITAL TOE PADS (Bốn đệm ngón nhỏ hồng hào) -->
+  <ellipse cx="30" cy="40" rx="5.5" ry="7" transform="rotate(-30, 30, 40)" fill="#F472B6"/>
+  <ellipse cx="44" cy="32" rx="5.5" ry="7.5" transform="rotate(-10, 44, 32)" fill="#F472B6"/>
+  <ellipse cx="56" cy="32" rx="5.5" ry="7.5" transform="rotate(10, 56, 32)" fill="#F472B6"/>
+  <ellipse cx="70" cy="40" rx="5.5" ry="7" transform="rotate(30, 70, 40)" fill="#F472B6"/>
+</svg>

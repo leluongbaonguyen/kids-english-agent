@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="scaleRainbow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- MACRO CLOSE-UP OF OVERLAPPING TILED ANIMAL SCALES (Cận cảnh các lớp vảy xếp chồng) -->
+  <!-- Row 1 (top) -->
+  <path d="M 24,20 C 24,34 44,34 44,20 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 44,20 C 44,34 64,34 64,20 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 64,20 C 64,34 84,34 84,20 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <!-- Row 2 -->
+  <path d="M 14,36 C 14,50 34,50 34,36 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 34,36 C 34,50 54,50 54,36 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 54,36 C 54,50 74,50 74,36 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <!-- Row 3 -->
+  <path d="M 24,52 C 24,66 44,66 44,52 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 44,52 C 44,66 64,66 64,52 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 64,52 C 64,66 84,66 84,52 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <!-- Row 4 -->
+  <path d="M 34,68 C 34,82 54,82 54,68 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+  <path d="M 54,68 C 54,82 74,82 74,68 Z" fill="url(#scaleRainbow)" stroke="#FFFFFF" stroke-width="1.5"/>
+</svg>

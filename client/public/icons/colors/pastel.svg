@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#FFF5F7" stroke="#F472B6" stroke-width="2.5"/>
+  <!-- Trio of Soft Powdery Pastel Macaron Sweets -->
+  <!-- Lavender macaron -->
+  <ellipse cx="50" cy="34" rx="22" ry="9" fill="#E9D5FF"/>
+  <rect x="28" y="34" width="44" height="4" rx="2" fill="#C084FC"/>
+  <!-- Mint macaron -->
+  <ellipse cx="50" cy="50" rx="22" ry="9" fill="#CCFBF1"/>
+  <rect x="28" y="50" width="44" height="4" rx="2" fill="#5EEAD4"/>
+  <!-- Rose macaron -->
+  <ellipse cx="50" cy="66" rx="22" ry="9" fill="#FCE7F3"/>
+  <rect x="28" y="66" width="44" height="4" rx="2" fill="#F472B6"/>
+  <circle cx="42" cy="30" r="2" fill="#FFFFFF"/>
+</svg>

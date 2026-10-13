@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDFA" stroke="#0D9488" stroke-width="2.5"/>
+  <!-- Reflective Blue Pond Surface (Mặt nước hồ xanh biếc bên dưới) -->
+  <ellipse cx="50" cy="84" rx="38" ry="8" fill="#38BDF8" opacity="0.65"/>
+  <!-- Graceful Gnarled Trunk Leaning Over Water -->
+  <path d="M 46,84 Q 54,64 50,44" stroke="#78350F" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- LONG SWEEPING WEEPING BRANCHES CASCADING TO WATER (Cành liễu dài rủ xuống nước) -->
+  <path d="M 50,44 Q 32,52 24,78" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 38,56 34,80" stroke="#22C55E" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 46,58 44,82" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 56,58 54,82" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 64,56 66,80" stroke="#22C55E" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 70,52 76,78" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <!-- Water ripples -->
+  <ellipse cx="34" cy="82" rx="4" ry="1.2" stroke="#BAE6FD" stroke-width="1" fill="none"/>
+  <ellipse cx="66" cy="82" rx="4" ry="1.2" stroke="#BAE6FD" stroke-width="1" fill="none"/>
+</svg>

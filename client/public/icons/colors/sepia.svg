@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="sepiaPhoto" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C6B31"/>
+      <stop offset="50%" stop-color="#704214"/>
+      <stop offset="100%" stop-color="#381D05"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#572900" stroke-width="2.5"/>
+  <!-- Antique Sepia Tinted Photograph / Ink Flask -->
+  <rect x="24" y="24" width="52" height="52" rx="4" fill="#FAF5E8" stroke="#8C6239" stroke-width="2"/>
+  <rect x="28" y="28" width="44" height="44" fill="url(#sepiaPhoto)"/>
+  <!-- Nostalgic Portrait silhouette in sepia -->
+  <circle cx="50" cy="44" r="8" fill="#F4E8D1"/>
+  <path d="M 40,64 C 40,54 60,54 60,64 Z" fill="#F4E8D1"/>
+</svg>

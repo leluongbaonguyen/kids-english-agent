@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="midnightGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#2E2E8A"/>
+      <stop offset="60%" stop-color="#191970"/>
+      <stop offset="100%" stop-color="#050524"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#000057" stroke-width="2.5"/>
+  <!-- Deep Night Sky with Full Glowing Moon -->
+  <circle cx="50" cy="50" r="34" fill="url(#midnightGrad)"/>
+  <!-- Silvery Moon -->
+  <circle cx="50" cy="42" r="12" fill="#E2E8F0" filter="drop-shadow(0 0 6px #FFFFFF)"/>
+  <ellipse cx="46" cy="40" rx="3" ry="2" fill="#CBD5E1"/>
+  <ellipse cx="52" cy="45" rx="2" ry="1.5" fill="#CBD5E1"/>
+  <!-- Starlight dust -->
+  <circle cx="30" cy="32" r="1.2" fill="#FFFFFF"/>
+  <circle cx="68" cy="30" r="1.5" fill="#FFFFFF"/>
+  <circle cx="34" cy="62" r="1.2" fill="#FFFFFF"/>
+  <circle cx="64" cy="64" r="1.5" fill="#FFFFFF"/>
+  <!-- Mountain Silhouette under midnight blue -->
+  <polygon points="20,78 38,62 52,72 68,58 80,78" fill="#0A0A2E"/>
+</svg>

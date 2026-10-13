@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gnuCoat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#57534E"/>
+      <stop offset="100%" stop-color="#292524"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#E7E5E4" stroke="#44403C" stroke-width="2.5"/>
+  <!-- Heavy Elongated Head -->
+  <path d="M 38,36 L 62,36 L 58,74 L 42,74 Z" fill="url(#gnuCoat)"/>
+  <!-- Broad Flat Horn Boss & CURVED SIDEWAYS HORNS (Cặp sừng uốn ngang rồi quặp nhọn) -->
+  <path d="M 38,36 C 22,34 16,42 18,30 C 20,24 30,22 42,32 Z" fill="#1C1917"/>
+  <path d="M 62,36 C 78,34 84,42 82,30 C 80,24 70,22 58,32 Z" fill="#1C1917"/>
+  <rect x="36" y="32" width="28" height="6" rx="3" fill="#1C1917"/>
+  <!-- Ears below horns -->
+  <ellipse cx="26" cy="42" rx="7" ry="3.5" transform="rotate(-15, 26, 42)" fill="#44403C"/>
+  <ellipse cx="74" cy="42" rx="7" ry="3.5" transform="rotate(15, 74, 42)" fill="#44403C"/>
+  <!-- ERECT DORSAL MANE (Bờm đen dựng đứng sau gáy) -->
+  <path d="M 40,24 L 42,32 M 45,20 L 46,32 M 50,18 L 50,32 M 55,20 L 54,32 M 60,24 L 58,32" stroke="#0C0A09" stroke-width="3" stroke-linecap="round"/>
+  <!-- Long Snout & Broad Muzzle -->
+  <rect x="42" y="66" width="16" height="12" rx="4" fill="#0C0A09"/>
+  <circle cx="46" cy="72" r="2" fill="#44403C"/>
+  <circle cx="54" cy="72" r="2" fill="#44403C"/>
+  <!-- LONG SHAGGY BEARD UNDER CHIN (Chòm râu dài dưới cằm) -->
+  <path d="M 44,78 C 42,88 46,92 50,92 C 54,92 58,88 56,78 Z" fill="#0C0A09"/>
+  <!-- Eyes with prominent lateral ridge -->
+  <circle cx="36" cy="46" r="3.5" fill="#0C0A09"/>
+  <circle cx="64" cy="46" r="3.5" fill="#0C0A09"/>
+  <circle cx="35" cy="45" r="1" fill="#FFFFFF"/>
+  <circle cx="63" cy="45" r="1" fill="#FFFFFF"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="tenGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#F59E0B" stroke-width="2.5"/>
+  <!-- Digits "1" and "0" combined -->
+  <!-- Digit 1 -->
+  <path d="M 28,34 L 38,24 L 42,24 L 42,74 L 48,74 L 48,80 L 26,80 L 26,74 L 34,74 L 34,36 L 28,38 Z" fill="url(#tenGold)" stroke="#B45309" stroke-width="1.8"/>
+  <!-- Digit 0 -->
+  <ellipse cx="66" cy="52" rx="16" ry="26" fill="url(#tenGold)" stroke="#B45309" stroke-width="1.8"/>
+  <ellipse cx="66" cy="52" rx="7" ry="16" fill="#FEFCE8" stroke="#B45309" stroke-width="1.5"/>
+  <circle cx="36" cy="28" r="2" fill="#FFFFFF"/>
+  <circle cx="60" cy="38" r="2.5" fill="#FFFFFF"/>
+</svg>

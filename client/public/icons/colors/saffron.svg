@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="saffronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFDD66"/>
+      <stop offset="50%" stop-color="#F4C430"/>
+      <stop offset="100%" stop-color="#CC8800"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#dbab17" stroke-width="2.5"/>
+  <!-- Rare Red-Gold Saffron Crocus Threads -->
+  <circle cx="50" cy="50" r="32" fill="url(#saffronGrad)"/>
+  <!-- Crimson-Orange Saffron Stigmas (Sợi nhụy hoa nghệ tây quý hiếm) -->
+  <path d="M 50,72 Q 44,52 32,36 Q 28,30 32,24" stroke="#DC2626" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M 50,72 Q 50,48 50,30 Q 52,24 58,22" stroke="#DC2626" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M 50,72 Q 56,52 68,36 Q 72,30 68,24" stroke="#DC2626" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- Golden Flare Points -->
+  <circle cx="33" cy="24" r="2" fill="#FBBF24"/>
+  <circle cx="58" cy="22" r="2" fill="#FBBF24"/>
+  <circle cx="67" cy="24" r="2" fill="#FBBF24"/>
+</svg>

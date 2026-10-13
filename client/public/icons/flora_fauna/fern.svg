@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- PINNATE FRONDS WITH FEATHERY LEAFLETS (Lá dương xỉ xẻ thùy lông chim nhiều tầng) -->
+  <path d="M 22,88 Q 36,54 68,20" stroke="#15803D" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Leaflets paired -->
+  <polygon points="46,38 36,32 44,44" fill="#22C55E"/>
+  <polygon points="48,36 56,30 52,42" fill="#22C55E"/>
+  <polygon points="40,50 28,44 38,56" fill="#16A34A"/>
+  <polygon points="44,48 54,42 48,54" fill="#16A34A"/>
+  <polygon points="34,64 20,58 32,70" fill="#15803D"/>
+  <polygon points="38,62 50,56 42,68" fill="#15803D"/>
+  <!-- SPIRAL UNFURLING FIDDLEHEAD CROZIER (Chồi non cuộn xoắn đầu đàn violon) -->
+  <path d="M 52,88 Q 62,70 66,58 C 68,52 74,52 74,56 C 74,60 70,62 68,60" stroke="#4ADE80" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+</svg>

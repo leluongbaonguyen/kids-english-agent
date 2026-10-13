@@ -51,6 +51,8 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
     try {
       let result = null;
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
         const response = await fetch('/api/v1/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -58,13 +60,15 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
             email: emailToUse,
             password: passToUse,
             role: roleToUse
-          })
+          }),
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
         if (response.ok) {
           result = await response.json();
         }
       } catch (e) {
-        console.warn('Server auth endpoint unavailable, using local persistent auth:', e);
+        console.warn('Server auth endpoint unavailable or timed out, using local persistent auth:', e);
       }
 
       if (result && result.success && result.data?.token) {
@@ -180,6 +184,16 @@ export default function AuthGateScreen({ onLoginSuccess, onGoToIntro, addToast }
             ))}
           </div>
         </div>
+
+        {/* QUICK 1-CLICK INSTANT LOGIN BUTTON */}
+        <button
+          type="button"
+          onClick={() => performLoginCall('minhanh@kidsenglish.edu.vn', 'minhanh123', 'student')}
+          className="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-pink-400 to-purple-400 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_25px_rgba(244,114,182,0.6)] hover:scale-[1.02] active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer border border-white"
+        >
+          <Sparkles className="h-4 w-4 text-slate-950" />
+          <span>⚡ VÀO HỌC NGAY 1-CHẠM (BÉ MINH ANH)</span>
+        </button>
 
         {/* LOGIN / REGISTER FORM */}
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="lemonGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFF99"/>
+      <stop offset="60%" stop-color="#FAFA33"/>
+      <stop offset="100%" stop-color="#CCCC00"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#e1e11a" stroke-width="2.5"/>
+  <!-- Sun-Drenched Lemon Fruit with Pointed Tips -->
+  <path d="M 22,50 C 22,34 38,24 50,24 C 62,24 78,34 78,50 C 78,66 62,76 50,76 C 38,76 22,66 22,50 Z" fill="url(#lemonGrad)"/>
+  <!-- Lemon Nipples -->
+  <polygon points="18,50 24,46 24,54" fill="#FAFA33"/>
+  <polygon points="82,50 76,46 76,54" fill="#FAFA33"/>
+  <!-- Green leaf sprig -->
+  <path d="M 50,24 C 52,14 62,12 68,14 C 64,22 56,24 50,24 Z" fill="#65A30D"/>
+  <!-- Glossy Zest Highlight -->
+  <ellipse cx="42" cy="36" rx="8" ry="4" transform="rotate(-20, 42, 36)" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="58" cy="40" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

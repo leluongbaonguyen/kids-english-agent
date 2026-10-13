@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="antelopeCoat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="hornGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#52525B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#D97706" stroke-width="2.5"/>
+  <!-- Slender Head Profile -->
+  <path d="M 38,40 Q 32,58 42,75 Q 50,82 58,75 Q 68,58 62,40 Z" fill="url(#antelopeCoat)"/>
+  <!-- Slender Pointed Ears -->
+  <ellipse cx="26" cy="38" rx="10" ry="4.5" transform="rotate(-35, 26, 38)" fill="url(#antelopeCoat)"/>
+  <ellipse cx="26" cy="38" rx="7" ry="2.5" transform="rotate(-35, 26, 38)" fill="#FEF08A"/>
+  <ellipse cx="74" cy="38" rx="10" ry="4.5" transform="rotate(35, 74, 38)" fill="url(#antelopeCoat)"/>
+  <ellipse cx="74" cy="38" rx="7" ry="2.5" transform="rotate(35, 74, 38)" fill="#FEF08A"/>
+  <!-- DISTINCTIVE SLENDER RIDGED HORNS (Sừng linh dương dài cong vuốt nhọn, không phải gạc) -->
+  <path d="M 42,40 C 40,24 35,16 38,10 C 41,16 45,26 44,40 Z" fill="url(#hornGrad)"/>
+  <path d="M 58,40 C 60,24 65,16 62,10 C 59,16 55,26 56,40 Z" fill="url(#hornGrad)"/>
+  <!-- Ring ridges on horns -->
+  <line x1="39" y1="20" x2="43" y2="21" stroke="#A1A1AA" stroke-width="1.2"/>
+  <line x1="38" y1="26" x2="43" y2="27" stroke="#A1A1AA" stroke-width="1.2"/>
+  <line x1="37" y1="32" x2="44" y2="33" stroke="#A1A1AA" stroke-width="1.2"/>
+  <line x1="61" y1="20" x2="57" y2="21" stroke="#A1A1AA" stroke-width="1.2"/>
+  <line x1="62" y1="26" x2="57" y2="27" stroke="#A1A1AA" stroke-width="1.2"/>
+  <line x1="63" y1="32" x2="56" y2="33" stroke="#A1A1AA" stroke-width="1.2"/>
+  <!-- Facial Markings (Sọc đen trắng thanh nhã) -->
+  <path d="M 40,50 L 44,68" stroke="#18181B" stroke-width="1.8"/>
+  <path d="M 60,50 L 56,68" stroke="#18181B" stroke-width="1.8"/>
+  <ellipse cx="50" cy="74" rx="7" ry="5" fill="#FFFFFF"/>
+  <ellipse cx="50" cy="72" rx="3.5" ry="2" fill="#18181B"/>
+  <!-- Large Gentle Dark Eyes -->
+  <circle cx="36" cy="52" r="4.5" fill="#18181B"/>
+  <circle cx="64" cy="52" r="4.5" fill="#18181B"/>
+  <circle cx="35" cy="50" r="1.5" fill="#FFFFFF"/>
+  <circle cx="63" cy="50" r="1.5" fill="#FFFFFF"/>
+</svg>

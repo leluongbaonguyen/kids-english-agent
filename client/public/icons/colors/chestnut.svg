@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="chestnutNut" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#C26654"/>
+      <stop offset="55%" stop-color="#954535"/>
+      <stop offset="100%" stop-color="#4A180E"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5F0" stroke="#7c2c1c" stroke-width="2.5"/>
+  <!-- Glossy Roasted Chestnut Nut -->
+  <path d="M 50,22 C 66,32 76,52 72,70 C 66,78 34,78 28,70 C 24,52 34,32 50,22 Z" fill="url(#chestnutNut)"/>
+  <!-- Pale Hilum Base Pad -->
+  <path d="M 32,70 C 38,64 62,64 68,70 C 64,78 36,78 32,70 Z" fill="#E6BAA3"/>
+  <!-- Shiny Nut Reflection -->
+  <ellipse cx="44" cy="38" rx="7" ry="3.5" transform="rotate(-25, 44, 38)" fill="#FFFFFF" opacity="0.8"/>
+</svg>

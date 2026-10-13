@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="ashPuff" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="60%" stop-color="#B2BEB5"/>
+      <stop offset="100%" stop-color="#78847C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2.5"/>
+  <!-- Fluffy Cloud of Pure Wood Ash Particles -->
+  <circle cx="50" cy="50" r="30" fill="url(#ashPuff)"/>
+  <circle cx="36" cy="42" r="14" fill="#CBD5E1" opacity="0.7"/>
+  <circle cx="64" cy="42" r="14" fill="#CBD5E1" opacity="0.7"/>
+  <circle cx="48" cy="62" r="16" fill="#94A3B8" opacity="0.6"/>
+  <!-- Embers cooling down -->
+  <circle cx="42" cy="52" r="2" fill="#FCA5A5"/>
+  <circle cx="58" cy="48" r="1.5" fill="#FCA5A5"/>
+</svg>

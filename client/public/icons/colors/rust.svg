@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="rustMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D96838"/>
+      <stop offset="45%" stop-color="#B7410E"/>
+      <stop offset="100%" stop-color="#5E2005"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#9e2800" stroke-width="2.5"/>
+  <!-- Heavy Weathered Industrial Gear -->
+  <circle cx="50" cy="50" r="32" fill="url(#rustMetal)"/>
+  <!-- Gear Teeth -->
+  <rect x="46" y="14" width="8" height="8" rx="2" fill="#B7410E"/>
+  <rect x="46" y="78" width="8" height="8" rx="2" fill="#440000"/>
+  <rect x="14" y="46" width="8" height="8" rx="2" fill="#B7410E"/>
+  <rect x="78" y="46" width="8" height="8" rx="2" fill="#770100"/>
+  <!-- Center Axel -->
+  <circle cx="50" cy="50" r="14" fill="#3D1402"/>
+  <circle cx="50" cy="50" r="8" fill="#E2725B"/>
+  <!-- Rust Oxide Patches -->
+  <circle cx="38" cy="38" r="4" fill="#8B2500" opacity="0.7"/>
+  <circle cx="60" cy="42" r="5" fill="#E07A5F" opacity="0.6"/>
+  <circle cx="44" cy="60" r="4.5" fill="#712200" opacity="0.8"/>
+</svg>

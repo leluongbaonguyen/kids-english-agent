@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bronzeShield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E69C54"/>
+      <stop offset="45%" stop-color="#CD7F32"/>
+      <stop offset="100%" stop-color="#663B0F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#b46619" stroke-width="2.5"/>
+  <!-- Ancient Spartan Bronze Round Shield with Central Boss -->
+  <circle cx="50" cy="50" r="33" fill="url(#bronzeShield)" stroke="#5E350E" stroke-width="2"/>
+  <circle cx="50" cy="50" r="27" stroke="#E69C54" stroke-width="1.8" stroke-dasharray="4,2" fill="none"/>
+  <!-- Central Boss & Studs -->
+  <circle cx="50" cy="50" r="10" fill="#B06500"/>
+  <circle cx="50" cy="50" r="5" fill="#E69C54"/>
+  <!-- Specular Bronze Gleam -->
+  <path d="M 30,30 Q 50,18 70,30" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.75"/>
+</svg>

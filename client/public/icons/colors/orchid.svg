@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="orchidPetal" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#F0ABFC"/>
+      <stop offset="55%" stop-color="#DA70D6"/>
+      <stop offset="100%" stop-color="#701A75"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FDF4FF" stroke="#c157bd" stroke-width="2.5"/>
+  <!-- Exotic Tropical Orchid Bloom -->
+  <!-- Top Dorsal Sepal -->
+  <path d="M 50,16 C 42,26 42,38 50,44 C 58,38 58,26 50,16 Z" fill="url(#orchidPetal)"/>
+  <!-- Lateral Petals Left & Right -->
+  <ellipse cx="28" cy="42" rx="14" ry="9" transform="rotate(-20, 28, 42)" fill="url(#orchidPetal)"/>
+  <ellipse cx="72" cy="42" rx="14" ry="9" transform="rotate(20, 72, 42)" fill="url(#orchidPetal)"/>
+  <!-- Labellum Lip Petal -->
+  <path d="M 38,52 C 34,68 44,82 50,82 C 56,82 66,68 62,52 C 54,58 46,58 38,52 Z" fill="#BE185D"/>
+  <circle cx="50" cy="62" r="4" fill="#FACC15"/>
+  <circle cx="32" cy="38" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

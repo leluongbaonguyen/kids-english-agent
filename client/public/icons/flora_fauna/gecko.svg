@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="geckoSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#0F766E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDFA" stroke="#0D9488" stroke-width="2.5"/>
+  <!-- EXPANDED ADHESIVE TOE PADS (Đầu ngón tay xòe rộng bám tường) -->
+  <!-- Forefeet -->
+  <circle cx="22" cy="28" r="3.2" fill="#14B8A6"/>
+  <circle cx="26" cy="24" r="3.2" fill="#14B8A6"/>
+  <circle cx="30" cy="28" r="3.2" fill="#14B8A6"/>
+  <circle cx="70" cy="28" r="3.2" fill="#14B8A6"/>
+  <circle cx="74" cy="24" r="3.2" fill="#14B8A6"/>
+  <circle cx="78" cy="28" r="3.2" fill="#14B8A6"/>
+  <!-- Hindfeet -->
+  <circle cx="22" cy="74" r="3.2" fill="#14B8A6"/>
+  <circle cx="26" cy="78" r="3.2" fill="#14B8A6"/>
+  <circle cx="30" cy="74" r="3.2" fill="#14B8A6"/>
+  <circle cx="70" cy="74" r="3.2" fill="#14B8A6"/>
+  <circle cx="74" cy="78" r="3.2" fill="#14B8A6"/>
+  <circle cx="78" cy="74" r="3.2" fill="#14B8A6"/>
+  <!-- Body & Limbs climbing vertically -->
+  <path d="M 32,34 L 44,44 M 68,34 L 56,44 M 32,70 L 44,60 M 68,70 L 56,60" stroke="url(#geckoSkin)" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Torso & Head -->
+  <ellipse cx="50" cy="52" rx="10" ry="18" fill="url(#geckoSkin)"/>
+  <polygon points="50,22 40,36 60,36" fill="url(#geckoSkin)"/>
+  <!-- Fat segmented tail -->
+  <path d="M 50,68 C 50,78 54,88 52,94" stroke="url(#geckoSkin)" stroke-width="6" stroke-linecap="round"/>
+  <!-- Big Eyes with Vertical Wavy Slit Pupil -->
+  <circle cx="44" cy="28" r="3.5" fill="#FACC15"/>
+  <circle cx="56" cy="28" r="3.5" fill="#FACC15"/>
+  <line x1="44" y1="25" x2="44" y2="31" stroke="#000000" stroke-width="1.5"/>
+  <line x1="56" y1="25" x2="56" y2="31" stroke="#000000" stroke-width="1.5"/>
+</svg>

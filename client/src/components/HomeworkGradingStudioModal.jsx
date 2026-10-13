@@ -7,7 +7,6 @@ import {
   BarChart2, Zap, ArrowRight, RotateCcw, AlertTriangle, Layers, ListFilter,
   CheckSquare, Eye, Sliders, History, Info, Activity, Pause
 } from 'lucide-react';
-import AIPronunciationStudioModal from './AIPronunciationStudioModal';
 
 // ============================================================
 // DYNAMIC STUDENTS DATABASE & METADATA SNAPSHOTS (BR-014, BR-070)
@@ -338,7 +337,6 @@ export default function HomeworkGradingStudioModal({
 
   // Modals & Drawers States
   const [selectedPhonemeWord, setSelectedPhonemeWord] = useState(null); // For AI Phoneme Breakdown Modal
-  const [aiStudioWord, setAiStudioWord] = useState(null); // For Live AI 0-100 Pronunciation Assessment Studio
   const [showWeakPracticeModal, setShowWeakPracticeModal] = useState(false); // For Weak Word Practice Engine
   const [weakWordsList, setWeakWordsList] = useState([]);
   const [showSubmitModal, setShowSubmitModal] = useState(false); // Student Submission Modal
@@ -978,21 +976,14 @@ export default function HomeworkGradingStudioModal({
                               </button>
                             </div>
 
-                             <div className="grid grid-cols-2 gap-1 pt-1">
-                                <button
-                                  onClick={() => setSelectedPhonemeWord(item)}
-                                  className="py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold transition flex items-center justify-center gap-1 cursor-pointer"
-                                >
-                                  <BarChart2 className="h-3 w-3 text-amber-400" /> <span>Chi Tiết Phoneme</span>
-                                </button>
-
-                                <button
-                                  onClick={() => setAiStudioWord(item.word)}
-                                  className="py-1 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-black transition flex items-center justify-center gap-1 cursor-pointer shadow"
-                                >
-                                  <Mic className="h-3 w-3" /> <span>Thu Âm AI</span>
-                                </button>
-                              </div>
+                            <div className="pt-1">
+                              <button
+                                onClick={() => setSelectedPhonemeWord(item)}
+                                className="w-full py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold transition flex items-center justify-center gap-1 cursor-pointer"
+                              >
+                                <BarChart2 className="h-3 w-3 text-amber-400" /> <span>Chi Tiết Phoneme</span>
+                              </button>
+                            </div>
                             </div>
                           );
                         })}
@@ -1333,37 +1324,7 @@ export default function HomeworkGradingStudioModal({
           </div>
         )}
 
-        {/* LIVE AI PRONUNCIATION STUDIO MODAL (0-100 ZERO COST ENGINE) */}
-        {aiStudioWord && (
-          <AIPronunciationStudioModal
-            isOpen={Boolean(aiStudioWord)}
-            onClose={() => setAiStudioWord(null)}
-            targetWord={aiStudioWord}
-            studentId={selectedStudentId}
-            studentName={activeStudent.name}
-            addToast={addToast}
-            onScoreComplete={(result) => {
-              // Update current submission item score if matched
-              if (activeHw && activeHw.speechItems) {
-                const updatedItems = activeHw.speechItems.map((item) => {
-                  if (item.word.toLowerCase() === result.vocabularyWord.toLowerCase()) {
-                    return {
-                      ...item,
-                      overallScore: result.scores.overall,
-                      accuracyScore: result.scores.accuracy,
-                      fluencyScore: result.scores.timing,
-                      aiFeedback: result.feedback.actionAdvice,
-                      phonemes: result.phonemes
-                    };
-                  }
-                  return item;
-                });
-                const updatedSubmissions = submissions.map((s) => s.id === activeHw.id ? { ...s, speechItems: updatedItems } : s);
-                saveSubmissionsToStorage(updatedSubmissions);
-              }
-            }}
-          />
-        )}
+
 
         {/* AUDIT LOG MODAL (BR-065) */}
         {showAuditLogModal && (

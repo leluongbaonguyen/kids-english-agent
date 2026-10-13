@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="squidRuby" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="50%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#0F172A" stroke="#E11D48" stroke-width="2.5"/>
+  <!-- Torpedo Mantle & Lateral Fins -->
+  <polygon points="50,8 38,24 62,24" fill="url(#squidRuby)"/>
+  <path d="M 38,22 C 38,36 42,48 50,48 C 58,48 62,36 62,22 Z" fill="url(#squidRuby)"/>
+  <!-- GIANT DINNER-PLATE EYE (Mắt cực lớn đáy biển sâu) -->
+  <circle cx="43" cy="50" r="5" fill="#FEF08A"/>
+  <circle cx="57" cy="50" r="5" fill="#FEF08A"/>
+  <circle cx="43" cy="50" r="2.8" fill="#000000"/>
+  <circle cx="57" cy="50" r="2.8" fill="#000000"/>
+  <!-- 8 Arms undulating -->
+  <path d="M 44,54 Q 38,68 40,82" stroke="#E11D48" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M 47,54 Q 44,70 46,84" stroke="#BE123C" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+  <path d="M 53,54 Q 56,70 54,84" stroke="#BE123C" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+  <path d="M 56,54 Q 62,68 60,82" stroke="#E11D48" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- 2 ULTRA-LONG FEEDING TENTACLES WITH EXPANDED CLUBS (2 xúc tu săn mồi siêu dài) -->
+  <path d="M 41,54 Q 28,72 32,92" stroke="#FB7185" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 59,54 Q 72,72 68,92" stroke="#FB7185" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <ellipse cx="32" cy="92" rx="3.5" ry="2" fill="#F43F5E"/>
+  <ellipse cx="68" cy="92" rx="3.5" ry="2" fill="#F43F5E"/>
+</svg>

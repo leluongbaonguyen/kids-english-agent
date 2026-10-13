@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="goldBar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3B0"/>
+      <stop offset="35%" stop-color="#FFD700"/>
+      <stop offset="70%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#AA771C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFBEB" stroke="#e6be00" stroke-width="2.5"/>
+  <!-- Pure Gold Ingot Bullion / Coin -->
+  <circle cx="50" cy="50" r="33" fill="url(#goldBar)" stroke="#B45309" stroke-width="2"/>
+  <circle cx="50" cy="50" r="27" stroke="#FDE68A" stroke-width="1.8" stroke-dasharray="4,2" fill="none"/>
+  <!-- Crown Seal -->
+  <polygon points="50,38 54,46 62,40 58,56 42,56 38,40 46,46" fill="#FFFBEB"/>
+  <circle cx="38" cy="38" r="2" fill="#D97706"/>
+  <circle cx="50" cy="36" r="2.5" fill="#D97706"/>
+  <circle cx="62" cy="38" r="2" fill="#D97706"/>
+  <!-- Brilliant Gold Gleam -->
+  <polygon points="32,28 34,34 40,36 34,38 32,44 30,38 24,36 30,34" fill="#FFFFFF"/>
+  <circle cx="64" cy="58" r="3" fill="#FFFFFF" opacity="0.8"/>
+</svg>

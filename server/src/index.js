@@ -397,6 +397,12 @@ app.get('/api/vocabulary', async (req, res) => {
   }
 });
 
+// GET Full Vocabulary Excel File
+app.get(['/api/v1/vocabulary/excel', '/Kids_English_Vocabulary_Full_Database.xlsx'], (req, res) => {
+  const filePath = path.resolve('server/data/Kids_English_Vocabulary_Full_Database.xlsx');
+  res.download(filePath, 'Kids_English_Vocabulary_Full_Database.xlsx');
+});
+
 // ----------------------------------------------------
 // V5.0 SRS & QUIZ AUTHORITATIVE ENDPOINTS
 // ----------------------------------------------------
@@ -554,7 +560,7 @@ app.get('/api/v1/admin/learners/:id/levels', async (req, res) => {
     const progress = await readKidsProgress();
     return sendV1Success(res, {
       learnerId: req.params.id,
-      unlockedLevels: progress.unlockedLevels || { L1: true, L2: true, L3: true, L4: true, L5: true, L6: true },
+      unlockedLevels: progress.unlockedLevels || { L1: true, L2: true, L3: true, L4: true, L5: true, L6: true, BIO: true, COLOR: true, NUM: true },
       overrideAutoProgression: progress.overrideAutoProgression || false,
       updatedAt: progress.updatedAt || new Date().toISOString()
     });

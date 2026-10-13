@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="silverSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#C0C0C0"/>
+      <stop offset="70%" stop-color="#9E9E9E"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2.5"/>
+  <!-- Shining Pure Silver Medallion with Diamond Star -->
+  <circle cx="50" cy="50" r="33" fill="url(#silverSheen)" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="50" cy="50" r="27" stroke="#FFFFFF" stroke-width="1.8" stroke-dasharray="4,2" fill="none"/>
+  <!-- Silver Starburst -->
+  <polygon points="50,26 53,42 68,42 56,51 60,66 50,56 40,66 44,51 32,42 47,42" fill="#FFFFFF"/>
+  <circle cx="36" cy="34" r="3" fill="#FFFFFF"/>
+</svg>

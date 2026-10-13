@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="navyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="50%" stop-color="#000080"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#4747c7" stroke-width="2.5"/>
+  <!-- Admiralty Anchor Badge -->
+  <circle cx="50" cy="50" r="34" fill="url(#navyGrad)"/>
+  <!-- Gold Rope Ring -->
+  <circle cx="50" cy="50" r="31" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,2" fill="none"/>
+  <!-- Golden Anchor -->
+  <circle cx="50" cy="30" r="5" stroke="#FBBF24" stroke-width="2" fill="none"/>
+  <line x1="50" y1="35" x2="50" y2="65" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <line x1="40" y1="42" x2="60" y2="42" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 34,56 C 36,68 64,68 66,56" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <polygon points="32,56 36,54 36,58" fill="#FBBF24"/>
+  <polygon points="68,56 64,54 64,58" fill="#FBBF24"/>
+  <!-- High Seas Sheen -->
+  <path d="M 32,36 Q 44,28 64,34" stroke="#60A5FA" stroke-width="1.8" fill="none" opacity="0.6"/>
+</svg>

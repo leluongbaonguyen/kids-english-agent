@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- Glossy dark green leaves -->
+  <ellipse cx="28" cy="54" rx="16" ry="8" transform="rotate(-30, 28, 54)" fill="#15803D"/>
+  <ellipse cx="72" cy="54" rx="16" ry="8" transform="rotate(30, 72, 54)" fill="#15803D"/>
+  <ellipse cx="50" cy="74" rx="16" ry="8" fill="#166534"/>
+  <!-- PURE WHITE 5-PETALED STAR BLOSSOMS (Hoa nhài trắng tinh khiết 5 cánh hình sao) -->
+  <ellipse cx="50" cy="30" rx="6" ry="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <ellipse cx="66" cy="42" rx="6" ry="12" transform="rotate(72, 66, 42)" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <ellipse cx="60" cy="60" rx="6" ry="12" transform="rotate(144, 60, 60)" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <ellipse cx="40" cy="60" rx="6" ry="12" transform="rotate(216, 40, 60)" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <ellipse cx="34" cy="42" rx="6" ry="12" transform="rotate(288, 34, 42)" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <!-- Yellow Fragrant Center -->
+  <circle cx="50" cy="48" r="3.5" fill="#FDE047"/>
+</svg>

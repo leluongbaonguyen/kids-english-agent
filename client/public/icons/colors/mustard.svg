@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="mustardDip" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFF275"/>
+      <stop offset="55%" stop-color="#FFDB58"/>
+      <stop offset="100%" stop-color="#B38F00"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#e6c23f" stroke-width="2.5"/>
+  <!-- Gourmet French Dijon Mustard Crock / Swirl -->
+  <circle cx="50" cy="50" r="32" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="2"/>
+  <circle cx="50" cy="50" r="26" fill="url(#mustardDip)"/>
+  <!-- Swirl of creamy sauce -->
+  <path d="M 36,44 Q 50,32 64,46 Q 50,62 38,54" stroke="#FFF275" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Black mustard seeds -->
+  <circle cx="44" cy="48" r="1.5" fill="#451A03"/>
+  <circle cx="54" cy="42" r="1.5" fill="#451A03"/>
+  <circle cx="58" cy="54" r="1.5" fill="#451A03"/>
+  <circle cx="40" cy="56" r="1.5" fill="#451A03"/>
+</svg>

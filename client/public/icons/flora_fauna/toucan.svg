@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="beakRainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="35%" stop-color="#FB923C"/>
+      <stop offset="70%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#ECFDF5" stroke="#059669" stroke-width="2.5"/>
+  <!-- Black Glossy Body & Perch -->
+  <ellipse cx="36" cy="62" rx="16" ry="20" fill="#09090B"/>
+  <!-- Bright Yellow/White Throat Bib -->
+  <path d="M 32,44 C 42,44 48,50 48,64 C 38,68 28,64 28,52 Z" fill="#FEF08A"/>
+  <!-- Red under-tail covert -->
+  <path d="M 24,76 C 28,82 34,80 36,74 Z" fill="#EF4444"/>
+  <!-- Head with Blue Eye Ring -->
+  <circle cx="36" cy="42" r="11" fill="#09090B"/>
+  <circle cx="36" cy="40" r="5.5" fill="#38BDF8"/>
+  <circle cx="36" cy="40" r="2.8" fill="#000000"/>
+  <circle cx="35" cy="39" r="1" fill="#FFFFFF"/>
+  <!-- ENORMOUS MULTI-COLORED RAINBOW BEAK (Mỏ cầu vồng cực lớn) -->
+  <path d="M 44,36 C 60,32 78,36 86,48 C 76,58 56,56 44,52 Z" fill="url(#beakRainbow)"/>
+  <!-- Black tip of beak -->
+  <path d="M 80,44 C 84,47 86,48 86,48 C 82,53 78,54 78,54 Z" fill="#09090B"/>
+  <!-- Serrated beak tomia -->
+  <line x1="44" y1="44" x2="80" y2="48" stroke="#18181B" stroke-width="1.5"/>
+</svg>

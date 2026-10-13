@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="snowGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#FFFAFA"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2.5"/>
+  <!-- Hexagonal Intricate Crystalline Snowflake (Bông tuyết 6 cánh hoàn hảo) -->
+  <circle cx="50" cy="50" r="30" fill="url(#snowGlow)" opacity="0.4"/>
+  <!-- 6 Axes of Snowflake -->
+  <line x1="50" y1="20" x2="50" y2="80" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="24" y1="35" x2="76" y2="65" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="24" y1="65" x2="76" y2="35" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Crystals and Barbs -->
+  <path d="M 44,28 L 50,34 L 56,28 M 44,72 L 50,66 L 56,72" stroke="#0284C7" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="50" r="5" fill="#38BDF8"/>
+  <circle cx="50" cy="50" r="2" fill="#FFFFFF"/>
+</svg>

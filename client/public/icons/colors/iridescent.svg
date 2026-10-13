@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="iridSwirl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="25%" stop-color="#FACC15"/>
+      <stop offset="50%" stop-color="#22C55E"/>
+      <stop offset="75%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FDF4FF" stroke="#A855F7" stroke-width="2.5"/>
+  <!-- Floating Iridescent Soap Bubble Sphere with Polychromatic Film -->
+  <circle cx="50" cy="50" r="33" fill="url(#iridSwirl)" opacity="0.85"/>
+  <!-- Specular Crescent Reflections -->
+  <path d="M 30,34 Q 44,22 66,30" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="34" cy="38" r="2.5" fill="#FFFFFF"/>
+  <circle cx="68" cy="64" r="3" fill="#FFFFFF" opacity="0.8"/>
+</svg>

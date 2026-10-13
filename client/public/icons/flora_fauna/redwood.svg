@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="redwoodBark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#991B1B"/>
+      <stop offset="50%" stop-color="#B91C1C"/>
+      <stop offset="100%" stop-color="#7F1D1D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#991B1B" stroke-width="2.5"/>
+  <!-- Mountain misty clouds at base -->
+  <ellipse cx="28" cy="74" rx="16" ry="6" fill="#E2E8F0" opacity="0.75"/>
+  <ellipse cx="72" cy="74" rx="16" ry="6" fill="#E2E8F0" opacity="0.75"/>
+  <!-- TOWERING GIGANTIC RED-BARKED TRUNK (Thân cây thẳng tắp cực cao vỏ nâu đỏ) -->
+  <path d="M 44,92 L 47,12 L 53,12 L 56,92 Z" fill="url(#redwoodBark)"/>
+  <!-- Deep vertical bark furrows -->
+  <line x1="48" y1="14" x2="47" y2="90" stroke="#450A0A" stroke-width="1.5"/>
+  <line x1="52" y1="14" x2="53" y2="90" stroke="#450A0A" stroke-width="1.5"/>
+  <!-- Buttress flared base -->
+  <polygon points="44,92 36,94 48,84" fill="#7F1D1D"/>
+  <polygon points="56,92 64,94 52,84" fill="#7F1D1D"/>
+  <!-- Dense Conifer Foliage High Up in the Clouds -->
+  <polygon points="50,10 38,26 62,26" fill="#14532D"/>
+  <polygon points="50,22 34,38 66,38" fill="#166534"/>
+  <polygon points="50,34 32,50 68,50" fill="#15803D"/>
+  <!-- Human scale silhouette comparison for scale (người tí hon đứng cạnh thân khổng lồ) -->
+  <circle cx="38" cy="84" r="1.5" fill="#3B82F6"/>
+  <line x1="38" y1="85.5" x2="38" y2="90" stroke="#3B82F6" stroke-width="1"/>
+</svg>

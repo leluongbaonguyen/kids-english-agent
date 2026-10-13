@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- Calming blue pond water -->
+  <ellipse cx="50" cy="74" rx="42" ry="14" fill="#38BDF8" opacity="0.4"/>
+  <!-- ROUND LILY PAD WITH DISTINCT V-SLIT NOTCH (Phiến lá tròn có khe khuyết chữ V) -->
+  <path d="M 50,74 L 66,66 A 26,14 0 1,0 62,82 Z" fill="#15803D"/>
+  <!-- Dewdrop on lily pad -->
+  <ellipse cx="36" cy="72" rx="2.5" ry="1.8" fill="#FFFFFF" opacity="0.8"/>
+  <!-- MULTILAYERED STARBURST WATER LILY PETALS (Đóa hoa súng nở trên mặt nước) -->
+  <polygon points="50,32 44,48 50,46" fill="#F472B6"/>
+  <polygon points="50,32 56,48 50,46" fill="#F472B6"/>
+  <polygon points="40,38 42,52 48,50" fill="#FB7185"/>
+  <polygon points="60,38 58,52 52,50" fill="#FB7185"/>
+  <polygon points="32,48 42,56 46,52" fill="#FDA4AF"/>
+  <polygon points="68,48 58,56 54,52" fill="#FDA4AF"/>
+  <!-- Pure White / Pink Inner Core -->
+  <polygon points="46,44 50,36 54,44" fill="#FFFFFF"/>
+  <polygon points="42,50 50,40 58,50" fill="#FFF1F2"/>
+  <circle cx="50" cy="48" r="3.5" fill="#FACC15"/>
+</svg>

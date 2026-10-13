@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="mahoganyGrain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E65518"/>
+      <stop offset="50%" stop-color="#C04000"/>
+      <stop offset="100%" stop-color="#661D00"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5F0" stroke="#a72700" stroke-width="2.5"/>
+  <!-- Polished Deep Reddish-Brown Mahogany Timber Plank -->
+  <rect x="22" y="22" width="56" height="56" rx="6" fill="url(#mahoganyGrain)" stroke="#661D00" stroke-width="2"/>
+  <!-- Wavy Rich Wood Rings -->
+  <path d="M 24,36 Q 50,44 76,36" stroke="#802600" stroke-width="2" fill="none"/>
+  <path d="M 24,50 Q 50,58 76,50" stroke="#802600" stroke-width="2" fill="none"/>
+  <path d="M 24,64 Q 50,72 76,64" stroke="#802600" stroke-width="2" fill="none"/>
+  <!-- French Polish Mirror Reflection -->
+  <line x1="28" y1="26" x2="48" y2="26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+</svg>

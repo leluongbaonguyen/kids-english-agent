@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="sageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C5DBC0"/>
+      <stop offset="55%" stop-color="#9DC183"/>
+      <stop offset="100%" stop-color="#556B2F"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F4F7F2" stroke="#84a86a" stroke-width="2.5"/>
+  <!-- Velvety Oval Sage Herb Leaf -->
+  <ellipse cx="50" cy="50" rx="22" ry="32" transform="rotate(-20, 50, 50)" fill="url(#sageGrad)"/>
+  <!-- Soft Downy Leaf Stem -->
+  <path d="M 40,78 Q 48,50 60,22" stroke="#E2ECE0" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 46,58 Q 36,54 34,48" stroke="#E2ECE0" stroke-width="1.4" fill="none"/>
+  <path d="M 52,44 Q 62,44 66,40" stroke="#E2ECE0" stroke-width="1.4" fill="none"/>
+  <!-- Powdery Matte Texture Dots -->
+  <circle cx="48" cy="38" r="2.5" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="40" cy="50" r="2" fill="#FFFFFF" opacity="0.4"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="trunkWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="50%" stop-color="#92400E"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#78350F" stroke-width="2.5"/>
+  <!-- MASSIVE UPRIGHT TIMBER TRUNK WITH BRANCH FORKS (Thân cây gỗ đồ sộ dựng đứng) -->
+  <!-- Base roots anchoring into ground -->
+  <path d="M 32,88 Q 42,76 42,54 L 30,22 M 58,54 L 70,22 M 58,54 Q 58,76 68,88" stroke="url(#trunkWood)" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <!-- Middle solid trunk fill -->
+  <polygon points="40,54 60,54 64,88 36,88" fill="url(#trunkWood)"/>
+  <!-- Natural Rugged Bark Lines -->
+  <line x1="46" y1="36" x2="44" y2="84" stroke="#292524" stroke-width="2"/>
+  <line x1="52" y1="30" x2="52" y2="86" stroke="#292524" stroke-width="2.2"/>
+  <line x1="58" y1="36" x2="60" y2="84" stroke="#292524" stroke-width="2"/>
+  <!-- Little green sprig sprouting from side -->
+  <path d="M 38,62 Q 28,60 26,54" stroke="#22C55E" stroke-width="2" fill="none"/>
+  <ellipse cx="26" cy="54" rx="3" ry="1.8" transform="rotate(-25, 26, 54)" fill="#4ADE80"/>
+</svg>

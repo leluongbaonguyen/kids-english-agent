@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="meerkatBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#D97706" stroke-width="2.5"/>
+  <!-- Long slender tripod tail supporting body -->
+  <path d="M 38,82 Q 22,85 16,90 Q 22,80 40,76 Z" fill="#78350F"/>
+  <!-- UPRIGHT STANDING BODY SENTINEL (Dáng đứng thẳng canh gác) -->
+  <path d="M 40,38 C 38,50 36,75 42,86 C 48,87 56,87 62,86 C 66,75 64,50 62,38 Z" fill="url(#meerkatBody)"/>
+  <!-- Pale belly patch -->
+  <ellipse cx="51" cy="64" rx="7" ry="14" fill="#FEF9C3"/>
+  <!-- Alert Little Paws folded on chest -->
+  <ellipse cx="44" cy="56" rx="4" ry="2.5" transform="rotate(25, 44, 56)" fill="#78350F"/>
+  <ellipse cx="58" cy="56" rx="4" ry="2.5" transform="rotate(-25, 58, 56)" fill="#78350F"/>
+  <!-- Slender Head with pointed snout -->
+  <ellipse cx="51" cy="30" rx="13" ry="11" fill="url(#meerkatBody)"/>
+  <!-- Small Crescent Black Ears -->
+  <circle cx="39" cy="24" r="3.5" fill="#1C1917"/>
+  <circle cx="63" cy="24" r="3.5" fill="#1C1917"/>
+  <!-- SIGNATURE BLACK EYE PATCHES (Viền mắt đen như kính râm) -->
+  <ellipse cx="45" cy="29" rx="4.5" ry="3.5" fill="#1C1917"/>
+  <ellipse cx="57" cy="29" rx="4.5" ry="3.5" fill="#1C1917"/>
+  <!-- Bright Inquisitive Eyes -->
+  <circle cx="45" cy="29" r="2.2" fill="#F59E0B"/>
+  <circle cx="57" cy="29" r="2.2" fill="#F59E0B"/>
+  <circle cx="45" cy="29" r="1.3" fill="#000000"/>
+  <circle cx="57" cy="29" r="1.3" fill="#000000"/>
+  <circle cx="44.3" cy="28.3" r="0.6" fill="#FFFFFF"/>
+  <circle cx="56.3" cy="28.3" r="0.6" fill="#FFFFFF"/>
+  <!-- Snout & Nose tip -->
+  <ellipse cx="51" cy="36" rx="4" ry="3" fill="#FEF08A"/>
+  <circle cx="51" cy="35" r="1.8" fill="#18181B"/>
+  <!-- Back stripes -->
+  <line x1="44" y1="46" x2="58" y2="46" stroke="#78350F" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="43" y1="50" x2="59" y2="50" stroke="#78350F" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="cherrySphere" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FF4D6D"/>
+      <stop offset="55%" stop-color="#D2042D"/>
+      <stop offset="100%" stop-color="#590014"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF1F2" stroke="#b90014" stroke-width="2.5"/>
+  <!-- Twin Cherries with Twig -->
+  <path d="M 52,18 C 50,28 44,42 38,50 M 52,18 C 56,28 64,40 68,48" stroke="#4D7C0F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <ellipse cx="56" cy="18" rx="8" ry="4" transform="rotate(-15, 56, 18)" fill="#65A30D"/>
+  <!-- Left Cherry -->
+  <circle cx="36" cy="62" r="18" fill="url(#cherrySphere)"/>
+  <ellipse cx="32" cy="54" rx="5" ry="3" transform="rotate(-30, 32, 54)" fill="#FFFFFF" opacity="0.85"/>
+  <!-- Right Cherry -->
+  <circle cx="68" cy="60" r="16" fill="url(#cherrySphere)"/>
+  <ellipse cx="64" cy="53" rx="4" ry="2.5" transform="rotate(-30, 64, 53)" fill="#FFFFFF" opacity="0.85"/>
+</svg>

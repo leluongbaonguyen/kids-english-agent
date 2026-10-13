@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- Waterline at marsh bank -->
+  <ellipse cx="50" cy="84" rx="40" ry="8" fill="#38BDF8" opacity="0.5"/>
+  <!-- SLENDER JOINTED MARSH STEMS (Khóm thân sậy cao thanh mảnh mọc ven hồ) -->
+  <path d="M 38,88 L 38,28" stroke="#65A30D" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 50,88 L 50,18" stroke="#4D7C0F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 62,88 L 64,28" stroke="#65A30D" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Narrow Reed Leaves -->
+  <path d="M 38,58 Q 24,52 20,62" stroke="#65A30D" stroke-width="2" fill="none"/>
+  <path d="M 50,50 Q 64,44 70,54" stroke="#4D7C0F" stroke-width="2" fill="none"/>
+  <!-- FEATHERY PLUMOSE FLOWER PLUMES (Bông cờ lông mềm phất phơ ở ngọn) -->
+  <!-- Reed head 1 -->
+  <ellipse cx="38" cy="22" rx="4.5" ry="9" transform="rotate(-15, 38, 22)" fill="#A16207"/>
+  <!-- Center Reed head -->
+  <ellipse cx="50" cy="14" rx="5" ry="10" fill="#78350F"/>
+  <!-- Reed head 3 -->
+  <ellipse cx="65" cy="22" rx="4.5" ry="9" transform="rotate(15, 65, 22)" fill="#A16207"/>
+</svg>

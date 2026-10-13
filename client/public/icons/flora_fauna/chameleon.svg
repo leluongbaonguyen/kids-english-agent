@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="chameleonShimmer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="50%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- Brown branch diagonally -->
+  <path d="M 10,72 Q 50,68 90,72" stroke="#78350F" stroke-width="7" stroke-linecap="round"/>
+  <!-- Head with Casque Crest (Mào đầu nhọn) -->
+  <path d="M 44,48 C 36,36 42,26 50,26 C 60,26 64,36 58,48 Z" fill="url(#chameleonShimmer)"/>
+  <!-- CONE-SHAPED TURRET EYE (Đôi mắt hình nón lồi xoay độc lập) -->
+  <circle cx="48" cy="38" r="7.5" fill="#84CC16" stroke="#16A34A" stroke-width="1.5"/>
+  <circle cx="48" cy="38" r="2" fill="#000000"/>
+  <circle cx="47" cy="37" r="0.8" fill="#FFFFFF"/>
+  <!-- Body arched over branch -->
+  <ellipse cx="50" cy="56" rx="16" ry="12" fill="url(#chameleonShimmer)"/>
+  <!-- Zygodactyl Gripping Feet (Chân kẹp cành cây) -->
+  <ellipse cx="40" cy="68" rx="4" ry="3" fill="#16A34A"/>
+  <ellipse cx="60" cy="68" rx="4" ry="3" fill="#16A34A"/>
+  <!-- SIGNATURE PREHENSILE SPIRAL TAIL (Đuôi cuộn xoắn ốc) -->
+  <path d="M 64,58 C 76,58 84,66 78,74 C 74,80 66,76 68,70 C 70,66 74,68 74,70" stroke="#22C55E" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+</svg>

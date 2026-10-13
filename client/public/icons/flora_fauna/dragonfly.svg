@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="dragonBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDFA" stroke="#0891B2" stroke-width="2.5"/>
+  <!-- FOUR HORIZONTAL CLEAR RETICULATED WINGS (Bốn cánh mỏng gân ren trong suốt) -->
+  <ellipse cx="26" cy="42" rx="22" ry="5.5" transform="rotate(-10, 26, 42)" fill="#BAE6FD" opacity="0.65" stroke="#38BDF8" stroke-width="1"/>
+  <ellipse cx="74" cy="42" rx="22" ry="5.5" transform="rotate(10, 74, 42)" fill="#BAE6FD" opacity="0.65" stroke="#38BDF8" stroke-width="1"/>
+  <ellipse cx="28" cy="52" rx="19" ry="5" transform="rotate(5, 28, 52)" fill="#BAE6FD" opacity="0.65" stroke="#38BDF8" stroke-width="1"/>
+  <ellipse cx="72" cy="52" rx="19" ry="5" transform="rotate(-5, 72, 52)" fill="#BAE6FD" opacity="0.65" stroke="#38BDF8" stroke-width="1"/>
+  <!-- Wing veins -->
+  <line x1="8" y1="39" x2="44" y2="44" stroke="#0284C7" stroke-width="0.8"/>
+  <line x1="92" y1="39" x2="56" y2="44" stroke="#0284C7" stroke-width="0.8"/>
+  <!-- VERY LONG SLENDER NEEDLE ABDOMEN (Thân rất dài hình cây kim) -->
+  <rect x="48" y="38" width="4" height="48" rx="2" fill="url(#dragonBody)"/>
+  <!-- Thorax -->
+  <ellipse cx="50" cy="36" rx="4.5" ry="6" fill="#0891B2"/>
+  <!-- HUGE WRAPAROUND COMPOUND EYES (Đôi mắt kép cực lớn) -->
+  <circle cx="46" cy="26" r="4.5" fill="#10B981"/>
+  <circle cx="54" cy="26" r="4.5" fill="#10B981"/>
+  <circle cx="45" cy="25" r="1.5" fill="#FFFFFF"/>
+  <circle cx="53" cy="25" r="1.5" fill="#FFFFFF"/>
+</svg>

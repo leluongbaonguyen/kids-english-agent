@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="azureSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#70BFFF"/>
+      <stop offset="60%" stop-color="#007FFF"/>
+      <stop offset="100%" stop-color="#004D99"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0066e6" stroke-width="2.5"/>
+  <!-- Azure Sky & Pure Cloud Portal -->
+  <circle cx="50" cy="50" r="34" fill="url(#azureSky)"/>
+  <!-- Stylized Cirrus Wings -->
+  <path d="M 28,52 C 34,44 46,44 52,50 C 58,40 70,42 74,52 C 78,60 70,68 60,68 L 34,68 C 24,68 22,58 28,52 Z" fill="#FFFFFF" opacity="0.92"/>
+  <path d="M 36,46 Q 44,40 54,46" stroke="#BAE6FD" stroke-width="1.5" fill="none"/>
+  <!-- Sunbeams in Azure Sky -->
+  <line x1="50" y1="24" x2="50" y2="34" stroke="#FFF7ED" stroke-width="2" stroke-linecap="round"/>
+  <line x1="38" y1="28" x2="44" y2="35" stroke="#FFF7ED" stroke-width="2" stroke-linecap="round"/>
+  <line x1="62" y1="28" x2="56" y2="35" stroke="#FFF7ED" stroke-width="2" stroke-linecap="round"/>
+</svg>

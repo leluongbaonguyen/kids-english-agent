@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="wartCoat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78716C"/>
+      <stop offset="100%" stop-color="#44403C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F5F4" stroke="#57534E" stroke-width="2.5"/>
+  <!-- Head -->
+  <ellipse cx="50" cy="54" rx="24" ry="22" fill="url(#wartCoat)"/>
+  <!-- Pointed Tufted Ears -->
+  <polygon points="26,38 18,22 32,32" fill="#44403C"/>
+  <polygon points="74,38 82,22 68,32" fill="#44403C"/>
+  <!-- Coarse Dorsal Bristles (Bờm lông cứng trên đầu) -->
+  <path d="M 42,26 L 44,34 M 47,22 L 48,34 M 53,22 L 52,34 M 58,26 L 56,34" stroke="#1C1917" stroke-width="3" stroke-linecap="round"/>
+  <!-- Broad Flat Pig Snout -->
+  <ellipse cx="50" cy="62" rx="12" ry="9" fill="#292524"/>
+  <ellipse cx="46" cy="62" rx="3" ry="4" fill="#0C0A09"/>
+  <ellipse cx="54" cy="62" rx="3" ry="4" fill="#0C0A09"/>
+  <!-- 4 PROMINENT FACIAL WARTS (4 nốt sần bướu trên mặt) -->
+  <circle cx="33" cy="52" r="4.5" fill="#78716C" stroke="#292524" stroke-width="1.5"/>
+  <circle cx="67" cy="52" r="4.5" fill="#78716C" stroke="#292524" stroke-width="1.5"/>
+  <circle cx="36" cy="65" r="3.5" fill="#78716C" stroke="#292524" stroke-width="1.5"/>
+  <circle cx="64" cy="65" r="3.5" fill="#78716C" stroke="#292524" stroke-width="1.5"/>
+  <!-- MASSIVE CURVED IVORY TUSKS (Cặp nanh cong vút lên trên) -->
+  <path d="M 38,68 C 22,68 18,48 24,42 C 24,48 28,62 38,65 Z" fill="#F5F5F4" stroke="#D6D3D1" stroke-width="1"/>
+  <path d="M 62,68 C 78,68 82,48 76,42 C 76,48 72,62 62,65 Z" fill="#F5F5F4" stroke="#D6D3D1" stroke-width="1"/>
+  <!-- Small Sharp Eyes -->
+  <circle cx="41" cy="46" r="3" fill="#0C0A09"/>
+  <circle cx="59" cy="46" r="3" fill="#0C0A09"/>
+  <circle cx="40" cy="45" r="1" fill="#FFFFFF"/>
+  <circle cx="58" cy="45" r="1" fill="#FFFFFF"/>
+</svg>

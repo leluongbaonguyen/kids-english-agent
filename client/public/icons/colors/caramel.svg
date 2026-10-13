@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="caramelSwirl" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#EBB07A"/>
+      <stop offset="55%" stop-color="#C68B59"/>
+      <stop offset="100%" stop-color="#6E3D12"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFFDF5" stroke="#ad7240" stroke-width="2.5"/>
+  <!-- Luscious Melting Dulce de Leche Caramel Drizzle Cube -->
+  <rect x="28" y="32" width="44" height="40" rx="8" fill="url(#caramelSwirl)"/>
+  <!-- Glossy Melting Caramel Drips -->
+  <path d="M 36,72 C 36,80 44,80 44,72 M 56,72 C 56,84 64,84 64,72" fill="#C68B59"/>
+  <!-- Specular Luster -->
+  <path d="M 34,36 Q 50,30 66,36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <circle cx="42" cy="46" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+</svg>

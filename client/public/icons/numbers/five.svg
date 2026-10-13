@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="fiveEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#065F46"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#ECFDF5" stroke="#059669" stroke-width="2.5"/>
+  <!-- 5-Star Crest behind -->
+  <polygon points="50,14 54,26 66,26 56,34 60,46 50,38 40,46 44,34 34,26 46,26" fill="#A7F3D0" opacity="0.5"/>
+  <!-- Number 5 Sculpted Shape -->
+  <path d="M 36,22 L 66,22 L 66,30 L 44,30 L 42,48 C 48,44 58,44 64,50 C 70,56 70,68 64,74 C 58,82 46,82 36,80 L 36,70 C 42,72 50,72 56,68 C 60,64 60,56 54,54 C 48,52 42,54 36,54 Z" fill="url(#fiveEmerald)" stroke="#064E3B" stroke-width="2" filter="drop-shadow(0 4px 6px rgba(5,150,105,0.3))"/>
+  <line x1="38" y1="25" x2="64" y2="25" stroke="#FFFFFF" stroke-width="2"/>
+</svg>

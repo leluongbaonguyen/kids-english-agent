@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#FFFFFF" stroke="#000000" stroke-width="3"/>
+  <!-- Yin-Yang Dynamic Stark Black and White Contrast Sphere -->
+  <path d="M 50,18 A 32 32 0 0 1 50,82 A 16 16 0 0 1 50,50 A 16 16 0 0 0 50,18 Z" fill="#000000"/>
+  <circle cx="50" cy="34" r="5" fill="#000000"/>
+  <circle cx="50" cy="66" r="5" fill="#FFFFFF"/>
+</svg>

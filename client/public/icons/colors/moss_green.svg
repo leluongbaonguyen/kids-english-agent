@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="mossVelvet" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#B8C488"/>
+      <stop offset="55%" stop-color="#8A9A5B"/>
+      <stop offset="100%" stop-color="#4B5320"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F9FAF5" stroke="#718142" stroke-width="2.5"/>
+  <!-- Forest Floor Boulder with Moss Carpet -->
+  <path d="M 22,68 C 24,44 44,32 64,36 C 80,40 84,62 80,76 C 64,84 32,84 22,68 Z" fill="#64748B"/>
+  <path d="M 24,64 C 26,42 46,30 64,34 C 76,38 80,56 78,72 C 62,70 36,66 24,64 Z" fill="url(#mossVelvet)"/>
+  <!-- Micro Moss Tufts -->
+  <circle cx="36" cy="46" r="3.5" fill="#A3B172"/>
+  <circle cx="46" cy="42" r="4" fill="#C5D399"/>
+  <circle cx="58" cy="44" r="3.8" fill="#A3B172"/>
+  <circle cx="68" cy="52" r="3.2" fill="#C5D399"/>
+  <circle cx="40" cy="58" r="3.5" fill="#C5D399"/>
+  <!-- Spore Shoot -->
+  <path d="M 50,42 Q 52,28 56,20" stroke="#556B2F" stroke-width="1.5" fill="none"/>
+  <ellipse cx="57" cy="19" rx="2" ry="3" fill="#CA8A04"/>
+</svg>

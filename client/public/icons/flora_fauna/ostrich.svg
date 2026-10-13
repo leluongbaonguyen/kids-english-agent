@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="ostrichPlumes" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#09090B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF3C7" stroke="#D97706" stroke-width="2.5"/>
+  <!-- TALL POWERFUL TWO-TOED RUNNING LEGS (Hai chân dài khỏe khoắn) -->
+  <line x1="44" y1="68" x2="40" y2="88" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <line x1="40" y1="88" x2="48" y2="88" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <line x1="56" y1="68" x2="60" y2="88" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="88" x2="68" y2="88" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+  <!-- Plump Round Body with Black & White Shaggy Plumes (Thân tròn lông xù) -->
+  <ellipse cx="50" cy="58" rx="20" ry="16" fill="url(#ostrichPlumes)"/>
+  <!-- Fluffy White Wing & Tail Plumes -->
+  <ellipse cx="34" cy="58" rx="8" ry="6" fill="#F8FAFC"/>
+  <ellipse cx="64" cy="58" rx="8" ry="6" fill="#F8FAFC"/>
+  <!-- VERY LONG BARE PINKISH NECK (Chiếc cổ dài thanh mảnh) -->
+  <path d="M 52,48 C 50,34 56,26 56,20" stroke="#FCA5A5" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <!-- Small Head with Big Eyelashed Eye -->
+  <ellipse cx="58" cy="18" rx="6" ry="4.5" fill="#FCA5A5"/>
+  <!-- Broad Flat Bill -->
+  <polygon points="63,18 70,19 63,21" fill="#F59E0B"/>
+  <!-- Big Eye with prominent lash -->
+  <circle cx="58" cy="17" r="2.2" fill="#18181B"/>
+  <path d="M 56,15 L 59,15" stroke="#18181B" stroke-width="1"/>
+</svg>

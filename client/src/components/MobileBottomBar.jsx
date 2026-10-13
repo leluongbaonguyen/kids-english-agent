@@ -1,43 +1,21 @@
 import React from 'react';
-import { Home, Compass, LayoutGrid, BookOpen, Bot, Sparkles, Target, Gamepad2, Layers, Cpu } from 'lucide-react';
+import { BookOpen, Layers, Gamepad2, Compass, Sparkles, Target, Palette } from 'lucide-react';
 
-export function MobileBottomBar({ activeTab, setActiveTab, onOpenAiModal, onOpenMiniAppHub }) {
+export function MobileBottomBar({ activeTab, setActiveTab }) {
   const tabs = [
     {
-      id: 'home',
-      label: 'Trang Chủ',
-      mainIcon: Home,
+      id: 'intro',
+      label: 'Giới Thiệu',
+      mainIcon: Sparkles,
       subIcon: Sparkles,
-      gradient: 'from-pink-500 via-rose-500 to-purple-600',
+      gradient: 'from-pink-500 via-rose-500 to-amber-400',
       activeShadow: 'shadow-[0_0_20px_rgba(236,72,153,0.7)]',
       glowColor: 'text-pink-300',
       borderColor: 'border-pink-400/50'
     },
     {
-      id: 'daily_path',
-      label: 'Lộ Trình',
-      mainIcon: Compass,
-      subIcon: Target,
-      gradient: 'from-amber-400 via-orange-500 to-yellow-500',
-      activeShadow: 'shadow-[0_0_20px_rgba(245,158,11,0.7)]',
-      glowColor: 'text-amber-300',
-      borderColor: 'border-amber-400/50'
-    },
-    {
-      id: 'mini_apps',
-      label: 'Mini Apps',
-      mainIcon: LayoutGrid,
-      subIcon: Gamepad2,
-      gradient: 'from-purple-500 via-indigo-600 to-violet-700',
-      activeShadow: 'shadow-[0_0_20px_rgba(168,85,247,0.7)]',
-      glowColor: 'text-purple-300',
-      borderColor: 'border-purple-400/50',
-      isAction: true,
-      onClick: onOpenMiniAppHub
-    },
-    {
       id: 'flashcards',
-      label: 'Thẻ Từ',
+      label: '1,260 Từ Vựng',
       mainIcon: BookOpen,
       subIcon: Layers,
       gradient: 'from-cyan-400 via-teal-500 to-blue-600',
@@ -46,17 +24,35 @@ export function MobileBottomBar({ activeTab, setActiveTab, onOpenAiModal, onOpen
       borderColor: 'border-cyan-400/50'
     },
     {
-      id: 'ai',
-      label: 'AI Trợ Lý',
-      mainIcon: Bot,
-      subIcon: Cpu,
-      gradient: 'from-emerald-400 via-teal-500 to-cyan-500',
+      id: 'poster',
+      label: 'Khóa Học',
+      mainIcon: Palette,
+      subIcon: Sparkles,
+      gradient: 'from-purple-500 via-indigo-500 to-purple-600',
+      activeShadow: 'shadow-[0_0_20px_rgba(168,85,247,0.7)]',
+      glowColor: 'text-purple-300',
+      borderColor: 'border-purple-400/50'
+    },
+    {
+      id: 'games',
+      label: 'Bài Tập & Game',
+      mainIcon: Gamepad2,
+      subIcon: Target,
+      gradient: 'from-emerald-400 via-teal-500 to-emerald-600',
       activeShadow: 'shadow-[0_0_20px_rgba(16,185,129,0.7)]',
       glowColor: 'text-emerald-300',
-      borderColor: 'border-emerald-400/50',
-      isAction: true,
-      onClick: onOpenAiModal
+      borderColor: 'border-emerald-400/50'
     },
+    {
+      id: 'detailed_path',
+      label: 'Lộ Trình 6 Cấp',
+      mainIcon: Compass,
+      subIcon: Sparkles,
+      gradient: 'from-amber-400 via-orange-500 to-yellow-500',
+      activeShadow: 'shadow-[0_0_20px_rgba(245,158,11,0.7)]',
+      glowColor: 'text-amber-300',
+      borderColor: 'border-amber-400/50'
+    }
   ];
 
   return (

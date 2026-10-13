@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#15803D" stroke-width="2.5"/>
+  <!-- Damp forest boulder (Tảng đá ẩm rừng) -->
+  <path d="M 12,74 C 18,48 42,42 64,48 C 84,54 88,72 84,84 C 64,90 24,90 12,74 Z" fill="#64748B"/>
+  <!-- DENSE VELVETY SOFT EMERALD MOSS CARPET (Thảm rêu xanh mịn như nhung) -->
+  <path d="M 16,70 C 20,44 46,38 66,44 C 74,48 82,60 80,76 C 62,72 36,66 16,70 Z" fill="#22C55E"/>
+  <!-- Micro moss tufts & shoots (Các chồi rêu nhung li ti) -->
+  <circle cx="28" cy="56" r="3.5" fill="#4ADE80"/>
+  <circle cx="36" cy="50" r="4" fill="#86EFAC"/>
+  <circle cx="46" cy="46" r="4.5" fill="#4ADE80"/>
+  <circle cx="56" cy="48" r="4" fill="#86EFAC"/>
+  <circle cx="66" cy="54" r="3.5" fill="#4ADE80"/>
+  <circle cx="74" cy="62" r="3" fill="#86EFAC"/>
+  <!-- SLENDER SPOROPHYTE SPORE CAPSULES (Cuống bào tử mảnh cao vươn lên) -->
+  <path d="M 38,48 Q 40,32 44,24" stroke="#15803D" stroke-width="1.5" fill="none"/>
+  <ellipse cx="45" cy="23" rx="2" ry="3" transform="rotate(25, 45, 23)" fill="#CA8A04"/>
+  <path d="M 52,44 Q 54,28 58,20" stroke="#15803D" stroke-width="1.5" fill="none"/>
+  <ellipse cx="59" cy="19" rx="2" ry="3" transform="rotate(25, 59, 19)" fill="#CA8A04"/>
+</svg>

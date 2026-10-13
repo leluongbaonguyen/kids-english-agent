@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Mic, Play, Sparkles, CheckCircle2, RotateCw, HelpCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
-import { calculatePhonemeIPAScore } from '../services/autonomousAgentEngine';
+import VocabSmartIcon from './VocabSmartIcon.jsx';
 
 export default function SrsReviewCard({
   item,
@@ -97,7 +97,6 @@ export default function SrsReviewCard({
 
   const triggerSimulatedMic = () => {
     setIsSimulatedVoice(true);
-    const scoreObj = calculatePhonemeIPAScore(item.word, item.word);
     setVoiceResult({
       transcript: item.word,
       score: 85,
@@ -148,10 +147,8 @@ export default function SrsReviewCard({
 
       {/* STEP 1: RECALL PROMPT (Covered word/meaning) */}
       <div className="text-center space-y-3 py-1">
-        <div className="text-5xl sm:text-7xl md:text-8xl select-none animate-float-up-down drop-shadow-[0_10px_20px_rgba(236,72,153,0.3)]">
-          {item.imageEmoji || item.image || item.emoji || ({
-            red: '🔴', blue: '🔵', yellow: '🟡', green: '🟢', orange: '🟠', purple: '🟣', pink: '🌸', black: '🖤', white: '⚪', brown: '🟤'
-          })[(item.word || '').toLowerCase()] || '📖'}
+        <div className="flex justify-center items-center py-2 select-none animate-float-up-down drop-shadow-[0_10px_20px_rgba(236,72,153,0.3)]">
+          <VocabSmartIcon item={item} className="w-24 h-24 sm:w-28 sm:h-28 text-5xl sm:text-7xl md:text-8xl" />
         </div>
 
         {!revealed ? (

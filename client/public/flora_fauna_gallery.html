@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bách Khoa Động Thực Vật Toàn Cầu • 120 Icon Vector Siêu Chi Tiết</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <!-- Top Hero Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">🌿</span>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+            BÁCH KHOA TOÀN THƯ ĐỘNG THỰC VẬT
+          </h1>
+          <p class="text-xs text-slate-400">120 Icon Vector Chuẩn Sinh Học • 10 Chủ Đề • Độ Sắc Nét Tuyệt Đối</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+          ✨ 78 Bản Vẽ SVG Độc Bản
+        </span>
+        <a href="/" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-black transition">
+          Trở Lại Ứng Dụng
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter & Stats Bar -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+      <div class="flex flex-wrap items-center gap-2" id="unitFilterButtons">
+        <button class="unit-filter-btn px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold transition" data-unit="all">
+          Tất Cả (120 Từ)
+        </button>
+      </div>
+      <div class="text-xs text-slate-400">
+        Hiển thị: <strong id="wordCountText" class="text-white font-bold">120</strong> từ vựng
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 mt-6" id="cardsGrid">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  <script type="module">
+    import { FLORA_FAUNA_SVGS } from '/src/constants/floraFaunaSvgLibrary.js';
+
+    const UNITS = [
+      { id: 'BIO-U01', name: '01. Thú Thảo Nguyên (Savannah)', icon: '🦁' },
+      { id: 'BIO-U02', name: '02. Rừng Nhiệt Đới (Jungle)', icon: '🐅' },
+      { id: 'BIO-U03', name: '03. Chim Muông Toàn Cầu (Birds)', icon: '🦅' },
+      { id: 'BIO-U04', name: '04. Sinh Vật Biển & Đại Dương (Marine)', icon: '🐋' },
+      { id: 'BIO-U05', name: '05. Bò Sát & Lưỡng Cư (Reptiles)', icon: '🐊' },
+      { id: 'BIO-U06', name: '06. Côn Trùng & Chân Khớp (Insects)', icon: '🦋' },
+      { id: 'BIO-U07', name: '07. Cây Rừng & Đại Thụ (Trees)', icon: '🌲' },
+      { id: 'BIO-U08', name: '08. Các Loài Hoa (Flowers)', icon: '🌺' },
+      { id: 'BIO-U09', name: '09. Nấm, Rêu & Sa Mạc (Flora)', icon: '🍄' },
+      { id: 'BIO-U10', name: '10. Giải Phẫu & Sinh Thái (Anatomy)', icon: '🪶' }
+    ];
+
+    async function loadData() {
+      const res = await fetch('/data/master_vocabulary_900.json');
+      const allVocab = await res.json();
+      const bioVocab = allVocab.filter(w => w.level === 'BIO');
+
+      const filterContainer = document.getElementById('unitFilterButtons');
+      UNITS.forEach(u => {
+        const btn = document.createElement('button');
+        btn.className = 'unit-filter-btn px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition';
+        btn.setAttribute('data-unit', u.id);
+        btn.innerHTML = `${u.icon} ${u.id.replace('BIO-', '')}`;
+        filterContainer.appendChild(btn);
+      });
+
+      function renderCards(filterUnit = 'all') {
+        const grid = document.getElementById('cardsGrid');
+        grid.innerHTML = '';
+        const list = filterUnit === 'all' ? bioVocab : bioVocab.filter(w => w.category === filterUnit);
+        document.getElementById('wordCountText').innerText = list.length;
+
+        list.forEach(w => {
+          const card = document.createElement('div');
+          card.className = 'p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/80 transition shadow-lg flex flex-col justify-between group';
+          
+          const svgCode = FLORA_FAUNA_SVGS[w.word.toLowerCase()];
+          const iconHtml = svgCode 
+            ? `<div class="w-16 h-16 mx-auto group-hover:scale-115 transition-transform duration-300 drop-shadow-md">${svgCode}</div>`
+            : `<div class="text-5xl mx-auto py-2 group-hover:scale-115 transition-transform duration-300">${w.image}</div>`;
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between text-[10px] text-slate-400 pb-1">
+                <span class="font-bold text-emerald-400">${w.category}</span>
+                ${svgCode ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">SVG Vector</span>' : '<span class="text-slate-500">Emoji</span>'}
+              </div>
+              <div class="py-2 text-center">
+                ${iconHtml}
+              </div>
+              <div class="text-center space-y-0.5">
+                <div class="font-black text-white text-sm group-hover:text-cyan-300 transition-colors">${w.word}</div>
+                <div class="text-[10px] mono text-cyan-300">${w.ipa}</div>
+                <div class="text-xs font-bold text-amber-300 truncate">${w.meaning}</div>
+              </div>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 text-center">
+              ${w.vietnamesePhonetic || ''}
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      renderCards('all');
+
+      document.querySelectorAll('.unit-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.unit-filter-btn').forEach(b => {
+            b.className = 'unit-filter-btn px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition';
+          });
+          e.currentTarget.className = 'unit-filter-btn px-2.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold transition';
+          renderCards(e.currentTarget.getAttribute('data-unit'));
+        });
+      });
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

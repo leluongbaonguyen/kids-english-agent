@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="charcoalStick" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B6D7A"/>
+      <stop offset="50%" stop-color="#36454F"/>
+      <stop offset="100%" stop-color="#1A2126"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F8FAFC" stroke="#64748B" stroke-width="2.5"/>
+  <!-- Vine Charcoal Drawing Stick with Textured Dust Strokes -->
+  <polygon points="26,34 68,16 78,66 36,84" fill="url(#charcoalStick)"/>
+  <!-- Powdery Texture Smudges -->
+  <path d="M 20,78 Q 40,68 62,80" stroke="#36454F" stroke-width="4" stroke-linecap="round"/>
+  <line x1="38" y1="42" x2="68" y2="30" stroke="#708594" stroke-width="2"/>
+  <circle cx="34" cy="50" r="2" fill="#CBD5E1"/>
+</svg>

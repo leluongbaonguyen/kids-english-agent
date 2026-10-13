@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#0284C7" stroke="#0369A1" stroke-width="2.5"/>
+  <!-- Sandy seabed -->
+  <path d="M 6,78 Q 50,70 94,78 L 94,94 L 6,94 Z" fill="#FDE68A"/>
+  <!-- Branching Staghorn Coral (San hô cành nai đỏ/cam) -->
+  <path d="M 24,78 L 24,54 L 16,42 M 24,58 L 32,46 M 24,50 L 26,38" stroke="#F43F5E" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <!-- Brain Coral Dome (San hô não gợn sóng) -->
+  <ellipse cx="50" cy="74" rx="14" ry="10" fill="#FACC15"/>
+  <path d="M 42,70 Q 50,68 58,70 M 40,74 Q 50,72 60,74 M 44,78 Q 50,76 56,78" stroke="#CA8A04" stroke-width="1.5" fill="none"/>
+  <!-- Purple Sea Fan / Anemone -->
+  <path d="M 74,78 C 68,60 86,52 80,40 M 74,68 C 84,58 76,46 88,46" stroke="#C084FC" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- Little Clownfish swimming -->
+  <ellipse cx="64" cy="36" rx="7" ry="4" fill="#EA580C"/>
+  <polygon points="70,36 76,32 76,40" fill="#EA580C"/>
+  <path d="M 62,32 L 62,40 M 66,32 L 66,40" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="60" cy="35" r="1" fill="#000000"/>
+  <!-- Air bubbles rising -->
+  <circle cx="44" cy="30" r="2.5" fill="#BAE6FD" opacity="0.75"/>
+  <circle cx="46" cy="22" r="1.8" fill="#BAE6FD" opacity="0.75"/>
+  <circle cx="42" cy="16" r="1.2" fill="#BAE6FD" opacity="0.75"/>
+</svg>

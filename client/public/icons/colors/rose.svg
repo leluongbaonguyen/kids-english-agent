@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="roseBloom" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FF66B2"/>
+      <stop offset="60%" stop-color="#FF007F"/>
+      <stop offset="100%" stop-color="#99004C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF0F7" stroke="#e60066" stroke-width="2.5"/>
+  <!-- Rose Blossom Spiral Petals -->
+  <path d="M 50,22 C 68,22 80,34 80,52 C 80,70 66,80 50,80 C 34,80 20,70 20,52 C 20,34 32,22 50,22 Z" fill="url(#roseBloom)"/>
+  <!-- Concentric Overlapping Petals -->
+  <path d="M 32,40 C 44,28 62,30 68,44 C 60,56 42,56 32,40 Z" fill="#FF3399" opacity="0.9"/>
+  <path d="M 36,54 C 44,66 60,64 64,50 C 54,42 42,46 36,54 Z" fill="#CC0066" opacity="0.8"/>
+  <path d="M 44,44 C 50,38 56,40 56,46 C 54,52 48,52 44,44 Z" fill="#FFE6F2"/>
+  <!-- Dewdrop on petal -->
+  <circle cx="62" cy="36" r="3.2" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="63" cy="35" r="1" fill="#FFFFFF"/>
+  <!-- Green Sepal Sprig below -->
+  <path d="M 28,74 Q 22,82 16,84 Q 26,78 32,74" fill="#15803D"/>
+  <path d="M 72,74 Q 78,82 84,84 Q 74,78 68,74" fill="#15803D"/>
+</svg>

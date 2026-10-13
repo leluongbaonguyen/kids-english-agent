@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="coralGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFA07A"/>
+      <stop offset="50%" stop-color="#FF7F50"/>
+      <stop offset="100%" stop-color="#E25822"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#e66637" stroke-width="2.5"/>
+  <!-- Marine Coral Branch Sculpture -->
+  <path d="M 50,84 C 50,70 48,58 42,46 C 36,36 28,34 30,26 C 32,20 40,24 44,32 C 48,38 50,46 52,50 C 54,40 56,30 64,22 C 70,16 76,22 72,28 C 66,36 60,46 58,56 C 64,54 72,50 78,54 C 84,58 78,66 70,68 C 62,70 56,72 54,84 Z" fill="url(#coralGrad)"/>
+  <!-- Soft Polyps -->
+  <circle cx="30" cy="24" r="3" fill="#FFD1B3"/>
+  <circle cx="73" cy="22" r="3" fill="#FFD1B3"/>
+  <circle cx="80" cy="56" r="2.8" fill="#FFD1B3"/>
+  <circle cx="44" cy="30" r="2.2" fill="#FFD1B3"/>
+  <circle cx="45" cy="54" r="2" fill="#FFFFFF" opacity="0.7"/>
+  <!-- Sea bubbles -->
+  <circle cx="26" cy="62" r="2.5" fill="#BAE6FD" opacity="0.6"/>
+  <circle cx="70" cy="76" r="3" fill="#BAE6FD" opacity="0.6"/>
+</svg>

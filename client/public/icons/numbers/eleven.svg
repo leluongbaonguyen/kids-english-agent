@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="elevenCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67E8F9"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0E7490"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#ECFEFF" stroke="#06B6D4" stroke-width="2.5"/>
+  <!-- Double Pillars 1 & 1 -->
+  <!-- Left 1 -->
+  <path d="M 24,34 L 34,24 L 38,24 L 38,74 L 44,74 L 44,80 L 22,80 L 22,74 L 30,74 L 30,36 L 24,38 Z" fill="url(#elevenCyan)" stroke="#155E75" stroke-width="1.8"/>
+  <!-- Right 1 -->
+  <path d="M 56,34 L 66,24 L 70,24 L 70,74 L 76,74 L 76,80 L 54,80 L 54,74 L 62,74 L 62,36 L 56,38 Z" fill="url(#elevenCyan)" stroke="#155E75" stroke-width="1.8"/>
+  <!-- Specular -->
+  <circle cx="32" cy="28" r="2" fill="#FFFFFF"/>
+  <circle cx="64" cy="28" r="2" fill="#FFFFFF"/>
+</svg>

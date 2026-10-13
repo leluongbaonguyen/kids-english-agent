@@ -52,7 +52,10 @@ const levelColors = {
   'L3': { primary: '00695C', bg: 'E0F2F1', border: '80CBC4' }, // Emerald/Teal
   'L4': { primary: '6A1B9A', bg: 'F3E5F5', border: 'CE93D8' }, // Purple
   'L5': { primary: 'C62828', bg: 'FFEBEE', border: 'EF9A9A' }, // Rose/Red
-  'L6': { primary: '00838F', bg: 'E0F7FA', border: '80DEEA' }  // Cyan/Dark Teal
+  'L6': { primary: '00838F', bg: 'E0F7FA', border: '80DEEA' }, // Cyan/Dark Teal
+  'BIO': { primary: '2E7D32', bg: 'E8F5E9', border: '81C784' }, // Emerald/Forest Green
+  'COLOR': { primary: 'C026D3', bg: 'FAE8FF', border: 'F0ABFC' }, // Fuchsia/Colors of the World
+  'NUM': { primary: 'D97706', bg: 'FFFBEB', border: 'FCD34D' } // Amber/Golden Numbers
 };
 
 // Build Sections for Document
@@ -71,14 +74,14 @@ docChildren.push(
     alignment: AlignmentType.CENTER,
     space: { before: 100, after: 400 },
     children: [
-      new TextRun({ text: "📘 BỘ GIÁO TRÌNH TOÀN BỘ 900 TỪ VỰNG & 2250 BÀI TẬP THỰC HÀNH SIÊU CHI TIẾT 📘", bold: true, size: 28, color: "0D47A1" })
+      new TextRun({ text: "📘 BỘ GIÁO TRÌNH TOÀN BỘ TỪ VỰNG & BÀI TẬP THỰC HÀNH SIÊU CHI TIẾT 📘", bold: true, size: 28, color: "0D47A1" })
     ]
   }),
   new Paragraph({
     alignment: AlignmentType.CENTER,
     space: { before: 100, after: 400 },
     children: [
-      new TextRun({ text: "Dành riêng cho bé: Nguyễn Ngọc Minh Anh | Hệ thống 6 Cấp độ • 90 Chủ đề • 900 Từ vựng • 2250 Bài tập • 5 Dạng luyện tập", italic: true, size: 22, color: "424242" })
+      new TextRun({ text: `Dành riêng cho bé: Nguyễn Ngọc Minh Anh | Hệ thống ${levels.length} Cấp độ • ${categories.filter(c => c.id !== 'all').length} Chủ đề • ${vocabulary.length} Từ vựng • 5 Dạng bài tập luyện tập`, italic: true, size: 22, color: "424242" })
     ]
   }),
   new Paragraph({

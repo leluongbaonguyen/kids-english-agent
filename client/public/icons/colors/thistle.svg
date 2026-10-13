@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="thistleSoft" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#F3E8FF"/>
+      <stop offset="60%" stop-color="#D8BFD8"/>
+      <stop offset="100%" stop-color="#9333EA"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5FF" stroke="#bfa6bf" stroke-width="2.5"/>
+  <!-- Scottish Thistle Emblem -->
+  <!-- Green Spiny Involucre Cup -->
+  <path d="M 36,58 C 36,72 64,72 64,58 Z" fill="#15803D" stroke="#166534" stroke-width="2"/>
+  <!-- Crosshatched thorny scales -->
+  <line x1="38" y1="62" x2="62" y2="62" stroke="#14532D" stroke-width="1.5"/>
+  <line x1="42" y1="68" x2="58" y2="68" stroke="#14532D" stroke-width="1.5"/>
+  <!-- Soft Feathery Purple Tufts Bursting on top -->
+  <path d="M 34,58 C 30,36 40,24 50,24 C 60,24 70,36 66,58 Z" fill="url(#thistleSoft)"/>
+  <!-- Individual fine thistle filaments -->
+  <line x1="42" y1="46" x2="38" y2="28" stroke="#E9D5FF" stroke-width="1.5"/>
+  <line x1="50" y1="44" x2="50" y2="22" stroke="#FFFFFF" stroke-width="1.8"/>
+  <line x1="58" y1="46" x2="62" y2="28" stroke="#E9D5FF" stroke-width="1.5"/>
+</svg>

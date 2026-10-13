@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="#FEFCE8" stroke="#78350F" stroke-width="2.5"/>
+  <!-- Soil horizon ground line -->
+  <rect x="8" y="24" width="84" height="66" rx="4" fill="#78350F"/>
+  <line x1="8" y1="24" x2="92" y2="24" stroke="#22C55E" stroke-width="4"/>
+  <!-- Young green shoot rising above -->
+  <path d="M 50,24 Q 48,14 42,10" stroke="#16A34A" stroke-width="2.5" fill="none"/>
+  <ellipse cx="40" cy="10" rx="4" ry="2.5" transform="rotate(-30, 40, 10)" fill="#22C55E"/>
+  <!-- EXTENSIVE BRANCHING TAPROOT & LATERAL ROOT SYSTEM (Bộ rễ cọc và rễ chùm phân nhánh) -->
+  <!-- Primary Taproot -->
+  <path d="M 50,24 Q 48,52 52,86" stroke="#FDE68A" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <!-- Lateral Root Branches -->
+  <path d="M 49,36 Q 34,44 22,54" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 28,48 Q 22,56 16,62" stroke="#FEF08A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M 50,44 Q 66,50 78,58" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 68,52 Q 74,62 82,68" stroke="#FEF08A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M 51,60 Q 38,70 32,80" stroke="#FEF08A" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 51,68 Q 62,76 68,82" stroke="#FEF08A" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

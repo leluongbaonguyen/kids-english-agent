@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="peachVelvet" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFF0D4"/>
+      <stop offset="50%" stop-color="#FFE5B4"/>
+      <stop offset="100%" stop-color="#FF7F50"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#e6cc9b" stroke-width="2.5"/>
+  <!-- Sweet Juicy Heart-shaped Peach with Velvety Fuzz -->
+  <path d="M 50,30 C 38,20 22,34 22,54 C 22,72 38,82 50,82 C 62,82 78,72 78,54 C 78,34 62,20 50,30 Z" fill="url(#peachVelvet)"/>
+  <!-- Peach Cleft Groove -->
+  <path d="M 50,30 Q 48,54 50,80" stroke="#FF6B6B" stroke-width="2" fill="none"/>
+  <!-- Green leaf at stem -->
+  <ellipse cx="56" cy="22" rx="9" ry="4.5" transform="rotate(-25, 56, 22)" fill="#65A30D"/>
+  <ellipse cx="40" cy="42" rx="6" ry="3" fill="#FFFFFF" opacity="0.6"/>
+</svg>

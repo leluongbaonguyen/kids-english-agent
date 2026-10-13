@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="forestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#228B22"/>
+      <stop offset="100%" stop-color="#052E16"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#ECFDF5" stroke="#097209" stroke-width="2.5"/>
+  <!-- Majestic Evergreen Pine Tree Silhouette -->
+  <!-- Top Tier -->
+  <polygon points="50,18 36,36 64,36" fill="url(#forestGrad)"/>
+  <!-- Middle Tier -->
+  <polygon points="50,32 30,52 70,52" fill="url(#forestGrad)"/>
+  <!-- Bottom Tier -->
+  <polygon points="50,48 24,72 76,72" fill="url(#forestGrad)"/>
+  <!-- Tree Trunk -->
+  <rect x="46" y="72" width="8" height="12" rx="2" fill="#78350F"/>
+  <!-- Pine Needles Luster -->
+  <path d="M 50,22 L 50,70" stroke="#6EE7B7" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="42" cy="42" r="2" fill="#BBF7D0" opacity="0.8"/>
+  <circle cx="58" cy="58" r="2" fill="#BBF7D0" opacity="0.8"/>
+</svg>

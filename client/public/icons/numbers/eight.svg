@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="eightViolet" cx="45%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2.5"/>
+  <!-- Hourglass / Double Orbit -->
+  <!-- Upper Loop -->
+  <circle cx="50" cy="36" r="16" fill="url(#eightViolet)" stroke="#4C1D95" stroke-width="2"/>
+  <circle cx="50" cy="36" r="6" fill="#F5F3FF" stroke="#4C1D95" stroke-width="1.5"/>
+  <!-- Lower Loop -->
+  <circle cx="50" cy="64" r="19" fill="url(#eightViolet)" stroke="#4C1D95" stroke-width="2"/>
+  <circle cx="50" cy="64" r="8" fill="#F5F3FF" stroke="#4C1D95" stroke-width="1.5"/>
+  <!-- Highlights -->
+  <circle cx="44" cy="30" r="2.5" fill="#FFFFFF"/>
+  <circle cx="42" cy="58" r="3" fill="#FFFFFF"/>
+</svg>

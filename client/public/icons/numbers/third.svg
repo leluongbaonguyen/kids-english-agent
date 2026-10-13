@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bronzeMedal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDBA74"/>
+      <stop offset="45%" stop-color="#EA580C"/>
+      <stop offset="85%" stop-color="#9A3412"/>
+      <stop offset="100%" stop-color="#7C2D12"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#EA580C" stroke-width="2.5"/>
+  <!-- Green Ribbon Hangings -->
+  <polygon points="42,20 32,54 42,48 50,54" fill="#16A34A"/>
+  <polygon points="58,20 68,54 58,48 50,54" fill="#15803D"/>
+  <!-- Bronze Medal -->
+  <circle cx="50" cy="54" r="28" fill="url(#bronzeMedal)" stroke="#7C2D12" stroke-width="2"/>
+  <circle cx="50" cy="54" r="23" stroke="#FFEDD5" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+  <!-- "3rd" -->
+  <text x="50" y="62" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle" fill="#431407">3rd</text>
+  <circle cx="36" cy="42" r="3" fill="#FFFFFF" opacity="0.8"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="mantisGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+  <!-- Elongated Prothorax / Neck -->
+  <line x1="50" y1="36" x2="50" y2="60" stroke="#15803D" stroke-width="5" stroke-linecap="round"/>
+  <!-- RAPTORIAL FORELEGS HELD IN PRAYER POSE (Hai chân trước dạng lưỡi hái sắc nhọn) -->
+  <polyline points="48,42 34,36 38,52" stroke="#16A34A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polyline points="52,42 66,36 62,52" stroke="#16A34A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- Spines on grasping forelegs -->
+  <line x1="36" y1="44" x2="33" y2="45" stroke="#DC2626" stroke-width="1.5"/>
+  <line x1="64" y1="44" x2="67" y2="45" stroke="#DC2626" stroke-width="1.5"/>
+  <!-- Slender Slanted Abdomen -->
+  <ellipse cx="50" cy="72" rx="7" ry="16" fill="url(#mantisGreen)"/>
+  <!-- TRIANGULAR HEAD (Đầu tam giác linh hoạt) -->
+  <polygon points="50,34 38,24 62,24" fill="#22C55E"/>
+  <!-- Large Prominent Bulging Compound Eyes -->
+  <circle cx="38" cy="24" r="5" fill="#84CC16"/>
+  <circle cx="62" cy="24" r="5" fill="#84CC16"/>
+  <circle cx="38" cy="24" r="2" fill="#000000"/>
+  <circle cx="62" cy="24" r="2" fill="#000000"/>
+</svg>

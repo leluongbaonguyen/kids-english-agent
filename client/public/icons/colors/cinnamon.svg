@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="cinnamonQuill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6853B"/>
+      <stop offset="50%" stop-color="#D2691E"/>
+      <stop offset="100%" stop-color="#803800"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF5EF" stroke="#b95005" stroke-width="2.5"/>
+  <!-- Rolled Ceylon Cinnamon Bark Quill Sticks -->
+  <path d="M 28,32 C 34,26 44,26 50,32 L 68,68 C 62,74 52,74 46,68 Z" fill="url(#cinnamonQuill)"/>
+  <!-- Hollow Scroll Spiral Ends -->
+  <ellipse cx="38" cy="30" rx="8" ry="4" transform="rotate(-35, 38, 30)" fill="#4A1E00"/>
+  <path d="M 36,30 Q 38,28 40,30" stroke="#E6853B" stroke-width="1.5" fill="none"/>
+  <!-- Second Stick Behind -->
+  <path d="M 44,40 L 72,74" stroke="#803800" stroke-width="4" stroke-linecap="round"/>
+</svg>

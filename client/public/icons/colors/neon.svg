@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#39FF14"/>
+    </filter>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#09090B" stroke="#39FF14" stroke-width="2.5"/>
+  <!-- High-Voltage Glowing Green Neon Tube Heart / Loop -->
+  <path d="M 50,34 C 44,22 26,26 26,42 C 26,62 50,76 50,76 C 50,76 74,62 74,42 C 74,26 56,22 50,34 Z" stroke="#39FF14" stroke-width="6" fill="none" filter="url(#neonGlow)"/>
+  <path d="M 50,34 C 44,22 26,26 26,42 C 26,62 50,76 50,76 C 50,76 74,62 74,42 C 74,26 56,22 50,34 Z" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+</svg>

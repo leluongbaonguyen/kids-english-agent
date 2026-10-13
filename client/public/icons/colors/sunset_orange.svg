@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="sunsetSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="50%" stop-color="#FD5E53"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#e4453a" stroke-width="2.5"/>
+  <!-- Evening Sun Dipping into Horizon Ocean -->
+  <circle cx="50" cy="50" r="34" fill="url(#sunsetSky)"/>
+  <!-- Sinking Golden Sun -->
+  <circle cx="50" cy="46" r="14" fill="#FEF08A"/>
+  <!-- Ocean Horizon Lines -->
+  <line x1="20" y1="56" x2="80" y2="56" stroke="#BE123C" stroke-width="2"/>
+  <line x1="24" y1="64" x2="76" y2="64" stroke="#BE123C" stroke-width="2"/>
+  <line x1="32" y1="72" x2="68" y2="72" stroke="#BE123C" stroke-width="2"/>
+</svg>

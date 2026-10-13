@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="eggOval" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F0EAD6"/>
+      <stop offset="100%" stop-color="#D4CBB3"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FAF7EE" stroke="#DDD4BC" stroke-width="2.5"/>
+  <!-- Perfect Smooth Bird Egg with Satin Luster -->
+  <ellipse cx="50" cy="52" rx="24" ry="30" fill="url(#eggOval)"/>
+  <!-- Satin Sheen Highlight -->
+  <ellipse cx="42" cy="38" rx="6" ry="12" transform="rotate(-25, 42, 38)" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="46" cy="32" r="2.5" fill="#FFFFFF"/>
+</svg>

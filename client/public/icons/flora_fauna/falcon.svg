@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="falconWing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#F0F9FF" stroke="#0284C7" stroke-width="2.5"/>
+  <!-- HIGH SPEED DIVING FALCON SILHOUETTE (Dáng chim ưng lao bổ nhào tốc độ) -->
+  <!-- Aerodynamic Long Pointed Sickle Wings (Đôi cánh dài nhọn hình lưỡi liềm) -->
+  <path d="M 50,44 C 34,22 14,18 12,28 C 16,42 32,56 46,60 Z" fill="url(#falconWing)"/>
+  <path d="M 50,44 C 66,22 86,18 88,28 C 84,42 68,56 54,60 Z" fill="url(#falconWing)"/>
+  <!-- Head & Torpedo Body -->
+  <ellipse cx="50" cy="52" rx="11" ry="17" fill="#F8FAFC"/>
+  <circle cx="50" cy="40" r="10" fill="#334155"/>
+  <!-- Sharp Hooked Beak with Tomial Tooth -->
+  <polygon points="50,44 46,47 50,54 54,47" fill="#F59E0B"/>
+  <polygon points="50,48 48,50 50,54" fill="#0F172A"/>
+  <!-- Falcon "Moustache" Stripe under eye (Vệt ria đen dưới mắt) -->
+  <path d="M 44,42 L 42,48 M 56,42 L 58,48" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+  <!-- Piercing Dark Eyes with Yellow Orbital Ring -->
+  <circle cx="45" cy="38" r="3.2" fill="#FBBF24"/>
+  <circle cx="55" cy="38" r="3.2" fill="#FBBF24"/>
+  <circle cx="45" cy="38" r="2" fill="#000000"/>
+  <circle cx="55" cy="38" r="2" fill="#000000"/>
+  <!-- Barred Breast Feathers -->
+  <line x1="45" y1="56" x2="55" y2="56" stroke="#475569" stroke-width="1.5"/>
+  <line x1="44" y1="60" x2="56" y2="60" stroke="#475569" stroke-width="1.5"/>
+  <line x1="46" y1="64" x2="54" y2="64" stroke="#475569" stroke-width="1.5"/>
+</svg>

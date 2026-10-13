@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="burntFlame" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#732600"/>
+      <stop offset="60%" stop-color="#CC5500"/>
+      <stop offset="100%" stop-color="#FFAA33"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FFF7ED" stroke="#b33c00" stroke-width="2.5"/>
+  <!-- Smoldering Bonfire Tongue of Flame -->
+  <path d="M 50,16 C 58,30 74,44 74,62 C 74,76 64,84 50,84 C 36,84 26,76 26,62 C 26,44 42,30 50,16 Z" fill="url(#burntFlame)"/>
+  <!-- Intense Inner Core -->
+  <path d="M 50,38 C 54,48 62,56 62,66 C 62,74 56,78 50,78 C 44,78 38,74 38,66 C 38,56 46,48 50,38 Z" fill="#FFCC00"/>
+  <circle cx="44" cy="54" r="2.5" fill="#FFFFFF"/>
+</svg>

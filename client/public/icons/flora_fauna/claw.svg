@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="clawKeratin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#52525B"/>
+      <stop offset="70%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#09090B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5"/>
+  <!-- Wood Branch Claw is Gripping into with fresh slash marks -->
+  <rect x="18" y="72" width="64" height="18" rx="3" fill="#78350F"/>
+  <line x1="42" y1="76" x2="36" y2="84" stroke="#451A03" stroke-width="2"/>
+  <line x1="56" y1="76" x2="50" y2="84" stroke="#451A03" stroke-width="2"/>
+  <!-- Muscular Scaled Toe Digit -->
+  <path d="M 28,24 C 36,24 44,32 44,44 L 40,54 L 28,50 Z" fill="#EAB308"/>
+  <circle cx="36" cy="36" r="2" fill="#CA8A04"/>
+  <!-- SHARP HOOKED CURVED TALON CLAW (Móng vuốt cong sắc nhọn găm chặt) -->
+  <path d="M 42,42 C 60,42 74,54 76,74 C 64,74 54,64 38,52 Z" fill="url(#clawKeratin)"/>
+  <!-- Razor sharp tip highlight -->
+  <path d="M 72,66 L 76,74 L 68,73" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+</svg>
