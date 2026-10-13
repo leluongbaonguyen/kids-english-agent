@@ -3,6 +3,7 @@ import { Sparkles, RotateCw, CheckCircle2, ShieldCheck, Play, Flame, Award, Hear
 import { fetchSrsDueItems, fetchSrsStats, submitSrsEvidence, SRS_CONFIG } from '../services/srsService';
 import SrsReviewCard from './SrsReviewCard';
 import SrsSessionSummary from './SrsSessionSummary';
+import VocabSmartIcon from './VocabSmartIcon';
 
 export default function ReviewCyclesPage({
   learnerId = 'minh_anh',
@@ -346,10 +347,8 @@ export default function ReviewCyclesPage({
                     className="p-3.5 rounded-2xl border border-purple-500/30 bg-slate-900/80 hover:border-purple-400 transition space-y-1.5 flex items-center justify-between shadow"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="text-2xl select-none">
-                        {item.imageEmoji || item.image || item.emoji || ({
-                          red: '🔴', blue: '🔵', yellow: '🟡', green: '🟢', orange: '🟠', purple: '🟣', pink: '🌸', black: '🖤', white: '⚪', brown: '🟤'
-                        })[(item.word || '').toLowerCase()] || '📖'}
+                      <div className="select-none flex items-center justify-center">
+                        <VocabSmartIcon item={item} word={item.word} className="w-8 h-8 text-2xl" />
                       </div>
                       <div>
                         <div className="text-xs font-black text-white flex items-center gap-2">

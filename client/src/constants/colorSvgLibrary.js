@@ -5,6 +5,8 @@
  * accurately matching precise hex codes and physical luster.
  */
 
+import { normalizeSvg } from '../utils/svgNormalizer.js';
+
 export const COLOR_SVGS = {
   "crimson": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n  <defs>\n    <radialGradient id=\"crimsonGlow\" cx=\"40%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#FF4D6D\"/>\n      <stop offset=\"45%\" stop-color=\"#DC143C\"/>\n      <stop offset=\"100%\" stop-color=\"#690000\"/>\n    </radialGradient>\n    <linearGradient id=\"crimsonLiquid\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FF758F\"/>\n      <stop offset=\"70%\" stop-color=\"#DC143C\"/>\n      <stop offset=\"100%\" stop-color=\"#590D22\"/>\n    </linearGradient>\n  </defs>\n  <circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"#FFF0F3\" stroke=\"#c30023\" stroke-width=\"2.5\"/>\n  <!-- Velvet Swatch Shield -->\n  <path d=\"M 28,26 C 38,20 62,20 72,26 C 74,48 66,74 50,82 C 34,74 26,48 28,26 Z\" fill=\"url(#crimsonGlow)\" filter=\"drop-shadow(0 4px 6px rgba(128,0,32,0.3))\"/>\n  <!-- Glossy Swirl -->\n  <path d=\"M 34,34 Q 50,26 66,34 Q 58,54 44,60 Q 32,54 34,34 Z\" fill=\"url(#crimsonLiquid)\" opacity=\"0.6\"/>\n  <!-- Specular Light Curves -->\n  <path d=\"M 36,30 Q 50,24 64,30\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\" opacity=\"0.8\"/>\n  <circle cx=\"42\" cy=\"38\" r=\"3.5\" fill=\"#FFFFFF\" opacity=\"0.75\"/>\n  <circle cx=\"48\" cy=\"46\" r=\"1.8\" fill=\"#FFFFFF\" opacity=\"0.8\"/>\n  <!-- Pure Gold Crown Accent -->\n  <path d=\"M 44,18 L 47,23 L 50,19 L 53,23 L 56,18 L 55,26 L 45,26 Z\" fill=\"#F59E0B\"/>\n</svg>",
   "scarlet": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n  <defs>\n    <linearGradient id=\"scarletFlame\" x1=\"0%\" y1=\"100%\" x2=\"0%\" y2=\"0%\">\n      <stop offset=\"0%\" stop-color=\"#B91C1C\"/>\n      <stop offset=\"50%\" stop-color=\"#FF2400\"/>\n      <stop offset=\"100%\" stop-color=\"#FF7A00\"/>\n    </linearGradient>\n  </defs>\n  <circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"#FFF5F5\" stroke=\"#e60b00\" stroke-width=\"2.5\"/>\n  <!-- Blazing Torch / Lantern Flame -->\n  <path d=\"M 50,16 C 56,28 72,42 72,60 C 72,74 62,84 50,84 C 38,84 28,74 28,60 C 28,42 44,28 50,16 Z\" fill=\"url(#scarletFlame)\"/>\n  <!-- Inner Intense Core -->\n  <path d=\"M 50,34 C 54,42 62,52 62,64 C 62,72 56,76 50,76 C 44,76 38,72 38,64 C 38,52 46,42 50,34 Z\" fill=\"#FFE066\"/>\n  <!-- Sparkles -->\n  <polygon points=\"50,44 52,50 58,52 52,54 50,60 48,54 42,52 48,50\" fill=\"#FFFFFF\"/>\n  <circle cx=\"34\" cy=\"48\" r=\"2.2\" fill=\"#FF8A65\"/>\n  <circle cx=\"66\" cy=\"44\" r=\"2\" fill=\"#FF8A65\"/>\n</svg>",
@@ -136,7 +138,9 @@ export const COLOR_SVGS = {
 export function getColorSvgForWord(word) {
   if (!word) return null;
   const normalized = word.toLowerCase().trim();
-  return COLOR_SVGS[normalized] || null;
+  const raw = COLOR_SVGS[normalized];
+  if (!raw) return null;
+  return normalizeSvg(raw);
 }
 
 /**

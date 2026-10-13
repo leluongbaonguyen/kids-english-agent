@@ -399,3 +399,34 @@ html, body {
   animation: shimmerWave 2.5s infinite ease-in-out;
 }
 
+/* Cross-Platform & Mobile/WebKit fix for Vocab Icons & SVGs */
+.vocab-smart-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
+  position: relative !important;
+}
+
+.vocab-smart-icon svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+.vocab-smart-icon.vocab-emoji,
+.font-emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", sans-serif !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+

@@ -5,6 +5,8 @@
  * and Roman numerals with geometric precision.
  */
 
+import { normalizeSvg } from '../utils/svgNormalizer.js';
+
 export const NUMBER_SVGS = {
   "zero": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n  <defs>\n    <radialGradient id=\"zeroGlow\" cx=\"45%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#38BDF8\"/>\n      <stop offset=\"60%\" stop-color=\"#0284C7\"/>\n      <stop offset=\"100%\" stop-color=\"#0369A1\"/>\n    </radialGradient>\n  </defs>\n  <circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"#F0F9FF\" stroke=\"#0284C7\" stroke-width=\"2.5\"/>\n  <!-- Concentric Orbit Ring -->\n  <circle cx=\"50\" cy=\"50\" r=\"34\" fill=\"none\" stroke=\"#BAE6FD\" stroke-width=\"3\" stroke-dasharray=\"6,4\"/>\n  <!-- Giant 3D Zero Ring / Torus -->\n  <ellipse cx=\"50\" cy=\"50\" rx=\"22\" ry=\"28\" fill=\"url(#zeroGlow)\" stroke=\"#0C4A6E\" stroke-width=\"2\"/>\n  <ellipse cx=\"50\" cy=\"50\" rx=\"10\" ry=\"16\" fill=\"#F0F9FF\" stroke=\"#0C4A6E\" stroke-width=\"1.5\"/>\n  <!-- Specular Curve -->\n  <path d=\"M 38,30 C 44,24 56,24 62,30\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/>\n  <circle cx=\"36\" cy=\"40\" r=\"2.5\" fill=\"#FFFFFF\"/>\n</svg>",
   "one": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n  <defs>\n    <linearGradient id=\"oneGold\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#FDE047\"/>\n      <stop offset=\"50%\" stop-color=\"#EAB308\"/>\n      <stop offset=\"100%\" stop-color=\"#CA8A04\"/>\n    </linearGradient>\n  </defs>\n  <circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"#FEFCE8\" stroke=\"#EAB308\" stroke-width=\"2.5\"/>\n  <!-- Starburst background -->\n  <circle cx=\"50\" cy=\"50\" r=\"32\" fill=\"#FEF08A\" opacity=\"0.4\"/>\n  <!-- Beveled 3D Number 1 Pillar -->\n  <path d=\"M 40,32 L 50,22 L 54,22 L 54,72 L 64,72 L 64,80 L 36,80 L 36,72 L 46,72 L 46,36 L 38,40 Z\" fill=\"url(#oneGold)\" stroke=\"#A16207\" stroke-width=\"2\" filter=\"drop-shadow(0 4px 6px rgba(161,98,7,0.3))\"/>\n  <!-- Specular Edge -->\n  <path d=\"M 40,32 L 50,22 L 54,22 L 54,72\" stroke=\"#FFFFFF\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/>\n  <polygon points=\"50,14 52,18 56,20 52,22 50,26 48,22 44,20 48,18\" fill=\"#F59E0B\"/>\n</svg>",
@@ -136,7 +138,9 @@ export const NUMBER_SVGS = {
 export function getNumberSvgForWord(word) {
   if (!word) return null;
   const normalized = word.toLowerCase().trim();
-  return NUMBER_SVGS[normalized] || null;
+  const raw = NUMBER_SVGS[normalized];
+  if (!raw) return null;
+  return normalizeSvg(raw);
 }
 
 /**
