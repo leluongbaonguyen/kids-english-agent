@@ -97,21 +97,7 @@ export const NativePushService = {
     return true;
   },
 
-  /**
-   * Tự động lên lịch gửi thông báo định kỳ (Daily Scheduled Alerts)
-   */
   scheduleDailyReminders() {
-    // Tự động kiểm tra mỗi 1 giờ
-    setInterval(() => {
-      const now = new Date();
-      const currentHour = now.getHours();
-      // Nhắc học vào 9:00 sáng hoặc 19:00 tối
-      if (currentHour === 9 || currentHour === 19) {
-        this.sendLocalNotification(
-          '⏰ Giờ Học Tiếng Anh Của Bé Minh Anh!',
-          'Cùng Lumi vào ôn 5 từ vựng và làm Today Plan 15 phút ngay bé ơi! 🦄'
-        );
-      }
-    }, 3600000);
+    // Reminders removed as requested by user
   }
 };

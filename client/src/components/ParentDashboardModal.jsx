@@ -746,41 +746,6 @@ export default function ParentDashboardModal({
                 </div>
               </div>
 
-              {/* IOS / WEB PUSH NOTIFICATIONS ACTIVATION CARD */}
-              <div className="p-5 rounded-3xl border border-pink-400/50 bg-gradient-to-r from-slate-950 via-pink-950/20 to-slate-950 space-y-3 shadow-xl">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 rounded-2xl bg-pink-500/20 text-pink-300 border border-pink-400/40">
-                      <Bell className="h-5 w-5 animate-pulse-glow" />
-                    </div>
-                    <div>
-                      <h3 className="text-xs font-black uppercase text-pink-300 tracking-wider">
-                        THÔNG BÁO NHẮC HỌC HÀNG NGÀY TRÊN IPHONE / IPAD / WEB:
-                      </h3>
-                      <p className="text-[11px] text-slate-300">
-                        Nhắc bé ôn từ vựng & giữ chuỗi học tập (Streak) vào 9:00 sáng & 19:00 tối hàng ngày
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleEnablePushNotifications}
-                    className={`px-5 py-2.5 rounded-2xl text-xs font-black transition cursor-pointer shadow-lg flex items-center gap-2 ${
-                      pushStatus === 'granted'
-                        ? 'bg-emerald-950 border border-emerald-500 text-emerald-300'
-                        : 'btn-white-pink hover:scale-105'
-                    }`}
-                  >
-                    <Bell className="h-4 w-4 text-pink-700" />
-                    <span>
-                      {pushStatus === 'granted'
-                        ? '✔ Đã Bật Thông Báo iOS'
-                        : '🔔 BẬT THÔNG BÁO NHẮC HỌC NGAY'}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
               {/* SKILLS PROGRESS BARS */}
               <div className="p-6 rounded-3xl border border-slate-800 bg-slate-950 space-y-4 shadow-xl">
                 <h3 className="text-sm font-black uppercase text-pink-300 tracking-wider flex items-center gap-2">

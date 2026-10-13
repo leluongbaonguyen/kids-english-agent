@@ -421,7 +421,7 @@ export default function DailyPath5StepSection({
                           ) : step.stepNumber === 5 && step.rewardClaimed ? (
                             <>
                               <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                              <span>Đã Nhận Thưởng</span>
+                              <span>Đã Hoàn Thành Mục Tiêu</span>
                             </>
                           ) : (
                             <>
@@ -431,7 +431,7 @@ export default function DailyPath5StepSection({
                                 {step.stepNumber === 2 && (isInProgress ? 'Tiếp Tục Bài Học' : '▶ Vào Bài Học Mới')}
                                 {step.stepNumber === 3 && '▶ Mở Phonics & Mic'}
                                 {step.stepNumber === 4 && '▶ Vào Game Center'}
-                                {step.stepNumber === 5 && '🎁 Nhận Thưởng (+50 ⭐)'}
+                                {step.stepNumber === 5 && '🎯 Hoàn Thành Mục Tiêu Ngày'}
                               </span>
                             </>
                           )}
@@ -472,7 +472,7 @@ export default function DailyPath5StepSection({
                 <p>Trung tâm <b>8 Mini Games</b> tự động nạp danh sách từ vựng vừa học để củng cố qua đập bóng, ghép thẻ và cho quái vật ăn.</p>
               )}
               {infoModalStep.stepNumber === 5 && (
-                <p><b>Daily Challenge</b> thay đổi nhiệm vụ mỗi ngày và tích hợp cơ chế chống nhận thưởng lặp lại trên Server/Local DB.</p>
+                <p><b>Daily Challenge</b> thay đổi nhiệm vụ mỗi ngày và giúp bé rèn luyện toàn diện mỗi ngày.</p>
               )}
             </div>
             <button onClick={() => setInfoModalStep(null)} className="w-full py-2.5 rounded-xl bg-cyan-600 text-white font-bold text-xs hover:bg-cyan-500 transition">Đã Hiểu</button>

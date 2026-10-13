@@ -6,7 +6,6 @@ import { BackgroundMusicPlayer } from './components/BackgroundMusicPlayer.jsx';
 import { Dynamic3DBackground } from './components/Dynamic3DBackground.jsx';
 import { ToastContainer } from './components/ToastContainer.jsx';
 import { MobileBottomBar } from './components/MobileBottomBar.jsx';
-import IosPwaInstallPrompt from './components/IosPwaInstallPrompt.jsx';
 import { PageLocationBar, ROUTE_MAP } from './components/PageLocationBar.jsx';
 import AuthGateScreen from './components/AuthGateScreen.jsx';
 import LandingIntroHero from './components/LandingIntroHero.jsx';
@@ -344,9 +343,6 @@ export default function App() {
           />
         </main>
       </div>
-
-      {/* iOS Mobile Native App Push & PWA Banner */}
-      <IosPwaInstallPrompt addToast={addToast} />
 
       {/* iOS Native Mobile Bottom Navigation Bar */}
       <MobileBottomBar

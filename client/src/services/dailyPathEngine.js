@@ -128,11 +128,11 @@ export class DailyPathEngine {
       {
         stepNumber: 5,
         activityType: 'daily_challenge',
-        title: 'Thử Thách Hằng Ngày (Daily Challenge)',
-        subtitle: 'Hoàn thành 3 bước học để nhận 50 Ngôi Sao Bonus & Thức ăn Thú cún!',
+        title: 'Tổng Kết Mục Tiêu Ngày (Daily Goal)',
+        subtitle: 'Xem lại các bước học tập xuất sắc và mục tiêu hoàn thành trong ngày!',
         estimatedMinutes: 1,
-        tag: 'Reward Target',
-        icon: '🎁',
+        tag: 'Daily Goal',
+        icon: '🎯',
         status: 'LOCKED', // Unlocks when 3 steps are complete
         progressPercent: 0,
         rewardClaimed: false,

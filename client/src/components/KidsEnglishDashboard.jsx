@@ -2040,7 +2040,7 @@ export function KidsEnglishDashboard({
     "🦄 Minh Anh ơi! Mỗi từ vựng con thuộc là thêm 1 Ngôi Sao Bé Ngoan rực rỡ tặng con đấy! ⭐💖",
     "👑 Chúc công chúa Nguyễn Ngọc Minh Anh luôn chinh phục 400 từ vựng Tiếng Anh thật dễ dàng nhé! 🚀",
     "🔊 Minh Anh bấm biểu tượng Loa hoặc bấm trực tiếp vào Icon đang chạy để nghe phát âm giọng chuẩn nhé! 🎶",
-    "🤖 AI Trợ Lý nhắc nhở: Minh Anh nhớ làm 5 bài tập đố vui mỗi ngày để nhận huy hiệu Thần Đồng Tiếng Anh! 🏆",
+    "🤖 AI Trợ Lý: Minh Anh hãy cùng học thật vui và khám phá các bài học hôm nay nhé! 🌟",
   ];
 
   // Automated Target Milestones & Reward System for Minh Anh
@@ -2060,28 +2060,7 @@ export function KidsEnglishDashboard({
     }
   });
 
-  const [activeRewardModal, setActiveRewardModal] = useState(null);
-
-  // Automated System Target Check & Reward Unlock Engine
-  useEffect(() => {
-    const nextMilestone = TARGET_MILESTONES.find(
-      (m) => stars >= m.starsNeeded && !claimedRewards.includes(m.id)
-    );
-    if (nextMilestone && !activeRewardModal) {
-      setActiveRewardModal(nextMilestone);
-    }
-  }, [stars, claimedRewards, activeRewardModal, TARGET_MILESTONES]);
-
-  const handleClaimReward = (milestone) => {
-    const nextClaimed = [...claimedRewards, milestone.id];
-    setClaimedRewards(nextClaimed);
-    try {
-      localStorage.setItem('kids_claimed_rewards', JSON.stringify(nextClaimed));
-    } catch (e) {}
-    setStars((prev) => prev + milestone.bonus);
-    setActiveRewardModal(null);
-    if (addToast) addToast(`🎉 CHÚC MỪNG MINH ANH! Nhận quà ${milestone.reward} (+${milestone.bonus} Bonus Stars ⭐)`, 'success');
-  };
+  // Reward modal removed as requested
 
   // Sync Kids Learning Progress with Backend Server API (/api/kids/progress)
   useEffect(() => {
@@ -2772,106 +2751,9 @@ export function KidsEnglishDashboard({
         </div>
       )}
 
-      {/* Persistent Parent Reminder Banner */}
-      {parentReminder && (
-        <div className="p-2.5 sm:p-3 rounded-2xl border border-amber-400/60 bg-gradient-to-r from-amber-950/80 via-slate-950 to-pink-950/80 shadow-md flex flex-row items-center justify-between gap-2.5 animate-fadeIn">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-yellow-500 to-orange-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.6)] border-2 border-white/60 shrink-0 font-bold">
-              <ShieldCheck className="h-5 w-5 text-slate-950" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[10px] sm:text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1 truncate">
-                <BellRing className="h-3 w-3 text-amber-400 shrink-0 animate-bounce" />
-                <span>BA BẢO NGUYÊN DẶN:</span>
-              </div>
-              <p className="text-xs font-bold text-white truncate">{parentReminder}</p>
-            </div>
-          </div>
+      {/* Parent reminder banner removed */}
 
-          <button
-            onClick={() => playWordAudio(parentReminder)}
-            className="shrink-0 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 font-black text-[11px] hover:opacity-90 transition shadow flex items-center justify-center gap-1 cursor-pointer touch-manipulation"
-          >
-            <Volume2 className="h-3.5 w-3.5 text-slate-950 shrink-0" />
-            <span className="hidden sm:inline">Nghe Nhắc Nhở</span>
-            <span className="sm:hidden">Nghe</span>
-          </button>
-        </div>
-      )}
-
-      {/* Admin Parent Learning Reminders & Progress Control Box (Bảo Nguyên Only) */}
-      {currentActor === 'bao_nguyen' && (
-        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-2 border-purple-500/50 bg-gradient-to-br from-purple-950/90 via-slate-900 to-slate-950 space-y-4 shadow-xl">
-          <div className="flex items-center justify-between border-b border-purple-500/20 pb-3 flex-wrap gap-2">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-purple-400" />
-              <h3 className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">
-                👨‍💼 QUẢN TRỊ VIÊN BẢO NGUYÊN: TIẾN ĐỘ & NHẮC NHỜ MINH ANH
-              </h3>
-            </div>
-            <span className="text-xs text-purple-300 font-mono-code font-bold">
-              Mastered: {masteredCards.length} | Streak: {streakCount} | Stars: {stars} ⭐
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-            <div className="md:col-span-8 relative">
-              <input
-                type="text"
-                value={parentReminderInput || parentReminder}
-                onChange={(e) => setParentReminderInput(e.target.value)}
-                placeholder="Nhập nội dung nhắc nhở gửi tới Bé Minh Anh..."
-                className="w-full rounded-2xl border border-purple-500/40 bg-slate-950 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-purple-400 focus:outline-none font-bold"
-              />
-            </div>
-            <div className="md:col-span-4 flex items-center gap-2">
-              <button
-                onClick={() => {
-                  const val = parentReminderInput.trim() || parentReminder;
-                  setParentReminder(val);
-                  try {
-                    localStorage.setItem('kids_parent_reminder', val);
-                  } catch (e) {
-                    console.error(e);
-                  }
-                  if (addToast) addToast('🚀 Đã gửi nhắc nhở học tập tới màn hình Bé Minh Anh!', 'success');
-                  playWordAudio(`Đã phát thông báo nhắc nhở tới bé Minh Anh: ${val}`);
-                }}
-                className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-600 text-white font-black text-xs hover:from-purple-400 hover:to-pink-500 shadow-lg flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
-              >
-                <Send className="h-4 w-4" />
-                <span>Gửi Nhắc Nhở</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 text-[11px]">
-            <span className="text-slate-400 font-bold">Mẫu nhanh:</span>
-            {[
-              'Minh Anh ơi! Hôm nay con nhớ học 5 từ vựng mới để thưởng 10 sao bé ngoan nhé! 💖✨',
-              'Con gái Minh Anh làm bài tập xuất sắc lắm, Ba Bảo Nguyên luôn tin tưởng con! 🏆⭐',
-              'Minh Anh ơi, hoàn thành bài tập Level hôm nay nhé! 🦄⭐',
-            ].map((preset, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setParentReminderInput(preset);
-                  setParentReminder(preset);
-                  try {
-                    localStorage.setItem('kids_parent_reminder', preset);
-                  } catch (e) {
-                    console.error(e);
-                  }
-                  if (addToast) addToast('🚀 Đã chọn mẫu nhắc nhở nhanh!', 'info');
-                }}
-                className="px-2.5 py-1 rounded-xl bg-purple-900/40 border border-purple-500/30 text-purple-200 font-bold hover:bg-purple-800/60 transition cursor-pointer"
-              >
-                Mẫu {i + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Admin reminder box removed */}
 
       {/* Sleek Compact AI Voice Selector & Controls Bar */}
       <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-purple-500/20 shadow-md backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-2.5">
@@ -4139,49 +4021,6 @@ export function KidsEnglishDashboard({
 
 
 
-      {/* ========================================================================= */}
-      {/* AUTOMATED TARGET REWARD CLAIM UNLOCK MODAL FOR MINH ANH */}
-      {/* ========================================================================= */}
-      {activeRewardModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/90 backdrop-blur-lg animate-fadeIn overflow-y-auto w-screen h-screen top-0 left-0 m-0">
-          <div className="relative m-auto w-full max-w-lg rounded-3xl border-4 border-yellow-400 bg-gradient-to-b from-yellow-950 via-slate-900 to-slate-950 p-6 md:p-8 shadow-2xl text-center space-y-6 overflow-hidden max-h-[90vh] overflow-y-auto animate-scaleIn">
-            <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-yellow-400/30 blur-3xl pointer-events-none animate-pulse"></div>
-
-            <div className="text-7xl animate-bounce">{activeRewardModal.icon}</div>
-
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 rounded-full border border-yellow-400/60 bg-yellow-500/20 px-4 py-1 text-xs font-black text-yellow-300 uppercase tracking-widest">
-                <Trophy className="h-4 w-4 text-yellow-400 animate-spin-slow" /> HỘP QUÀ TỰ ĐỘNG ĐẠT TARGET MINH ANH 🎉
-              </div>
-              <h2 className="text-2xl md:text-3xl font-extrabold font-heading text-white">
-                {activeRewardModal.title}
-              </h2>
-              <p className="text-xs md:text-sm text-yellow-200 font-bold">
-                Hoan hô bé **Nguyễn Ngọc Minh Anh** đã xuất sắc tích lũy đạt mốc **{activeRewardModal.starsNeeded} Ngôi Sao ⭐**!
-              </p>
-            </div>
-
-            <div className="p-4 rounded-2xl border-2 border-yellow-400/40 bg-slate-950/90 space-y-2">
-              <div className="text-xs text-slate-400 font-bold uppercase">Phần Thưởng Đã Mở Khóa:</div>
-              <div className="text-lg md:text-xl font-black text-yellow-300 font-heading">{activeRewardModal.reward}</div>
-              <div className="text-xs text-emerald-400 font-bold font-mono-code">+ {activeRewardModal.bonus} Bonus Stars ⭐ Thưởng Nóng!</div>
-            </div>
-
-            <div className="pt-2 flex justify-center">
-              <button
-                onClick={() => handleClaimReward(activeRewardModal)}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-yellow-500 via-amber-400 to-pink-500 text-slate-950 font-black text-base md:text-lg shadow-2xl hover:scale-105 transition duration-200 flex items-center justify-center gap-2"
-              >
-                <span>🎁 MỞ HỘP QUÀ BÍ MẬT & NHẬN THƯỞNG ⭐</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* AI VOICE PRONUNCIATION GRADER MODAL DIALOG */}
-      {/* ========================================================================= */}
       {showVoiceModal && voiceTargetWord && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-xl animate-fadeIn font-sans cursor-pointer" onClick={() => setShowVoiceModal(false)}>
           <div className="w-full max-w-lg rounded-3xl border-2 border-cyan-400 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-6 md:p-8 shadow-2xl space-y-6 text-center relative overflow-hidden cursor-default" onClick={(e) => e.stopPropagation()}>

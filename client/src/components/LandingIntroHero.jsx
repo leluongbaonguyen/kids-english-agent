@@ -589,7 +589,7 @@ export default function LandingIntroHero({
             </div>
             <h3 className="text-lg font-black text-white">Trung Tâm Bài Tập & Mini-Games</h3>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Kho trò chơi tương tác phong phú: Ghép từ với tranh, Nghe âm thanh đoán nghĩa, Thử thách phản xạ tốc độ và Đố vui trắc nghiệm nhận thưởng sao thú vị.
+              Kho trò chơi tương tác phong phú: Ghép từ với tranh, Nghe âm thanh đoán nghĩa, Thử thách phản xạ tốc độ và Đố vui trắc nghiệm củng cố kiến thức sinh động.
             </p>
           </div>
 

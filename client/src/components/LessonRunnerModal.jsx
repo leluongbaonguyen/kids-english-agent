@@ -922,7 +922,7 @@ export default function LessonRunnerModal({
                   onClick={handleNextStep}
                   className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-sm shadow-xl hover:scale-105 transition cursor-pointer"
                 >
-                  🚀 Nhận Thưởng & Hoàn Thành
+                  🚀 Hoàn Thành Bài Học
                 </button>
               </div>
             </div>
