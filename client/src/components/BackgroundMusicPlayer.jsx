@@ -401,7 +401,7 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
       <audio ref={audioElemRef} loop />
 
       {/* Floating BGM Music Player Widget (Mobile Optimized - Compact Pill) */}
-      <div className="no-print fixed bottom-20 left-3 md:bottom-4 md:left-4 z-40 select-none font-sans touch-manipulation">
+      <div className="no-print fixed bottom-[72px] left-2.5 sm:bottom-20 sm:left-3 md:bottom-4 md:left-4 z-40 select-none font-sans touch-manipulation">
         {showWidget ? (
           <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-full md:rounded-3xl border-2 border-pink-400/80 bg-slate-950/90 shadow-[0_10px_30px_rgba(236,72,153,0.4)] backdrop-blur-xl animate-fadeIn max-w-[calc(100vw-24px)] overflow-hidden">
             <button
@@ -489,10 +489,10 @@ export function BackgroundMusicPlayer({ currentActor, addToast, onBgConfigChange
         ) : (
           <button
             onClick={() => setShowWidget(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-400/70 bg-slate-950/90 text-pink-200 font-black text-xs shadow-xl backdrop-blur-md hover:scale-105 transition cursor-pointer"
+            className="flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-full border border-pink-400/70 bg-slate-950/90 text-pink-200 font-black text-xs shadow-xl backdrop-blur-md hover:scale-105 active:scale-95 transition cursor-pointer"
             title="Mở nhạc nền"
           >
-            <Music className={`h-3.5 w-3.5 text-pink-400 ${isPlaying ? 'animate-pulse' : ''}`} />
+            <Music className={`h-4 w-4 sm:h-3.5 sm:w-3.5 text-pink-400 ${isPlaying ? 'animate-pulse' : ''}`} />
             <span className="hidden sm:inline">🎵 Nhạc Nền</span>
           </button>
         )}

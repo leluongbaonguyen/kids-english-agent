@@ -325,7 +325,7 @@ export default function App() {
         </div>
 
         {/* Main Learning Dashboard Workspace */}
-        <main className="w-full flex flex-col items-center pt-3 sm:pt-4">
+        <main className="w-full flex flex-col items-center pt-2 sm:pt-4 pb-24 sm:pb-12">
           <KidsEnglishDashboard
             plan={null}
             addToast={addToast}

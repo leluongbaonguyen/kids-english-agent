@@ -2682,8 +2682,8 @@ export function KidsEnglishDashboard({
 
       {/* Admin reminder box removed */}
 
-      {/* Sleek Compact AI Voice Selector & Controls Bar */}
-      <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-purple-500/20 shadow-md backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-2.5">
+      {/* Sleek Compact AI Voice Selector & Controls Bar (Desktop only, mobile uses Header Studio) */}
+      <div className="hidden sm:flex p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-purple-500/20 shadow-md backdrop-blur-md items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center gap-2">
             <Volume2 className="h-4 w-4 text-pink-400 shrink-0" />

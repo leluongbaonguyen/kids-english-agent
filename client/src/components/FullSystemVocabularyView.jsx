@@ -308,37 +308,37 @@ export default function FullSystemVocabularyView({
       {/* ========================================================================= */}
       {/* 1. HERO HEADER: TỔNG QUAN KHO TỪ VỰNG SIÊU CHI TIẾT 900 TỪ                */}
       {/* ========================================================================= */}
-      <div className="relative rounded-3xl border-2 border-cyan-400/60 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 p-5 sm:p-6 md:p-8 shadow-2xl overflow-hidden backdrop-blur-2xl">
+      <div className="relative rounded-2xl sm:rounded-3xl border-2 border-cyan-400/60 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 p-3.5 sm:p-6 md:p-8 shadow-2xl overflow-hidden backdrop-blur-2xl">
         {/* Glow ambient effects */}
         <div className="absolute top-0 right-0 -mt-10 -mr-10 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-72 w-72 rounded-full bg-pink-500/20 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 text-xs font-black uppercase tracking-wider shadow-sm">
-              <Sparkles className="h-3.5 w-3.5 text-yellow-300 animate-spin" />
+        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
+          <div className="space-y-1.5 sm:space-y-2 max-w-3xl">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-sm">
+              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-yellow-300 animate-spin" />
               <span>KHO DỮ LIỆU TỪ VỰNG CHÍNH THỨC • 100% ĐẦY ĐỦ & KHÔNG KHÓA</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading text-white tracking-tight leading-tight">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-heading text-white tracking-tight leading-tight">
               TOÀN BỘ {vocabList.length} TỪ VỰNG HỆ THỐNG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300">SIÊU CHI TIẾT</span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Khám phá toàn bộ {vocabList.length} từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng Chuyên đề Bách Khoa Động Thực Vật Toàn Cầu (BIO), Bách Khoa Sắc Màu Toàn Cầu (COLOR) và Bách Khoa Số Đếm & Thứ Tự (NUM). Tích hợp phiên âm quốc tế IPA, đọc tiếng Việt bồi, loại từ, câu ví dụ song ngữ, mẹo nhớ thông minh & giọng phát âm chuẩn bản ngữ!
+            <p className="text-[11px] sm:text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
+              Khám phá toàn bộ {vocabList.length} từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng 3 Chuyên đề Bách Khoa Động Thực Vật (BIO), Sắc Màu (COLOR) và Số Đếm (NUM). Đầy đủ phiên âm IPA, tiếng Việt bồi, câu ví dụ song ngữ & giọng phát âm chuẩn bản ngữ!
             </p>
           </div>
 
-          {/* Quick Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto">
+          {/* Quick Action Buttons (Balanced on Mobile) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full lg:w-auto shrink-0">
             {/* Download Excel Button */}
             <button
               onClick={handleDownloadExcel}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white font-black text-xs shadow-xl shadow-emerald-600/30 hover:scale-105 active:scale-95 transition cursor-pointer border border-emerald-400/50"
-              title="Tải về file Excel chứa toàn bộ 900 từ vựng và 9 sheet chi tiết"
+              className="flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer border border-emerald-400/50"
+              title="Tải về file Excel chứa toàn bộ từ vựng"
             >
               <Download className="h-4 w-4" />
-              <span>XUẤT EXCEL TỪ VỰNG (.XLSX)</span>
+              <span>XUẤT EXCEL (.XLSX)</span>
             </button>
 
             {/* Quick Play Memory Game Button */}
@@ -346,11 +346,11 @@ export default function FullSystemVocabularyView({
               onClick={() => {
                 window.location.hash = '#/game-lat-the';
               }}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs shadow-xl shadow-pink-600/30 hover:scale-105 active:scale-95 transition cursor-pointer border border-pink-400/50"
+              className="flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer border border-pink-400/50"
               title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,260 từ vựng"
             >
               <span className="text-sm">🃏</span>
-              <span>CHƠI GAME LẬT THẺ (1,260 TỪ)</span>
+              <span>GAME LẬT THẺ</span>
             </button>
 
             {/* Autoplay Slideshow Button */}
@@ -370,7 +370,7 @@ export default function FullSystemVocabularyView({
                   );
                 }
               }}
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-3 rounded-2xl font-black text-xs transition cursor-pointer shadow-xl active:scale-95 border ${
+              className={`flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl font-black text-xs transition cursor-pointer shadow-lg active:scale-95 border ${
                 isAutoPlay
                   ? 'bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-slate-950 border-yellow-200 animate-pulse'
                   : 'bg-slate-900 border-slate-700 text-slate-200 hover:text-white hover:border-pink-500'
@@ -379,12 +379,12 @@ export default function FullSystemVocabularyView({
               {isAutoPlay ? (
                 <>
                   <Pause className="h-4 w-4 fill-slate-950" />
-                  <span>DỪNG TỰ ĐỘNG ĐỌC ({autoPlayTimer}s)</span>
+                  <span>DỪNG ({autoPlayTimer}s)</span>
                 </>
               ) : (
                 <>
                   <Play className="h-4 w-4 fill-white" />
-                  <span>TỰ ĐỘNG ĐỌC TỪ</span>
+                  <span>TỰ ĐỘNG ĐỌC</span>
                 </>
               )}
             </button>
@@ -392,7 +392,7 @@ export default function FullSystemVocabularyView({
         </div>
 
         {/* 9 Level Breakdown Pills Bar (L1-L6 + BIO + COLOR + NUM) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2 pt-6 border-t border-slate-800/80 mt-6">
+        <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-3 lg:grid-cols-9 gap-1.5 sm:gap-2 pt-4 sm:pt-6 border-t border-slate-800/80 mt-4 sm:mt-6">
           {COURSE_LEVELS.map((lvl) => {
             const theme = LEVEL_THEMES[lvl.id] || LEVEL_THEMES.L1;
             const count = stats.levelCounts[lvl.id] || 150;

@@ -56,8 +56,8 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <div className="no-print xl:hidden fixed bottom-0 left-0 right-0 z-[45] bg-slate-950/70 backdrop-blur-xl border-t border-white/10 px-2 py-1.5 pb-safe shadow-[0_-8px_30px_rgba(0,0,0,0.8)] gpu-accelerated select-none">
-      <div className="flex items-center justify-around w-full max-w-lg mx-auto gap-1">
+    <div className="no-print xl:hidden fixed bottom-0 left-0 right-0 z-[45] bg-slate-950/90 backdrop-blur-2xl border-t border-white/15 px-1 sm:px-2 py-1.5 pb-[calc(env(safe-area-inset-bottom,0px)+6px)] shadow-[0_-10px_35px_rgba(0,0,0,0.9)] gpu-accelerated select-none">
+      <div className="flex items-center justify-around w-full max-w-lg mx-auto gap-0.5 sm:gap-1">
         {tabs.map((tab) => {
           const MainIcon = tab.mainIcon;
           const SubIcon = tab.subIcon;
@@ -73,10 +73,10 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
                   setActiveTab(tab.id);
                 }
               }}
-              className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-2xl transition-all duration-300 cursor-pointer touch-manipulation group ${
+              className={`relative flex flex-col items-center justify-center py-1 px-1.5 sm:px-2.5 rounded-2xl transition-all duration-200 cursor-pointer touch-manipulation active:scale-90 group ${
                 isActive
-                  ? 'scale-105 -translate-y-1'
-                  : 'hover:scale-102 opacity-80 hover:opacity-100'
+                  ? 'scale-105 -translate-y-0.5'
+                  : 'hover:scale-102 opacity-75 hover:opacity-100'
               }`}
             >
               {/* Flat Clean Icon Container Badge */}
