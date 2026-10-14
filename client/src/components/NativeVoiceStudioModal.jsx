@@ -130,7 +130,7 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
       }}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[88vh] sm:max-h-[85vh] my-auto flex flex-col rounded-3xl bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 border-2 border-indigo-400/50 shadow-[0_0_60px_rgba(99,102,241,0.45)] overflow-hidden"
+        className="relative w-full max-w-2xl max-h-[84vh] min-h-0 m-auto flex flex-col rounded-3xl bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 border-2 border-indigo-400/50 shadow-[0_0_60px_rgba(99,102,241,0.45)] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         
@@ -166,7 +166,7 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
         </div>
 
         {/* ================= MODAL SCROLLABLE BODY ================= */}
-        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 space-y-4 sm:space-y-6 text-slate-200 custom-scrollbar overscroll-contain">
+        <div className="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-6 space-y-4 sm:space-y-6 text-slate-200 custom-scrollbar overscroll-contain">
 
           {/* 1. TỐC ĐỘ ĐỌC SIÊU CHI TIẾT (5 PRESETS + FINE TUNER SLIDER) */}
           <div className="space-y-2.5">
