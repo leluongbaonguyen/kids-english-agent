@@ -301,6 +301,14 @@ export default function LandingIntroHero({
             <Palette className="w-5 h-5 text-cyan-400" />
             <span>18 Poster Bài Học Khổ Lớn</span>
           </button>
+
+          <button
+            onClick={() => handleNav('memory_game')}
+            className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-black text-white bg-gradient-to-r from-purple-900/90 via-pink-900/90 to-amber-950/90 hover:from-purple-800 hover:to-pink-800 border-2 border-pink-400/80 shadow-[0_0_25px_rgba(236,72,153,0.5)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer"
+          >
+            <span className="text-xl">🃏</span>
+            <span>Chơi Siêu Game Lật Thẻ (1,260 Từ)</span>
+          </button>
         </div>
 
         {/* Feature Highlights Pills */}
@@ -411,7 +419,7 @@ export default function LandingIntroHero({
               <div>
                 {/* Card Top */}
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-3xl p-2 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-md">
+                  <span className="text-3xl p-2 rounded-2xl bg-slate-950/80 border border-slate-800 shadow-md vocab-emoji">
                     {lvl.icon}
                   </span>
                   <div className="flex items-center gap-2">

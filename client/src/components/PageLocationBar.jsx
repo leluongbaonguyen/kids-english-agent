@@ -9,6 +9,7 @@ export const ROUTE_MAP = {
   'poster': { slug: 'khoa-hoc', title: 'Khóa Học & 90 Bài Học', icon: '🎨', path: 'Khóa học', badge: '90 Bài' },
   'quiz': { slug: 'bai-tap-game', title: 'Bài Tập & Game Center', icon: '🎮', path: 'Bài tập & Games', badge: 'Games' },
   'games': { slug: 'games', title: 'Bài Tập & Trò Chơi Games', icon: '🎮', path: 'Bài tập & Games', badge: 'Games' },
+  'memory_game': { slug: 'game-lat-the', title: '🃏 Siêu Game Lật Thẻ Trí Nhớ 1,260 Từ Vựng', icon: '🃏', path: 'Game Lật Thẻ', badge: '1,260 Từ' },
   'review_cycles': { slug: 'chu-ky-on-tap', title: 'Chu Kỳ Ôn Tập SRS', icon: '🔄', path: 'Chu kỳ SRS', badge: 'SRS' },
   'db_table': { slug: 'quan-ly-csdl', title: 'Quản Lý CSDL & Excel', icon: '📁', path: 'Admin CSDL', badge: 'Admin' },
   'import_wizard': { slug: 'nhap-du-lieu', title: 'Wizard Nhập Dữ Liệu', icon: '📤', path: 'Nhập dữ liệu', badge: 'Admin' },

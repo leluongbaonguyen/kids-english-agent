@@ -41,8 +41,20 @@ export function Dynamic3DBackground({ activeTab, customBgConfig }) {
 
     window.addEventListener('resize', handleResize);
 
-    // Particle definitions for 3D simulation — giảm số lượng để tối ưu hiệu năng
-    const particleCount = effectiveTheme === 'galaxy3d' ? 30 : effectiveTheme === 'neonwaves' ? 20 : 15;
+    // Pause background canvas rendering during scroll for 60fps smooth scrolling
+    let isScrolling = false;
+    let scrollTimeout = null;
+    const handleScroll = () => {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 200);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Lightweight ambient particles (12 particles max)
+    const particleCount = 12;
     const particles = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -50,48 +62,26 @@ export function Dynamic3DBackground({ activeTab, customBgConfig }) {
         x: Math.random() * width - width / 2,
         y: Math.random() * height - height / 2,
         z: Math.random() * 1000 + 1,
-        radius: Math.random() * 2.5 + 1,
-        color: effectiveTheme === 'galaxy3d' 
-          ? ['#f472b6', '#c084fc', '#818cf8', '#38bdf8', '#fef08a'][i % 5]
-          : effectiveTheme === 'neonwaves'
-          ? ['#ec4899', '#8b5cf6', '#3b82f6', '#10b981'][i % 4]
-          : ['#38bdf8', '#818cf8', '#a855f7'][i % 3],
-        speedZ: (Math.random() * 2 + 1) * config.speed,
+        radius: Math.random() * 2 + 0.8,
+        color: ['#f472b6', '#c084fc', '#818cf8', '#38bdf8', '#fef08a'][i % 5],
+        speedZ: (Math.random() * 1.5 + 0.5) * config.speed,
         angle: Math.random() * Math.PI * 2,
-      });
-    }
-
-    // Horizontal 3D Parallax Moving Sprites (Chạy Ngang Màn Hình)
-    const horizontalItems = [];
-    const cuteEmojis = ['🦄', '🧸', '🐱', '🐰', '🐶', '🌈', '👑', '🍭', '🌸', '✨', '⭐', '🎈', '🚀'];
-
-    // Giảm từ 18 xuống 6 emoji để giảm tải GPU
-    for (let h = 0; h < 6; h++) {
-      horizontalItems.push({
-        x: Math.random() * width,
-        y: Math.random() * (height * 0.85),
-        z: Math.random() * 500 + 100,
-        speedX: (Math.random() * 1.5 + 0.8) * config.speed,
-        emoji: cuteEmojis[h % cuteEmojis.length],
-        scale: Math.random() * 0.8 + 0.6,
-        rotation: 0,
-        rotSpeed: 0, // Tắt rotation để tiết kiệm ctx.save()/restore()
       });
     }
 
     let waveAngle = 0;
     let lastFrameTime = 0;
-    const TARGET_FPS = 30; // Giới hạn 30fps thay vì 60fps để tiết kiệm tối đa CPU/GPU
+    const TARGET_FPS = 24; // Smooth, ultra-low CPU background
     const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
     const render = (timestamp) => {
-      // ⚡ Zero CPU/GPU usage when tab is hidden or minimized
-      if (document.hidden) {
+      // Zero CPU/GPU usage when tab is hidden or when user is scrolling
+      if (document.hidden || isScrolling) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
-      // Throttle frame rate to 30 FPS
+      // Throttle frame rate
       if (timestamp - lastFrameTime < FRAME_INTERVAL) {
         animationFrameId = requestAnimationFrame(render);
         return;
@@ -200,18 +190,7 @@ export function Dynamic3DBackground({ activeTab, customBgConfig }) {
         }
       }
 
-      // Render Horizontal Moving Emoji (tối giản: không rotate, không shadowBlur)
-      ctx.globalAlpha = 0.5;
-      horizontalItems.forEach((item) => {
-        item.x += item.speedX;
-        if (item.x > width + 60) {
-          item.x = -60;
-          item.y = Math.random() * (height * 0.85);
-        }
-        ctx.font = `${Math.floor(28 * item.scale)}px sans-serif`;
-        ctx.fillText(item.emoji, item.x, item.y);
-      });
-      ctx.globalAlpha = 1;
+      
 
       animationFrameId = requestAnimationFrame(render);
     };

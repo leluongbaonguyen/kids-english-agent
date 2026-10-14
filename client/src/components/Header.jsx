@@ -22,10 +22,9 @@ export function Header({
           className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group min-w-0"
           title="Xem Trang Giới Thiệu V6.1"
         >
-          <div className="relative flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-600 text-xl sm:text-2xl shadow-[0_0_20px_rgba(236,72,153,0.5)] border-2 border-white/40 group-hover:scale-105 transition-all duration-300">
-            <div className="absolute top-0 inset-x-0 h-1 bg-white/40 rounded-t-xl" />
-            <span>🦄</span>
-            <Sparkles className="absolute -top-1 -right-1 h-3.5 w-3.5 text-yellow-300 animate-spin" />
+          <div className="relative flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-600 text-xl sm:text-2xl border border-white/40 group-hover:scale-105 transition-all duration-200">
+            <span className="vocab-emoji">🦄</span>
+            <Sparkles className="absolute -top-1.5 -right-1.5 h-4 w-4 text-yellow-300" />
           </div>
 
           <div className="min-w-0">
@@ -48,6 +47,21 @@ export function Header({
         {/* Action Controls */}
         <div className="flex items-center gap-1.5 shrink-0">
           
+          {/* Quick Nav to Memory Card Flip Game */}
+          <button
+            onClick={() => setActiveTab?.('memory_game')}
+            className={`px-2.5 py-1.5 rounded-xl text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm border ${
+              activeTab === 'memory_game'
+                ? 'bg-gradient-to-r from-pink-600 to-amber-500 text-white border-yellow-300 scale-105 shadow-[0_0_15px_rgba(236,72,153,0.6)]'
+                : 'bg-gradient-to-r from-purple-900/60 to-pink-900/60 border-purple-400/40 text-pink-200 hover:text-white hover:bg-pink-600/30'
+            }`}
+            title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,260 Từ Vựng"
+          >
+            <span className="text-sm vocab-emoji">🃏</span>
+            <span className="hidden sm:inline">Game Lật Thẻ</span>
+            <span className="sm:hidden">Lật Thẻ</span>
+          </button>
+
           {/* Quick Nav to Intro Landing Page */}
           <button
             onClick={() => setActiveTab?.('intro')}

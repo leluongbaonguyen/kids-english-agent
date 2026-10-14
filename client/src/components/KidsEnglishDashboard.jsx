@@ -1,13 +1,10 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  Volume2, Sparkles, Award, Star, RefreshCw, CheckCircle2, Heart, HelpCircle,
-  Gamepad2, BookOpen, Smile, RotateCw, Play, Trophy, Flame, Music, Layers, Search,
-  GraduationCap, Zap, ChevronRight, ChevronLeft, ArrowUpCircle, Check, X,
-  Bot, Clock, BellRing, Send, MessageSquare, ShieldCheck, Plus, Edit, Trash2,
-  Download, Upload, Settings, FileText, Mic, MicOff, Radio, Activity, Camera,
-  History, Shield, FileCheck, Lock, UserCheck, ListChecks, UploadCloud, Database,
-  AlertTriangle, AlertCircle, Archive, Sliders, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key, Home, Compass
+  Volume2, Sparkles, Award, Star, RefreshCw, CheckCircle2, RotateCw, Trophy, Flame,
+  Search, Check, X, Clock, ShieldCheck, Plus, Edit, Trash2, Download, Upload,
+  FileText, Mic, Camera, History, FileCheck, Lock, UploadCloud, Database,
+  AlertTriangle, AlertCircle, Archive, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key
 } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES, VOCABULARY_DATABASE, ILLUSTRATED_POSTER_PAGES, getSuperDetailedVocabInfo } from '../constants/kidsVocabularyDatabase.js';
 import LongmanEngine from '../services/longmanDictionary.js';
@@ -15,7 +12,6 @@ import { DBSyncEngine } from '../services/dbSyncEngine.js';
 import { getCombinedVocabDatabase } from '../services/localPersistentStore.js';
 
 import LessonRunnerModal from './LessonRunnerModal.jsx';
-import LearningPathView from './LearningPathView.jsx';
 import ParentDashboardModal from './ParentDashboardModal.jsx';
 import AvatarPetCustomizationModal from './AvatarPetCustomizationModal.jsx';
 import VocabBookModal from './VocabBookModal.jsx';
@@ -28,6 +24,7 @@ import Detailed6LevelPathPage from './Detailed6LevelPathPage.jsx';
 import ReviewCyclesPage from './ReviewCyclesPage.jsx';
 import PaginationControl from './PaginationControl.jsx';
 import FullSystemVocabularyView from './FullSystemVocabularyView.jsx';
+import MemoryMatchGame from './MemoryMatchGame.jsx';
 
 // ============================================================
 // SCROLL BOUNCE CARD - Tự phóng to & nhún nhảy khi scroll đến
@@ -377,6 +374,7 @@ export function KidsEnglishDashboard({
   const [currentPage, setCurrentPage] = useState(1);
   const [isExcelImportOpen, setIsExcelImportOpen] = useState(false);
   const [isHomeworkGradingOpen, setIsHomeworkGradingOpen] = useState(false);
+  const [gameSubTab, setGameSubTab] = useState('memory');
   const pageSize = 12;
 
   // 900 Vocabulary V6.0 + Persistent Custom Vocab Database Engine
@@ -2848,6 +2846,7 @@ export function KidsEnglishDashboard({
             {activeTab === 'detailed_path' && '🗺️ Lộ Trình 6 Cấp Độ'}
             {activeTab === 'poster' && `📖 Khóa Học (${posterPages.length} Trang)`}
             {(activeTab === 'quiz' || activeTab === 'games') && '🎮 Bài Tập & Game ⏰'}
+            {activeTab === 'memory_game' && '🃏 Siêu Game Lật Thẻ Trí Nhớ (1,260 Từ)'}
             {activeTab === 'review_cycles' && '🔄 Chu Kỳ Ôn Tập'}
             {activeTab === 'db_table' && '🗃️ CSDL & Excel'}
             {activeTab === 'import_wizard' && '🚀 Wizard Nhập Dữ Liệu'}
@@ -2892,6 +2891,16 @@ export function KidsEnglishDashboard({
             }`}
           >
             <span className="animate-bounce">🎮</span> Game
+          </button>
+
+          <button
+            onClick={() => setActiveTab('memory_game')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+              activeTab === 'memory_game' ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white shadow-md scale-105 border border-yellow-300' : 'bg-slate-900 text-pink-300 hover:text-white border border-pink-500/30'
+            }`}
+            title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,260 Từ Vựng"
+          >
+            <span className="animate-bounce">🃏</span> Game Lật Thẻ
           </button>
 
           <button
@@ -3362,7 +3371,47 @@ export function KidsEnglishDashboard({
       {/* ========================================================================= */}
       {/* VIEW 2: 2,000 EXERCISES & TIMED TEST ENGINE FOR MINH ANH */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* VIEW: SIÊU TRÒ CHƠI LẬT THẺ TRÍ NHỚ (STANDALONE TAB)                     */}
+      {/* ========================================================================= */}
+      {activeTab === 'memory_game' && (
+        <MemoryMatchGame
+          addToast={addToast}
+          onNavigateTab={setActiveTab}
+        />
+      )}
+
       {(activeTab === 'quiz' || activeTab === 'games') && (
+        <div className="w-full flex flex-col items-center">
+          {/* Game Center Sub-Navigation Tabs */}
+          <div className="flex items-center justify-center gap-2 mb-4 p-1.5 rounded-2xl bg-slate-950/90 border border-slate-800 max-w-md mx-auto shadow-xl">
+            <button
+              onClick={() => setGameSubTab('memory')}
+              className={`flex-1 py-2 px-3 rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                gameSubTab === 'memory'
+                  ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white shadow-lg scale-105 border border-yellow-300'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <span>🃏</span>
+              <span>Game Lật Thẻ (1,260 Từ)</span>
+            </button>
+            <button
+              onClick={() => setGameSubTab('quiz')}
+              className={`flex-1 py-2 px-3 rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                gameSubTab === 'quiz'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg scale-105 border border-purple-300'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <span>🎮</span>
+              <span>100 Bài Tập Trắc Nghiệm</span>
+            </button>
+          </div>
+
+          {gameSubTab === 'memory' ? (
+            <MemoryMatchGame addToast={addToast} onNavigateTab={setActiveTab} />
+          ) : (
         <div className="glass-panel max-w-3xl mx-auto rounded-3xl border-2 border-pink-400/50 bg-slate-900/95 p-4 sm:p-6 md:p-8 space-y-6 shadow-2xl backdrop-blur-2xl relative overflow-hidden mb-12 sm:mb-6">
           {selectedLevel !== 'all' && !isLevelUnlocked(selectedLevel) ? (
             <div className="p-8 rounded-3xl border-2 border-rose-500/60 bg-gradient-to-r from-rose-950/90 via-slate-950 to-slate-900 shadow-2xl text-center space-y-4">
@@ -3681,7 +3730,9 @@ export function KidsEnglishDashboard({
         </>
       )}
     </div>
-  )}
+          )}
+        </div>
+      )}
 
       {/* ========================================================================= */}
       {/* VIEW: SPACED REPETITION REVIEW CYCLES (5 STEPS & 1-30 DAYS) */}

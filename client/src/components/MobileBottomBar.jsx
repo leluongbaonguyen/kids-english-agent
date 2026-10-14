@@ -61,7 +61,7 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
         {tabs.map((tab) => {
           const MainIcon = tab.mainIcon;
           const SubIcon = tab.subIcon;
-          const isActive = activeTab === tab.id;
+          const isActive = activeTab === tab.id || (tab.id === 'games' && activeTab === 'memory_game');
 
           return (
             <button
@@ -79,25 +79,18 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
                   : 'hover:scale-102 opacity-80 hover:opacity-100'
               }`}
             >
-              {/* 3D Glossy Icon Container Badge */}
+              {/* Flat Clean Icon Container Badge */}
               <div
-                className={`relative flex items-center justify-center h-9 w-9 rounded-xl transition-all duration-300 ${
+                className={`relative flex items-center justify-center h-10 w-10 rounded-2xl transition-all duration-200 ${
                   isActive
-                    ? `bg-gradient-to-tr ${tab.gradient} ${tab.activeShadow} border-2 border-white/80 ring-2 ring-white/20`
-                    : 'bg-slate-900/90 border border-white/15 shadow-inner group-hover:border-white/30'
+                    ? `bg-gradient-to-tr ${tab.gradient} border border-white/50`
+                    : 'bg-slate-900 border border-white/10 group-hover:border-white/30'
                 }`}
               >
-                {/* Glossy top highlight curve */}
-                {isActive && (
-                  <div className="absolute top-0 inset-x-0 h-1.5 bg-white/40 rounded-t-xl pointer-events-none" />
-                )}
-
-                {/* Dual Layer Icons */}
+                {/* Main Icon */}
                 <MainIcon
-                  className={`h-4.5 w-4.5 transition-all duration-300 ${
-                    isActive
-                      ? 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] scale-110'
-                      : `${tab.glowColor} group-hover:scale-110`
+                  className={`h-5 w-5 transition-all duration-200 ${
+                    isActive ? 'text-white icon-bounce-playful' : `${tab.glowColor} group-hover:scale-110`
                   }`}
                 />
 

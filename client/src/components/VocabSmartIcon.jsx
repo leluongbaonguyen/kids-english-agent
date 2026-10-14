@@ -5,11 +5,7 @@ import { getNumberSvgForWord } from '../constants/numberSvgLibrary.js';
 import { normalizeSvg } from '../utils/svgNormalizer.js';
 
 /**
- * VocabSmartIcon
- * Cross-platform icon renderer for Vocabulary:
- * 1. Ultra-Detailed Vector SVG (Flora & Fauna, Colors, Numbers) with WebKit/iOS Safari auto-scaling
- * 2. High-Resolution Unicode Emoji for standard core vocabulary
- * 3. Color Swatch fallback if color hex is present
+ * VocabSmartIcon - Clean, Crisp Vector & Unicode Icon Engine (Flat & Modern, No 3D Effects)
  * 
  * @param {Object} props
  * @param {Object} [props.item] - Vocabulary object with .word, .image, .hex, .svg
@@ -17,7 +13,9 @@ import { normalizeSvg } from '../utils/svgNormalizer.js';
  * @param {string} [props.image] - Fallback emoji
  * @param {string} [props.className] - Tailwind CSS classes for size & styling
  * @param {number} [props.size] - Explicit size in pixels (optional)
- * @param {boolean} [props.showBadge] - Whether to show indicator
+ * @param {boolean} [props.showBadge] - Whether to show indicator dot
+ * @param {boolean} [props.animate] - Whether to enable physics-based bouncing (default: true)
+ * @param {boolean} [props.dance] - Whether to use rhythmic dance instead of squash-hop (default: false)
  */
 export default function VocabSmartIcon({
   item,
@@ -25,11 +23,14 @@ export default function VocabSmartIcon({
   image,
   className = 'w-8 h-8',
   size,
-  showBadge = false
+  showBadge = false,
+  animate = true,
+  dance = false
 }) {
   const targetWord = (item?.word || word || '').trim();
   const fallbackImage = item?.image || image;
   const hexColor = item?.hex;
+  const animClass = animate ? (dance ? 'icon-dance' : 'icon-bounce-playful') : '';
 
   // Find vector SVG from libraries or direct item.svg
   const rawSvg = useMemo(() => {
@@ -38,7 +39,7 @@ export default function VocabSmartIcon({
     return getCustomSvgForWord(targetWord) || getColorSvgForWord(targetWord) || getNumberSvgForWord(targetWord);
   }, [item?.svg, targetWord]);
 
-  // Normalized SVG string with width="100%", height="100%" and style block for iOS Safari / WKWebView
+  // Normalized SVG string with width="100%", height="100%"
   const processedSvg = useMemo(() => {
     if (!rawSvg) return null;
     return normalizeSvg(rawSvg);
@@ -46,50 +47,68 @@ export default function VocabSmartIcon({
 
   const styleObj = size ? { width: `${size}px`, height: `${size}px` } : {};
 
-  // 1. Vector SVG branch (Highest priority for custom illustrated categories)
+  // 1. Vector SVG branch (Flora/Fauna, Colors, Numbers, etc.) - Clean flat vector
   if (processedSvg) {
     return (
       <div
-        className={`vocab-smart-icon inline-flex items-center justify-center shrink-0 select-none transition-transform duration-200 hover:scale-110 [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block [&>svg]:shrink-0 ${className}`}
-        style={styleObj}
-        title={`${targetWord} • Minh họa Vector chuẩn xác`}
-        dangerouslySetInnerHTML={{ __html: processedSvg }}
-      />
-    );
-  }
-
-  // 2. High-Resolution Emoji renderer with optimal system font stack
-  if (fallbackImage) {
-    return (
-      <span
-        className={`vocab-smart-icon vocab-emoji inline-flex items-center justify-center shrink-0 select-none font-emoji leading-none ${className}`}
+        className={`vocab-smart-icon ${animClass} relative inline-flex items-center justify-center shrink-0 select-none ${className}`}
         style={styleObj}
         title={targetWord}
       >
-        {fallbackImage}
+        <div
+          className="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block [&>svg]:shrink-0"
+          dangerouslySetInnerHTML={{ __html: processedSvg }}
+        />
+        {showBadge && (
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
+        )}
+      </div>
+    );
+  }
+
+  // 2. Unicode Emoji branch - Clean, natural emoji rendering
+  if (fallbackImage) {
+    return (
+      <span
+        className={`vocab-smart-icon vocab-emoji ${animClass} relative inline-flex items-center justify-center shrink-0 select-none font-emoji leading-none ${className}`}
+        style={styleObj}
+        title={targetWord}
+      >
+        <span className="leading-none flex items-center justify-center">
+          {fallbackImage}
+        </span>
+        {showBadge && (
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-pink-400 ring-2 ring-slate-950" />
+        )}
       </span>
     );
   }
 
-  // 3. Color hex swatch fallback if it's a color category word
+  // 3. Clean Color Swatch Circle (Flat & crisp, no 3D marble glint)
   if (hexColor) {
     return (
       <span
-        className={`vocab-smart-icon inline-flex items-center justify-center shrink-0 rounded-full border-2 border-white/60 shadow-lg ${className}`}
-        style={{ ...styleObj, backgroundColor: hexColor }}
+        className={`vocab-smart-icon ${animClass} relative inline-flex items-center justify-center shrink-0 rounded-full select-none ${className}`}
+        style={{
+          ...styleObj,
+          backgroundColor: hexColor,
+          border: '1.5px solid rgba(255,255,255,0.6)'
+        }}
         title={`${targetWord} (${hexColor})`}
       />
     );
   }
 
-  // 4. Default fallback icon
+  // 4. Default Fallback icon
   return (
     <span
-      className={`vocab-smart-icon vocab-emoji inline-flex items-center justify-center shrink-0 select-none font-emoji leading-none ${className}`}
+      className={`vocab-smart-icon vocab-emoji ${animClass} relative inline-flex items-center justify-center shrink-0 select-none font-emoji leading-none ${className}`}
       style={styleObj}
       title={targetWord}
     >
-      📖
+      <span className="leading-none flex items-center justify-center">
+        📖
+      </span>
     </span>
   );
 }

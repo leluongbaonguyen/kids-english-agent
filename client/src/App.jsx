@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header.jsx';
 import { KidsEnglishDashboard } from './components/KidsEnglishDashboard.jsx';
-import { AnimatedMascots } from './components/AnimatedMascots.jsx';
 import { BackgroundMusicPlayer } from './components/BackgroundMusicPlayer.jsx';
 import { Dynamic3DBackground } from './components/Dynamic3DBackground.jsx';
 import { ToastContainer } from './components/ToastContainer.jsx';
@@ -291,9 +290,7 @@ export default function App() {
       {/* 3D Canvas Background */}
       <Dynamic3DBackground activeTab={activeTab} customBgConfig={bgConfig} />
 
-      {/* Floating Mascots */}
-      <AnimatedMascots addToast={addToast} />
-
+      
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} />
 

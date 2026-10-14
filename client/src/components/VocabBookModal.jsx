@@ -62,7 +62,7 @@ export default function VocabBookModal({
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
           <div className="flex items-center gap-3">
             <div className="p-3 rounded-2xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 text-3xl">
-              📖
+              <span className="vocab-emoji">📖</span>
             </div>
             <div>
               <h2 className="text-xl md:text-2xl font-black font-heading text-white">

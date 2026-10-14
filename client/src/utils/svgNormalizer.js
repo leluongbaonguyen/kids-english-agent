@@ -1,7 +1,7 @@
 /**
  * svgNormalizer.js
- * Ensures inline SVGs have explicit dimensions and styling
- * for WebKit (iOS Safari, WKWebView, Zalo, etc.) compatibility.
+ * Ensures inline SVGs have explicit dimensions and clean responsive styling
+ * for WebKit (iOS Safari, WKWebView, Zalo, etc.) and modern desktop browsers.
  */
 export function normalizeSvg(svgStr) {
   if (!svgStr || typeof svgStr !== 'string') return '';
@@ -19,11 +19,11 @@ export function normalizeSvg(svgStr) {
   if (!/<svg[^>]*\bpreserveAspectRatio=/i.test(res)) {
     res = res.replace(/<svg\b/i, '<svg preserveAspectRatio="xMidYMid meet"');
   }
-  // Guarantee display:block and full width/height in inline style
+  // Guarantee display:block, full width/height in inline style
   if (!/<svg[^>]*\bstyle=/i.test(res)) {
-    res = res.replace(/<svg\b/i, '<svg style="width:100%;height:100%;display:block;overflow:visible;"');
+    res = res.replace(/<svg\b/i, '<svg style="width:100%;height:100%;display:block;"');
   } else if (!/width:\s*100%/i.test(res)) {
-    res = res.replace(/style="([^"]*)"/i, 'style="$1;width:100%;height:100%;display:block;overflow:visible;"');
+    res = res.replace(/style="([^"]*)"/i, 'style="$1;width:100%;height:100%;display:block;"');
   }
   return res;
 }

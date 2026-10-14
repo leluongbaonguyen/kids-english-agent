@@ -399,7 +399,46 @@ html, body {
   animation: shimmerWave 2.5s infinite ease-in-out;
 }
 
-/* Cross-Platform & Mobile/WebKit fix for Vocab Icons & SVGs */
+/* ========================================================================= */
+/* CLEAN MODERN FLAT ICON SYSTEM (All 3D Effects Removed)                    */
+/* ========================================================================= */
+
+/* 1. Universal Lucide & System Vector Icons - Clean Flat Rendering */
+svg.lucide,
+.lucide,
+[data-lucide] {
+  display: inline-block;
+  vertical-align: middle;
+  filter: none !important;
+  transform: none !important;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Maintain proper rotation for animated spinners */
+svg.lucide.animate-spin,
+.animate-spin svg.lucide,
+.animate-spin-slow svg.lucide {
+  transform: none !important;
+}
+
+/* 2. Universal Clean Emoji Engine (Flat Natural Emoji, No 3D Shadows/Tilts) */
+.vocab-smart-icon.vocab-emoji,
+.vocab-emoji,
+.font-emoji,
+.icon-3d-emoji-glyph {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  filter: none !important;
+  transform: none !important;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", sans-serif !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* 3. VocabSmartIcon Core & Vector SVG (Clean, Flat, Centered) */
 .vocab-smart-icon {
   display: inline-flex !important;
   align-items: center !important;
@@ -407,6 +446,8 @@ html, body {
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   position: relative !important;
+  transform: none !important;
+  filter: none !important;
 }
 
 .vocab-smart-icon svg {
@@ -418,15 +459,471 @@ html, body {
   max-width: 100% !important;
   max-height: 100% !important;
   flex-shrink: 0 !important;
-  overflow: visible !important;
+  filter: none !important;
+  transform: none !important;
 }
 
-.vocab-smart-icon.vocab-emoji,
-.font-emoji {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", sans-serif !important;
-  font-style: normal !important;
-  font-variant: normal !important;
-  text-rendering: auto !important;
-  -webkit-font-smoothing: antialiased !important;
+/* Performance Virtualization for Long Card Grids */
+.card-content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 340px;
 }
+
+/* 4. Complete Reset for any remaining legacy 3D Icon Classes */
+.icon-3d-root,
+.icon-3d-svg-container,
+.icon-3d-svg,
+.icon-3d-emoji-glyph,
+.icon-3d-interactive,
+.icon-3d-pedestal,
+.icon-3d-badge,
+.icon-3d-glow-gold,
+.icon-3d-glow-pink,
+.icon-3d-glow-cyan,
+.icon-3d-glow-emerald,
+.icon-3d-glow-purple,
+.vocab-icon-stage-3d {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.icon-3d-ambient-glow,
+.icon-3d-sheen {
+  display: none !important;
+}
+
+.animate-float-3d,
+.animate-pulse-3d {
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* ========================================================================= */
+/* 8. 3D Memory Card Flip Game Styles & Holographic Visual FX               */
+/* ========================================================================= */
+.card-flip-perspective {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+.card-flip-item {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.card-flip-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.15rem;
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.25s ease;
+  will-change: transform, opacity;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+@media (max-width: 640px) {
+  .card-flip-face {
+    border-radius: 0.875rem;
+  }
+}
+
+/* Card Back: starts at 0deg (facing user), flips to 180deg when is-flipped */
+.card-flip-back {
+  transform: rotateY(0deg) translateZ(1px);
+  z-index: 5;
+  opacity: 1;
+}
+
+.card-flip-inner.is-flipped .card-flip-back {
+  transform: rotateY(180deg) translateZ(0);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Card Front: starts at -180deg (facing away), flips to 0deg (UPRIGHT, NEVER MIRRORED) when is-flipped */
+.card-flip-front {
+  transform: rotateY(-180deg) translateZ(0);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-flip-inner.is-flipped .card-flip-front {
+  transform: rotateY(0deg) translateZ(1px);
+  z-index: 5;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Match Glow & Celebration Animations */
+@keyframes cardMatchPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px 8px rgba(234, 179, 8, 0.9), 0 0 20px 4px rgba(236, 72, 153, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px 2px rgba(234, 179, 8, 0.6);
+  }
+}
+
+.animate-card-match {
+  animation: cardMatchPulse 0.7s ease-in-out;
+}
+
+/* Gentle Mismatch Headshake - Strictly 2D horizontal shake, NO rotateY so flipped cards NEVER invert or mirror */
+@keyframes cardWiggle {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  20% {
+    transform: translateX(-7px) rotate(-2deg);
+  }
+  40% {
+    transform: translateX(7px) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-5px) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(5px) rotate(1deg);
+  }
+}
+
+.animate-card-mismatch {
+  animation: cardWiggle 0.5s ease-in-out;
+}
+
+/* Holographic Foil Shimmer for Card Backs */
+@keyframes holoFoil {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.holo-foil-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0.3) 0%,
+    rgba(168, 85, 247, 0.4) 25%,
+    rgba(56, 189, 248, 0.4) 50%,
+    rgba(250, 204, 21, 0.4) 75%,
+    rgba(236, 72, 153, 0.3) 100%
+  );
+  background-size: 300% 300%;
+  animation: holoFoil 6s ease infinite;
+}
+
+/* Shimmer overlay glint */
+@keyframes glintSweep {
+  0% { transform: translateX(-150%) rotate(25deg); }
+  100% { transform: translateX(250%) rotate(25deg); }
+}
+
+.animate-glint-sweep {
+  animation: glintSweep 3s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* 9. SUPER DETAILED ICON BOUNCE & DANCE ANIMATION SYSTEM (PHYSICS-BASED)    */
+/* ========================================================================= */
+
+/**
+ * 1. Realistic Squash & Stretch Hop Physics (Nhún Lấy Đà -> Bật Nhảy -> Tiếp Đất Đàn Hồi)
+ * Mimics classical 2D squash-and-stretch cartoon physics:
+ * - 0% Idle
+ * - 14% Crouch & squash down (nhún nén lấy đà)
+ * - 28% Stretch & launch upward (bật vọt lên trời)
+ * - 44% Apex hang-time with playful tilt (lơ lửng đỉnh cao và nghiêng nhẹ)
+ * - 58% Gravity descent (hạ cánh)
+ * - 70% Impact compression (chạm đất nhún nén lò xo)
+ * - 82% Gentle spring rebound (bật nảy hồi phục)
+ * - 100% Settle back to rest
+ */
+@keyframes iconSquashHop {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1) rotate(0deg);
+  }
+  14% {
+    /* Nhún người lấy đà (Squash) */
+    transform: translateY(2px) scale(1.08, 0.92) rotate(0deg);
+  }
+  28% {
+    /* Bật vọt lên cao (Stretch & Hop) */
+    transform: translateY(-8px) scale(0.92, 1.08) rotate(-2deg);
+  }
+  44% {
+    /* Lơ lửng đỉnh cao với độ nghiêng nhẹ (Apex float) */
+    transform: translateY(-11px) scale(1.03, 0.97) rotate(2.5deg);
+  }
+  58% {
+    /* Rơi xuống (Descent) */
+    transform: translateY(-4px) scale(0.96, 1.04) rotate(-1deg);
+  }
+  70% {
+    /* Tiếp đất nhún nén đàn hồi (Impact squash) */
+    transform: translateY(2.5px) scale(1.09, 0.91) rotate(0deg);
+  }
+  82% {
+    /* Bật nảy nhỏ hồi phục (Spring rebound) */
+    transform: translateY(-2px) scale(0.98, 1.02) rotate(0.5deg);
+  }
+  92% {
+    transform: translateY(0.5px) scale(1.01, 0.99) rotate(0deg);
+  }
+}
+
+/**
+ * 2. Rhythmic Playful Dance & Bop (Nhún Nhảy Lắc Lư Theo Điệu Nhạc)
+ */
+@keyframes iconPlayfulDance {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  15% {
+    transform: translateY(-6px) rotate(-4deg) scale(1.06, 0.96);
+  }
+  30% {
+    transform: translateY(1px) rotate(0deg) scale(0.98, 1.02);
+  }
+  45% {
+    transform: translateY(-7px) rotate(4deg) scale(1.06, 0.96);
+  }
+  60% {
+    transform: translateY(1.5px) rotate(-1.5deg) scale(1.03, 0.97);
+  }
+  75% {
+    transform: translateY(-3px) rotate(2deg) scale(0.98, 1.02);
+  }
+  88% {
+    transform: translateY(0.5px) rotate(0deg) scale(1.01);
+  }
+}
+
+/**
+ * 3. Excited Hover Bounce (Nhảy Cẫng Lên Hào Hứng Khi Rê Chuột / Chạm)
+ */
+@keyframes iconHoverExcited {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-7px) scale(1.15, 0.92) rotate(-5deg);
+  }
+  45% {
+    transform: translateY(-13px) scale(0.95, 1.18) rotate(5deg);
+  }
+  70% {
+    transform: translateY(-5px) scale(1.12, 0.95) rotate(-3deg);
+  }
+  85% {
+    transform: translateY(-9px) scale(1.04, 1.08) rotate(2deg);
+  }
+  100% {
+    transform: translateY(-3px) scale(1.1) rotate(0deg);
+  }
+}
+
+/**
+ * 4. Tap / Click Spring Pop (Bấm Chạm Nảy Bật Đàn Hồi)
+ */
+@keyframes iconTapSpring {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  25% {
+    transform: scale(0.8, 1.2) translateY(3px);
+  }
+  55% {
+    transform: scale(1.25, 0.85) translateY(-9px);
+  }
+  75% {
+    transform: scale(0.94, 1.06) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/**
+ * 5. Floating Cloud Bop (Lơ Lửng Nhẹ Nhàng Bồng Bềnh)
+ */
+@keyframes iconFloatBop {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(3deg);
+  }
+}
+
+/* ---------------- GLOBAL ICON BOUNCE STYLING ACROSS THE SYSTEM ---------------- */
+
+/* Universal Vocabulary Icons - Bouncing in physics rhythm */
+.vocab-smart-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center bottom;
+  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+  will-change: transform;
+  transition: filter 0.2s ease;
+}
+
+.vocab-smart-icon svg {
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+/* Universal Unicode Emoji Icons */
+.vocab-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center bottom;
+  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+  will-change: transform;
+}
+
+/* Natural Staggered Delays so grid items don't jump simultaneously */
+*:nth-child(2n) .vocab-smart-icon,
+*:nth-child(2n) > .vocab-smart-icon,
+*:nth-child(2n).vocab-smart-icon,
+*:nth-child(2n) .vocab-emoji,
+*:nth-child(2n).vocab-emoji {
+  animation-delay: 0.35s;
+}
+
+*:nth-child(3n) .vocab-smart-icon,
+*:nth-child(3n) > .vocab-smart-icon,
+*:nth-child(3n).vocab-smart-icon,
+*:nth-child(3n) .vocab-emoji,
+*:nth-child(3n).vocab-emoji {
+  animation-delay: 0.7s;
+}
+
+*:nth-child(4n) .vocab-smart-icon,
+*:nth-child(4n) > .vocab-smart-icon,
+*:nth-child(4n).vocab-smart-icon,
+*:nth-child(4n) .vocab-emoji,
+*:nth-child(4n).vocab-emoji {
+  animation-delay: 1.05s;
+}
+
+*:nth-child(5n) .vocab-smart-icon,
+*:nth-child(5n) > .vocab-smart-icon,
+*:nth-child(5n).vocab-smart-icon,
+*:nth-child(5n) .vocab-emoji,
+*:nth-child(5n).vocab-emoji {
+  animation-delay: 1.4s;
+}
+
+*:nth-child(6n) .vocab-smart-icon,
+*:nth-child(6n) > .vocab-smart-icon,
+*:nth-child(6n).vocab-smart-icon,
+*:nth-child(6n) .vocab-emoji,
+*:nth-child(6n).vocab-emoji {
+  animation-delay: 1.75s;
+}
+
+/* Excited Dance on Hover & Interaction */
+.vocab-smart-icon:hover,
+.group:hover .vocab-smart-icon,
+button:hover .vocab-smart-icon,
+div:hover > .vocab-smart-icon,
+.card-flip-front:hover .vocab-smart-icon,
+.vocab-emoji:hover,
+.group:hover .vocab-emoji,
+button:hover .vocab-emoji {
+  animation: iconHoverExcited 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate !important;
+}
+
+/* Spring compression on tap / click */
+.vocab-smart-icon:active,
+button:active .vocab-smart-icon,
+.card-flip-item:active .vocab-smart-icon,
+.vocab-emoji:active,
+button:active .vocab-emoji {
+  animation: iconTapSpring 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Playful bounce on interactive buttons when hovered */
+button:hover svg.lucide,
+a:hover svg.lucide,
+.btn-bounce:hover svg {
+  animation: iconPlayfulDance 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+button:active svg.lucide,
+a:active svg.lucide {
+  transform: scale(0.85);
+  transition: transform 0.1s ease;
+}
+
+/* Standalone Utility Classes for direct usage */
+.icon-bounce-playful {
+  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite !important;
+  transform-origin: center bottom;
+}
+
+.icon-dance {
+  animation: iconPlayfulDance 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite !important;
+  transform-origin: center bottom;
+}
+
+.icon-float-bop {
+  animation: iconFloatBop 2.2s ease-in-out infinite !important;
+  transform-origin: center center;
+}
+
+.icon-hover-excited:hover {
+  animation: iconHoverExcited 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate !important;
+}
+
+/* Accessibility: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .vocab-smart-icon,
+  .vocab-emoji,
+  .icon-bounce-playful,
+  .icon-dance,
+  .icon-float-bop,
+  button:hover svg.lucide {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
 

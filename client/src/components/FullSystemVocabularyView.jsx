@@ -105,7 +105,7 @@ export default function FullSystemVocabularyView({
   const [viewMode, setViewMode] = useState('detailed_cards'); // 'detailed_cards' | 'data_table' | 'compact_grid'
   
   // Pagination & Display limit
-  const [pageSize, setPageSize] = useState(48); // 24 | 48 | 96 | 9999 (All)
+  const [pageSize, setPageSize] = useState(24); // 24 | 48 | 96 | 9999 (All)
   const [currentPage, setCurrentPage] = useState(1);
 
   // Spotlight Zoom Modal State
@@ -344,6 +344,18 @@ export default function FullSystemVocabularyView({
               <span>XUẤT EXCEL TỪ VỰNG (.XLSX)</span>
             </button>
 
+            {/* Quick Play Memory Game Button */}
+            <button
+              onClick={() => {
+                window.location.hash = '#/game-lat-the';
+              }}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs shadow-xl shadow-pink-600/30 hover:scale-105 active:scale-95 transition cursor-pointer border border-pink-400/50"
+              title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,260 từ vựng"
+            >
+              <span className="text-sm">🃏</span>
+              <span>CHƠI GAME LẬT THẺ (1,260 TỪ)</span>
+            </button>
+
             {/* Autoplay Slideshow Button */}
             <button
               onClick={() => {
@@ -402,7 +414,7 @@ export default function FullSystemVocabularyView({
                     : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
                 }`}
               >
-                <span className="text-xl shrink-0">{lvl.icon}</span>
+                <span className="text-xl shrink-0 vocab-emoji">{lvl.icon}</span>
                 <div className="min-w-0">
                   <div className="text-xs font-black truncate">{lvl.id} • {theme.name}</div>
                   <div className={`text-[10px] font-bold ${isSelected ? 'text-slate-900' : 'text-slate-400'}`}>
@@ -597,12 +609,22 @@ export default function FullSystemVocabularyView({
                   setActiveSpotlight(item);
                   playAudio(item.word);
                 }}
-                className={`group relative rounded-3xl border p-4.5 bg-slate-900/90 backdrop-blur-xl shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:scale-[1.02] hover:shadow-2xl ${
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left - rect.width / 2;
+                  const y = e.clientY - rect.top - rect.height / 2;
+                  const rotX = (y / (rect.height / 2)) * -9;
+                  const rotY = (x / (rect.width / 2)) * 9;
+                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale3d(1.025, 1.025, 1.025)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
+                }}
+                className={`card-content-visibility vocab-card-3d group relative rounded-3xl border p-4.5 bg-slate-900/90 backdrop-blur-xl shadow-xl flex flex-col justify-between cursor-pointer ${
                   isSpeaking
                     ? 'border-yellow-400 ring-2 ring-yellow-400/80 shadow-[0_0_25px_rgba(250,204,21,0.5)]'
-                    : 'border-slate-800 hover:border-cyan-400/70 hover:shadow-cyan-500/20'
-                }`}
-              >
+                    : 'border-slate-800 hover:border-cyan-400/80 hover:shadow-cyan-500/30'
+                }`}>
                 {/* Speaking Ribbon Indicator */}
                 {isSpeaking && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-yellow-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg flex items-center gap-1 z-30 animate-bounce">
@@ -639,9 +661,9 @@ export default function FullSystemVocabularyView({
                 </div>
 
                 {/* Card Center: Big Icon & Word */}
-                <div className="text-center py-2 space-y-2">
-                  <div className="flex justify-center items-center py-1 group-hover:scale-115 transition-transform duration-300 select-none">
-                    <VocabSmartIcon item={item} className="w-16 h-16 drop-shadow-md text-6xl" />
+                <div className="text-center py-2 space-y-2" style={{ transform: 'translateZ(25px)', transformStyle: 'preserve-3d' }}>
+                  <div className="vocab-icon-stage-3d flex justify-center items-center py-1 select-none">
+                    <VocabSmartIcon item={item} className="w-16 h-16 text-6xl" />
                   </div>
 
                   <div>
@@ -938,7 +960,7 @@ export default function FullSystemVocabularyView({
                   className="cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-300 select-none inline-flex items-center justify-center p-2"
                   title="Bấm vào icon để nghe đọc lại"
                 >
-                  <VocabSmartIcon item={activeSpotlight} className="w-24 h-24 sm:w-28 sm:h-28 text-6xl sm:text-7xl md:text-8xl drop-shadow-2xl" />
+                  <VocabSmartIcon item={activeSpotlight} className="w-24 h-24 sm:w-28 sm:h-28 text-6xl sm:text-7xl md:text-8xl" />
                 </div>
 
                 <div>
