@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Volume2,
   X,
@@ -31,12 +32,26 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [speakingWord, setSpeakingWord] = useState(null);
 
-  // Load current settings when modal opens
+  // Load current settings when modal opens & lock body scroll
   useEffect(() => {
     if (isOpen) {
       setSettings(getVoiceSettings());
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Subscribe to speaking state
   useEffect(() => {
@@ -106,12 +121,21 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 xs:p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn select-none">
-      <div className="relative w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 border-2 border-indigo-400/50 shadow-[0_0_50px_rgba(99,102,241,0.35)] overflow-hidden">
+  const modalContent = (
+    <div
+      className="fixed inset-0 z-[999999] flex items-center justify-center p-2 xs:p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none overflow-y-auto"
+      style={{ margin: 0 }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="relative w-full max-w-2xl max-h-[88vh] sm:max-h-[85vh] my-auto flex flex-col rounded-3xl bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 border-2 border-indigo-400/50 shadow-[0_0_60px_rgba(99,102,241,0.45)] overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* ================= MODAL HEADER ================= */}
-        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-white/10 bg-slate-900/80 shrink-0">
+        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-white/10 bg-slate-900/95 shrink-0 sticky top-0 z-20">
           <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="p-2 sm:p-2.5 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-600 text-white shadow-lg border border-white/20">
               <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -142,7 +166,7 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
         </div>
 
         {/* ================= MODAL SCROLLABLE BODY ================= */}
-        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 space-y-4 sm:space-y-6 text-slate-200 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 space-y-4 sm:space-y-6 text-slate-200 custom-scrollbar overscroll-contain">
 
           {/* 1. TỐC ĐỘ ĐỌC SIÊU CHI TIẾT (5 PRESETS + FINE TUNER SLIDER) */}
           <div className="space-y-2.5">
@@ -445,7 +469,7 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
         </div>
 
         {/* ================= MODAL FOOTER ================= */}
-        <div className="flex items-center justify-between p-3.5 sm:p-5 border-t border-white/10 bg-slate-900/90 shrink-0">
+        <div className="flex items-center justify-between p-3.5 sm:p-5 border-t border-white/10 bg-slate-900/95 shrink-0 sticky bottom-0 z-20">
           <button
             type="button"
             onClick={handleResetDefaults}
@@ -478,4 +502,11 @@ export function NativeVoiceStudioModal({ isOpen, onClose, addToast }) {
       </div>
     </div>
   );
+
+  if (typeof document !== 'undefined') {
+    return createPortal(modalContent, document.body);
+  }
+  return modalContent;
 }
+
+export default NativeVoiceStudioModal;
