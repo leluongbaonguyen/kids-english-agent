@@ -7,6 +7,7 @@ import {
   BarChart2, Zap, ArrowRight, RotateCcw, AlertTriangle, Layers, ListFilter,
   CheckSquare, Eye, Sliders, History, Info, Activity, Pause
 } from 'lucide-react';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 // ============================================================
 // DYNAMIC STUDENTS DATABASE & METADATA SNAPSHOTS (BR-014, BR-070)
@@ -484,32 +485,24 @@ export default function HomeworkGradingStudioModal({
 
   // AI Pronunciation TTS & Audio Simulation
   const playWordTTS = (text, type = 'reference') => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = audioSpeed;
-    if (type === 'student') {
-      utterance.pitch = 1.3; // Higher pitch simulation for kid's voice
-    } else {
-      utterance.pitch = 1.0; // Normal AI reference voice
-    }
     setPlayingWordKey(text + '_' + type);
     setIsPlayingAudio(true);
-    utterance.onend = () => {
-      setIsPlayingAudio(false);
-      setPlayingWordKey(null);
-    };
-    window.speechSynthesis.speak(utterance);
+    speakWord(text, {
+      customRate: audioSpeed,
+      persona: type === 'student' ? 'kid' : undefined,
+      onEnd: () => {
+        setIsPlayingAudio(false);
+        setPlayingWordKey(null);
+      },
+      onError: () => {
+        setIsPlayingAudio(false);
+        setPlayingWordKey(null);
+      }
+    });
   };
 
   const playFeedbackTTS = (text) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'vi-VN';
-    utterance.rate = 0.95;
-    window.speechSynthesis.speak(utterance);
+    speakWord(text);
   };
 
   // Student Recording Workflow Simulation

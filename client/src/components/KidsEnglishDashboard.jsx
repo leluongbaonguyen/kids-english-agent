@@ -25,6 +25,7 @@ import ReviewCyclesPage from './ReviewCyclesPage.jsx';
 import PaginationControl from './PaginationControl.jsx';
 import FullSystemVocabularyView from './FullSystemVocabularyView.jsx';
 import MemoryMatchGame from './MemoryMatchGame.jsx';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 // ============================================================
 // SCROLL BOUNCE CARD - Tự phóng to & nhún nhảy khi scroll đến
@@ -542,91 +543,19 @@ export function KidsEnglishDashboard({
     addToast?.('▶ Bắt đầu tiếp tục bài học dành cho Bé Minh Anh!', 'info');
   };
 
-  // Global AI Voice Speech Engine (Supports Male/Female Voice & Adjustable Speed Control)
+  // Global AI Voice Speech Engine (Connects directly to NativeSpeechEngine with full speed & accent controls)
   const playWordAudio = useCallback((text, slow = false, rateOverride = null) => {
-    if (!text || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      
-      const isVietnamese = /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i.test(text);
-      const voices = window.speechSynthesis.getVoices();
-      const currentGender = voiceGender || 'female';
+    if (!text) return;
+    const cleanWord = typeof text === 'string' ? text.trim().toLowerCase() : '';
+    setCurrentlySpeakingWord(cleanWord);
 
-      if (isVietnamese) {
-        utterance.lang = 'vi-VN';
-        const viVoices = voices.filter(v => v.lang.includes('vi') || v.lang.includes('VI'));
-        let matchedVoice = null;
-        if (currentGender === 'male') {
-          matchedVoice = viVoices.find(v => 
-            v.name.toLowerCase().includes('male') || 
-            v.name.toLowerCase().includes('nam') || 
-            v.name.toLowerCase().includes('david') ||
-            v.name.toLowerCase().includes('an')
-          );
-        } else {
-          matchedVoice = viVoices.find(v => 
-            v.name.toLowerCase().includes('female') || 
-            v.name.toLowerCase().includes('nữ') || 
-            v.name.toLowerCase().includes('nu') ||
-            v.name.toLowerCase().includes('hoaimy') ||
-            v.name.toLowerCase().includes('linh') ||
-            v.name.toLowerCase().includes('mai') ||
-            v.name.toLowerCase().includes('zira')
-          );
-        }
-        utterance.voice = matchedVoice || viVoices[0] || voices.find(v => v.lang.includes('vi')) || null;
-      } else {
-        utterance.lang = 'en-US';
-        const enVoices = voices.filter(v => v.lang.includes('en') || v.lang.includes('EN'));
-        let matchedVoice = null;
-        if (currentGender === 'male') {
-          matchedVoice = enVoices.find(v => 
-            v.name.toLowerCase().includes('david') ||
-            v.name.toLowerCase().includes('male') ||
-            v.name.toLowerCase().includes('mark') ||
-            v.name.toLowerCase().includes('george') ||
-            v.name.toLowerCase().includes('guy') ||
-            v.name.toLowerCase().includes('james') ||
-            v.name.toLowerCase().includes('alex') ||
-            v.name.toLowerCase().includes('daniel')
-          );
-        } else {
-          matchedVoice = enVoices.find(v => 
-            v.name.toLowerCase().includes('zira') ||
-            v.name.toLowerCase().includes('female') ||
-            v.name.toLowerCase().includes('samantha') ||
-            v.name.toLowerCase().includes('victoria') ||
-            v.name.toLowerCase().includes('karen') ||
-            v.name.toLowerCase().includes('catherine') ||
-            v.name.toLowerCase().includes('google us english')
-          );
-        }
-        utterance.voice = matchedVoice || enVoices[0] || voices.find(v => v.lang.includes('en')) || null;
-      }
-
-      // Calculate final rate using rateOverride or slow flag or speechRate state
-      let chosenSpeed = rateOverride;
-      if (chosenSpeed === null || chosenSpeed === undefined) {
-        chosenSpeed = slow ? 0.5 : (speechRate || 1.0);
-      }
-      const baseRate = currentGender === 'female' ? 0.88 : 0.85;
-      utterance.pitch = currentGender === 'female' ? 1.05 : 0.85;
-      utterance.rate = Math.min(2.0, Math.max(0.3, chosenSpeed * (slow ? 0.65 : baseRate)));
-      utterance.volume = 1.0;
-      
-      const cleanWord = typeof text === 'string' ? text.trim().toLowerCase() : '';
-      setCurrentlySpeakingWord(cleanWord);
-
-      utterance.onend = () => setCurrentlySpeakingWord(null);
-      utterance.onerror = () => setCurrentlySpeakingWord(null);
-      
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.error(e);
-      setCurrentlySpeakingWord(null);
-    }
-  }, [voiceGender, speechRate]);
+    speakWord(text, {
+      slow,
+      rate: rateOverride || (slow ? 0.55 : undefined),
+      onStart: () => setCurrentlySpeakingWord(cleanWord),
+      onEnd: () => setCurrentlySpeakingWord(null)
+    });
+  }, []);
 
   // Trigger User Profile Modal
   useEffect(() => {

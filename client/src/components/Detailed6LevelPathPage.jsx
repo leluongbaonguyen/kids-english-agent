@@ -3,6 +3,7 @@ import {
   Lock, Unlock, Award, CheckCircle2, ChevronRight, Sparkles, 
   BookOpen, Layers, Gamepad2, Repeat, Database, Star, Flame, PlayCircle, ArrowRight, RotateCw, Trophy, Zap, ShieldCheck, Volume2, PartyPopper, Heart, MessageSquare
 } from 'lucide-react';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 export default function Detailed6LevelPathPage({ onNavigateTab, addToast, currentActor }) {
   // Load initial mastery progress from localStorage
@@ -62,13 +63,9 @@ export default function Detailed6LevelPathPage({ onNavigateTab, addToast, curren
 
   // Audio speech synthesis helper with Speed Control
   const playAudioFeedback = (text, customRate = null) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'vi-VN';
-      utterance.rate = customRate ?? audioSpeed;
-      window.speechSynthesis.speak(utterance);
-    }
+    speakWord(text, {
+      customRate: customRate ?? audioSpeed
+    });
   };
 
   // Calculate master status based on progressive rules

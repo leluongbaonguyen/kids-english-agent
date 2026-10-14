@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { X, Volume2, Download, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 import PaginationControl from './PaginationControl.jsx';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 export default function VocabBookModal({
   isOpen,
@@ -30,14 +31,11 @@ export default function VocabBookModal({
   const [vocabSpeed, setVocabSpeed] = useState(1.0);
 
   const playAudio = (text, slow = false, customRate = null) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
-    const rateMultiplier = customRate ?? vocabSpeed;
-    const baseRate = slow ? 0.5 : (voiceGender === 'male' ? 0.85 : 0.88);
-    u.rate = Math.min(2.0, Math.max(0.3, baseRate * rateMultiplier));
-    window.speechSynthesis.speak(u);
+    if (!text) return;
+    speakWord(text, {
+      slow,
+      rate: customRate ?? undefined
+    });
   };
 
   const filteredVocab = vocabList.filter((item) => {

@@ -12,6 +12,7 @@ import {
   getSuperDetailedVocabInfo
 } from '../constants/kidsVocabularyDatabase.js';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 // Color themes for CEFR Levels L1 - L6
 const LEVEL_THEMES = {
@@ -145,21 +146,17 @@ export default function FullSystemVocabularyView({
     return VOCAB_CATEGORIES.filter((c) => c.level === selectedLevel);
   }, [selectedLevel]);
 
-  // Audio Play function with fallback
+  // Audio Play function with 100% native speech engine
   const playAudio = useCallback((text, slow = false) => {
-    if (!('speechSynthesis' in window)) {
-      if (addToast) addToast('Trình duyệt chưa hỗ trợ Web Speech API', 'warning');
-      return;
-    }
-    window.speechSynthesis.cancel();
-    setSpeakingWord(text.toLowerCase());
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = slow ? 0.75 : 1.0;
-    utterance.onend = () => setSpeakingWord(null);
-    utterance.onerror = () => setSpeakingWord(null);
-    window.speechSynthesis.speak(utterance);
-  }, [addToast]);
+    if (!text) return;
+    const clean = text.toLowerCase();
+    setSpeakingWord(clean);
+    speakWord(text, {
+      slow,
+      onStart: () => setSpeakingWord(clean),
+      onEnd: () => setSpeakingWord(null)
+    });
+  }, []);
 
   // Filter Logic: 100% Unlocked, High Performance
   const filteredList = useMemo(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Mic, Play, Sparkles, CheckCircle2, RotateCw, HelpCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 export default function SrsReviewCard({
   item,
@@ -33,22 +34,11 @@ export default function SrsReviewCard({
 
   const playAudio = (slow = false) => {
     setIsPlayingAudio(true);
-    try {
-      const textToSpeak = item.word || '';
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.lang = 'en-US';
-        utterance.rate = slow ? 0.65 : 0.95;
-        utterance.onend = () => setIsPlayingAudio(false);
-        utterance.onerror = () => setIsPlayingAudio(false);
-        window.speechSynthesis.speak(utterance);
-      } else {
-        setIsPlayingAudio(false);
-      }
-    } catch {
-      setIsPlayingAudio(false);
-    }
+    speakWord(item.word || '', {
+      slow,
+      onEnd: () => setIsPlayingAudio(false),
+      onError: () => setIsPlayingAudio(false)
+    });
   };
 
   const startVoiceRecording = () => {

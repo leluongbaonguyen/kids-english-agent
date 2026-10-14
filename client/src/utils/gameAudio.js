@@ -1,6 +1,8 @@
 // Ultra-Rich Web Audio Synthesizer & Speech Synthesis Engine for Kids Memory Game
 // Pure Web Audio API: 100% offline, zero-latency, cross-platform (Chrome, iOS Safari, Android, Edge, Firefox)
 
+import { speakWord as nativeSpeakWord } from '../services/nativeSpeechEngine.js';
+
 let audioCtx = null;
 
 function getAudioContext() {
@@ -401,65 +403,15 @@ export function playTickSound() {
 }
 
 /**
- * Native Web Speech API Text-to-Speech Engine
- * Pronounces English words clearly with US native accent and optional turtle slow mode
+ * Master Native Speech Engine
+ * Pronounces English words clearly with 100% native accent, studio audio & granular speed controls
  */
 export function speakWord(text, { slow = false, onEnd = null, onStart = null } = {}) {
   if (!soundSettings.voice) return;
-  if (!text || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-
-  try {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
-    const isVietnamese = /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i.test(text);
-
-    if (isVietnamese) {
-      utterance.lang = 'vi-VN';
-      const viVoice = voices.find(v => v.lang.includes('vi') || v.lang.includes('VI'));
-      if (viVoice) utterance.voice = viVoice;
-    } else {
-      utterance.lang = 'en-US';
-      const enVoices = voices.filter(v => v.lang.includes('en') || v.lang.includes('EN'));
-      const isFemale = soundSettings.voiceGender === 'female';
-
-      let matchedVoice = null;
-      if (isFemale) {
-        matchedVoice = enVoices.find(v =>
-          v.name.toLowerCase().includes('female') ||
-          v.name.toLowerCase().includes('samantha') ||
-          v.name.toLowerCase().includes('victoria') ||
-          v.name.toLowerCase().includes('zira') ||
-          v.name.toLowerCase().includes('karen') ||
-          v.name.toLowerCase().includes('google us english')
-        );
-      } else {
-        matchedVoice = enVoices.find(v =>
-          v.name.toLowerCase().includes('male') ||
-          v.name.toLowerCase().includes('david') ||
-          v.name.toLowerCase().includes('mark') ||
-          v.name.toLowerCase().includes('alex') ||
-          v.name.toLowerCase().includes('george')
-        );
-      }
-      utterance.voice = matchedVoice || enVoices[0] || null;
-    }
-
-    const effectiveSlow = slow || soundSettings.slowMode;
-    const baseRate = soundSettings.speechRate || 0.9;
-    utterance.rate = effectiveSlow ? 0.55 : baseRate;
-    utterance.pitch = soundSettings.voiceGender === 'female' ? 1.05 : 0.88;
-    utterance.volume = 1.0;
-
-    if (onStart) utterance.onstart = onStart;
-    if (onEnd) utterance.onend = onEnd;
-    utterance.onerror = () => {
-      if (onEnd) onEnd();
-    };
-
-    window.speechSynthesis.speak(utterance);
-  } catch (e) {
-    console.error('Speech synthesis error', e);
-    if (onEnd) onEnd();
-  }
+  return nativeSpeakWord(text, {
+    slow: slow || soundSettings.slowMode,
+    rate: soundSettings.speechRate || undefined,
+    onStart,
+    onEnd
+  });
 }

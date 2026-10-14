@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 
 import { OnlineVocabFetcher } from '../services/onlineVocabFetcher';
+import { speakWord } from '../services/nativeSpeechEngine.js';
 
 export default function LessonRunnerModal({
   isOpen,
@@ -59,15 +60,11 @@ export default function LessonRunnerModal({
   const [audioSpeed, setAudioSpeed] = useState(1.0);
 
   const playAudio = (text, slow = false, customRate = null) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
-    const rateMultiplier = customRate ?? audioSpeed;
-    const baseRate = slow ? 0.5 : (voiceGender === 'male' ? 0.85 : 0.88);
-    u.rate = Math.min(2.0, Math.max(0.3, baseRate * rateMultiplier));
-    u.pitch = voiceGender === 'male' ? 0.85 : 1.05;
-    window.speechSynthesis.speak(u);
+    if (!text) return;
+    speakWord(text, {
+      slow,
+      rate: customRate ?? undefined
+    });
   };
 
   // State for Step 1: Flashcard flip

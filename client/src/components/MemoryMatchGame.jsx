@@ -11,6 +11,7 @@ import {
   VOCABULARY_DATABASE
 } from '../constants/kidsVocabularyDatabase.js';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import { NativeVoiceStudioModal } from './NativeVoiceStudioModal.jsx';
 import {
   playCardFlip,
   playMatchSound,
@@ -176,6 +177,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
   // 4. Modal Drawers
   const [showVocabDrawer, setShowVocabDrawer] = useState(false);
   const [showLeaderboardDrawer, setShowLeaderboardDrawer] = useState(false);
+  const [isVoiceStudioOpen, setIsVoiceStudioOpen] = useState(false);
 
   // 5. High Scores (LocalStorage)
   const [highScores, setHighScores] = useState(() => {
@@ -769,6 +771,15 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
           </div>
 
           <div className="flex items-center gap-1.5 w-full sm:w-auto justify-between sm:justify-end pt-1 sm:pt-0 border-t sm:border-t-0 border-white/10">
+            <button
+              onClick={() => setIsVoiceStudioOpen(true)}
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer border bg-indigo-950/80 text-indigo-200 border-indigo-400/50 hover:text-white hover:border-pink-400 shadow-sm"
+              title="Cài đặt tốc độ đọc & giọng chuẩn bản ngữ 100%"
+            >
+              <Volume2 className="h-3.5 w-3.5 text-pink-400" />
+              <span className="hidden xs:inline">Giọng Bản Ngữ</span>
+            </button>
+
             <button
               onClick={() => setShowFilters(prev => !prev)}
               className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer border ${
@@ -1584,6 +1595,13 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
           </div>
         </div>
       )}
+
+      {/* Global Native Voice Studio Modal */}
+      <NativeVoiceStudioModal
+        isOpen={isVoiceStudioOpen}
+        onClose={() => setIsVoiceStudioOpen(false)}
+        addToast={addToast}
+      />
 
     </div>
   );
