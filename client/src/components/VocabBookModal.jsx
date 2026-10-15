@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Volume2, Download, Star, Sparkles, Filter, Search, RotateCw, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 import PaginationControl from './PaginationControl.jsx';
@@ -20,6 +20,7 @@ export default function VocabBookModal({
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(18);
+  const contentRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,6 +28,17 @@ export default function VocabBookModal({
     const timer = setTimeout(() => setIsLoading(false), 250);
     return () => clearTimeout(timer);
   }, [activeStateFilter, searchQuery, isOpen]);
+
+  // Scroll modal container to top when page changes
+  useEffect(() => {
+    if (contentRef.current) {
+      try {
+        contentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {
+        contentRef.current.scrollTop = 0;
+      }
+    }
+  }, [currentPage]);
 
   const [vocabSpeed, setVocabSpeed] = useState(1.0);
 
@@ -54,7 +66,7 @@ export default function VocabBookModal({
 
   return createPortal(
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
-      <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-indigo-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
+      <div ref={contentRef} className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-indigo-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
         
         {/* HEADER */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
@@ -202,19 +214,23 @@ export default function VocabBookModal({
                       )}
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1">
+                    <div className="pt-2 border-t border-slate-800/80 flex justify-between gap-1.5">
                       <button
                         onClick={() => playAudio(w.word, false)}
-                        className="flex-1 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-cyan-600/30 cursor-pointer"
+                        className="flex-1 py-1.5 px-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white border-t-white/30 border-blue-400/40 text-[10px] font-black flex items-center justify-center gap-1 shadow-[0_3px_12px_rgba(37,99,235,0.35)] active:scale-95 transition-all cursor-pointer"
+                        title="Nghe chuẩn bản ngữ"
                       >
-                        <Volume2 className="h-3 w-3" /> Nghe ({vocabSpeed}x)
+                        <Volume2 className="h-3 w-3 shrink-0" />
+                        <span className="truncate">Chuẩn ({vocabSpeed}x)</span>
                       </button>
 
                       <button
                         onClick={() => playAudio(w.word, true, 0.5)}
-                        className="flex-1 py-1.5 rounded-xl bg-amber-600/20 text-amber-300 border border-amber-500/40 text-[10px] font-black flex items-center justify-center gap-1 hover:bg-amber-600/30 cursor-pointer"
+                        className="flex-1 py-1.5 px-2 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white border-t-white/30 border-amber-400/40 text-[10px] font-black flex items-center justify-center gap-1 shadow-[0_3px_12px_rgba(245,158,11,0.35)] active:scale-95 transition-all cursor-pointer"
+                        title="Nghe siêu chậm 0.5x"
                       >
-                        <span>🐢</span> Nghe 0.5x
+                        <span className="animate-turtle-bob shrink-0 text-xs">🐢</span>
+                        <span className="truncate">Chậm 0.5x</span>
                       </button>
                     </div>
                   </div>

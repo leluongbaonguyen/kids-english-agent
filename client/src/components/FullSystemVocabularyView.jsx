@@ -12,7 +12,9 @@ import {
   getSuperDetailedVocabInfo
 } from '../constants/kidsVocabularyDatabase.js';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
 import { speakWord } from '../services/nativeSpeechEngine.js';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 // Color themes for CEFR Levels L1 - L6
 const LEVEL_THEMES = {
@@ -87,6 +89,14 @@ const LEVEL_THEMES = {
     bgBadge: 'bg-amber-500/20 text-amber-300 border-amber-400/40',
     badgeText: 'text-amber-300',
     icon: '🔢'
+  },
+  ENC: {
+    name: 'Bách Khoa Toàn Thư Thế Giới (World Encyclopedia)',
+    gradient: 'from-amber-400 via-rose-500 to-indigo-600',
+    border: 'border-amber-300',
+    bgBadge: 'bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-indigo-500/20 text-yellow-300 border-amber-400/50',
+    badgeText: 'text-yellow-300',
+    icon: '🌍'
   }
 };
 
@@ -199,10 +209,26 @@ export default function FullSystemVocabularyView({
     });
   }, [vocabList, selectedLevel, selectedCategory, selectedWordType, masteryFilter, searchQuery, masteredCards, categoryMap]);
 
-  // Reset page when filters change
+  // Reset page when filters change and scroll up to the top
+  const isFilterInitialMount = useRef(true);
   useEffect(() => {
+    if (isFilterInitialMount.current) {
+      isFilterInitialMount.current = false;
+      return;
+    }
     setCurrentPage(1);
+    scrollToTop(true);
   }, [selectedLevel, selectedCategory, selectedWordType, masteryFilter, searchQuery, pageSize]);
+
+  // Automatically scroll to the top when currentPage changes
+  const isPageInitialMount = useRef(true);
+  useEffect(() => {
+    if (isPageInitialMount.current) {
+      isPageInitialMount.current = false;
+      return;
+    }
+    scrollToTop(true);
+  }, [currentPage]);
 
   // Pagination calculation
   const totalPages = Math.ceil(filteredList.length / (pageSize === 9999 ? 999999 : pageSize)) || 1;
@@ -703,7 +729,7 @@ export default function FullSystemVocabularyView({
                         e.stopPropagation();
                         playAudio(item.word, false);
                       }}
-                      className="p-1 rounded-lg bg-slate-800 text-cyan-300 hover:bg-cyan-600 hover:text-white transition"
+                      className="p-1 px-1.5 rounded-full bg-blue-600/30 hover:bg-blue-600 text-cyan-200 hover:text-white border border-blue-500/40 transition flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer"
                       title="Nghe chuẩn 1.0x"
                     >
                       <Volume2 className="h-3.5 w-3.5" />
@@ -715,10 +741,11 @@ export default function FullSystemVocabularyView({
                         e.stopPropagation();
                         playAudio(item.word, true);
                       }}
-                      className="px-1.5 py-0.5 rounded-lg bg-slate-800 text-amber-300 hover:bg-amber-600 hover:text-white text-[9px] font-bold transition"
-                      title="Nghe chậm cho bé"
+                      className="px-1.5 py-0.5 rounded-full bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white border border-amber-500/40 text-[9px] font-black transition flex items-center gap-0.5 shadow-sm active:scale-95 cursor-pointer"
+                      title="Nghe chậm cho bé 0.75x"
                     >
-                      0.75x
+                      <span className="text-[10px]">🐢</span>
+                      <span>0.75x</span>
                     </button>
 
                     {/* Zoom details */}
@@ -809,7 +836,7 @@ export default function FullSystemVocabularyView({
                               e.stopPropagation();
                               playAudio(item.word, false);
                             }}
-                            className="p-1 rounded-lg bg-slate-800 text-cyan-300 hover:bg-cyan-600 hover:text-white transition"
+                            className="p-1 px-1.5 rounded-full bg-blue-600/30 hover:bg-blue-600 text-cyan-200 hover:text-white border border-blue-500/40 transition flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer"
                             title="Nghe chuẩn"
                           >
                             <Volume2 className="h-3.5 w-3.5" />
@@ -819,10 +846,11 @@ export default function FullSystemVocabularyView({
                               e.stopPropagation();
                               playAudio(item.word, true);
                             }}
-                            className="px-1.5 py-0.5 rounded-lg bg-slate-800 text-amber-300 hover:bg-amber-600 hover:text-white text-[9px] font-bold transition"
-                            title="Nghe chậm"
+                            className="px-1.5 py-0.5 rounded-full bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white border border-amber-500/40 text-[9px] font-black transition flex items-center gap-0.5 shadow-sm active:scale-95 cursor-pointer"
+                            title="Nghe chậm 0.75x"
                           >
-                            0.75x
+                            <span className="text-[10px]">🐢</span>
+                            <span>0.75x</span>
                           </button>
                         </div>
                       </td>
@@ -888,7 +916,10 @@ export default function FullSystemVocabularyView({
       {pageSize !== 9999 && totalPages > 1 && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 pt-5">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            onClick={() => {
+              setCurrentPage((p) => Math.max(1, p - 1));
+              scrollToTop(true);
+            }}
             disabled={currentPage === 1}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:bg-slate-800 disabled:opacity-40 transition cursor-pointer"
           >
@@ -904,7 +935,10 @@ export default function FullSystemVocabularyView({
           </div>
 
           <button
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => {
+              setCurrentPage((p) => Math.min(totalPages, p + 1));
+              scrollToTop(true);
+            }}
             disabled={currentPage === totalPages}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:bg-slate-800 disabled:opacity-40 transition cursor-pointer"
           >
@@ -981,23 +1015,14 @@ export default function FullSystemVocabularyView({
                 </div>
               </div>
 
-              {/* Audio Controls (Compact side-by-side row) */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3 py-1">
-                <button
-                  onClick={() => playAudio(activeSpotlight.word, false)}
-                  className="flex-1 max-w-[200px] flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer"
-                >
-                  <Volume2 className="h-4 w-4 animate-pulse" />
-                  <span>Phát Âm Chuẩn (1.0x)</span>
-                </button>
-
-                <button
-                  onClick={() => playAudio(activeSpotlight.word, true)}
-                  className="flex-1 max-w-[180px] flex items-center justify-center gap-2 px-3 py-2.5 rounded-2xl bg-amber-600 text-white font-black text-xs shadow-lg hover:bg-amber-500 active:scale-95 transition cursor-pointer"
-                >
-                  <span>🐢 Nghe Chậm (0.75x)</span>
-                </button>
-              </div>
+              {/* Ultra-Detailed Dual Audio Control Bar */}
+              <SuperDetailedAudioBar
+                word={activeSpotlight.word}
+                ipa={activeSpotlight.ipa}
+                vietnamesePhonetic={activeSpotlight.vietnamesePhonetic}
+                showSyllables={true}
+                showStudioDrawer={true}
+              />
 
               {/* Memory Tip & Bilingual Example Box */}
               {(() => {

@@ -925,5 +925,83 @@ a:active svg.lucide {
   }
 }
 
+/* ==========================================================================
+   ULTRA-DETAILED AUDIO PRONUNCIATION & SOUNDWAVE EQUALIZER STYLES
+   ========================================================================== */
+@keyframes soundwaveBar1 {
+  0%, 100% { height: 6px; }
+  50% { height: 18px; }
+}
+@keyframes soundwaveBar2 {
+  0%, 100% { height: 16px; }
+  50% { height: 8px; }
+}
+@keyframes soundwaveBar3 {
+  0%, 100% { height: 8px; }
+  50% { height: 22px; }
+}
+@keyframes soundwaveBar4 {
+  0%, 100% { height: 20px; }
+  50% { height: 10px; }
+}
+@keyframes soundwaveBar5 {
+  0%, 100% { height: 10px; }
+  50% { height: 16px; }
+}
 
+.animate-soundwave-1 { animation: soundwaveBar1 0.75s ease-in-out infinite; }
+.animate-soundwave-2 { animation: soundwaveBar2 0.65s ease-in-out infinite 0.1s; }
+.animate-soundwave-3 { animation: soundwaveBar3 0.85s ease-in-out infinite 0.2s; }
+.animate-soundwave-4 { animation: soundwaveBar4 0.7s ease-in-out infinite 0.15s; }
+.animate-soundwave-5 { animation: soundwaveBar5 0.8s ease-in-out infinite 0.25s; }
 
+@keyframes turtleBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-2px) rotate(-6deg); }
+  75% { transform: translateY(1px) rotate(6deg); }
+}
+.animate-turtle-bob {
+  display: inline-block;
+  animation: turtleBob 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseNeonCyan {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.6);
+  }
+  50% {
+    box-shadow: 0 6px 28px rgba(6, 182, 212, 0.7), 0 0 0 2px rgba(103, 232, 249, 0.9), inset 0 0 12px rgba(6, 182, 212, 0.4);
+  }
+}
+.glow-neon-cyan-active {
+  animation: pulseNeonCyan 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseNeonAmber {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4), 0 0 0 1px rgba(251, 191, 36, 0.6);
+  }
+  50% {
+    box-shadow: 0 6px 28px rgba(245, 158, 11, 0.7), 0 0 0 2px rgba(253, 224, 71, 0.9), inset 0 0 12px rgba(245, 158, 11, 0.4);
+  }
+}
+.glow-neon-amber-active {
+  animation: pulseNeonAmber 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.shimmer-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-100%);
+  animation: shimmerSweep 3s ease-in-out infinite;
+  pointer-events: none;
+}

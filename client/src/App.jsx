@@ -12,6 +12,7 @@ import AdminSuperCrudStudioModal from './components/AdminSuperCrudStudioModal.js
 import AdminDashboardView from './components/AdminDashboardView.jsx';
 import { errorReporter } from './services/errorReporter.js';
 import SmartErrorAlertBanner from './components/SmartErrorAlertBanner.jsx';
+import { scrollToTop } from './utils/scrollHelper.js';
 
 const getTabFromHash = () => {
   try {
@@ -183,12 +184,18 @@ export default function App() {
     }
   }, [activeTab]);
 
+  // Automatically scroll to the top of the page whenever activeTab changes
+  useEffect(() => {
+    scrollToTop(true);
+  }, [activeTab]);
+
   useEffect(() => {
     const handleHashChange = () => {
       const newTab = getTabFromHash();
       if (newTab !== activeTab) {
         setActiveTab(newTab);
       }
+      scrollToTop(true);
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);

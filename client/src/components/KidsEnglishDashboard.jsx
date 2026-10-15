@@ -26,6 +26,7 @@ import PaginationControl from './PaginationControl.jsx';
 import FullSystemVocabularyView from './FullSystemVocabularyView.jsx';
 import MemoryMatchGame from './MemoryMatchGame.jsx';
 import { speakWord } from '../services/nativeSpeechEngine.js';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 // ============================================================
 // SCROLL BOUNCE CARD - Tự phóng to & nhún nhảy khi scroll đến
@@ -377,6 +378,16 @@ export function KidsEnglishDashboard({
   const [isHomeworkGradingOpen, setIsHomeworkGradingOpen] = useState(false);
   const [gameSubTab, setGameSubTab] = useState('memory');
   const pageSize = 12;
+
+  // Scroll to top when changing poster pages or game subtabs
+  const isPosterInitialMount = useRef(true);
+  useEffect(() => {
+    if (isPosterInitialMount.current) {
+      isPosterInitialMount.current = false;
+      return;
+    }
+    scrollToTop(true);
+  }, [activePosterPage, gameSubTab]);
 
   // 900 Vocabulary V6.0 + Persistent Custom Vocab Database Engine
   const [vocabDatabase, setVocabDatabase] = useState(() => getCombinedVocabDatabase());

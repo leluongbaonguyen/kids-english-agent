@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 export default function PaginationControl({
   currentPage = 1,
@@ -15,6 +16,23 @@ export default function PaginationControl({
 
   const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, totalItems);
+
+  const handlePageClick = (e, newPg) => {
+    if (newPg === currentPage || newPg < 1 || newPg > totalPages) return;
+    if (typeof onPageChange === 'function') {
+      onPageChange(newPg);
+    }
+    // Also scroll parent scrollable container if inside a modal
+    const scrollParent = e?.currentTarget?.closest ? e.currentTarget.closest('.overflow-y-auto') : null;
+    scrollToTop(true, scrollParent);
+  };
+
+  const handlePageSizeChange = (newSize) => {
+    if (typeof onPageSizeChange === 'function') {
+      onPageSizeChange(newSize);
+    }
+    scrollToTop(true);
+  };
 
   // Generate page numbers with ellipses
   const getPageNumbers = () => {
@@ -57,7 +75,7 @@ export default function PaginationControl({
             <span className="text-[11px] text-slate-400 font-bold">Cỡ trang:</span>
             <select
               value={pageSize}
-              onChange={(e) => onPageSizeChange(Number(e.target.value))}
+              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
               className="bg-slate-950 border border-slate-700 text-cyan-300 font-bold rounded-lg px-2 py-1 text-xs cursor-pointer focus:outline-none"
             >
               {pageSizeOptions.map((opt) => (
@@ -75,7 +93,7 @@ export default function PaginationControl({
         {/* First Page */}
         <button
           disabled={currentPage === 1}
-          onClick={() => onPageChange(1)}
+          onClick={(e) => handlePageClick(e, 1)}
           title="Trang đầu"
           className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
         >
@@ -85,7 +103,7 @@ export default function PaginationControl({
         {/* Previous Page */}
         <button
           disabled={currentPage === 1}
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={(e) => handlePageClick(e, currentPage - 1)}
           title="Trang trước"
           className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
         >
@@ -106,7 +124,7 @@ export default function PaginationControl({
           return (
             <button
               key={pg}
-              onClick={() => onPageChange(pg)}
+              onClick={(e) => handlePageClick(e, pg)}
               className={`min-w-[32px] h-8 px-2.5 rounded-xl font-black text-xs transition cursor-pointer ${
                 isActive
                   ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md scale-105 border border-cyan-300'
@@ -121,7 +139,7 @@ export default function PaginationControl({
         {/* Next Page */}
         <button
           disabled={currentPage === totalPages}
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={(e) => handlePageClick(e, currentPage + 1)}
           title="Trang sau"
           className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
         >
@@ -131,7 +149,7 @@ export default function PaginationControl({
         {/* Last Page */}
         <button
           disabled={currentPage === totalPages}
-          onClick={() => onPageChange(totalPages)}
+          onClick={(e) => handlePageClick(e, totalPages)}
           title="Trang cuối"
           className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
         >

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, Layers, Gamepad2, Compass, Sparkles, Target, Palette } from 'lucide-react';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 export function MobileBottomBar({ activeTab, setActiveTab }) {
   const tabs = [
@@ -72,6 +73,7 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
                 } else if (setActiveTab) {
                   setActiveTab(tab.id);
                 }
+                scrollToTop(true);
               }}
               className={`relative flex flex-col items-center justify-center py-1 px-1.5 sm:px-2.5 rounded-2xl transition-all duration-200 cursor-pointer touch-manipulation active:scale-90 group ${
                 isActive

@@ -4,6 +4,7 @@ import { fetchSrsDueItems, fetchSrsStats, submitSrsEvidence, SRS_CONFIG } from '
 import SrsReviewCard from './SrsReviewCard';
 import SrsSessionSummary from './SrsSessionSummary';
 import VocabSmartIcon from './VocabSmartIcon';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 export default function ReviewCyclesPage({
   learnerId = 'minh_anh',
@@ -323,7 +324,10 @@ export default function ReviewCyclesPage({
                 <span>Hiển thị {((currentPage - 1) * 30) + 1} – {Math.min(currentPage * 30, dueData.items.length)} trên tổng số {dueData.items.length} từ vựng</span>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    onClick={() => {
+                      setCurrentPage(p => Math.max(1, p - 1));
+                      scrollToTop(true);
+                    }}
                     disabled={currentPage === 1}
                     className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer"
                   >
@@ -331,7 +335,10 @@ export default function ReviewCyclesPage({
                   </button>
                   <span className="px-3.5 py-1 rounded-xl bg-purple-950 text-yellow-300 font-mono-code">Trang {currentPage} / {Math.ceil(dueData.items.length / 30)}</span>
                   <button
-                    onClick={() => setCurrentPage(p => Math.min(Math.ceil(dueData.items.length / 30), p + 1))}
+                    onClick={() => {
+                      setCurrentPage(p => Math.min(Math.ceil(dueData.items.length / 30), p + 1));
+                      scrollToTop(true);
+                    }}
                     disabled={currentPage >= Math.ceil(dueData.items.length / 30)}
                     className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer"
                   >

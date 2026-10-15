@@ -8,6 +8,7 @@ import {
 
 import { OnlineVocabFetcher } from '../services/onlineVocabFetcher';
 import { speakWord } from '../services/nativeSpeechEngine.js';
+import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
 
 export default function LessonRunnerModal({
   isOpen,
@@ -403,21 +404,14 @@ export default function LessonRunnerModal({
                     ))}
                   </div>
 
-                  <div className="flex justify-center gap-3">
-                    <button
-                      onClick={() => playAudio(currentWord.word, false)}
-                      className="px-5 py-2.5 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
-                    >
-                      <Volume2 className="h-4 w-4" /> Phát Âm Chuẩn ({audioSpeed}x)
-                    </button>
-
-                    <button
-                      onClick={() => playAudio(currentWord.word, true, 0.5)}
-                      className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 hover:opacity-90 text-white font-black text-xs transition flex items-center gap-2 shadow-lg cursor-pointer"
-                    >
-                      <span>🐢 Nghe Rất Chậm (0.5x)</span>
-                    </button>
-                  </div>
+                  {/* Ultra-Detailed Dual Audio Control Bar */}
+                  <SuperDetailedAudioBar
+                    word={currentWord.word}
+                    ipa={currentWord.ipa}
+                    vietnamesePhonetic={currentWord.vietnamesePhonetic}
+                    showSyllables={true}
+                    showStudioDrawer={true}
+                  />
                 </div>
               </div>
             </div>

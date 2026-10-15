@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Mic, Play, Sparkles, CheckCircle2, RotateCw, HelpCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import VocabSmartIcon from './VocabSmartIcon.jsx';
+import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
 import { speakWord } from '../services/nativeSpeechEngine.js';
 
 export default function SrsReviewCard({
@@ -179,24 +180,14 @@ export default function SrsReviewCard({
       {revealed && (
         <div className="space-y-6 border-t border-purple-500/30 pt-4 animate-fadeIn">
           
-          {/* Audio Controls (Listen Normal & 0.7x Slow) */}
-          <div className="flex items-center justify-center gap-3">
-            <button
-              onClick={() => playAudio(false)}
-              className="px-4 py-2.5 rounded-2xl bg-purple-900/80 border border-purple-400/50 text-purple-200 font-bold text-xs hover:bg-purple-800 transition flex items-center gap-2 shadow"
-            >
-              <Volume2 className={`h-4 w-4 text-purple-300 ${isPlayingAudio ? 'animate-bounce' : ''}`} />
-              <span>Nghe Chuẩn (1.0x)</span>
-            </button>
-
-            <button
-              onClick={() => playAudio(true)}
-              className="px-4 py-2.5 rounded-2xl bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs hover:bg-slate-700 transition flex items-center gap-2"
-            >
-              <Volume2 className="h-4 w-4 text-amber-400" />
-              <span>Nghe Chậm (0.65x)</span>
-            </button>
-          </div>
+          {/* Ultra-Detailed Dual Audio Control Bar */}
+          <SuperDetailedAudioBar
+            word={item.word}
+            ipa={item.ipa}
+            vietnamesePhonetic={item.vietnamesePhonetic}
+            showSyllables={true}
+            showStudioDrawer={true}
+          />
 
           {/* Step 3: Speech Pronunciation Evaluation */}
           <div className="p-4 rounded-2xl bg-slate-900/90 border border-purple-500/30 space-y-3 text-center">

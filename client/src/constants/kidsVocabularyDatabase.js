@@ -1,4 +1,10 @@
-// Official 900 Core & Expanded English Vocabulary Database for Kids (6 Levels • 90 Units • 900 Words • Exact Icons • Vietnamese Phonetics • Bilingual Examples)
+// Official Core & World Encyclopedia English Vocabulary Database for Kids (7 Levels • 140+ Units • 1,560 Words • Exact Icons • Vietnamese Phonetics • Bilingual Examples)
+import {
+  ENCYCLOPEDIA_LEVEL,
+  ENCYCLOPEDIA_CATEGORIES,
+  WORLD_ENCYCLOPEDIA_WORDS,
+  ENCYCLOPEDIA_DETAILS
+} from './worldEncyclopediaDatabase.js';
 
 export const COURSE_LEVELS = [
   {
@@ -91,7 +97,8 @@ export const COURSE_LEVELS = [
     "borderColor": "border-amber-400",
     "targetWords": 120,
     "unitCount": 10
-  }
+  },
+  ENCYCLOPEDIA_LEVEL
 ];
 
 export const VOCAB_CATEGORIES = [
@@ -519,7 +526,8 @@ export const VOCAB_CATEGORIES = [
   {"id":"NUM-U07","name":"Phân Số & Tỉ Lệ Toán Học (Fractions & Proportions)","level":"NUM","unit":7,"icon":"🍰","description":"Một nửa, một phần ba, một phần tư, phần trăm và số thập phân","wordCount":12},
   {"id":"NUM-U08","name":"Tần Suất & Bội Số Nhân (Multipliers & Frequency Quantifiers)","level":"NUM","unit":8,"icon":"✖️","description":"Một lần, hai lần, gấp đôi, gấp ba, đơn lẻ, đôi cặp và bội số","wordCount":12},
   {"id":"NUM-U09","name":"Đơn Vị Đếm Tập Hợp & Lô Hàng (Collective & Group Counting Units)","level":"NUM","unit":9,"icon":"📦","description":"Một tá (dozen), 20 đơn vị (score), một gộp (gross), thập kỷ và thiên niên kỷ","wordCount":12},
-  {"id":"NUM-U10","name":"Chữ Số La Mã & Ký Hiệu Số Học (Roman Numerals & Math Notations)","level":"NUM","unit":10,"icon":"🏛️","description":"Hệ thống chữ số La Mã cổ điển (I, V, X, L, C, D, M) và dấu toán học","wordCount":12}
+  {"id":"NUM-U10","name":"Chữ Số La Mã & Ký Hiệu Số Học (Roman Numerals & Math Notations)","level":"NUM","unit":10,"icon":"🏛️","description":"Hệ thống chữ số La Mã cổ điển (I, V, X, L, C, D, M) và dấu toán học","wordCount":12},
+  ...ENCYCLOPEDIA_CATEGORIES
 ];
 
 export const VOCABULARY_DATABASE = [
@@ -18402,7 +18410,8 @@ export const VOCABULARY_DATABASE = [
     "level": "NUM",
     "category": "NUM-U10",
     "unit": 10
-  }
+  },
+  ...WORLD_ENCYCLOPEDIA_WORDS
 ];
 
 const CUSTOM_VOCAB_DETAILS = {
@@ -18488,7 +18497,7 @@ export function getSuperDetailedVocabInfo(item) {
   const defaultDailyPhrase = item.example || `I learn the word ${item.word}. (${item.exampleVi || `Bé học từ ${item.word}.`})`;
   const defaultFunFact = `Từ vựng '${item.word}' thuộc nhóm từ cơ bản giúp Minh Anh tự tin phát âm Tiếng Anh chuẩn!`;
 
-  const details = CUSTOM_VOCAB_DETAILS[word] || {};
+  const details = ENCYCLOPEDIA_DETAILS[word] || CUSTOM_VOCAB_DETAILS[word] || {};
 
   return {
     ...item,

@@ -3,6 +3,7 @@ import { LogOut, Sparkles, UserCheck, Volume2 } from 'lucide-react';
 import { ROUTE_MAP } from './PageLocationBar.jsx';
 import { NativeVoiceStudioModal } from './NativeVoiceStudioModal.jsx';
 import { getVoiceSettings, subscribeVoiceSettings } from '../services/nativeSpeechEngine.js';
+import { scrollToTop } from '../utils/scrollHelper.js';
 
 export function Header({
   activeTab,
@@ -29,7 +30,10 @@ export function Header({
           
           {/* Brand Logo & Active Location Indicator */}
           <div 
-            onClick={() => setActiveTab?.('intro')} 
+            onClick={() => {
+              setActiveTab?.('intro');
+              scrollToTop(true);
+            }} 
             className="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-0"
             title="Xem Trang Giới Thiệu V6.1"
           >
@@ -71,7 +75,10 @@ export function Header({
 
             {/* Quick Nav to Memory Card Flip Game */}
             <button
-              onClick={() => setActiveTab?.('memory_game')}
+              onClick={() => {
+                setActiveTab?.('memory_game');
+                scrollToTop(true);
+              }}
               className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm border active:scale-95 ${
                 activeTab === 'memory_game'
                   ? 'bg-gradient-to-r from-pink-600 to-amber-500 text-white border-yellow-300 scale-105 shadow-[0_0_15px_rgba(236,72,153,0.6)]'
@@ -86,7 +93,10 @@ export function Header({
 
             {/* Quick Nav to Intro Landing Page (Desktop only, mobile has bottom bar) */}
             <button
-              onClick={() => setActiveTab?.('intro')}
+              onClick={() => {
+                setActiveTab?.('intro');
+                scrollToTop(true);
+              }}
               className="hidden md:inline-flex px-2.5 py-1.5 rounded-xl text-[11px] font-black bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 border border-pink-400/40 text-pink-200 hover:text-white hover:bg-pink-600/30 transition items-center gap-1 cursor-pointer shadow-sm active:scale-95"
               title="Xem Trang Giới Thiệu Toàn Hệ Thống"
             >
