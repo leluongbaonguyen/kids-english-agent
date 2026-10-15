@@ -66,7 +66,7 @@ export default function VocabSmartIcon({
     );
   }
 
-  // 2. Unicode Emoji branch - Clean, natural emoji rendering
+  // 2. Unicode Emoji branch - Clean, natural, vivid emoji rendering
   if (fallbackImage) {
     return (
       <span
@@ -74,7 +74,7 @@ export default function VocabSmartIcon({
         style={styleObj}
         title={targetWord}
       >
-        <span className="leading-none flex items-center justify-center">
+        <span className="leading-none flex items-center justify-center text-[1.1em] transform-gpu">
           {fallbackImage}
         </span>
         {showBadge && (

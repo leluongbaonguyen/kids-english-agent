@@ -84,7 +84,7 @@ export const ENCYCLOPEDIA_CATEGORIES = [
   {
     "id": "ENC-U09",
     "name": "ENC • 09. Siêu Xe, Tàu Thủy, Máy Bay & Máy Cơ Giới (Super Machines)",
-    "icon": "🚜",
+    "icon": "🏎️",
     "level": "ENC",
     "unit": 9,
     "description": "Máy bay trực thăng, tàu ngầm, máy cày, xe cứu hỏa và tàu cao tốc."
@@ -273,7 +273,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Spinosaurus had a huge sail on its back and could swim.",
     "exampleVi": "Spinosaurus có cánh buồm khổng lồ trên lưng và biết bơi lội.",
-    "image": "🐊",
+    "image": "🦖",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -287,7 +287,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Ankylosaurus had heavy armor and a club tail.",
     "exampleVi": "Khủng long thiết giáp Ankylosaurus có áo giáp dày và đuôi hình cây chùy.",
-    "image": "🐢",
+    "image": "🛡️",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -371,7 +371,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "An ancient mosquito was preserved inside the amber.",
     "exampleVi": "Một chú muỗi cổ đại đã được bảo tồn nguyên vẹn bên trong viên hổ phách.",
-    "image": "🪨",
+    "image": "🍯",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -581,7 +581,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Dragonfruit has pink scaly skin and sweet speckled flesh.",
     "exampleVi": "Quả thanh long có lớp vỏ hồng vảy rồng và ruột hạt mè ngọt mát.",
-    "image": "🐉",
+    "image": "🌺",
     "level": "ENC",
     "category": "ENC-U02",
     "unit": 2
@@ -1057,7 +1057,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Creamy yogurt with honey and berries is a healthy treat.",
     "exampleVi": "Sữa chua sánh mịn cùng mật ong và quả mọng là món ăn rất bổ dưỡng.",
-    "image": "🥣",
+    "image": "🥛",
     "level": "ENC",
     "category": "ENC-U05",
     "unit": 5
@@ -1239,7 +1239,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Mercury is the smallest planet and closest to the Sun.",
     "exampleVi": "Sao Thủy là hành tinh nhỏ nhất và nằm gần Mặt Trời nhất.",
-    "image": "☿️",
+    "image": "🌑",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1253,7 +1253,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Venus is the hottest planet with thick yellow clouds.",
     "exampleVi": "Sao Kim là hành tinh nóng nhất với những tầng mây vàng dày đặc.",
-    "image": "♀️",
+    "image": "🟡",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1281,7 +1281,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Mars is called the Red Planet because of its iron-rich soil.",
     "exampleVi": "Sao Hỏa được gọi là Hành tinh Đỏ vì lớp đất giàu sắt đỏ au.",
-    "image": "♂️",
+    "image": "🔴",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1295,7 +1295,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Jupiter is the largest planet in our solar system.",
     "exampleVi": "Sao Mộc là hành tinh lớn nhất trong toàn bộ hệ Mặt Trời.",
-    "image": "♃",
+    "image": "🟠",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1323,7 +1323,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Uranus is an icy blue planet that spins on its side.",
     "exampleVi": "Sao Thiên Vương là một hành tinh băng xanh lam tự quay nghiêng một bên.",
-    "image": "♅",
+    "image": "🩵",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1337,7 +1337,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Neptune has the fastest and most powerful winds in the solar system.",
     "exampleVi": "Sao Hải Vương có những cơn gió dữ dội và tốc độ nhanh nhất hệ Mặt Trời.",
-    "image": "♆",
+    "image": "🔵",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1351,7 +1351,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Pluto is a cold dwarf planet with a heart-shaped glacier.",
     "exampleVi": "Sao Diêm Vương là một hành tinh lùn băng giá có vùng đồng bằng hình trái tim.",
-    "image": "🌌",
+    "image": "❄️",
     "level": "ENC",
     "category": "ENC-U06",
     "unit": 6
@@ -1575,7 +1575,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Tired travelers rested beside the green spring in the desert oasis.",
     "exampleVi": "Những người lữ khách mỏi mệt nghỉ ngơi bên dòng suối xanh ngắt trong ốc đảo.",
-    "image": "🌴",
+    "image": "🏝️",
     "level": "ENC",
     "category": "ENC-U07",
     "unit": 7
@@ -1631,7 +1631,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "A deep blue lake formed inside the dormant volcanic crater.",
     "exampleVi": "Một hồ nước xanh thẳm đã hình thành bên trong miệng núi lửa ngừng hoạt động.",
-    "image": "🌋",
+    "image": "🕳️",
     "level": "ENC",
     "category": "ENC-U07",
     "unit": 7
@@ -1911,7 +1911,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The heavy bulldozer pushed piles of rocks and soil easily.",
     "exampleVi": "Chiếc máy ủi hạng nặng đẩy phăng những đống đá và đất một cách dễ dàng.",
-    "image": "🚜",
+    "image": "🏗️",
     "level": "ENC",
     "category": "ENC-U09",
     "unit": 9
@@ -1925,7 +1925,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The giant excavator dug a deep foundation for the new school.",
     "exampleVi": "Chiếc máy xúc khổng lồ đào chiếc hố móng sâu cho ngôi trường mới.",
-    "image": "🚜",
+    "image": "⛏️",
     "level": "ENC",
     "category": "ENC-U09",
     "unit": 9
@@ -2247,7 +2247,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Playing the small four-string ukulele brought cheerful island sunshine.",
     "exampleVi": "Chơi cây đàn ukulele 4 dây nhỏ xinh mang lại ánh nắng vui tươi của hòn đảo Hawaii.",
-    "image": "🪕",
+    "image": "🎸",
     "level": "ENC",
     "category": "ENC-U10",
     "unit": 10
@@ -2345,7 +2345,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The master chef created artistic dishes that delighted every guest.",
     "exampleVi": "Vị bếp trưởng bậc thầy sáng tạo nên những món ăn nghệ thuật làm nức lòng thực khách.",
-    "image": "👨‍🍳",
+    "image": "⚓",
     "level": "ENC",
     "category": "ENC-U11",
     "unit": 11
@@ -2597,7 +2597,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The whole family sat cozily on the soft sofa to read bedtime stories.",
     "exampleVi": "Cả nhà cùng ngồi êm ái trên chiếc ghế sô-pha mềm mại để đọc truyện trước giờ ngủ.",
-    "image": "🛋️",
+    "image": "🛌",
     "level": "ENC",
     "category": "ENC-U12",
     "unit": 12
@@ -2737,7 +2737,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "She wore a bright yellow raincoat and jumped happily in puddles.",
     "exampleVi": "Bé mặc chiếc áo mưa vàng tươi và vui sướng nhảy qua những vũng nước mưa.",
-    "image": "🧥",
+    "image": "🌧️",
     "level": "ENC",
     "category": "ENC-U13",
     "unit": 13
@@ -3227,7 +3227,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The wooden spinning top danced gracefully on its tiny metal tip.",
     "exampleVi": "Con quay gỗ xoay tròn duyên dáng thăng bằng trên chiếc đầu mũi kim loại tí hon.",
-    "image": "🪙",
+    "image": "🪀",
     "level": "ENC",
     "category": "ENC-U15",
     "unit": 15
@@ -3325,7 +3325,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The rainbow pinwheel spun whirls of color when the breeze blew.",
     "exampleVi": "Chiếc chong chóng cầu vồng quay tít mù những vòng tròn màu sắc khi làn gió thổi qua.",
-    "image": "🪁",
+    "image": "🎡",
     "level": "ENC",
     "category": "ENC-U15",
     "unit": 15
@@ -3535,7 +3535,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The referee blew the shrill silver whistle to start the championship match.",
     "exampleVi": "Trọng tài thổi chiếc còi bạc vang lảnh để bắt đầu trận chung kết gay cấn.",
-    "image": "🎺",
+    "image": "📢",
     "level": "ENC",
     "category": "ENC-U16",
     "unit": 16
@@ -3591,7 +3591,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "A healthy stomach digests the delicious nutritious food we eat.",
     "exampleVi": "Một dạ dày khỏe mạnh tiêu hóa thức ăn thơm ngon và bổ dưỡng mà chúng ta ăn vào.",
-    "image": "🫄",
+    "image": "🥣",
     "level": "ENC",
     "category": "ENC-U17",
     "unit": 17
@@ -3647,7 +3647,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Sit straight to keep your spine healthy and your posture upright.",
     "exampleVi": "Bé hãy ngồi thẳng lưng khi học bài để giữ cho cột sống luôn thẳng và khỏe mạnh nhé.",
-    "image": "🦴",
+    "image": "🩻",
     "level": "ENC",
     "category": "ENC-U17",
     "unit": 17
@@ -3913,7 +3913,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Forgiveness heals hurt feelings and restores peaceful harmony.",
     "exampleVi": "Sự tha thứ chữa lành những vết thương lòng và mang lại sự hòa hợp an yên.",
-    "image": "🕊️",
+    "image": "🤝",
     "level": "ENC",
     "category": "ENC-U18",
     "unit": 18
@@ -3983,7 +3983,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The Great Pyramid of Giza was built with millions of massive limestone blocks.",
     "exampleVi": "Đại Kim Tự Tháp Giza được xây dựng từ hàng triệu khối đá vôi khổng lồ.",
-    "image": "🔺",
+    "image": "🏛️",
     "level": "ENC",
     "category": "ENC-U19",
     "unit": 19
@@ -4095,7 +4095,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Four giant sails of the Dutch windmill turned steadily in the breeze.",
     "exampleVi": "Bốn cánh quạt khổng lồ của cối xay gió Hà Lan quay đều đặn đón từng cơn gió mát.",
-    "image": "🌬️",
+    "image": "🌾",
     "level": "ENC",
     "category": "ENC-U19",
     "unit": 19
@@ -4137,7 +4137,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Roman stone aqueducts transported fresh water from distant mountains to cities.",
     "exampleVi": "Những cây cầu dẫn nước bằng đá của người La Mã vận chuyển nước sạch từ núi xa về thành phố.",
-    "image": "🏛️",
+    "image": "🌊",
     "level": "ENC",
     "category": "ENC-U19",
     "unit": 19
@@ -4375,7 +4375,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Flickering yellow lights of fireflies made the summer garden look magical.",
     "exampleVi": "Những đốm sáng vàng nhấp nháy của bầy đom đóm biến khu vườn đêm hè thành thế giới thần tiên.",
-    "image": "🪲",
+    "image": "💡",
     "level": "ENC",
     "category": "ENC-U20",
     "unit": 20

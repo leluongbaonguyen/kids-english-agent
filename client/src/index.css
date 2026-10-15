@@ -912,6 +912,32 @@ a:active svg.lucide {
   animation: iconHoverExcited 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate !important;
 }
 
+/* Ultra-Crisp, Professional Semantic Vocabulary Icon Engine */
+.font-emoji,
+.vocab-emoji {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', 'Segoe UI Symbol', sans-serif !important;
+  font-feature-settings: "liga" 1, "dlig" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.vocab-smart-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+  will-change: transform;
+}
+
+.vocab-smart-icon:hover {
+  transform: scale(1.14) translateY(-2px);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
+}
+
+.vocab-emoji {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.16));
+}
+
 /* Accessibility: Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .vocab-smart-icon,

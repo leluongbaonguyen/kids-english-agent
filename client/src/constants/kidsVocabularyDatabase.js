@@ -494,7 +494,7 @@ export const VOCAB_CATEGORIES = [
   { "id": "L6-U10", "name": "L6 • 10. Sức Khỏe Tâm Thần (Mental Health)", "icon": "🧘", "level": "L6" },
   { "id": "L6-U11", "name": "L6 • 11. Giao Tiếp Ưu Việt (Excellent Communication)", "icon": "🗣️", "level": "L6" },
   { "id": "L6-U12", "name": "L6 • 12. Chính Trị Học (Basic Political Science)", "icon": "🏛️", "level": "L6" },
-  { "id": "L6-U13", "name": "L6 • 13. IELTS / TOEFL Từ Vựng (Academic Vocabulary)", "icon": "📝", "level": "L6" },
+  { "id":"L6-U13","name":"L6 • 13. IELTS / TOEFL Từ Vựng (Academic Vocabulary)","icon":"🎓","level":"L6" },
   { "id": "L6-U14", "name": "L6 • 14. Thành Ngữ Nâng Cao (Advanced Idioms & Proverbs)", "icon": "📖", "level": "L6" },
   { "id": "L6-U15", "name": "L6 • 15. Tư Duy Hệ Thống (Systems Thinking)", "icon": "♾️", "level": "L6" },
   {"id":"BIO-U01","name":"BIO • 01. Thú Thảo Nguyên & Động Vật Ăn Cỏ (Savannah Wildlife)","icon":"🦁","level":"BIO"},
@@ -638,7 +638,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The balloon is black.",
     "exampleVi": "Quả bóng bay có màu đen.",
-    "image": "⚫",
+    "image": "🖤",
     "level": "L1",
     "category": "L1-U01",
     "unit": 1
@@ -652,7 +652,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The balloon is white.",
     "exampleVi": "Quả bóng bay có màu trắng.",
-    "image": "⚪",
+    "image": "🤍",
     "level": "L1",
     "category": "L1-U01",
     "unit": 1
@@ -1618,7 +1618,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "This is my table.",
     "exampleVi": "Đây là bàn của bé.",
-    "image": "🗄️",
+    "image": "🪑",
     "level": "L1",
     "category": "L1-U08",
     "unit": 8
@@ -3438,7 +3438,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The waterfall is beautiful.",
     "exampleVi": "Thác nước rất đẹp.",
-    "image": "⛲",
+    "image": "🌊",
     "level": "L3",
     "category": "L3-U01",
     "unit": 1
@@ -5034,7 +5034,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Describe the animal in the picture.",
     "exampleVi": "Hãy mô tả con vật trong tranh.",
-    "image": "📝",
+    "image": "🗣️",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5062,7 +5062,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Classify the animals into two groups.",
     "exampleVi": "Hãy phân loại động vật thành hai nhóm.",
-    "image": "🏷️",
+    "image": "🗂️",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5300,7 +5300,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "First, understand the problem.",
     "exampleVi": "Trước tiên, hãy hiểu vấn đề.",
-    "image": "❓",
+    "image": "🧩",
     "level": "L4",
     "category": "L4-U05",
     "unit": 5
@@ -5384,7 +5384,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Check your work when you finish.",
     "exampleVi": "Hãy kiểm tra bài khi hoàn thành.",
-    "image": "📊",
+    "image": "✅",
     "level": "L4",
     "category": "L4-U05",
     "unit": 5
@@ -5426,7 +5426,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Complete the task before lunch.",
     "exampleVi": "Hãy hoàn thành nhiệm vụ trước bữa trưa.",
-    "image": "✅",
+    "image": "🏁",
     "level": "L4",
     "category": "L4-U05",
     "unit": 5
@@ -6476,7 +6476,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "People celebrate their national independence.",
     "exampleVi": "Mọi người kỷ niệm nền độc lập của đất nước.",
-    "image": "🕊️",
+    "image": "🎆",
     "level": "L5",
     "category": "L5-U03",
     "unit": 3
@@ -6490,7 +6490,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The two nations signed a peace treaty.",
     "exampleVi": "Hai quốc gia ký một hiệp ước hòa bình.",
-    "image": "📜",
+    "image": "🤝",
     "level": "L5",
     "category": "L5-U03",
     "unit": 3
@@ -6686,7 +6686,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Động từ",
     "example": "Evaluate each source before you use it.",
     "exampleVi": "Hãy đánh giá từng nguồn trước khi sử dụng.",
-    "image": "📊",
+    "image": "⭐",
     "level": "L5",
     "category": "L5-U04",
     "unit": 4
@@ -6742,7 +6742,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "A variable stores a value in a program.",
     "exampleVi": "Một biến lưu một giá trị trong chương trình.",
-    "image": "📦",
+    "image": "🔣",
     "level": "L5",
     "category": "L5-U05",
     "unit": 5
@@ -6952,7 +6952,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "A budget is a plan for spending money.",
     "exampleVi": "Ngân sách là kế hoạch chi tiêu tiền.",
-    "image": "📊",
+    "image": "💰",
     "level": "L5",
     "category": "L5-U06",
     "unit": 6
@@ -7540,7 +7540,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Earn income through hard work.",
     "exampleVi": "Kiếm thu nhập qua lao động chăm chỉ.",
-    "image": "💳",
+    "image": "💵",
     "level": "L6",
     "category": "L6-U01",
     "unit": 1
@@ -7568,7 +7568,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Create a balanced personal budget.",
     "exampleVi": "Lập ngân sách cá nhân cân đối.",
-    "image": "📊",
+    "image": "💰",
     "level": "L6",
     "category": "L6-U01",
     "unit": 1
@@ -7596,7 +7596,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Wise investment yields profits.",
     "exampleVi": "Đầu tư khôn ngoan mang lại lợi nhuận.",
-    "image": "📈",
+    "image": "💹",
     "level": "L6",
     "category": "L6-U01",
     "unit": 1
@@ -7610,7 +7610,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Pay off debt on time.",
     "exampleVi": "Trả hết nợ đúng hạn.",
-    "image": "📑",
+    "image": "🧾",
     "level": "L6",
     "category": "L6-U01",
     "unit": 1
@@ -7624,7 +7624,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Bank pays interest on savings.",
     "exampleVi": "Ngân hàng trả lãi cho khoản tiết kiệm.",
-    "image": "🪙",
+    "image": "📈",
     "level": "L6",
     "category": "L6-U01",
     "unit": 1
@@ -7694,7 +7694,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Syntax rules arrange words into sentences.",
     "exampleVi": "Quy tắc cú pháp sắp xếp từ thành câu.",
-    "image": "📝",
+    "image": "📐",
     "level": "L6",
     "category": "L6-U02",
     "unit": 2
@@ -8170,7 +8170,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Prepare well for job interview.",
     "exampleVi": "Chuẩn bị kỹ cho buổi phỏng vấn xin việc.",
-    "image": "🗣️",
+    "image": "👥",
     "level": "L6",
     "category": "L6-U05",
     "unit": 5
@@ -8184,7 +8184,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Earn a promotion through hard work.",
     "exampleVi": "Đạt được sự thăng tiến nhờ làm việc chăm chỉ.",
-    "image": "📈",
+    "image": "🎖️",
     "level": "L6",
     "category": "L6-U05",
     "unit": 5
@@ -8240,7 +8240,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Adopt a positive growth mindset.",
     "exampleVi": "Áp dụng một tư duy tăng trưởng tích cực.",
-    "image": "🌱",
+    "image": "🧠",
     "level": "L6",
     "category": "L6-U06",
     "unit": 6
@@ -8366,7 +8366,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Daily practice brings personal growth.",
     "exampleVi": "Luyện tập hàng ngày mang lại sự phát triển cá nhân.",
-    "image": "📈",
+    "image": "🌱",
     "level": "L6",
     "category": "L6-U06",
     "unit": 6
@@ -8408,7 +8408,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Act with honesty and integrity.",
     "exampleVi": "Hành động với sự trung thực và chính trực.",
-    "image": "💎",
+    "image": "🛡️",
     "level": "L6",
     "category": "L6-U07",
     "unit": 7
@@ -8464,7 +8464,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Kindness is a noble virtue.",
     "exampleVi": "Lòng tốt là một đức tính cao quý.",
-    "image": "✨",
+    "image": "💎",
     "level": "L6",
     "category": "L6-U07",
     "unit": 7
@@ -8562,7 +8562,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Provide food aid during famine.",
     "exampleVi": "Cung cấp cứu trợ thực phẩm trong nạn đói.",
-    "image": "🌾",
+    "image": "🥀",
     "level": "L6",
     "category": "L6-U08",
     "unit": 8
@@ -8646,7 +8646,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Maintain world peace and harmony.",
     "exampleVi": "Duy trì hòa bình và sự hòa hợp trên thế giới.",
-    "image": "🕊️",
+    "image": "☮️",
     "level": "L6",
     "category": "L6-U08",
     "unit": 8
@@ -8744,7 +8744,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Be an inspiration to your peers.",
     "exampleVi": "Hãy là nguồn cảm hứng cho bạn bè cùng lứa.",
-    "image": "✨",
+    "image": "💡",
     "level": "L6",
     "category": "L6-U09",
     "unit": 9
@@ -8814,7 +8814,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Manage stress with deep breathing.",
     "exampleVi": "Quản lý sự căng thẳng bằng hít thở sâu.",
-    "image": "🧘",
+    "image": "🤯",
     "level": "L6",
     "category": "L6-U10",
     "unit": 10
@@ -9206,7 +9206,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Dragonflies fly near river.",
     "exampleVi": "Chuồn chuồn bay gần bờ sông.",
-    "image": "🦗",
+    "image": "🪰",
     "level": "L1",
     "category": "L1-U12",
     "unit": 12
@@ -9934,7 +9934,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Blue whale is giant.",
     "exampleVi": "Cá voi xanh rất khổng lồ.",
-    "image": "🐳",
+    "image": "🐋",
     "level": "L2",
     "category": "L2-U13",
     "unit": 13
@@ -10004,7 +10004,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Seahorse holds coral.",
     "exampleVi": "Chú cá ngựa bám vào san hô.",
-    "image": "🐴",
+    "image": "🫧",
     "level": "L2",
     "category": "L2-U13",
     "unit": 13
@@ -10018,7 +10018,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Starfish on the sand.",
     "exampleVi": "Con sao biển trên bờ cát.",
-    "image": "⭐️",
+    "image": "⭐",
     "level": "L2",
     "category": "L2-U13",
     "unit": 13
@@ -10298,7 +10298,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Giới từ",
     "example": "Toy is inside box.",
     "exampleVi": "Món đồ chơi ở bên trong hộp.",
-    "image": "📦",
+    "image": "📥",
     "level": "L2",
     "category": "L2-U15",
     "unit": 15
@@ -10312,7 +10312,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Giới từ",
     "example": "Play outside in garden.",
     "exampleVi": "Chơi đùa bên ngoài sân vườn.",
-    "image": "🏞️",
+    "image": "📤",
     "level": "L2",
     "category": "L2-U15",
     "unit": 15
@@ -10382,7 +10382,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Động từ",
     "example": "Order pizza for dinner.",
     "exampleVi": "Gọi bánh pizza cho bữa tối.",
-    "image": "📝",
+    "image": "📋",
     "level": "L3",
     "category": "L3-U11",
     "unit": 11
@@ -10480,7 +10480,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Work on computer.",
     "exampleVi": "Làm việc trên máy tính.",
-    "image": "💻",
+    "image": "🖥️",
     "level": "L3",
     "category": "L3-U12",
     "unit": 12
@@ -10508,7 +10508,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Clean office desk.",
     "exampleVi": "Dọn dẹp bàn làm việc sạch sẽ.",
-    "image": "🗄️",
+    "image": "💼",
     "level": "L3",
     "category": "L3-U12",
     "unit": 12
@@ -11222,7 +11222,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Stomach digests food.",
     "exampleVi": "Dạ dày tiêu hóa thức ăn.",
-    "image": "🫄",
+    "image": "🥣",
     "level": "L4",
     "category": "L4-U12",
     "unit": 12
@@ -11516,7 +11516,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Place canvas on easel.",
     "exampleVi": "Đặt khung tranh lên giá vẽ.",
-    "image": "📐",
+    "image": "🖼️",
     "level": "L4",
     "category": "L4-U14",
     "unit": 14
@@ -12216,7 +12216,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "World economy grows.",
     "exampleVi": "Nền kinh tế thế giới phát triển.",
-    "image": "📈",
+    "image": "💹",
     "level": "L5",
     "category": "L5-U14",
     "unit": 14
@@ -12622,7 +12622,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Members of parliament meet.",
     "exampleVi": "Thành viên nghị viện họp.",
-    "image": "🏢",
+    "image": "🏛️",
     "level": "L6",
     "category": "L6-U12",
     "unit": 12
@@ -12944,7 +12944,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Cụm từ",
     "example": "Think outside the box to solve problem.",
     "exampleVi": "Tư duy đột phá để giải quyết vấn đề.",
-    "image": "📦",
+    "image": "💡",
     "level": "L6",
     "category": "L6-U14",
     "unit": 14
@@ -13154,7 +13154,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The African elephant uses its long trunk to drink water.",
     "exampleVi": "Voi châu Phi dùng chiếc vòi dài để uống nước.",
-    "image": "✨",
+    "image": "🐘",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13238,7 +13238,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The mother kangaroo carries her tiny baby inside her pouch.",
     "exampleVi": "Chuột túi mẹ mang đứa con nhỏ bé trong chiếc túi trước ngực.",
-    "image": "🐆",
+    "image": "🦘",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13252,7 +13252,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The koala sleeps up to twenty hours a day in eucalyptus trees.",
     "exampleVi": "Gấu koala ngủ tới 20 giờ mỗi ngày trên cây bạch đàn.",
-    "image": "🐨",
+    "image": "🐃",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13266,7 +13266,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The camel stores fat in its hump to survive across dry deserts.",
     "exampleVi": "Lạc đà tích trữ mỡ trong bướu để sinh tồn qua sa mạc khô cằn.",
-    "image": "🐪",
+    "image": "🦌",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13280,7 +13280,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Huge herds of bison once roamed freely across North American plains.",
     "exampleVi": "Những đàn bò rừng bizon khổng lồ từng lang thang tự do khắp đồng bằng Bắc Mỹ.",
-    "image": "🦬",
+    "image": "🐗",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13294,7 +13294,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The gazelle leaps gracefully to escape swift predators.",
     "exampleVi": "Linh dương nhảy thoăn thoắt để thoát khỏi những kẻ săn mồi nhanh nhẹn.",
-    "image": "🦌",
+    "image": "🦡",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13336,7 +13336,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The chimpanzee uses twigs as clever tools to catch insects.",
     "exampleVi": "Tinh tinh biết dùng cành cây làm công cụ khéo léo để bắt côn trùng.",
-    "image": "🦧",
+    "image": "🐆",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13350,7 +13350,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The giant panda munches on fresh green bamboo stalks all day.",
     "exampleVi": "Gấu trúc khổng lồ gặm những thân tre xanh tươi suốt cả ngày.",
-    "image": "🐵",
+    "image": "🐊",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13364,7 +13364,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The polar bear walks effortlessly on drifting Arctic ice sheets.",
     "exampleVi": "Gấu trắng bắc cực di chuyển dễ dàng trên những tảng băng trôi vùng cực.",
-    "image": "🐻‍❄️",
+    "image": "🐍",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13378,7 +13378,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The grizzly bear catches fresh salmon leaping out of cold rivers.",
     "exampleVi": "Gấu xám bắt những con cá hồi tươi nhảy vọt lên từ dòng sông lạnh giá.",
-    "image": "🐻",
+    "image": "🐼",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13392,7 +13392,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The gray wolf howls under the bright full moon.",
     "exampleVi": "Chú sói xám cất tiếng hú dưới ánh trăng tròn vành vạnh.",
-    "image": "🐺",
+    "image": "🦧",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13406,7 +13406,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The clever red fox has a bushy tail with a white tip.",
     "exampleVi": "Chú cáo đỏ lanh lợi có chiếc đuôi xù với chỏm lông trắng muốt.",
-    "image": "🦊",
+    "image": "🐺",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13434,7 +13434,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The three-toed sloth moves extremely slowly hanging from branches.",
     "exampleVi": "Con lười ba ngón di chuyển siêu chậm khi treo mình trên cành cây.",
-    "image": "🐆",
+    "image": "🦥",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13588,7 +13588,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The rainforest toucan plucks wild berries with its giant beak.",
     "exampleVi": "Chim tu-căng rừng mưa nhiệt đới hái quả dại bằng chiếc mỏ khổng lồ.",
-    "image": "🐦",
+    "image": "🪶",
     "level": "BIO",
     "category": "BIO-U03",
     "unit": 3
@@ -13602,7 +13602,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The red-crested woodpecker pecks tree bark to find hidden bugs.",
     "exampleVi": "Chim gõ kiến mào đỏ mổ vào vỏ cây để tìm kiếm sâu bọ ẩn náu.",
-    "image": "🦜",
+    "image": "🪵",
     "level": "BIO",
     "category": "BIO-U03",
     "unit": 3
@@ -13616,7 +13616,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The brown pelican scoops up fish using its enormous throat pouch.",
     "exampleVi": "Chim bồ nông xúc cá bằng chiếc túi cổ họng khổng lồ.",
-    "image": "🐦",
+    "image": "🪿",
     "level": "BIO",
     "category": "BIO-U03",
     "unit": 3
@@ -13644,7 +13644,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The blue whale is the largest animal ever known to inhabit Earth.",
     "exampleVi": "Cá voi xanh là sinh vật lớn nhất từng tồn tại trong lịch sử Trái Đất.",
-    "image": "🦤",
+    "image": "🐋",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13658,7 +13658,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The cheerful dolphin leaps through sunny ocean waves.",
     "exampleVi": "Chú cá heo vui vẻ nhảy vọt qua những ngọn sóng biển ngập tràn ánh nắng.",
-    "image": "🐋",
+    "image": "🐬",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13700,7 +13700,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The magnificent manta ray glides through coral reefs like an underwater bird.",
     "exampleVi": "Cá đuối khổng lồ lướt qua rạn san hô tựa như cánh chim dưới đáy biển.",
-    "image": "🦑",
+    "image": "🐟",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13728,7 +13728,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The translucent jellyfish glows softly in the twilight deep.",
     "exampleVi": "Con sứa biển trong suốt phát ra ánh sáng lung linh dưới đại dương chạng vạng.",
-    "image": "🐢",
+    "image": "🪼",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13756,7 +13756,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The male seahorse carries eggs carefully in his brood pouch.",
     "exampleVi": "Cá ngựa đực ấp và bảo vệ trứng cẩn thận trong chiếc túi trước bụng.",
-    "image": "🐴",
+    "image": "🫧",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13770,7 +13770,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The Arctic walrus rests on sea ice displaying two prominent ivory tusks.",
     "exampleVi": "Hải mã bắc cực nghỉ trên tảng băng trôi khoe cặp ngà ngà voi nổi bật.",
-    "image": "🐠",
+    "image": "🦭",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13798,7 +13798,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "A starfish can regenerate a lost arm over several months.",
     "exampleVi": "Một con sao biển có thể mọc lại cánh tay bị đứt sau vài tháng.",
-    "image": "🪸",
+    "image": "⭐",
     "level": "BIO",
     "category": "BIO-U04",
     "unit": 4
@@ -13826,7 +13826,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The chameleon shifts its vibrant skin color to camouflage among foliage.",
     "exampleVi": "Tắc kè hoa thay đổi màu da rực rỡ để ngụy trang giữa các vòm lá.",
-    "image": "🐊",
+    "image": "🦎",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13840,7 +13840,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The king cobra flares its wide hood when feeling threatened.",
     "exampleVi": "Rắn hổ mang chúa bành chiếc mang rộng khi cảm thấy bị đe dọa.",
-    "image": "🦎",
+    "image": "🐍",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13854,7 +13854,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The red-eyed tree frog hides beneath tropical rainforest leaves.",
     "exampleVi": "Chú ếch cây mắt đỏ ẩn nấp bên dưới tán lá rừng mưa nhiệt đới.",
-    "image": "🐍",
+    "image": "🐸",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13868,7 +13868,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The Komodo dragon is the heaviest living lizard on the planet.",
     "exampleVi": "Rồng Komodo là loài thằn lằn nặng nhất còn sinh sống trên hành tinh.",
-    "image": "🐸",
+    "image": "🐉",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13882,7 +13882,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The giant Galapagos tortoise can live healthily for over one hundred years.",
     "exampleVi": "Rùa cạn khổng lồ Galapagos có thể sống khỏe mạnh hơn một trăm năm.",
-    "image": "🦎",
+    "image": "🐢",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13896,7 +13896,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The green iguana basks warmly on high tree limbs in the midday sun.",
     "exampleVi": "Cự đà xanh sưởi nắng ấm áp trên những cành cây cao giữa buổi trưa.",
-    "image": "🐢",
+    "image": "🌴",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13910,7 +13910,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The spotted salamander thrives near moist woodland streams.",
     "exampleVi": "Kỳ nhông đốm phát triển mạnh mẽ gần những dòng suối ẩm ướt trong rừng.",
-    "image": "🦎",
+    "image": "🔥",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13924,7 +13924,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The common garden toad devours harmful insects every summer evening.",
     "exampleVi": "Chú cóc vườn nuốt chửng các loài côn trùng gây hại vào mỗi tối mùa hè.",
-    "image": "🦎",
+    "image": "🐸",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13938,7 +13938,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The green anaconda is the heaviest snake inhabiting Amazon waterways.",
     "exampleVi": "Trăn anaconda xanh là loài rắn nặng nhất sinh sống tại lưu vực sông Amazon.",
-    "image": "🐸",
+    "image": "🐍",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13966,7 +13966,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Microscopic pads on the gecko's feet allow it to climb smooth glass walls.",
     "exampleVi": "Những giác bám siêu nhỏ ở chân giúp tắc kè leo thoăn thoắt trên mặt kính.",
-    "image": "🧱",
+    "image": "🦎",
     "level": "BIO",
     "category": "BIO-U05",
     "unit": 5
@@ -13980,7 +13980,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The monarch butterfly journeys thousands of miles during autumn migration.",
     "exampleVi": "Bướm chúa di cư hàng ngàn dặm trong chuyến hành trình mùa thu.",
-    "image": "🦎",
+    "image": "🦋",
     "level": "BIO",
     "category": "BIO-U06",
     "unit": 6
@@ -14050,7 +14050,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The swift dragonfly darts over clear pond waters on four agile wings.",
     "exampleVi": "Chuồn chuồn lướt vút qua mặt ao trong vắt bằng bốn chiếc cánh linh hoạt.",
-    "image": "🪲",
+    "image": "🪰",
     "level": "BIO",
     "category": "BIO-U06",
     "unit": 6
@@ -14064,7 +14064,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The metallic scarab beetle rolls soil balls beneath tropical sunshine.",
     "exampleVi": "Bọ hung ánh kim lăn những viên đất tròn dưới ánh nắng nhiệt đới.",
-    "image": "🦗",
+    "image": "🪲",
     "level": "BIO",
     "category": "BIO-U06",
     "unit": 6
@@ -14120,7 +14120,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The hungry caterpillar weaves a silky cocoon to become a butterfly.",
     "exampleVi": "Chú sâu bướm háu ăn dệt một chiếc kén tơ để hóa thân thành bướm xinh.",
-    "image": "🦗",
+    "image": "🐛",
     "level": "BIO",
     "category": "BIO-U06",
     "unit": 6
@@ -14134,7 +14134,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The beneficial earthworm aerates the soil and enriches garden earth.",
     "exampleVi": "Giun đất hữu ích cày xới làm tơi xốp và màu mỡ cho đất trồng.",
-    "image": "🐛",
+    "image": "🪱",
     "level": "BIO",
     "category": "BIO-U06",
     "unit": 6
@@ -14162,7 +14162,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Evergreen pine trees stay vibrant green during freezing winter blizzards.",
     "exampleVi": "Rừng thông xanh ngát quanh năm bất chấp những cơn bão tuyết mùa đông.",
-    "image": "🌳",
+    "image": "🌲",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14176,7 +14176,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Maple leaves turn brilliant crimson red and gold each autumn.",
     "exampleVi": "Những chiếc lá phong chuyển sang sắc đỏ thắm và vàng rực mỗi độ thu về.",
-    "image": "🌲",
+    "image": "🍁",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14190,7 +14190,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The African baobab tree stores thousands of gallons of water inside its trunk.",
     "exampleVi": "Cây bao báp châu Phi tích trữ hàng ngàn gallon nước trong thân cây đồ sộ.",
-    "image": "🍁",
+    "image": "🌳",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14204,7 +14204,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Coastal redwoods are the tallest living trees on the face of the Earth.",
     "exampleVi": "Cây cù tùng ven biển là loài thực vật cao nhất từng vươn mình trên Trái Đất.",
-    "image": "🌳",
+    "image": "🌲",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14218,7 +14218,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Bamboo grows remarkably fast and bends gracefully in strong winds.",
     "exampleVi": "Tre phát triển thần tốc kỳ lạ và uốn lượn dẻo dai trong cơn gió mạnh.",
-    "image": "🌲",
+    "image": "🎋",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14232,7 +14232,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The weeping willow sweeps its slender green branches across the stream.",
     "exampleVi": "Cây liễu rủ khẽ đung đưa những nhành lá xanh mềm mại trên mặt suối.",
-    "image": "🎋",
+    "image": "🌿",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14288,7 +14288,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Mangrove roots shield shorelines from violent storms and erosion.",
     "exampleVi": "Rễ cây ngập mặn che chắn bờ biển khỏi bão dông và hiện tượng xói mòn.",
-    "image": "🌸",
+    "image": "🌊",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14302,7 +14302,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The miniature bonsai tree is sculpted carefully with patience and artistry.",
     "exampleVi": "Cây cảnh bonsai thu nhỏ được uốn nắn kỳ công bằng sự kiên nhẫn và nghệ thuật.",
-    "image": "🌳",
+    "image": "🪴",
     "level": "BIO",
     "category": "BIO-U07",
     "unit": 7
@@ -14386,7 +14386,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Fields of purple lavender fill the countryside air with soothing aroma.",
     "exampleVi": "Những cánh đồng oải hương tím lan tỏa hương thơm dịu êm vào không gian đồng quê.",
-    "image": "🌺",
+    "image": "🪻",
     "level": "BIO",
     "category": "BIO-U08",
     "unit": 8
@@ -14428,7 +14428,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The floating water lily rests peacefully atop circular green pads.",
     "exampleVi": "Đóa hoa súng bồng bềnh tựa lưng yên ả trên những phiến lá tròn mặt hồ.",
-    "image": "💧",
+    "image": "🪷",
     "level": "BIO",
     "category": "BIO-U08",
     "unit": 8
@@ -14442,7 +14442,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Blowing on a white dandelion disperses tiny seed parachutes into breezes.",
     "exampleVi": "Thổi vào bông bồ công anh trắng sẽ thả hàng trăm chiếc dù hạt tí hon vào làn gió.",
-    "image": "🪷",
+    "image": "🌾",
     "level": "BIO",
     "category": "BIO-U08",
     "unit": 8
@@ -14456,7 +14456,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Golden marigolds brighten autumn festivals with radiant festive glow.",
     "exampleVi": "Cúc vạn thọ vàng ươm thắp sáng các lễ hội mùa thu với sắc rực rỡ tươi vui.",
-    "image": "🌼",
+    "image": "🧡",
     "level": "BIO",
     "category": "BIO-U08",
     "unit": 8
@@ -14540,7 +14540,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Finding a rare four-leaf clover is traditionally said to bring good fortune.",
     "exampleVi": "Tìm thấy một nhánh cỏ bốn lá hiếm hoi được tin là sẽ mang lại may mắn lớn.",
-    "image": "🌿",
+    "image": "🍀",
     "level": "BIO",
     "category": "BIO-U09",
     "unit": 9
@@ -14568,7 +14568,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Soothing aloe vera gel from fleshy succulent leaves cools sunburnt skin.",
     "exampleVi": "Chất gel mát dịu từ lá nha đam mọng nước giúp làm dịu mát làn da cháy nắng.",
-    "image": "🌿",
+    "image": "🪴",
     "level": "BIO",
     "category": "BIO-U09",
     "unit": 9
@@ -14582,7 +14582,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The carnivorous Venus flytrap snaps its trap shut when an insect touches it.",
     "exampleVi": "Cây bắt ruồi ăn thịt khép chặt chiếc bẫy khi có một chú côn trùng chạm vào.",
-    "image": "🪰",
+    "image": "🪴",
     "level": "BIO",
     "category": "BIO-U09",
     "unit": 9
@@ -14610,7 +14610,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Hardy lichen clings tightly to alpine boulders weathering subzero freezes.",
     "exampleVi": "Địa y kiên cường bám chặt vào đá núi cao, chống chọi với cái lạnh âm độ.",
-    "image": "🪴",
+    "image": "🪨",
     "level": "BIO",
     "category": "BIO-U09",
     "unit": 9
@@ -14624,7 +14624,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Fresh green mint leaves impart an invigorating cooling fragrance.",
     "exampleVi": "Những chiếc lá bạc hà tươi xanh mang đến hương thơm the mát sảng khoái.",
-    "image": "🌿",
+    "image": "🍃",
     "level": "BIO",
     "category": "BIO-U09",
     "unit": 9
@@ -14694,7 +14694,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Dense insulating fur keeps Arctic foxes cozy in freezing blizzards.",
     "exampleVi": "Bộ lông dày cách nhiệt giúp cáo bắc cực luôn ấm cúng trong bão tuyết âm độ.",
-    "image": "🦜",
+    "image": "🐻",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14708,7 +14708,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The majestic stag sheds and regrows its branching antlers every spring.",
     "exampleVi": "Chú hươu đực uy nghi rụng gạc và mọc lại cặp gạc phân nhánh mỗi độ xuân về.",
-    "image": "🧶",
+    "image": "🦌",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14736,7 +14736,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Deep underground roots anchor the tall tree and absorb groundwater.",
     "exampleVi": "Bộ rễ ăn sâu dưới lòng đất giúp giữ vững cây cao và hút mạch nước ngầm.",
-    "image": "🪴",
+    "image": "🌱",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14750,7 +14750,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Counting growth rings inside a cut tree trunk reveals its exact age.",
     "exampleVi": "Đếm các vòng sinh trưởng bên trong thân cây gỗ sẽ tiết lộ số tuổi chính xác.",
-    "image": "🌱",
+    "image": "🪵",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14764,7 +14764,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Silky flower petals unfold in morning light welcoming buzzing bees.",
     "exampleVi": "Những cánh hoa mềm mại bung nở trong nắng sớm chào đón đàn ong vo ve.",
-    "image": "🪵",
+    "image": "🌸",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14778,7 +14778,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Bees carry golden pollen grains from one blossom to another.",
     "exampleVi": "Đàn ong mang những hạt phấn hoa vàng từ bông hoa này sang bông hoa khác.",
-    "image": "🌸",
+    "image": "✨",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14792,7 +14792,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Rough tree bark defends the inner wood against insect pests and weather.",
     "exampleVi": "Lớp vỏ cây sần sùi bảo vệ phần gỗ bên trong khỏi sâu hại và thời tiết.",
-    "image": "🛡️",
+    "image": "🪵",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -14806,7 +14806,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Natural camouflage helps animals blend seamlessly into surroundings.",
     "exampleVi": "Khả năng ngụy trang tự nhiên giúp muông thú hòa lẫn hoàn hảo vào môi trường xung quanh.",
-    "image": "🪵",
+    "image": "🦎",
     "level": "BIO",
     "category": "BIO-U10",
     "unit": 10
@@ -16425,7 +16425,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The teacher wrote math formulas in crisp white chalk on the board.",
     "exampleVi": "Thầy giáo viết các công thức toán bằng phấn trắng rõ ràng lên bảng.",
-    "image": "📝",
+    "image": "🖍️",
     "hex": "#F6F6F6",
     "level": "COLOR",
     "category": "CLR-U09",
@@ -17655,7 +17655,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Số thứ tự",
     "example": "The automotive factory rolled out its millionth electric car.",
     "exampleVi": "Nhà máy ô tô đã xuất xưởng chiếc xe điện thứ một triệu.",
-    "image": "🚗",
+    "image": "🌟",
     "symbol": "1,000,000th",
     "level": "NUM",
     "category": "NUM-U06",
@@ -17745,7 +17745,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "One fifth of the student council voted in favor.",
     "exampleVi": "Một phần năm hội đồng học sinh đã bỏ phiếu đồng thuận.",
-    "image": "📊",
+    "image": "🥧",
     "symbol": "1/5",
     "level": "NUM",
     "category": "NUM-U07",
@@ -17925,7 +17925,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Tính từ",
     "example": "A single glowing candle lit up the cozy room.",
     "exampleVi": "Một ngọn nến đơn lẻ thắp sáng căn phòng ấm cúng.",
-    "image": "🔘",
+    "image": "1️⃣",
     "symbol": "[1]",
     "level": "NUM",
     "category": "NUM-U08",
