@@ -3,7 +3,8 @@ import {
   Sparkles, Trophy, Flame, RotateCw, Play, Pause, HelpCircle, Star,
   Award, Clock, Target, Zap, BookOpen, Search, Filter, CheckCircle2,
   Volume2, VolumeX, Shuffle, ChevronDown, ChevronUp, Layers, Eye,
-  Smile, Share2, Crown, Settings, Mic, ArrowRight, X, Compass, Check
+  Smile, Share2, Crown, Settings, Mic, ArrowRight, X, Compass, Check,
+  Users, Globe, Bot, ShieldAlert, MessageCircle, Wifi
 } from 'lucide-react';
 import {
   COURSE_LEVELS,
@@ -22,10 +23,82 @@ import {
   playShuffleSound,
   playClickSound,
   playTickSound,
+  playTurnChangeSound,
+  playEmotePopSound,
+  playTurnAlertSound,
   speakWord,
   soundSettings,
   saveSoundSettings
 } from '../utils/gameAudio.js';
+import { realtimeGameService } from '../services/realtimeGameService.js';
+import MemoryPvpArenaBar from './MemoryPvpArenaBar.jsx';
+import MemoryOnlineLobbyModal from './MemoryOnlineLobbyModal.jsx';
+import MemoryLiveEmotesOverlay from './MemoryLiveEmotesOverlay.jsx';
+import MemoryPvpPodiumModal from './MemoryPvpPodiumModal.jsx';
+
+// 4-Tier Match Modes for Kids
+const PVP_MODES = [
+  {
+    id: 'solo',
+    name: '👤 Chơi Đơn',
+    subtitle: 'Luyện tập cá nhân',
+    icon: '🎯',
+    badge: 'Kỷ lục cá nhân',
+    color: 'from-pink-600 to-rose-600'
+  },
+  {
+    id: 'pass_and_play',
+    name: '👥 2 Người (Cùng Máy)',
+    subtitle: 'Đổi lượt trên 1 thiết bị',
+    icon: '🤝',
+    badge: 'Chơi cùng Ba Mẹ',
+    color: 'from-amber-500 to-orange-600'
+  },
+  {
+    id: 'online_pvp',
+    name: '🌐 Đấu Online (2 Máy)',
+    subtitle: 'P2P Real-time WebRTC',
+    icon: '⚡',
+    badge: '2 Máy khác nhau',
+    color: 'from-cyan-500 to-blue-600'
+  },
+  {
+    id: 'vs_ai',
+    name: '🤖 Đấu Với Máy AI',
+    subtitle: 'Gấu Panda • Cú • Robot',
+    icon: '🧠',
+    badge: 'Luyện phản xạ',
+    color: 'from-purple-600 to-indigo-600'
+  }
+];
+
+const AI_LEVELS = {
+  panda: {
+    id: 'panda',
+    name: '🐼 Bé Gấu Panda (Dễ)',
+    accuracy: 0.35,
+    delay: 1500,
+    avatar: '🐼',
+    quotes: ['Hmm để tớ nhớ xem nào...', 'Ui nhầm rồi hihi!', 'Aha trúng một cặp rồi! 🎉', 'Bạn nhớ siêu thế! 🌟']
+  },
+  owl: {
+    id: 'owl',
+    name: '🦉 Cú Mèo Thông Thái (Vừa)',
+    accuracy: 0.65,
+    delay: 1100,
+    avatar: '🦉',
+    quotes: ['Tớ đã ghi nhớ vị trí này!', 'Trận đấu hấp dẫn quá!', 'Cố lên bạn ơi!', 'Trí nhớ của tớ là vô song! ✨']
+  },
+  robot: {
+    id: 'robot',
+    name: '🤖 Robot Siêu Trí Tuệ (Khó)',
+    accuracy: 0.92,
+    delay: 750,
+    avatar: '🤖',
+    quotes: ['Đang quét cơ sở dữ liệu...', 'Xác suất ghép đúng: 99%', 'Tính toán hoàn tất! ⚡', 'Bạn là đối thủ xứng tầm!']
+  }
+};
+
 
 // Course Level Themed Visual Map
 const LEVEL_BADGE_MAP = {
@@ -156,7 +229,53 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     voiceGender: soundSettings.voiceGender
   }));
 
-  // 3. Game Play States
+  // 3. PvP & Multiplayer Modes
+  const [pvpMode, setPvpMode] = useState('solo'); // 'solo' | 'pass_and_play' | 'online_pvp' | 'vs_ai'
+  const [player1, setPlayer1] = useState(() => {
+    try {
+      const savedName = localStorage.getItem('kids_player_name') || 'Bé Minh Anh';
+      const savedAvatar = localStorage.getItem('kids_player_avatar') || '👧';
+      return { name: savedName, avatar: savedAvatar, score: 0, streak: 0, maxStreak: 0, pairsCount: 0 };
+    } catch {
+      return { name: 'Bé Minh Anh', avatar: '👧', score: 0, streak: 0, maxStreak: 0, pairsCount: 0 };
+    }
+  });
+
+  const [player2, setPlayer2] = useState({
+    name: 'Người Chơi 2',
+    avatar: '👦',
+    score: 0,
+    streak: 0,
+    maxStreak: 0,
+    pairsCount: 0
+  });
+
+  const [activeTurn, setActiveTurn] = useState('p1'); // 'p1' | 'p2'
+  const [turnTimer, setTurnTimer] = useState(15); // 15 seconds per turn
+  const [isBonusTurn, setIsBonusTurn] = useState(false);
+  const [aiLevel, setAiLevel] = useState('owl'); // 'panda' | 'owl' | 'robot'
+  const [aiSpeech, setAiSpeech] = useState('');
+  const aiMemory = useRef(new Map()); // cardIndex -> pairId
+  const turnTimerIntervalRef = useRef(null);
+
+  // 4. Online Real-time State (PeerJS WebRTC + BroadcastChannel)
+  const [showOnlineLobby, setShowOnlineLobby] = useState(false);
+  const [onlineRoomCode, setOnlineRoomCode] = useState(null);
+  const [connectionState, setConnectionState] = useState({
+    status: 'idle',
+    role: null,
+    roomCode: null,
+    latency: 0,
+    opponentInfo: null,
+    message: ''
+  });
+
+  // 5. Live Emotes & Quick Chat Reactions
+  const [activeFloatingItems, setActiveFloatingItems] = useState([]);
+  const [showPvpPodium, setShowPvpPodium] = useState(false);
+  const [rematchWaiting, setRematchWaiting] = useState(false);
+
+  // 6. Game Play States
   const [cards, setCards] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [matchedPairIds, setMatchedPairIds] = useState(new Set());
@@ -174,12 +293,12 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
   const [isHintActive, setIsHintActive] = useState(false);
   const [currentlySpeakingCardId, setCurrentlySpeakingCardId] = useState(null);
 
-  // 4. Modal Drawers
+  // 7. Modal Drawers
   const [showVocabDrawer, setShowVocabDrawer] = useState(false);
   const [showLeaderboardDrawer, setShowLeaderboardDrawer] = useState(false);
   const [isVoiceStudioOpen, setIsVoiceStudioOpen] = useState(false);
 
-  // 5. High Scores (LocalStorage)
+  // 8. High Scores (LocalStorage)
   const [highScores, setHighScores] = useState(() => {
     try {
       const saved = localStorage.getItem('kids_memory_high_scores_v1');
@@ -265,6 +384,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     }
 
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+    if (turnTimerIntervalRef.current) clearInterval(turnTimerIntervalRef.current);
     playShuffleSound();
 
     // Pick N random unique words from pool
@@ -278,7 +398,6 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
       const pairId = `pair-${vocab.id || idx}-${Math.random()}`;
 
       if (gameMode === 'image_word') {
-        // Card A: Image + Meaning + Phonetics
         newCards.push({
           cardId: `${pairId}-img`,
           pairId,
@@ -286,7 +405,6 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
           vocab,
           content: vocab.word
         });
-        // Card B: Word & Pronunciation + Meaning
         newCards.push({
           cardId: `${pairId}-word`,
           pairId,
@@ -340,7 +458,6 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
           content: vocab.word
         });
       } else {
-        // Twins
         newCards.push({
           cardId: `${pairId}-twin-1`,
           pairId,
@@ -377,20 +494,328 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     setTimerSeconds(timerMode === 'countdown' ? currentDiff.timeLimit : 0);
     setIsGameActive(true);
 
+    // Reset PvP states
+    setPlayer1(prev => ({ ...prev, score: 0, streak: 0, pairsCount: 0 }));
+    setPlayer2(prev => ({
+      ...prev,
+      name: pvpMode === 'vs_ai' ? (AI_LEVELS[aiLevel]?.name || 'Máy AI') : prev.name,
+      avatar: pvpMode === 'vs_ai' ? (AI_LEVELS[aiLevel]?.avatar || '🦉') : prev.avatar,
+      score: 0,
+      streak: 0,
+      pairsCount: 0
+    }));
+    setActiveTurn('p1');
+    setTurnTimer(15);
+    setIsBonusTurn(false);
+    setShowPvpPodium(false);
+    setRematchWaiting(false);
+    aiMemory.current = new Map();
+
+    // If Online Host, broadcast new deck
+    if (pvpMode === 'online_pvp' && connectionState.role === 'host') {
+      realtimeGameService.sendGameDeck(finalDeck, { difficultyKey, gameMode });
+    }
+
     addToast?.(`🎮 Đã tạo bàn lật thẻ mới: ${currentDiff.name} (${currentDiff.cardsCount} Thẻ)!`, 'info');
-  }, [filteredVocabPool, currentDiff, gameMode, timerMode, addToast]);
+  }, [filteredVocabPool, currentDiff, gameMode, timerMode, pvpMode, aiLevel, connectionState.role, addToast]);
 
   // Initial Game Mount
   useEffect(() => {
     startNewGame();
     return () => {
       if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      if (turnTimerIntervalRef.current) clearInterval(turnTimerIntervalRef.current);
     };
-  }, [difficultyKey, gameMode, selectedLevel, selectedCategory]);
+  }, [difficultyKey, gameMode, selectedLevel, selectedCategory, pvpMode, aiLevel]);
 
-  // Timer Tick Engine
+  // Auto-detect Room Code from URL query/hash parameter
   useEffect(() => {
-    if (!isGameActive || isGameWon || isTimeUp) {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash || '';
+    const search = window.location.search || '';
+    const combined = hash + search;
+    const match = combined.match(/room=([A-Za-z0-9-]+)/i);
+    if (match && match[1]) {
+      const code = match[1].toUpperCase();
+      setPvpMode('online_pvp');
+      setOnlineRoomCode(code);
+      setShowOnlineLobby(true);
+      realtimeGameService.joinRoom(code, {
+        name: player1.name,
+        avatar: player1.avatar
+      });
+      addToast?.(`🌐 Đã tìm thấy phòng ${code} từ đường dẫn! Đang kết nối...`, 'info');
+    }
+  }, []);
+
+  // WebRTC & BroadcastChannel Event Listeners
+  useEffect(() => {
+    const unsubStatus = realtimeGameService.onStatusChange((state) => {
+      setConnectionState(state);
+      if (state.roomCode) setOnlineRoomCode(state.roomCode);
+      if (state.opponentInfo) {
+        setPlayer2(prev => ({
+          ...prev,
+          name: state.opponentInfo.name || 'Đối thủ',
+          avatar: state.opponentInfo.avatar || '👦'
+        }));
+      }
+      if (state.status === 'connected') {
+        addToast?.(`🟢 Đã kết nối thành công với ${state.opponentInfo?.name || 'Đối thủ'}!`, 'success');
+        if (state.role === 'host' && cards.length > 0) {
+          realtimeGameService.sendGameDeck(cards, { difficultyKey, gameMode });
+        }
+      }
+    });
+
+    const unsubMsg = realtimeGameService.onMessage((msg) => {
+      handleIncomingNetworkMessage(msg);
+    });
+
+    return () => {
+      unsubStatus();
+      unsubMsg();
+    };
+  }, [cards, difficultyKey, gameMode]);
+
+  // Handle incoming network messages
+  const handleIncomingNetworkMessage = useCallback((msg) => {
+    if (!msg || !msg.type) return;
+
+    switch (msg.type) {
+      case 'SYNC_GAME_DECK':
+        if (msg.cards && msg.cards.length > 0) {
+          setCards(msg.cards);
+          setFlippedIndices([]);
+          setMatchedPairIds(new Set());
+          setMismatchedIndices([]);
+          setIsChecking(false);
+          setPlayer1(prev => ({ ...prev, score: 0, streak: 0, pairsCount: 0 }));
+          setPlayer2(prev => ({ ...prev, score: 0, streak: 0, pairsCount: 0 }));
+          setActiveTurn('p1');
+          setTurnTimer(15);
+          setIsBonusTurn(false);
+          setShowPvpPodium(false);
+          setRematchWaiting(false);
+          setIsGameActive(true);
+          setShowOnlineLobby(false);
+          addToast?.('🎮 Bàn thi đấu Online đã đồng bộ từ Chủ Phòng!', 'success');
+        }
+        break;
+
+      case 'CARD_FLIP':
+        if (typeof msg.cardIndex === 'number') {
+          handleCardClick(msg.cardIndex, true);
+        }
+        break;
+
+      case 'TURN_CHANGE':
+        if (msg.nextTurn) {
+          setActiveTurn(msg.nextTurn);
+          setTurnTimer(15);
+          setIsBonusTurn(false);
+          const isMyTurn = (connectionState.role === 'host' && msg.nextTurn === 'p1') ||
+                           (connectionState.role === 'guest' && msg.nextTurn === 'p2');
+          playTurnChangeSound(isMyTurn);
+          if (msg.reason === 'timeout') {
+            addToast?.('⏰ Hết giờ lượt đi! Đã chuyển lượt.', 'info');
+          }
+        }
+        break;
+
+      case 'EMOTE':
+        if (msg.emoji) {
+          const item = {
+            id: `emote-${Date.now()}-${Math.random()}`,
+            type: 'emoji',
+            content: msg.emoji,
+            senderName: msg.senderName,
+            senderRole: msg.senderRole
+          };
+          setActiveFloatingItems(prev => [...prev.slice(-6), item]);
+          playEmotePopSound();
+          setTimeout(() => {
+            setActiveFloatingItems(prev => prev.filter(i => i.id !== item.id));
+          }, 3200);
+        }
+        break;
+
+      case 'QUICK_CHAT':
+        if (msg.chatItem) {
+          const item = {
+            id: `chat-${Date.now()}-${Math.random()}`,
+            type: 'chat',
+            content: msg.chatItem.en,
+            vi: msg.chatItem.vi,
+            senderName: msg.senderName,
+            senderRole: msg.senderRole
+          };
+          setActiveFloatingItems(prev => [...prev.slice(-6), item]);
+          playEmotePopSound();
+          setTimeout(() => {
+            setActiveFloatingItems(prev => prev.filter(i => i.id !== item.id));
+          }, 3600);
+        }
+        break;
+
+      case 'REMATCH_REQUEST':
+        addToast?.(`🔁 ${msg.senderName || 'Đối thủ'} gửi yêu cầu tái đấu! Đang chuẩn bị bàn mới...`, 'info');
+        if (connectionState.role === 'host') {
+          startNewGame();
+        }
+        break;
+
+      case 'REMATCH_ACCEPT':
+        setShowPvpPodium(false);
+        setRematchWaiting(false);
+        if (msg.cards) {
+          setCards(msg.cards);
+          setFlippedIndices([]);
+          setMatchedPairIds(new Set());
+          setMismatchedIndices([]);
+          setIsChecking(false);
+          setPlayer1(prev => ({ ...prev, score: 0, streak: 0, pairsCount: 0 }));
+          setPlayer2(prev => ({ ...prev, score: 0, streak: 0, pairsCount: 0 }));
+          setActiveTurn('p1');
+          setTurnTimer(15);
+          setIsBonusTurn(false);
+          setIsGameActive(true);
+        }
+        addToast?.('⚡ Trận tái đấu mới đã bắt đầu!', 'success');
+        break;
+
+      default:
+        break;
+    }
+  }, [cards, connectionState.role, startNewGame, addToast]);
+
+  // PvP Turn Countdown Interval
+  useEffect(() => {
+    if (pvpMode === 'solo' || !isGameActive || isGameWon || isChecking) {
+      if (turnTimerIntervalRef.current) clearInterval(turnTimerIntervalRef.current);
+      return;
+    }
+
+    turnTimerIntervalRef.current = setInterval(() => {
+      setTurnTimer(prev => {
+        if (prev <= 1) {
+          // Timeout reached: clear any single open card and switch turn
+          if (flippedIndices.length === 1) {
+            setFlippedIndices([]);
+          }
+          const nextTurn = activeTurn === 'p1' ? 'p2' : 'p1';
+          setActiveTurn(nextTurn);
+          setIsBonusTurn(false);
+
+          if (pvpMode === 'online_pvp') {
+            realtimeGameService.sendTurnChange(nextTurn, 'timeout');
+          }
+
+          const isMyTurnNow = (pvpMode === 'online_pvp')
+            ? ((connectionState.role === 'host' && nextTurn === 'p1') || (connectionState.role === 'guest' && nextTurn === 'p2'))
+            : true;
+          playTurnChangeSound(isMyTurnNow);
+          addToast?.('⏰ Hết 15 giây lượt chơi! Đã chuyển lượt.', 'warning');
+          return 15;
+        }
+
+        if (prev <= 4) {
+          playTurnAlertSound();
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (turnTimerIntervalRef.current) clearInterval(turnTimerIntervalRef.current);
+    };
+  }, [pvpMode, isGameActive, isGameWon, isChecking, activeTurn, flippedIndices, connectionState.role, addToast]);
+
+  // AI Opponent Decision Engine (Natural thinking delay + memory algorithm)
+  useEffect(() => {
+    if (pvpMode !== 'vs_ai' || activeTurn !== 'p2' || !isGameActive || isChecking || isGameWon) {
+      return;
+    }
+
+    const aiCfg = AI_LEVELS[aiLevel] || AI_LEVELS.owl;
+    let isCancelled = false;
+
+    const randomQuote = aiCfg.quotes[Math.floor(Math.random() * aiCfg.quotes.length)];
+    setAiSpeech(randomQuote);
+
+    const timer1 = setTimeout(() => {
+      if (isCancelled || !isGameActive || isChecking) return;
+
+      const availableIndices = cards
+        .map((c, i) => (!matchedPairIds.has(c.pairId) ? i : null))
+        .filter(i => i !== null);
+
+      if (availableIndices.length === 0) return;
+
+      // 1. Check if AI already knows a pair in memory
+      let firstChoice = null;
+      let secondChoice = null;
+
+      const knownMap = new Map();
+      aiMemory.current.forEach((pairId, idx) => {
+        if (!matchedPairIds.has(pairId)) {
+          if (!knownMap.has(pairId)) knownMap.set(pairId, []);
+          knownMap.get(pairId).push(idx);
+        }
+      });
+
+      for (const [pId, idxList] of knownMap.entries()) {
+        if (idxList.length >= 2 && Math.random() <= aiCfg.accuracy) {
+          firstChoice = idxList[0];
+          secondChoice = idxList[1];
+          break;
+        }
+      }
+
+      if (firstChoice === null) {
+        firstChoice = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      }
+
+      handleCardClick(firstChoice, true);
+
+      const timer2 = setTimeout(() => {
+        if (isCancelled || !isGameActive) return;
+
+        const firstCard = cards[firstChoice];
+        if (!firstCard) return;
+
+        if (secondChoice === null) {
+          const matePairIndices = knownMap.get(firstCard.pairId) || [];
+          const knownMate = matePairIndices.find(i => i !== firstChoice);
+
+          if (knownMate !== undefined && Math.random() <= aiCfg.accuracy) {
+            secondChoice = knownMate;
+          } else {
+            const remaining = availableIndices.filter(i => i !== firstChoice);
+            if (remaining.length > 0) {
+              secondChoice = remaining[Math.floor(Math.random() * remaining.length)];
+            }
+          }
+        }
+
+        if (secondChoice !== null) {
+          handleCardClick(secondChoice, true);
+        }
+        setAiSpeech('');
+      }, 900);
+
+      return () => clearTimeout(timer2);
+    }, aiCfg.delay);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer1);
+    };
+  }, [pvpMode, activeTurn, isGameActive, isChecking, isGameWon, aiLevel, cards, matchedPairIds]);
+
+  // Solo Timer Tick Engine
+  useEffect(() => {
+    if (!isGameActive || isGameWon || isTimeUp || pvpMode !== 'solo') {
       if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
       return;
     }
@@ -417,10 +842,10 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     return () => {
       if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
     };
-  }, [isGameActive, isGameWon, isTimeUp, timerMode, addToast]);
+  }, [isGameActive, isGameWon, isTimeUp, timerMode, pvpMode, addToast]);
 
   // Card Click Interaction
-  const handleCardClick = (cardIndex) => {
+  const handleCardClick = (cardIndex, isFromNetwork = false) => {
     if (
       !isGameActive ||
       isChecking ||
@@ -428,6 +853,22 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
       isTimeUp ||
       isHintActive
     ) return;
+
+    // Check Turn for PvP / Online
+    if (!isFromNetwork) {
+      if (pvpMode === 'vs_ai' && activeTurn === 'p2') {
+        return;
+      }
+      if (pvpMode === 'online_pvp') {
+        const isMyTurn = (connectionState.role === 'host' && activeTurn === 'p1') ||
+                         (connectionState.role === 'guest' && activeTurn === 'p2');
+        if (!isMyTurn) {
+          addToast?.('⏳ Chưa đến lượt của bạn! Đang là lượt của đối thủ.', 'info');
+          return;
+        }
+        realtimeGameService.sendCardFlip(cardIndex);
+      }
+    }
 
     const clickedCard = cards[cardIndex];
     if (!clickedCard) return;
@@ -444,6 +885,11 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     }
 
     playCardFlip();
+
+    // Register into AI memory
+    if (aiMemory.current) {
+      aiMemory.current.set(cardIndex, clickedCard.pairId);
+    }
 
     if (audioSettings.voice) {
       setCurrentlySpeakingCardId(clickedCard.cardId);
@@ -468,13 +914,39 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
       // Check Match
       if (firstCard.pairId === clickedCard.pairId) {
         setIsChecking(true);
-        const newStreak = streak + 1;
+        const currentActiveStreak = pvpMode === 'solo'
+          ? streak
+          : (activeTurn === 'p1' ? player1.streak : player2.streak);
+        const newStreak = currentActiveStreak + 1;
         setStreak(newStreak);
         setMaxStreak(prev => Math.max(prev, newStreak));
 
         const comboBonus = Math.min(newStreak * 50, 250);
         const matchPoints = 100 + comboBonus;
         setScore(prev => prev + matchPoints);
+
+        // Update PvP score for active player
+        if (pvpMode !== 'solo') {
+          if (activeTurn === 'p1') {
+            setPlayer1(prev => ({
+              ...prev,
+              score: prev.score + matchPoints,
+              streak: newStreak,
+              maxStreak: Math.max(prev.maxStreak, newStreak),
+              pairsCount: (prev.pairsCount || 0) + 1
+            }));
+          } else {
+            setPlayer2(prev => ({
+              ...prev,
+              score: prev.score + matchPoints,
+              streak: newStreak,
+              maxStreak: Math.max(prev.maxStreak, newStreak),
+              pairsCount: (prev.pairsCount || 0) + 1
+            }));
+          }
+          setIsBonusTurn(true);
+          setTurnTimer(15);
+        }
 
         setTimeout(() => {
           playMatchSound();
@@ -501,6 +973,15 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
         setStreak(0);
         setMismatchedIndices(newFlipped);
 
+        if (pvpMode !== 'solo') {
+          if (activeTurn === 'p1') {
+            setPlayer1(prev => ({ ...prev, streak: 0 }));
+          } else {
+            setPlayer2(prev => ({ ...prev, streak: 0 }));
+          }
+          setIsBonusTurn(false);
+        }
+
         setTimeout(() => {
           playMismatchSound();
         }, 300);
@@ -509,6 +990,17 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
           setFlippedIndices([]);
           setMismatchedIndices([]);
           setIsChecking(false);
+
+          // Pass Turn in PvP
+          if (pvpMode !== 'solo') {
+            const nextTurn = activeTurn === 'p1' ? 'p2' : 'p1';
+            setActiveTurn(nextTurn);
+            setTurnTimer(15);
+            const isMyTurnNow = (pvpMode === 'online_pvp')
+              ? ((connectionState.role === 'host' && nextTurn === 'p1') || (connectionState.role === 'guest' && nextTurn === 'p2'))
+              : true;
+            playTurnChangeSound(isMyTurnNow);
+          }
         }, 850);
       }
     }
@@ -519,31 +1011,110 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
     setIsGameWon(true);
     setIsGameActive(false);
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+    if (turnTimerIntervalRef.current) clearInterval(turnTimerIntervalRef.current);
 
     setTimeout(() => {
       playVictorySound();
       triggerConfetti();
     }, 400);
 
-    const diffRecord = highScores[difficultyKey] || { bestTime: 9999, bestMoves: 9999, highestScore: 0, totalWins: 0 };
-    const currentElapsed = timerMode === 'countdown' ? (currentDiff.timeLimit - timerSeconds) : timerSeconds;
+    if (pvpMode === 'solo') {
+      const diffRecord = highScores[difficultyKey] || { bestTime: 9999, bestMoves: 9999, highestScore: 0, totalWins: 0 };
+      const currentElapsed = timerMode === 'countdown' ? (currentDiff.timeLimit - timerSeconds) : timerSeconds;
 
-    const updatedRecord = {
-      bestTime: Math.min(diffRecord.bestTime, currentElapsed),
-      bestMoves: Math.min(diffRecord.bestMoves, moves + 1),
-      highestScore: Math.max(diffRecord.highestScore, score + 200),
-      totalWins: (diffRecord.totalWins || 0) + 1,
-      lastPlayed: new Date().toLocaleDateString('vi-VN')
-    };
+      const updatedRecord = {
+        bestTime: Math.min(diffRecord.bestTime, currentElapsed),
+        bestMoves: Math.min(diffRecord.bestMoves, moves + 1),
+        highestScore: Math.max(diffRecord.highestScore, score + 200),
+        totalWins: (diffRecord.totalWins || 0) + 1,
+        lastPlayed: new Date().toLocaleDateString('vi-VN')
+      };
 
-    const nextHighScores = { ...highScores, [difficultyKey]: updatedRecord };
-    setHighScores(nextHighScores);
-    try {
-      localStorage.setItem('kids_memory_high_scores_v1', JSON.stringify(nextHighScores));
-    } catch {}
+      const nextHighScores = { ...highScores, [difficultyKey]: updatedRecord };
+      setHighScores(nextHighScores);
+      try {
+        localStorage.setItem('kids_memory_high_scores_v1', JSON.stringify(nextHighScores));
+      } catch {}
 
-    addToast?.(`🎉 XUẤT SẮC! Bé Minh Anh đã hoàn thành xuất sắc thử thách ${currentDiff.name}!`, 'success');
+      addToast?.(`🎉 XUẤT SẮC! Bé Minh Anh đã hoàn thành xuất sắc thử thách ${currentDiff.name}!`, 'success');
+    } else {
+      setShowPvpPodium(true);
+      addToast?.(`🏆 TRẬN ĐẤU KẾT THÚC! Hãy cùng xem bục vinh quang nào!`, 'success');
+    }
   };
+
+  // Online Lobby Handlers
+  const handleCreateOnlineRoom = (profile) => {
+    setPlayer1(prev => ({ ...prev, name: profile.name, avatar: profile.avatar }));
+    const code = realtimeGameService.createRoom(null, profile);
+    setOnlineRoomCode(code);
+  };
+
+  const handleJoinOnlineRoom = (code, profile) => {
+    setPlayer1(prev => ({ ...prev, name: profile.name, avatar: profile.avatar }));
+    realtimeGameService.joinRoom(code, profile);
+    setOnlineRoomCode(code);
+  };
+
+  const handleStartOnlineMatch = () => {
+    setShowOnlineLobby(false);
+    startNewGame();
+  };
+
+  // Live Emote & Quick Chat Handlers
+  const handleSendLiveEmote = (emoji) => {
+    const isLeft = (pvpMode === 'online_pvp') ? (connectionState.role === 'host') : (activeTurn === 'p1');
+    const item = {
+      id: `self-emote-${Date.now()}-${Math.random()}`,
+      type: 'emoji',
+      content: emoji,
+      senderName: isLeft ? player1.name : player2.name,
+      senderRole: isLeft ? 'p1' : 'p2'
+    };
+    setActiveFloatingItems(prev => [...prev.slice(-6), item]);
+
+    if (pvpMode === 'online_pvp') {
+      realtimeGameService.sendEmote(emoji);
+    }
+
+    setTimeout(() => {
+      setActiveFloatingItems(prev => prev.filter(i => i.id !== item.id));
+    }, 3200);
+  };
+
+  const handleSendLiveChat = (chatItem) => {
+    const isLeft = (pvpMode === 'online_pvp') ? (connectionState.role === 'host') : (activeTurn === 'p1');
+    const item = {
+      id: `self-chat-${Date.now()}-${Math.random()}`,
+      type: 'chat',
+      content: chatItem.en,
+      vi: chatItem.vi,
+      senderName: isLeft ? player1.name : player2.name,
+      senderRole: isLeft ? 'p1' : 'p2'
+    };
+    setActiveFloatingItems(prev => [...prev.slice(-6), item]);
+
+    if (pvpMode === 'online_pvp') {
+      realtimeGameService.sendQuickChat(chatItem);
+    }
+
+    setTimeout(() => {
+      setActiveFloatingItems(prev => prev.filter(i => i.id !== item.id));
+    }, 3600);
+  };
+
+  // Rematch Handler
+  const handleRequestRematch = () => {
+    if (pvpMode === 'online_pvp') {
+      setRematchWaiting(true);
+      realtimeGameService.sendRematchRequest();
+      addToast?.('⏳ Đã gửi lời mời tái đấu tới đối thủ...', 'info');
+    } else {
+      setShowPvpPodium(false);
+      startNewGame();
+    }
+  };
+
 
   const calculateStarRating = (finalMoves) => {
     const perfectMoves = currentDiff.pairs;
@@ -742,7 +1313,103 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
       {/* ========================================================================= */}
       {/* 2. SUPER CONFIGURATION & FILTERS BAR (RESPONSIVE FLUID GRID)             */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* 2. SUPER CONFIGURATION & FILTERS BAR (RESPONSIVE FLUID GRID)             */}
+      {/* ========================================================================= */}
       <div className="glass-panel rounded-2xl p-2.5 sm:p-4 border border-white/10 bg-slate-950/85 shadow-xl mb-3 sm:mb-4 space-y-2.5">
+        
+        {/* ROW 0: 4-TIER MATCH MODES SELECTOR (Solo, Pass & Play, Online 2 Devices, Vs AI) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2 pb-2.5 border-b border-white/10">
+          {PVP_MODES.map(mode => {
+            const isActive = pvpMode === mode.id;
+            return (
+              <button
+                key={mode.id}
+                onClick={() => {
+                  setPvpMode(mode.id);
+                  if (mode.id === 'online_pvp') {
+                    setShowOnlineLobby(true);
+                  }
+                }}
+                className={`p-2 sm:p-2.5 rounded-2xl border transition-all cursor-pointer flex flex-col items-start relative overflow-hidden group text-left ${
+                  isActive
+                    ? `bg-gradient-to-r ${mode.color} text-white border-white/50 shadow-lg scale-102 ring-2 ring-white/30`
+                    : 'bg-slate-900/90 text-slate-300 hover:text-white border-slate-800 hover:border-slate-700'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-base sm:text-lg">{mode.icon}</span>
+                  <span className={`text-[8.5px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider ${
+                    isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+                  }`}>
+                    {mode.badge}
+                  </span>
+                </div>
+                <div className="text-xs sm:text-sm font-black font-heading mt-1 truncate max-w-full">
+                  {mode.name}
+                </div>
+                <div className="text-[9px] sm:text-[10px] text-white/80 font-medium truncate max-w-full">
+                  {mode.subtitle}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* AI Opponent Selector Sub-bar (when in vs_ai mode) */}
+        {pvpMode === 'vs_ai' && (
+          <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-purple-950/50 border border-purple-500/40 text-xs flex-wrap animate-fadeIn">
+            <div className="flex items-center gap-1.5 text-purple-200 font-bold">
+              <Bot className="h-4 w-4 text-purple-400" />
+              <span>Đối thủ AI:</span>
+            </div>
+            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+              {Object.values(AI_LEVELS).map(lvl => (
+                <button
+                  key={lvl.id}
+                  onClick={() => setAiLevel(lvl.id)}
+                  className={`px-2.5 py-1 rounded-xl text-[11px] font-bold cursor-pointer transition border ${
+                    aiLevel === lvl.id
+                      ? 'bg-purple-600 text-white border-purple-300 shadow-md scale-105'
+                      : 'bg-slate-900 text-slate-400 hover:text-white border-slate-800'
+                  }`}
+                >
+                  {lvl.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Online Network Room Status Sub-bar (when in online_pvp mode) */}
+        {pvpMode === 'online_pvp' && (
+          <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs flex-wrap animate-fadeIn">
+            <div className="flex items-center gap-2">
+              <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${
+                connectionState.status === 'connected' ? 'bg-emerald-400 animate-ping' : 'bg-amber-400 animate-pulse'
+              }`} />
+              <span className="font-bold text-white text-[11px] truncate">
+                {connectionState.status === 'connected'
+                  ? `Đã kết nối: ${connectionState.opponentInfo?.name || 'Đối thủ'} (${connectionState.latency}ms)`
+                  : 'Chưa có đối thủ kết nối'}
+              </span>
+              {onlineRoomCode && (
+                <span className="px-2 py-0.5 rounded-lg font-mono-code font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-[10.5px]">
+                  Phòng: {onlineRoomCode}
+                </span>
+              )}
+            </div>
+
+            <button
+              onClick={() => setShowOnlineLobby(true)}
+              className="px-3 py-1 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:scale-105 text-white font-black text-[11px] shadow transition cursor-pointer flex items-center gap-1 border border-cyan-400/50"
+            >
+              <Globe className="h-3.5 w-3.5 text-cyan-200" />
+              <span>{onlineRoomCode ? 'Quản Lý Phòng' : 'Tạo/Vào Phòng'}</span>
+            </button>
+          </div>
+        )}
+
         {/* Row 1: Quick 1-Tap Difficulty Segmented Switcher (Always Accessible) */}
         <div className="flex items-center justify-between gap-1.5 flex-wrap">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 w-full sm:w-auto">
@@ -931,82 +1598,105 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. LIVE IN-GAME STATS HUD (RESPONSIVE GRID FOR PHONES & DESKTOPS)         */}
+      {/* 3. IN-GAME STATS HUD: SOLO STATS OR ESPORTS 2-PLAYER BATTLE ARENA BAR      */}
       {/* ========================================================================= */}
-      <div className="glass-panel rounded-2xl p-2.5 sm:px-4 sm:py-3 border border-pink-500/30 bg-slate-900/90 shadow-xl mb-3 sm:mb-4">
-        <div className="grid grid-cols-2 sm:grid-cols-4 items-center gap-2 sm:gap-4">
-          {/* Item 1: Timer Display */}
-          <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
-            <div className={`p-1.5 sm:p-2 rounded-lg border shrink-0 ${timerMode === 'countdown' && timerSeconds <= 10 ? 'bg-rose-950 border-rose-500 text-rose-300 animate-bounce' : 'bg-slate-900 border-slate-700 text-cyan-300'}`}>
-              <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
-                {timerMode === 'countdown' ? 'Còn lại' : 'Thời gian'}
+      {pvpMode === 'solo' ? (
+        <div className="glass-panel rounded-2xl p-2.5 sm:px-4 sm:py-3 border border-pink-500/30 bg-slate-900/90 shadow-xl mb-3 sm:mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+            {/* Item 1: Timer Display */}
+            <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
+              <div className={`p-1.5 sm:p-2 rounded-lg border shrink-0 ${timerMode === 'countdown' && timerSeconds <= 10 ? 'bg-rose-950 border-rose-500 text-rose-300 animate-bounce' : 'bg-slate-900 border-slate-700 text-cyan-300'}`}>
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-white">
-                {formatTime(timerSeconds)}
-              </div>
-            </div>
-          </div>
-
-          {/* Item 2: Turns Taken */}
-          <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
-            <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900 border border-slate-700 text-amber-300 shrink-0">
-              <Target className="h-4 w-4 sm:h-5 sm:w-5" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
-                Lượt Lật
-              </div>
-              <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-amber-300">
-                {moves} Lượt
-              </div>
-            </div>
-          </div>
-
-          {/* Item 3: Matched Pairs & Combo */}
-          <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
-            <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900 border border-slate-700 text-emerald-400 shrink-0">
-              <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
-                {streak > 1 ? `Combo x${streak} 🔥` : 'Đã Ghép'}
-              </div>
-              <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-emerald-400">
-                {matchedPairIds.size} / {currentDiff.pairs}
-              </div>
-            </div>
-          </div>
-
-          {/* Item 4: Total Score & Hint Power-Up */}
-          <div className="flex items-center justify-between gap-1 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
-            <div className="min-w-0">
-              <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
-                Điểm Số
-              </div>
-              <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-pink-300">
-                {score}
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
+                  {timerMode === 'countdown' ? 'Còn lại' : 'Thời gian'}
+                </div>
+                <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-white">
+                  {formatTime(timerSeconds)}
+                </div>
               </div>
             </div>
 
-            <button
-              onClick={handleUseHint}
-              disabled={hintsRemaining <= 0 || isHintActive || isChecking}
-              className={`px-2 py-1.5 rounded-lg text-[10px] sm:text-xs font-black transition flex items-center gap-1 border shrink-0 ${
-                hintsRemaining > 0 && !isHintActive
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border-yellow-300 shadow hover:scale-105 active:scale-95 cursor-pointer'
-                  : 'bg-slate-900 text-slate-500 border-slate-800 cursor-not-allowed opacity-50'
-              }`}
-              title="Hé lộ nhanh tất cả các thẻ trong 1.3 giây"
-            >
-              <HelpCircle className="h-3.5 w-3.5" />
-              <span>Gợi ý ({hintsRemaining})</span>
-            </button>
+            {/* Item 2: Turns Taken */}
+            <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
+              <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900 border border-slate-700 text-amber-300 shrink-0">
+                <Target className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
+                  Lượt Lật
+                </div>
+                <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-amber-300">
+                  {moves} Lượt
+                </div>
+              </div>
+            </div>
+
+            {/* Item 3: Matched Pairs & Combo */}
+            <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
+              <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900 border border-slate-700 text-emerald-400 shrink-0">
+                <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
+                  {streak > 1 ? `Combo x${streak} 🔥` : 'Đã Ghép'}
+                </div>
+                <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-emerald-400">
+                  {matchedPairIds.size} / {currentDiff.pairs}
+                </div>
+              </div>
+            </div>
+
+            {/* Item 4: Total Score & Hint Power-Up */}
+            <div className="flex items-center justify-between gap-1 bg-slate-950/60 p-1.5 sm:p-2 rounded-xl border border-slate-800">
+              <div className="min-w-0">
+                <div className="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase truncate">
+                  Điểm Số
+                </div>
+                <div className="text-sm sm:text-base md:text-lg font-black font-mono-code text-pink-300">
+                  {score}
+                </div>
+              </div>
+
+              <button
+                onClick={handleUseHint}
+                disabled={hintsRemaining <= 0 || isHintActive || isChecking}
+                className={`px-2 py-1.5 rounded-lg text-[10px] sm:text-xs font-black transition flex items-center gap-1 border shrink-0 ${
+                  hintsRemaining > 0 && !isHintActive
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border-yellow-300 shadow hover:scale-105 active:scale-95 cursor-pointer'
+                    : 'bg-slate-900 text-slate-500 border-slate-800 cursor-not-allowed opacity-50'
+                }`}
+                title="Hé lộ nhanh tất cả các thẻ trong 1.3 giây"
+              >
+                <HelpCircle className="h-3.5 w-3.5" />
+                <span>Gợi ý ({hintsRemaining})</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <MemoryPvpArenaBar
+          pvpMode={pvpMode}
+          player1={player1}
+          player2={player2}
+          activeTurn={activeTurn}
+          turnTimer={turnTimer}
+          maxTurnTime={15}
+          isBonusTurn={isBonusTurn}
+          aiSpeech={aiSpeech}
+          aiLevel={aiLevel}
+          totalPairs={currentDiff.pairs}
+          connectionStatus={connectionState.status}
+          latency={connectionState.latency}
+          isMyTurn={
+            pvpMode === 'online_pvp'
+              ? ((connectionState.role === 'host' && activeTurn === 'p1') || (connectionState.role === 'guest' && activeTurn === 'p2'))
+              : true
+          }
+        />
+      )}
+
 
       {/* ========================================================================= */}
       {/* 4. MEMORY CARD PLAYFIELD GRID (AUTO RESPONSIVE WITH SUPER DETAILED MEANINGS) */}
@@ -1601,6 +2291,41 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
         isOpen={isVoiceStudioOpen}
         onClose={() => setIsVoiceStudioOpen(false)}
         addToast={addToast}
+      />
+
+      {/* 8. LIVE EMOTES & QUICK CHAT OVERLAY (FOR 2-PLAYER MODES) */}
+      {pvpMode !== 'solo' && (
+        <MemoryLiveEmotesOverlay
+          activeFloatingItems={activeFloatingItems}
+          onSendEmote={handleSendLiveEmote}
+          onSendChat={handleSendLiveChat}
+          disabled={!isGameActive || isGameWon}
+        />
+      )}
+
+      {/* 9. REAL-TIME ONLINE LOBBY MODAL (WEBRTC P2P ROOMS) */}
+      <MemoryOnlineLobbyModal
+        isOpen={showOnlineLobby}
+        onClose={() => setShowOnlineLobby(false)}
+        roomCode={onlineRoomCode}
+        connectionState={connectionState}
+        onCreateRoom={handleCreateOnlineRoom}
+        onJoinRoom={handleJoinOnlineRoom}
+        onStartOnlineMatch={handleStartOnlineMatch}
+        addToast={addToast}
+      />
+
+      {/* 10. 2-PLAYER VICTORY PODIUM MODAL */}
+      <MemoryPvpPodiumModal
+        isOpen={showPvpPodium}
+        onClose={() => setShowPvpPodium(false)}
+        player1={player1}
+        player2={player2}
+        pvpMode={pvpMode}
+        totalPairs={currentDiff.pairs}
+        onRematch={handleRequestRematch}
+        onOpenVocabReview={() => setShowVocabDrawer(true)}
+        rematchWaiting={rematchWaiting}
       />
 
     </div>

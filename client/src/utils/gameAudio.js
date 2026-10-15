@@ -403,6 +403,101 @@ export function playTickSound() {
 }
 
 /**
+ * 10. Turn Change Chime (Friendly dual-tone chime notifying player's turn)
+ */
+export function playTurnChangeSound(isYourTurn = true) {
+  if (!soundSettings.sfx) return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  try {
+    const now = ctx.currentTime;
+    const notes = isYourTurn ? [440, 659.25, 880] : [554.37, 440];
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+
+      gain.gain.setValueAtTime(0.01, now + idx * 0.08);
+      gain.gain.linearRampToValueAtTime(isYourTurn ? 0.22 : 0.12, now + idx * 0.08 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.18);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now + idx * 0.08);
+      osc.stop(now + idx * 0.08 + 0.2);
+    });
+  } catch (e) {
+    console.warn('Turn sound error', e);
+  }
+}
+
+/**
+ * 11. Emote Pop Sound (Bubbly pop effect for live emojis)
+ */
+export function playEmotePopSound() {
+  if (!soundSettings.sfx) return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  try {
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(350, now);
+    osc.frequency.exponentialRampToValueAtTime(900, now + 0.08);
+
+    gain.gain.setValueAtTime(0.01, now);
+    gain.gain.linearRampToValueAtTime(0.2, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.11);
+  } catch (e) {
+    console.warn('Emote sound error', e);
+  }
+}
+
+/**
+ * 12. Turn Urgent Alert Sound (When countdown <= 3s)
+ */
+export function playTurnAlertSound() {
+  if (!soundSettings.sfx) return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  try {
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(880, now);
+    osc.frequency.linearRampToValueAtTime(1100, now + 0.05);
+
+    gain.gain.setValueAtTime(0.01, now);
+    gain.gain.linearRampToValueAtTime(0.15, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.09);
+  } catch (e) {
+    console.warn('Alert sound error', e);
+  }
+}
+
+/**
  * Master Native Speech Engine
  * Pronounces English words clearly with 100% native accent, studio audio & granular speed controls
  */
@@ -415,3 +510,4 @@ export function speakWord(text, { slow = false, onEnd = null, onStart = null } =
     onEnd
   });
 }
+
