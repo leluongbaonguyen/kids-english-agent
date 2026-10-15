@@ -243,12 +243,29 @@ export function getNativeHumanAudioUrl(word, accent = 'US') {
   return `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(clean)}&type=${voiceType}`;
 }
 
+let cachedVoices = [];
+function updateVoices() {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      const v = window.speechSynthesis.getVoices();
+      if (v && v.length > 0) cachedVoices = v;
+    } catch (e) {}
+  }
+}
+updateVoices();
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  try {
+    window.speechSynthesis.onvoiceschanged = updateVoices;
+  } catch (e) {}
+}
+
 /**
  * Intelligently match best Web Speech API Voice
  */
 export function findBestWebSpeechVoice(accent = 'US', gender = 'female') {
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
-  const voices = window.speechSynthesis.getVoices();
+  const rawVoices = window.speechSynthesis.getVoices();
+  const voices = (rawVoices && rawVoices.length > 0) ? rawVoices : cachedVoices;
   if (!voices || voices.length === 0) return null;
 
   const profile = ACCENT_PROFILES[accent] || ACCENT_PROFILES.US;
@@ -345,13 +362,37 @@ export async function speakWord(text, options = {}) {
         if (studioUrl) {
           const audio = new Audio();
           currentAudioElement = audio;
+
+          // Clamp target playback rate safely between 0.35x and 2.0x
+          const targetRate = Math.max(0.35, Math.min(2.0, Number(effectiveRate) || 1.0));
+
+          // Set defaultPlaybackRate & playbackRate BEFORE src to prime Chromium media pipeline
+          try {
+            audio.defaultPlaybackRate = targetRate;
+            audio.playbackRate = targetRate;
+            audio.preservesPitch = true;
+            audio.mozPreservesPitch = true;
+            audio.webkitPreservesPitch = true;
+          } catch (e) {}
+
           audio.src = studioUrl;
           audio.volume = Math.max(0, Math.min(1, effectiveVolume));
-          
-          // Audio playbackRate support (0.5x to 1.5x)
-          try {
-            audio.playbackRate = Math.max(0.4, Math.min(2.0, effectiveRate));
-          } catch (e) {}
+
+          // Re-enforce playbackRate across all media lifecycle events to overcome Chromium resetting it to 1.0
+          const reapplyRate = () => {
+            try {
+              if (audio) {
+                audio.defaultPlaybackRate = targetRate;
+                audio.playbackRate = targetRate;
+              }
+            } catch (e) {}
+          };
+
+          audio.addEventListener('loadstart', reapplyRate);
+          audio.addEventListener('loadedmetadata', reapplyRate);
+          audio.addEventListener('canplay', reapplyRate);
+          audio.addEventListener('play', reapplyRate);
+          audio.addEventListener('playing', reapplyRate);
 
           let hasEnded = false;
 
@@ -370,7 +411,9 @@ export async function speakWord(text, options = {}) {
           audio.onended = () => finish(true);
           audio.onerror = () => finish(false);
 
-          audio.play().catch(() => {
+          audio.play().then(() => {
+            reapplyRate();
+          }).catch(() => {
             finish(false);
           });
 

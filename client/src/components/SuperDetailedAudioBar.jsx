@@ -165,8 +165,11 @@ export default function SuperDetailedAudioBar({
     setActiveMode('slow');
     setIsSpeaking(true);
 
+    // Slow mode is distinctly and audibly slower for phonics learning
+    const slowRate = settings.rate && settings.rate < 0.8 ? 0.5 : 0.65;
+
     speakWord(word, {
-      rate: 0.75,
+      rate: slowRate,
       slow: true,
       accent: settings.accent || 'US',
       onStart: () => {
@@ -190,7 +193,7 @@ export default function SuperDetailedAudioBar({
     setIsSpeaking(true);
 
     speakWord(syllableText, {
-      rate: 0.65,
+      rate: 0.55,
       slow: true,
       accent: settings.accent || 'US',
       onStart: () => {
@@ -211,9 +214,26 @@ export default function SuperDetailedAudioBar({
     saveVoiceSettings({ accent: accentKey });
   };
 
-  // Handler: Change Rate
+  // Handler: Change Rate (Immediately tests & saves the new speed)
   const handleRateChange = (newRate) => {
     saveVoiceSettings({ rate: newRate });
+    if (word) {
+      setActiveMode('normal');
+      setIsSpeaking(true);
+      speakWord(word, {
+        rate: newRate,
+        slow: false,
+        accent: settings.accent || 'US',
+        onStart: () => {
+          setIsSpeaking(true);
+          setActiveMode('normal');
+        },
+        onEnd: () => {
+          setIsSpeaking(false);
+          setActiveMode(null);
+        }
+      });
+    }
   };
 
   // Handler: Change Repeat Count
@@ -305,7 +325,7 @@ export default function SuperDetailedAudioBar({
               Nghe Chậm
             </span>
             <span className="text-[11px] sm:text-xs opacity-90 font-mono-code font-bold bg-white/20 px-1.5 py-0.5 rounded-full border border-white/20">
-              0.75x
+              {settings.rate && settings.rate < 0.8 ? '0.5x' : '0.65x'}
             </span>
           </div>
 
