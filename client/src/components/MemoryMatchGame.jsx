@@ -1236,7 +1236,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs md:text-sm text-slate-300 font-medium line-clamp-1 sm:line-clamp-none mt-0.5">
-                Toàn bộ <strong className="text-pink-300 font-extrabold">1,260 từ vựng</strong> • Kèm dịch nghĩa chi tiết từng tranh • Giọng đọc AI bản ngữ chuẩn Cambridge!
+                Toàn bộ <strong className="text-pink-300 font-extrabold">1,520 từ vựng</strong> • Kèm dịch nghĩa chi tiết từng tranh • Giọng đọc AI bản ngữ chuẩn Cambridge!
               </p>
             </div>
           </div>
@@ -1488,7 +1488,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
                     : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                🌈 Toàn Bộ 1,260 Từ
+                🌈 Toàn Bộ 1,520 Từ
               </button>
 
               {COURSE_LEVELS.map(lvl => (
@@ -2206,7 +2206,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
             {/* Drawer Footer */}
             <div className="p-3 sm:p-3.5 border-t border-slate-800 bg-slate-900/90 flex items-center justify-between text-xs">
               <span className="text-slate-400 text-[10px] sm:text-xs">
-                Toàn bộ dữ liệu nằm trong hệ thống 1,260 từ vựng song ngữ
+                Toàn bộ dữ liệu nằm trong hệ thống 1,520 từ vựng song ngữ
               </span>
               <button
                 onClick={() => setShowVocabDrawer(false)}

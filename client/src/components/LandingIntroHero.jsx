@@ -195,7 +195,7 @@ export default function LandingIntroHero({
           {/* Nav Quick Links */}
           <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
             <a href="#stats" className="hover:text-pink-300 transition">Thống Kê Khủng</a>
-            <a href="#curriculum" className="hover:text-pink-300 transition">9 Cấp Độ (1,260 Từ)</a>
+            <a href="#curriculum" className="hover:text-pink-300 transition">9 Cấp Độ (1,520 Từ)</a>
             <a href="#galleries" className="hover:text-pink-300 transition">3 Triển Lãm SVG</a>
             <a href="#features" className="hover:text-pink-300 transition">Tính Năng Đột Phá</a>
             <a href="#exports" className="hover:text-pink-300 transition">Tài Liệu Xuất Bản</a>
@@ -266,7 +266,7 @@ export default function LandingIntroHero({
 
         {/* Subtitle */}
         <p className="max-w-3xl mt-5 sm:mt-7 text-sm sm:text-base md:text-lg text-slate-200/90 leading-relaxed font-medium">
-          Đột phá toàn diện với <span className="text-pink-300 font-black">1,260 từ vựng chuẩn quốc tế</span>, <span className="text-amber-300 font-black">100% Vector SVG bespoke vẽ riêng</span>, Trợ lý AI chấm phát âm chuẩn Anh - Mỹ, Thuật toán ghi nhớ vĩnh cửu <span className="text-cyan-300 font-black">SRS SuperMemo SM-2</span>, 18 Poster Sách Giáo Khoa và Bộ 3 Triển lãm Bách khoa tương tác đỉnh cao! 🌟
+          Đột phá toàn diện với <span className="text-pink-300 font-black">1,520 từ vựng chuẩn quốc tế</span>, <span className="text-amber-300 font-black">100% Vector SVG bespoke vẽ riêng</span>, Trợ lý AI chấm phát âm chuẩn Anh - Mỹ, Thuật toán ghi nhớ vĩnh cửu <span className="text-cyan-300 font-black">SRS SuperMemo SM-2</span>, 18 Poster Sách Giáo Khoa và Bộ 3 Triển lãm Bách khoa tương tác đỉnh cao! 🌟
         </p>
 
         {/* Hero CTA Action Group */}
@@ -282,7 +282,7 @@ export default function LandingIntroHero({
             className="px-7 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-black text-slate-950 bg-gradient-to-r from-amber-300 via-pink-400 to-purple-400 shadow-[0_0_35px_rgba(244,114,182,0.8)] border-2 border-white hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer group"
           >
             <Play className="w-5 h-5 fill-slate-950 text-slate-950" />
-            <span>KHÁM PHÁ TOÀN BỘ 1,260 TỪ VỰNG</span>
+            <span>KHÁM PHÁ TOÀN BỘ 1,520 TỪ VỰNG</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
           </button>
 
@@ -307,7 +307,7 @@ export default function LandingIntroHero({
             className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-black text-white bg-gradient-to-r from-purple-900/90 via-pink-900/90 to-amber-950/90 hover:from-purple-800 hover:to-pink-800 border-2 border-pink-400/80 shadow-[0_0_25px_rgba(236,72,153,0.5)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer"
           >
             <span className="text-xl">🃏</span>
-            <span>Chơi Siêu Game Lật Thẻ (1,260 Từ)</span>
+            <span>Chơi Siêu Game Lật Thẻ (1,520 Từ)</span>
           </button>
         </div>
 
@@ -345,7 +345,7 @@ export default function LandingIntroHero({
           
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-pink-500/50 backdrop-blur-xl transition text-center space-y-1 group">
             <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 group-hover:scale-110 transition-transform">
-              1,260
+              1,520
             </div>
             <div className="text-xs font-bold text-white">Từ Vựng Chuẩn</div>
             <div className="text-[11px] text-slate-400 font-medium">L1-L6 & 3 Bách Khoa</div>
@@ -646,7 +646,7 @@ export default function LandingIntroHero({
               Tải Toàn Bộ Cơ Sở Dữ Liệu & Sách Bài Tập In Ấn
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Hệ thống tự động biên soạn và đồng bộ hóa toàn bộ 1,260 từ vựng ra hai định dạng chuẩn mực cao cấp: file Excel 12 sheets phân loại chi tiết và file Word bài tập A4 in màu cho bé học tại bàn!
+              Hệ thống tự động biên soạn và đồng bộ hóa toàn bộ 1,520 từ vựng ra hai định dạng chuẩn mực cao cấp: file Excel 12 sheets phân loại chi tiết và file Word bài tập A4 in màu cho bé học tại bàn!
             </p>
           </div>
 

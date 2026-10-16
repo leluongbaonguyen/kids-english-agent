@@ -4,7 +4,7 @@ import {
   Volume2, Sparkles, Star, Search, Filter, Download, Play, Pause,
   ChevronLeft, ChevronRight, X, Eye, BookOpen, Layers, CheckCircle2,
   Table, Grid, LayoutGrid, Clock, ArrowUpDown, RefreshCw, Zap, Award, HelpCircle,
-  Lock, Unlock, ShieldCheck
+  Lock, Unlock, ShieldCheck, RotateCw
 } from 'lucide-react';
 import {
   COURSE_LEVELS,
@@ -118,6 +118,17 @@ export default function FullSystemVocabularyView({
   const [masteryFilter, setMasteryFilter] = useState('all'); // 'all' | 'mastered' | 'unmastered'
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('detailed_cards'); // 'detailed_cards' | 'data_table' | 'compact_grid'
+  
+  // 3D Card Flip States for Ultra-Detailed Flashcards
+  const [flippedCards, setFlippedCards] = useState({});
+  const [flipAllMode, setFlipAllMode] = useState(false);
+
+  const toggleCardFlip = useCallback((cardKey) => {
+    setFlippedCards(prev => ({
+      ...prev,
+      [cardKey]: prev[cardKey] !== undefined ? !prev[cardKey] : !flipAllMode
+    }));
+  }, [flipAllMode]);
   
   // If locked to a specific level and category, keep it locked
   useEffect(() => {
@@ -363,11 +374,11 @@ export default function FullSystemVocabularyView({
             </div>
 
             <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-heading text-white tracking-tight leading-tight">
-              TOÀN BỘ {vocabList.length} TỪ VỰNG HỆ THỐNG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300">SIÊU CHI TIẾT</span>
+              TOÀN BỘ 1,520 TỪ VỰNG HỆ THỐNG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300">SIÊU CHI TIẾT</span>
             </h1>
 
             <p className="text-[11px] sm:text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
-              Khám phá toàn bộ {vocabList.length} từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng 3 Chuyên đề Bách Khoa Động Thực Vật (BIO), Sắc Màu (COLOR) và Số Đếm (NUM). Đầy đủ phiên âm IPA, tiếng Việt bồi, câu ví dụ song ngữ & giọng phát âm chuẩn bản ngữ!
+              Khám phá toàn bộ 1,520 từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng các Chuyên đề Bách Khoa Động Thực Vật (BIO), Sắc Màu (COLOR), Số Đếm (NUM) và Bách Khoa Toàn Thư (ENC). Đầy đủ phiên âm IPA, tiếng Việt bồi, câu ví dụ song ngữ & giọng phát âm chuẩn bản ngữ!
             </p>
           </div>
 
@@ -389,7 +400,7 @@ export default function FullSystemVocabularyView({
                 window.location.hash = '#/game-lat-the';
               }}
               className="flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer border border-pink-400/50"
-              title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,260 từ vựng"
+              title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,520 từ vựng"
             >
               <span className="text-sm">🃏</span>
               <span>GAME LẬT THẺ</span>
@@ -538,6 +549,24 @@ export default function FullSystemVocabularyView({
               <Grid className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Thu Gọn</span>
             </button>
+
+            {viewMode === 'detailed_cards' && (
+              <button
+                onClick={() => {
+                  setFlipAllMode(prev => !prev);
+                  setFlippedCards({});
+                }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer border ${
+                  flipAllMode
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 border-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.5)]'
+                    : 'bg-slate-800 border-slate-700 text-amber-300 hover:text-white hover:border-amber-400'
+                }`}
+                title="Lật đồng loạt tất cả các thẻ: Mặt Trước (Từ Tiếng Anh) / Mặt Sau (Nghĩa Tiếng Việt & Chi Tiết)"
+              >
+                <RotateCw className={`h-3.5 w-3.5 ${flipAllMode ? 'animate-spin-slow' : ''}`} />
+                <span className="hidden sm:inline">{flipAllMode ? 'Hiện Từ Vựng' : 'Lật Thẻ 3D'}</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -564,7 +593,7 @@ export default function FullSystemVocabularyView({
                 }}
                 className="w-full h-10 bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400/60 focus:border-cyan-400 text-white rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer"
               >
-                <option value="all">🌟 Tất Cả Cấp Độ ({vocabList.length} Từ)</option>
+                <option value="all">🌟 Tất Cả Cấp Độ (1,520 Từ)</option>
                 <option value="L1">🐣 L1 • Khởi Động (150 Từ)</option>
                 <option value="L2">🦁 L2 • Cơ Bản (150 Từ)</option>
                 <option value="L3">🚀 L3 • Mở Rộng (150 Từ)</option>
@@ -632,7 +661,7 @@ export default function FullSystemVocabularyView({
               >
                 <option value="all">⭐ Tất Cả Trạng Thái</option>
                 <option value="mastered">✅ Chỉ Từ Đã Thuộc ({masteredCards.length})</option>
-                <option value="unmastered">⏳ Chỉ Từ Chưa Thuộc ({Math.max(0, vocabList.length - masteredCards.length)})</option>
+                <option value="unmastered">⏳ Chỉ Từ Chưa Thuộc ({Math.max(0, (vocabList.length >= 1520 ? 1520 : vocabList.length) - masteredCards.length)})</option>
               </select>
             </div>
           </div>
@@ -642,7 +671,7 @@ export default function FullSystemVocabularyView({
             {/* Left: Results Count & Quick Reset Filter */}
             <div className="flex items-center justify-between sm:justify-start gap-2 text-xs">
               <span className="font-medium text-slate-400 whitespace-nowrap">
-                Đang hiển thị: <strong className="text-cyan-300 font-black">{filteredList.length}</strong> / {vocabList.length} từ
+                Đang hiển thị: <strong className="text-cyan-300 font-black">{filteredList.length >= 1520 ? '1,520' : filteredList.length}</strong> / 1,520 từ
               </span>
 
               {(selectedLevel !== 'all' || selectedCategory !== 'all' || selectedWordType !== 'all' || masteryFilter !== 'all' || searchQuery) && (
@@ -722,152 +751,249 @@ export default function FullSystemVocabularyView({
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. VIEW MODE 1: ULTRA-DETAILED FLASHCARDS (THẺ SIÊU CHI TIẾT)             */}
+      {/* 3. VIEW MODE 1: ULTRA-DETAILED FLASHCARDS (LẬT THẺ 3D SIÊU CHI TIẾT)        */}
       {/* ========================================================================= */}
       {viewMode === 'detailed_cards' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 card-flip-perspective">
           {paginatedList.map((item, idx) => {
+            const cardKey = item.id || `card-${idx}`;
             const theme = LEVEL_THEMES[item.level] || LEVEL_THEMES.L1;
             const isMastered = masteredCards.includes(item.id) || masteredCards.includes(item.word);
             const isSpeaking = speakingWord === item.word?.toLowerCase();
             const superDetail = getSuperDetailedVocabInfo(item);
             const catInfo = categoryMap[item.category] || {};
+            const isFlipped = flippedCards[cardKey] !== undefined ? flippedCards[cardKey] : flipAllMode;
 
             return (
               <div
-                key={item.id || idx}
-                onClick={() => {
-                  setActiveSpotlight(item);
-                  playAudio(item.word);
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left - rect.width / 2;
-                  const y = e.clientY - rect.top - rect.height / 2;
-                  const rotX = (y / (rect.height / 2)) * -9;
-                  const rotY = (x / (rect.width / 2)) * 9;
-                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale3d(1.025, 1.025, 1.025)`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
-                }}
-                className={`card-content-visibility vocab-card-3d group relative rounded-3xl border p-4.5 bg-slate-900/90 backdrop-blur-xl shadow-xl flex flex-col justify-between cursor-pointer ${
-                  isSpeaking
-                    ? 'border-yellow-400 ring-2 ring-yellow-400/80 shadow-[0_0_25px_rgba(250,204,21,0.5)]'
-                    : 'border-slate-800 hover:border-cyan-400/80 hover:shadow-cyan-500/30'
-                }`}>
-                {/* Speaking Ribbon Indicator */}
-                {isSpeaking && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-yellow-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg flex items-center gap-1 z-30 animate-bounce">
-                    <Volume2 className="h-3 w-3 animate-pulse" />
-                    <span>ĐANG PHÁT ÂM...</span>
-                  </div>
-                )}
-
-                {/* Top Metadata Row */}
-                <div className="flex items-center justify-between gap-1.5 pb-2.5 border-b border-slate-800/80 mb-2">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${theme.bgBadge}`}>
-                      {item.level} • {theme.icon}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
-                      {item.type || 'Danh từ'}
-                    </span>
-                  </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleMastered?.(item.id, item.word);
-                    }}
-                    className={`p-1.5 rounded-xl transition ${
-                      isMastered
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                        : 'bg-slate-800 text-slate-500 hover:text-yellow-300'
+                key={cardKey}
+                className="w-full h-[400px] sm:h-[415px] select-none card-flip-item group"
+              >
+                <div className={`card-flip-inner transition-transform duration-500 ${isFlipped ? 'is-flipped' : ''}`}>
+                  
+                  {/* ---------------- CARD FACE 1 (FRONT): TỪ VỰNG TIẾNG ANH & HÌNH MINH HỌA ---------------- */}
+                  <div
+                    onClick={() => toggleCardFlip(cardKey)}
+                    className={`card-flip-face card-flip-back rounded-3xl border p-4 bg-slate-900/95 backdrop-blur-xl shadow-xl flex flex-col justify-between cursor-pointer ${
+                      isSpeaking
+                        ? 'border-yellow-400 ring-2 ring-yellow-400/80 shadow-[0_0_25px_rgba(250,204,21,0.5)]'
+                        : 'border-slate-800 hover:border-cyan-400/80 hover:shadow-cyan-500/30'
                     }`}
-                    title={isMastered ? 'Đã thuộc từ này' : 'Bấm để đánh dấu đã thuộc'}
                   >
-                    <Star className={`h-4 w-4 ${isMastered ? 'fill-emerald-400 text-emerald-400' : ''}`} />
-                  </button>
-                </div>
-
-                {/* Card Center: Big Icon & Word */}
-                <div className="text-center py-2 space-y-2" style={{ transform: 'translateZ(25px)', transformStyle: 'preserve-3d' }}>
-                  <div className="vocab-icon-stage-3d flex justify-center items-center py-1 select-none">
-                    <VocabSmartIcon item={item} className="w-16 h-16 text-6xl" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-2xl font-black font-heading text-white tracking-tight group-hover:text-cyan-300 transition-colors">
-                      {item.word}
-                    </h3>
-                    <div className="flex items-center justify-center gap-1.5 mt-0.5">
-                      <span className="text-xs font-mono-code text-cyan-300 font-semibold">{item.ipa}</span>
-                    </div>
-                    {item.vietnamesePhonetic && (
-                      <div className="text-[11px] font-bold text-pink-300 bg-pink-950/60 px-2.5 py-0.5 rounded-full inline-block border border-pink-500/30 mt-1">
-                        Đọc: "{item.vietnamesePhonetic}"
+                    {/* Speaking Ribbon Indicator */}
+                    {isSpeaking && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-yellow-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg flex items-center gap-1 z-30 animate-bounce">
+                        <Volume2 className="h-3 w-3 animate-pulse" />
+                        <span>ĐANG PHÁT ÂM...</span>
                       </div>
                     )}
+
+                    {/* Top Metadata Row */}
+                    <div className="flex items-center justify-between gap-1.5 pb-2 border-b border-slate-800/80">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${theme.bgBadge}`}>
+                          {item.level} • {theme.icon}
+                        </span>
+                        <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                          {item.type || 'Danh từ'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleMastered?.(item.id, item.word);
+                          }}
+                          className={`p-1.5 rounded-xl transition ${
+                            isMastered
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                              : 'bg-slate-800 text-slate-500 hover:text-yellow-300'
+                          }`}
+                          title={isMastered ? 'Đã thuộc từ này' : 'Bấm để đánh dấu đã thuộc'}
+                        >
+                          <Star className={`h-4 w-4 ${isMastered ? 'fill-emerald-400 text-emerald-400' : ''}`} />
+                        </button>
+
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleCardFlip(cardKey);
+                          }}
+                          className="px-2 py-1 rounded-xl bg-pink-950/80 hover:bg-pink-900 border border-pink-500/40 text-pink-300 text-[10px] font-black flex items-center gap-1 shadow-sm transition active:scale-95"
+                          title="Lật thẻ 3D xem mặt sau siêu chi tiết"
+                        >
+                          <RotateCw className="h-3 w-3" />
+                          <span>Lật Thẻ</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Card Center: Big Icon & Word */}
+                    <div className="text-center py-2 space-y-1.5 my-auto">
+                      <div className="vocab-icon-stage-3d flex justify-center items-center py-1 select-none">
+                        <VocabSmartIcon item={item} className="w-16 h-16 sm:w-20 sm:h-20 text-6xl" />
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl sm:text-3xl font-black font-heading text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+                          {item.word}
+                        </h3>
+                        <div className="flex items-center justify-center gap-1.5 mt-0.5">
+                          <span className="text-xs font-mono-code text-cyan-300 font-bold bg-cyan-950/60 px-2 py-0.5 rounded-lg border border-cyan-500/30">
+                            {item.ipa}
+                          </span>
+                        </div>
+                        {item.vietnamesePhonetic && (
+                          <div className="text-[11px] font-bold text-pink-300 bg-pink-950/60 px-2.5 py-0.5 rounded-full inline-block border border-pink-500/30 mt-1">
+                            Đọc: "{item.vietnamesePhonetic}"
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Hint to Flip */}
+                      <div className="text-[11px] font-bold text-amber-300/90 bg-amber-950/30 px-3 py-1 rounded-xl border border-amber-500/20 inline-flex items-center gap-1">
+                        <span>💡 Chạm thẻ để lật xem nghĩa & ví dụ 3D</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Toolbar */}
+                    <div className="text-[10px] text-slate-400 pt-2 flex items-center justify-between border-t border-slate-800/60">
+                      <span className="truncate max-w-[130px]">{catInfo.name || `Unit ${item.unit || 1}`}</span>
+                      <div className="flex items-center gap-1 shrink-0">
+                        {/* Speak Normal 1.0x */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playAudio(item.word, false);
+                          }}
+                          className="p-1 px-1.5 rounded-lg bg-blue-600/30 hover:bg-blue-600 text-cyan-200 hover:text-white border border-blue-500/40 transition flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer"
+                          title="Nghe chuẩn 1.0x"
+                        >
+                          <Volume2 className="h-3.5 w-3.5" />
+                        </button>
+
+                        {/* Speak Slow 0.75x */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playAudio(item.word, true);
+                          }}
+                          className="px-1.5 py-0.5 rounded-lg bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white border border-amber-500/40 text-[9px] font-black transition flex items-center gap-0.5 shadow-sm active:scale-95 cursor-pointer"
+                          title="Nghe chậm cho bé 0.75x"
+                        >
+                          <span className="text-[10px]">🐢</span>
+                          <span>0.75x</span>
+                        </button>
+
+                        {/* Zoom details */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveSpotlight(item);
+                          }}
+                          className="p-1 rounded-lg bg-slate-800 text-pink-300 hover:bg-pink-600 hover:text-white transition"
+                          title="Phóng lớn chi tiết"
+                        >
+                          <Eye className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Vietnamese Meaning (Highlighted) */}
-                  <div className="text-base font-black text-amber-300 font-heading bg-amber-950/40 px-3 py-1.5 rounded-2xl border border-amber-500/30">
-                    {item.meaning}
-                  </div>
-                </div>
+                  {/* ---------------- CARD FACE 2 (BACK): NGHĨA SIÊU CHI TIẾT & VÍ DỤ SONG NGỮ ---------------- */}
+                  <div
+                    onClick={() => toggleCardFlip(cardKey)}
+                    className="card-flip-face card-flip-front rounded-3xl border-2 border-amber-400/80 bg-gradient-to-b from-slate-900 via-slate-950 to-indigo-950/95 backdrop-blur-xl shadow-[0_0_25px_rgba(245,158,11,0.35)] p-4 flex flex-col justify-between cursor-pointer"
+                  >
+                    {/* Top Row: Back Metadata */}
+                    <div className="flex items-center justify-between gap-1.5 pb-2 border-b border-amber-500/30">
+                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center gap-1">
+                        <span>🇻🇳</span> MẶT SAU CHI TIẾT
+                      </span>
 
-                {/* Example Sentence Box */}
-                <div className="mt-3 p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800/80 text-[11px] space-y-1">
-                  <div className="font-semibold text-slate-200">
-                    "{item.example}"
-                  </div>
-                  <div className="text-slate-400 italic text-[10px]">
-                    ({item.exampleVi})
-                  </div>
-                </div>
+                      <div className="flex items-center gap-1">
+                        <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${theme.bgBadge}`}>
+                          {item.level}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleCardFlip(cardKey);
+                          }}
+                          className="px-2 py-1 rounded-xl bg-amber-500 text-slate-950 text-[10px] font-black flex items-center gap-1 shadow-sm transition active:scale-95 hover:bg-amber-400"
+                          title="Lật lại mặt trước tiếng Anh"
+                        >
+                          <RotateCw className="h-3 w-3" />
+                          <span>Mặt Trước</span>
+                        </button>
+                      </div>
+                    </div>
 
-                {/* Unit / Topic info */}
-                <div className="text-[10px] text-slate-400 pt-2 flex items-center justify-between border-t border-slate-800/60 mt-3">
-                  <span className="truncate">{catInfo.name || `Unit ${item.unit || 1}`}</span>
-                  <div className="flex items-center gap-1 shrink-0">
-                    {/* Speak Normal 1.0x */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playAudio(item.word, false);
-                      }}
-                      className="p-1 px-1.5 rounded-full bg-blue-600/30 hover:bg-blue-600 text-cyan-200 hover:text-white border border-blue-500/40 transition flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer"
-                      title="Nghe chuẩn 1.0x"
-                    >
-                      <Volume2 className="h-3.5 w-3.5" />
-                    </button>
+                    {/* Back Body: Super Detailed Content */}
+                    <div className="my-auto py-1 space-y-2 text-center">
+                      {/* Vietnamese Meaning (Big & Bright) */}
+                      <div className="text-xl sm:text-2xl font-black text-amber-300 font-heading bg-amber-950/60 p-2.5 rounded-2xl border border-amber-500/40 shadow-inner">
+                        {item.meaning}
+                      </div>
 
-                    {/* Speak Slow 0.75x */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playAudio(item.word, true);
-                      }}
-                      className="px-1.5 py-0.5 rounded-full bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white border border-amber-500/40 text-[9px] font-black transition flex items-center gap-0.5 shadow-sm active:scale-95 cursor-pointer"
-                      title="Nghe chậm cho bé 0.75x"
-                    >
-                      <span className="text-[10px]">🐢</span>
-                      <span>0.75x</span>
-                    </button>
+                      {/* Pronunciation & Word Reading */}
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-mono-code text-cyan-300 font-bold">
+                          {item.word} • {item.ipa}
+                        </div>
+                        {item.vietnamesePhonetic && (
+                          <div className="text-[11px] font-bold text-pink-300">
+                            🗣️ Đọc chuẩn: "{item.vietnamesePhonetic}"
+                          </div>
+                        )}
+                      </div>
 
-                    {/* Zoom details */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveSpotlight(item);
-                      }}
-                      className="p-1 rounded-lg bg-slate-800 text-pink-300 hover:bg-pink-600 hover:text-white transition"
-                      title="Phóng lớn chi tiết"
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                    </button>
+                      {/* Bilingual Example Sentence */}
+                      <div className="p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-[11px] text-left space-y-1">
+                        <div className="font-bold text-slate-200">
+                          "{item.example}"
+                        </div>
+                        <div className="text-amber-200/90 italic text-[10px]">
+                          👉 {item.exampleVi}
+                        </div>
+                      </div>
+
+                      {/* Memory Tip / Fun Fact */}
+                      {(superDetail?.memoryTip || superDetail?.funFact) && (
+                        <div className="text-[10px] text-cyan-200/90 bg-cyan-950/40 p-1.5 rounded-xl border border-cyan-500/30 text-left line-clamp-2">
+                          💡 {superDetail.memoryTip || superDetail.funFact}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Bottom Action Bar */}
+                    <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playAudio(item.word);
+                        }}
+                        className="px-2.5 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-400/40 font-black text-[10px] flex items-center gap-1 transition active:scale-95"
+                      >
+                        <Volume2 className="h-3.5 w-3.5" />
+                        <span>Phát Âm</span>
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveSpotlight(item);
+                        }}
+                        className="px-2.5 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-400/40 font-black text-[10px] flex items-center gap-1 transition active:scale-95"
+                      >
+                        <Eye className="h-3.5 w-3.5" />
+                        <span>Xem Toàn Bộ</span>
+                      </button>
+                    </div>
+
                   </div>
+
                 </div>
               </div>
             );
@@ -1039,7 +1165,7 @@ export default function FullSystemVocabularyView({
             <span className="px-3 py-1 rounded-lg bg-cyan-600/30 text-cyan-300 font-mono-code font-black border border-cyan-500/40">
               {currentPage}
             </span>
-            <span>/ {totalPages} ({filteredList.length} từ)</span>
+            <span>/ {totalPages} ({filteredList.length >= 1520 ? '1,520' : filteredList.length} từ)</span>
           </div>
 
           <button

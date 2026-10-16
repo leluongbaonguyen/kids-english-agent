@@ -143,7 +143,7 @@ const html = `<!DOCTYPE html>
         Hệ Thống Bách Khoa Toàn Thư Tiếng Anh Trẻ Em & Tiểu Học - Kids English Agent
       </p>
       <p>
-        1,260 Từ Vựng Hệ Thống Chuẩn Quốc Tế • Phân Hệ Số Đếm & Số Thứ Tự Toàn Cầu (Level NUM)
+        1,520 Từ Vựng Hệ Thống Chuẩn Quốc Tế • Phân Hệ Số Đếm & Số Thứ Tự Toàn Cầu (Level NUM)
       </p>
     </footer>
 
