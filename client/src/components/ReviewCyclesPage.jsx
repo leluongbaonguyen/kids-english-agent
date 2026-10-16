@@ -226,8 +226,8 @@ export default function ReviewCyclesPage({
             <Layers className="h-4 w-4 text-purple-400" />
             Lọc Theo Mốc Thời Gian SRS 1–3–7–14–30 Ngày:
           </h3>
-          <span className="text-xs text-slate-400 font-medium">
-            Tổng 900 Từ Vựng • Chỉ số Due thực từ Server
+          <span className="text-xs text-slate-400 font-medium whitespace-nowrap">
+            Toàn Bộ Kho Từ Vựng • Chỉ số Due thực từ Server
           </span>
         </div>
 
@@ -316,31 +316,31 @@ export default function ReviewCyclesPage({
           {/* Vocabulary Due Queue Preview Grid with Pagination */}
           {loading ? (
             <div className="p-12 text-center text-purple-300 font-extrabold animate-pulse">
-              🔄 Đang tải hàng đợi SRS thực từ Server (900 từ vựng)...
+              🔄 Đang tải hàng đợi SRS thực từ Server...
             </div>
           ) : dueData.items && dueData.items.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between text-xs text-purple-300 font-bold border-b border-purple-500/30 pb-2">
-                <span>Hiển thị {((currentPage - 1) * 30) + 1} – {Math.min(currentPage * 30, dueData.items.length)} trên tổng số {dueData.items.length} từ vựng</span>
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs text-purple-300 font-bold border-b border-purple-500/30 pb-2">
+                <span className="whitespace-nowrap">Hiển thị {((currentPage - 1) * 30) + 1} – {Math.min(currentPage * 30, dueData.items.length)} trên {dueData.items.length} từ vựng</span>
+                <div className="flex items-center justify-between sm:justify-end gap-2">
                   <button
                     onClick={() => {
                       setCurrentPage(p => Math.max(1, p - 1));
                       scrollToTop(true);
                     }}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer"
+                    className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer text-xs"
                   >
                     ⬅️ Trang Trước
                   </button>
-                  <span className="px-3.5 py-1 rounded-xl bg-purple-950 text-yellow-300 font-mono-code">Trang {currentPage} / {Math.ceil(dueData.items.length / 30)}</span>
+                  <span className="px-3 py-1 rounded-xl bg-purple-950 text-yellow-300 font-mono-code text-xs whitespace-nowrap">Trang {currentPage} / {Math.ceil(dueData.items.length / 30)}</span>
                   <button
                     onClick={() => {
                       setCurrentPage(p => Math.min(Math.ceil(dueData.items.length / 30), p + 1));
                       scrollToTop(true);
                     }}
                     disabled={currentPage >= Math.ceil(dueData.items.length / 30)}
-                    className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer"
+                    className="px-3 py-1 rounded-xl bg-slate-900 border border-slate-700 text-white disabled:opacity-40 cursor-pointer text-xs"
                   >
                     Trang Sau ➡️
                   </button>

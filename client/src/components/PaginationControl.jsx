@@ -61,10 +61,10 @@ export default function PaginationControl({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 py-3 px-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg text-white text-xs select-none">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-3 px-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg text-white text-xs select-none">
       
       {/* ITEMS COUNT SUMMARY */}
-      <div className="flex items-center gap-2 text-slate-300 font-bold">
+      <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 text-slate-300 font-bold whitespace-nowrap">
         <span>
           Hiển thị <strong className="text-cyan-300 font-mono-code">{startItem} - {endItem}</strong> / <strong className="text-amber-300 font-mono-code">{totalItems}</strong> {itemLabel}
         </span>
@@ -89,7 +89,7 @@ export default function PaginationControl({
       </div>
 
       {/* PAGE BUTTONS */}
-      <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-0.5">
+      <div className="flex items-center justify-center sm:justify-end w-full sm:w-auto gap-1.5 overflow-x-auto custom-scrollbar py-0.5">
         {/* First Page */}
         <button
           disabled={currentPage === 1}

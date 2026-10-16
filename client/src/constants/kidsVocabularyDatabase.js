@@ -104,7 +104,7 @@ export const COURSE_LEVELS = [
 export const VOCAB_CATEGORIES = [
   {
     "id": "all",
-    "name": "Tất Cả 6 Cấp Độ & 90 Chủ Đề (900 Từ Mở Rộng)",
+    "name": "Tất Cả Cấp Độ & Toàn Bộ Chủ Đề",
     "icon": "🌈"
   },
   {

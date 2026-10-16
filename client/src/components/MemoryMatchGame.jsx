@@ -1508,7 +1508,7 @@ export default function MemoryMatchGame({ addToast, onNavigateTab }) {
             </div>
 
             {/* Selectors Grid (2 cols on mobile, 4 on desktop) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5">
               {/* Unit / Category Dropdown */}
               <div>
                 <label className="text-[10px] font-bold text-slate-400 block mb-0.5">

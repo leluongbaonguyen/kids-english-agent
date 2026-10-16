@@ -89,7 +89,7 @@ export default function VocabBookModal({
               className="px-3 py-2 rounded-2xl bg-emerald-600/30 text-emerald-300 border border-emerald-500/50 hover:bg-emerald-600/50 text-xs font-black flex items-center gap-1.5 transition"
             >
               <Download className="h-4 w-4" />
-              <span>Xuất Excel 900 Từ</span>
+              <span>Xuất Excel CSDL</span>
             </a>
             <button
               onClick={onClose}

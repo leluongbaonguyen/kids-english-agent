@@ -211,7 +211,7 @@ export default function Detailed6LevelPathPage({ onNavigateTab, addToast, curren
       title: '📚 Trang Thư Viện Thẻ Từ Vựng',
       desc: 'Kho từ vựng 2000 thẻ với bộ lọc tìm kiếm thông minh, phát âm chậm 🐢, ví dụ câu Anh - Việt & mẹo ghi nhớ siêu đỉnh.',
       features: ['Lọc loại từ', 'Đánh dấu Đã Thuộc ⭐'],
-      stats: 'Tổng 900 Từ Vựng',
+      stats: 'Toàn Bộ Từ Vựng',
       btnText: 'Mở Kho Từ Vựng ➔',
       targetTab: 'flashcards',
       gradient: 'from-indigo-600/90 via-blue-700/90 to-indigo-800/90',
@@ -409,7 +409,7 @@ export default function Detailed6LevelPathPage({ onNavigateTab, addToast, curren
               {Math.round(Object.values(levelProgress).reduce((acc, curr) => acc + curr.percent, 0) / 6)}%
             </span>
             <span className="text-[11px] text-emerald-400 font-extrabold flex items-center gap-1 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-400/50">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 animate-bounce" /> 6 Cấp Độ • 900 Từ
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 animate-bounce" /> 6 Cấp Độ Toàn Diện
             </span>
           </div>
         </div>

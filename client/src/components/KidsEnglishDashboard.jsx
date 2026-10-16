@@ -426,8 +426,8 @@ export function KidsEnglishDashboard({
       setVocabDatabase(VOCABULARY_DATABASE);
       setPosterPages(ILLUSTRATED_POSTER_PAGES);
       setAdminLevelOverrides(fullOverrides);
-      if (addToast) addToast('⚡ Đã nạp thành công TOÀN BỘ 900 Từ Vựng V6.0 Siêu Chi Tiết (90 Chủ Đề • 6 Cấp Độ)!', 'success');
-      playWordAudio('Đã nạp thành công toàn bộ 900 từ vựng siêu chi tiết phiên bản V6.0!');
+      if (addToast) addToast(`⚡ Đã nạp thành công TOÀN BỘ ${VOCABULARY_DATABASE.length} Từ Vựng V6.1 Siêu Chi Tiết!`, 'success');
+      playWordAudio('Đã nạp thành công toàn bộ kho từ vựng siêu chi tiết phiên bản mới nhất!');
     } catch (e) {
       console.error('Lỗi khi nạp từ vựng:', e);
       if (addToast) addToast('❌ Lỗi khi nạp lại dữ liệu từ vựng', 'error');
@@ -2782,7 +2782,7 @@ export function KidsEnglishDashboard({
             <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" /> Menu Chức Năng:
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-black bg-pink-500/20 text-pink-200 border border-pink-400/40">
-            {activeTab === 'flashcards' && `🌟 Toàn Bộ 900 Từ Vựng Siêu Chi Tiết (${vocabDatabase.length} Từ)`}
+            {activeTab === 'flashcards' && `🌟 Toàn Bộ Kho Từ Vựng Siêu Chi Tiết (${vocabDatabase.length} Từ)`}
             {activeTab === 'detailed_path' && '🗺️ Lộ Trình 6 Cấp Độ'}
             {activeTab === 'poster' && `📖 Khóa Học (${posterPages.length} Trang)`}
             {(activeTab === 'quiz' || activeTab === 'games') && '🎮 Bài Tập & Game ⏰'}
@@ -2882,7 +2882,7 @@ export function KidsEnglishDashboard({
                   <span>BẢNG TỪ VỰNG MINH HỌA TRỰC QUAN ({posterPages.length} TRANG CHO BÉ)</span>
                 </h2>
                 <p className="text-xs text-slate-300 mt-1">
-                  Mô phỏng chính xác {posterPages.length} trang tranh minh họa (900 từ vựng V6.0 siêu chi tiết • 6 Cấp độ), tự động chuyển đổi ảnh tranh AI & lưu trữ vào Database!
+                  Mô phỏng chính xác {posterPages.length} trang tranh minh họa (Toàn bộ từ vựng V6.1 siêu chi tiết • 6 Cấp độ), tự động chuyển đổi ảnh tranh AI & lưu trữ vào Database!
                 </p>
               </div>
 
@@ -2890,10 +2890,10 @@ export function KidsEnglishDashboard({
                 <button
                   onClick={handleReloadMasterVocabDatabase}
                   className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-xs font-black shadow-lg hover:scale-105 transition cursor-pointer border border-amber-300"
-                  title="Nạp lại chuẩn 900 từ vựng V6.0"
+                  title="Nạp lại chuẩn từ vựng hệ thống V6.1"
                 >
                   <RefreshCw className="h-4 w-4 text-slate-950 animate-spin-slow" />
-                  <span>⚡ Nạp 900 Từ V6.0</span>
+                  <span>⚡ Nạp CSDL Chuẩn</span>
                 </button>
 
                 {currentActor === 'bao_nguyen' && (
@@ -3756,7 +3756,7 @@ export function KidsEnglishDashboard({
                   onChange={(e) => handleLevelChange(e.target.value)}
                   className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-xs font-bold text-slate-200 focus:outline-none"
                 >
-                  <option value="all">🌈 Tất cả 4 Cấp Độ (CEFR)</option>
+                  <option value="all">🌈 Tất cả {COURSE_LEVELS.length} Cấp Độ (CEFR)</option>
                   {COURSE_LEVELS.map((lvl) => (
                     <option key={lvl.id} value={lvl.id}>{lvl.name}</option>
                   ))}
@@ -3769,7 +3769,7 @@ export function KidsEnglishDashboard({
                   onChange={(e) => handleCategoryChange(e.target.value)}
                   className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-xs font-bold text-slate-200 focus:outline-none"
                 >
-                  <option value="all">📚 Tất cả 40 Chủ Đề Units</option>
+                  <option value="all">📚 Tất cả {VOCAB_CATEGORIES.length - 1} Chủ Đề Units</option>
                   {VOCAB_CATEGORIES.filter((c) => c.id !== 'all').map((cat) => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   ))}

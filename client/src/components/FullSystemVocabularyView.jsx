@@ -292,7 +292,7 @@ export default function FullSystemVocabularyView({
       link.click();
       document.body.removeChild(link);
       if (addToast) {
-        addToast('📥 Đang tải xuống file Excel: Kids_English_Vocabulary_Full_Database.xlsx (900 từ)!', 'success');
+        addToast(`📥 Đang tải xuống file Excel: Kids_English_Vocabulary_Full_Database.xlsx (${vocabList.length} từ)!`, 'success');
       }
     } catch (e) {
       console.error(e);

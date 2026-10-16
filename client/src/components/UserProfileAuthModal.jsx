@@ -78,7 +78,7 @@ export default function UserProfileAuthModal({
     return [
       { id: 'f1', label: 'Sở thích', value: 'Vẽ tranh, Đọc truyện Tiếng Anh & Chơi cùng Lumi' },
       { id: 'f2', label: 'Món ăn yêu thích', value: 'Bánh kem dâu & Sữa tươi' },
-      { id: 'f3', label: 'Mục tiêu năm 2026', value: 'Master 900 từ vựng & Nhận Cúp Vàng L6' }
+      { id: 'f3', label: 'Mục tiêu năm 2026', value: 'Master toàn bộ từ vựng & Nhận Cúp Vàng L6' }
     ];
   });
 

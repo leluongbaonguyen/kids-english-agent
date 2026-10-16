@@ -607,7 +607,7 @@ export default function LandingIntroHero({
             </div>
             <h3 className="text-lg font-black text-white">18 Poster Sách Giáo Khoa Khổ Lớn</h3>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Toàn bộ 900 từ vựng L1–L6 được thiết kế thành 18 trang poster tuyệt đẹp như sách giáo khoa quốc tế, mỗi trang tập trung 50 từ vựng với hình ảnh sinh động.
+              Toàn bộ kho từ vựng cốt lõi L1–L6 được thiết kế thành các trang poster tuyệt đẹp như sách giáo khoa quốc tế, mỗi trang tập trung từ vựng trực quan với hình ảnh sinh động.
             </p>
           </div>
 
