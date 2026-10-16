@@ -53,19 +53,19 @@ export function Header({
 
             <div className="min-w-0">
               <div className="flex items-center gap-1 sm:gap-1.5">
-                <h1 className="text-[11px] sm:text-base font-black tracking-tight text-white font-heading truncate">
+                <h1 className="text-xs sm:text-base font-black tracking-tight text-white font-heading whitespace-nowrap">
                   KIDS ENGLISH
                 </h1>
                 <span className="px-1 py-0.2 rounded-full bg-pink-500/20 text-pink-300 border border-pink-400/40 text-[8px] sm:text-[9px] font-black uppercase shrink-0">
                   V6.1
                 </span>
                 {isChildLocked && (
-                  <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-slate-950 border border-amber-300 text-[8px] sm:text-[9px] font-black uppercase tracking-wider shrink-0 flex items-center gap-0.5 animate-pulse shadow-sm">
+                  <span className="hidden sm:flex px-1.5 py-0.2 rounded-full bg-amber-500 text-slate-950 border border-amber-300 text-[8px] sm:text-[9px] font-black uppercase tracking-wider shrink-0 items-center gap-0.5 animate-pulse shadow-sm">
                     <Lock className="h-2.5 w-2.5" /> KHÓA
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-1 text-[9px] sm:text-xs text-slate-300 font-medium truncate">
+              <div className="flex items-center gap-1 text-[9px] sm:text-xs text-slate-300 font-medium truncate max-w-[100px] xs:max-w-[140px] sm:max-w-none">
                 <span className="flex items-center gap-1 text-pink-300 font-bold truncate">
                   {currentRoute.icon} {currentRoute.title}
                 </span>
@@ -85,7 +85,7 @@ export function Header({
                   activateLock({ title: currentRoute.title || 'Bài học hiện tại', tab: activeTab });
                 }
               }}
-              className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 ${
+              className={`px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 ${
                 isChildLocked
                   ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
                   : 'bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-900 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400'
@@ -96,13 +96,13 @@ export function Header({
                 <>
                   <Lock className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-950" />
                   <span className="hidden sm:inline">ĐÃ KHÓA TRẺ EM</span>
-                  <span className="sm:hidden">Đã Khóa</span>
+                  <span className="sm:hidden text-[10px]">Đã Khóa</span>
                 </>
               ) : (
                 <>
                   <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-400" />
                   <span className="hidden sm:inline">Khóa Trẻ Em</span>
-                  <span className="sm:hidden">Khóa Bé</span>
+                  <span className="sm:hidden text-[10px]">Khóa Bé</span>
                 </>
               )}
             </button>
@@ -110,15 +110,15 @@ export function Header({
             {/* Quick Button: Native Voice & Speed Studio */}
             <button
               onClick={() => setIsVoiceStudioOpen(true)}
-              className="px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black bg-gradient-to-r from-indigo-900/80 via-purple-900/80 to-slate-900 border border-indigo-400/50 text-indigo-200 hover:text-white hover:border-pink-400 transition flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 group"
+              className="px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black bg-gradient-to-r from-indigo-900/80 via-purple-900/80 to-slate-900 border border-indigo-400/50 text-indigo-200 hover:text-white hover:border-pink-400 transition flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 group"
               title="Cài đặt tốc độ đọc & giọng chuẩn bản ngữ 100% toàn hệ thống"
             >
               <Volume2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-pink-400 group-hover:scale-110 transition-transform animate-pulse" />
               <span className="hidden sm:inline">Giọng Bản Ngữ ({voiceSettings.rate.toFixed(2)}x • {voiceSettings.accent})</span>
-              <span className="sm:hidden font-mono-code font-bold">{voiceSettings.rate.toFixed(1)}x • {voiceSettings.accent}</span>
+              <span className="sm:hidden font-mono-code text-[10px]">{voiceSettings.rate.toFixed(1)}x</span>
             </button>
 
-            {/* Quick Nav to Memory Card Flip Game */}
+            {/* Quick Nav to Memory Card Flip Game (Hidden on mobile because it's prominent in the bottom bar!) */}
             <button
               onClick={() => {
                 if (isChildLocked && activeTab !== 'memory_game') {
@@ -131,7 +131,7 @@ export function Header({
                 setActiveTab?.('memory_game');
                 scrollToTop(true);
               }}
-              className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm border active:scale-95 ${
+              className={`hidden sm:inline-flex px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition items-center gap-1 cursor-pointer shadow-sm border active:scale-95 ${
                 activeTab === 'memory_game'
                   ? 'bg-gradient-to-r from-pink-600 to-amber-500 text-white border-yellow-300 scale-105 shadow-[0_0_15px_rgba(236,72,153,0.6)]'
                   : 'bg-gradient-to-r from-purple-900/60 to-pink-900/60 border-purple-400/40 text-pink-200 hover:text-white hover:bg-pink-600/30'
@@ -139,8 +139,7 @@ export function Header({
               title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,260 Từ Vựng"
             >
               <span className="text-xs sm:text-sm vocab-emoji">🃏</span>
-              <span className="hidden sm:inline">Game Lật Thẻ</span>
-              <span className="sm:hidden">Lật Thẻ</span>
+              <span>Game Lật Thẻ</span>
             </button>
 
             {/* Quick Nav to Intro Landing Page (Desktop only, mobile has bottom bar) */}
