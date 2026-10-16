@@ -483,7 +483,7 @@ export default function FullSystemVocabularyView({
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Tra cứu tức thì 900 từ (tiếng Anh, nghĩa tiếng Việt, IPA, loại từ, chủ đề)..."
+              placeholder={`Tra cứu tức thì trong ${vocabList.length} từ (tiếng Anh, nghĩa tiếng Việt, IPA, loại từ, chủ đề)...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-2xl border border-slate-700 bg-slate-900 pl-10 pr-9 py-2.5 text-xs text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none transition font-medium"
@@ -541,62 +541,138 @@ export default function FullSystemVocabularyView({
           </div>
         </div>
 
-        {/* Secondary Filter Dropdowns & Pills */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-slate-900">
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Level Selector Dropdown / Button */}
-            <select
-              value={selectedLevel}
-              onChange={(e) => {
-                const newLvl = e.target.value;
-                if (isChildLocked && newLvl !== selectedLevel) {
-                  requestUnlock(() => {
-                    setSelectedLevel(newLvl);
+        {/* ========================================================================= */}
+        {/* Symmetrical 4-Filter Grid (2 cols on mobile, 4 cols on desktop)          */}
+        {/* ========================================================================= */}
+        <div className="pt-3 border-t border-slate-900 space-y-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5">
+            {/* 1. Level Filter */}
+            <div className="relative">
+              <select
+                value={selectedLevel}
+                onChange={(e) => {
+                  const newLvl = e.target.value;
+                  if (isChildLocked && newLvl !== selectedLevel) {
+                    requestUnlock(() => {
+                      setSelectedLevel(newLvl);
+                      setSelectedCategory('all');
+                    }, `Bé muốn đổi sang Cấp độ ${newLvl}`);
+                    return;
+                  }
+                  setSelectedLevel(newLvl);
+                  setSelectedCategory('all');
+                }}
+                className="w-full h-10 bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400/60 focus:border-cyan-400 text-white rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer"
+              >
+                <option value="all">🌟 Tất Cả Cấp Độ ({vocabList.length} Từ)</option>
+                <option value="L1">🐣 L1 • Khởi Động (150 Từ)</option>
+                <option value="L2">🦁 L2 • Cơ Bản (150 Từ)</option>
+                <option value="L3">🚀 L3 • Mở Rộng (150 Từ)</option>
+                <option value="L4">👑 L4 • Nâng Cao (150 Từ)</option>
+                <option value="L5">🌟 L5 • Tiên Phong (150 Từ)</option>
+                <option value="L6">🌎 L6 • Quốc Tế (150 Từ)</option>
+                <option value="BIO">🌿 BIO • Động Thực Vật (120 Từ)</option>
+                <option value="COLOR">🎨 COLOR • Sắc Màu (120 Từ)</option>
+                <option value="NUM">🔢 NUM • Số Đếm & Thứ Tự (120 Từ)</option>
+              </select>
+            </div>
+
+            {/* 2. Category / Topic Filter */}
+            <div className="relative">
+              <select
+                value={selectedCategory}
+                onChange={(e) => {
+                  const newCat = e.target.value;
+                  if (isChildLocked && newCat !== selectedCategory) {
+                    requestUnlock(() => {
+                      setSelectedCategory(newCat);
+                    }, 'Bé muốn đổi sang chủ đề khác');
+                    return;
+                  }
+                  setSelectedCategory(newCat);
+                }}
+                className="w-full h-10 bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400/60 focus:border-cyan-400 text-white rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer"
+              >
+                <option value="all">🌈 Tất Cả {availableCategories.length} Chủ Đề</option>
+                {availableCategories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.icon} {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 3. Word Type Filter */}
+            <div className="relative">
+              <select
+                value={selectedWordType}
+                onChange={(e) => setSelectedWordType(e.target.value)}
+                className="w-full h-10 bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400/60 focus:border-cyan-400 text-white rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer"
+              >
+                <option value="all">🔤 Mọi Loại Từ</option>
+                <option value="Danh từ">🏷️ Danh từ (Noun)</option>
+                <option value="Động từ">⚡ Động từ (Verb)</option>
+                <option value="Tính từ">🎨 Tính từ (Adjective)</option>
+                <option value="Cụm từ">💬 Cụm từ (Phrase)</option>
+              </select>
+            </div>
+
+            {/* 4. Mastery Status Filter */}
+            <div className="relative">
+              <select
+                value={masteryFilter}
+                onChange={(e) => setMasteryFilter(e.target.value)}
+                className={`w-full h-10 border rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer ${
+                  masteryFilter === 'mastered'
+                    ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300'
+                    : masteryFilter === 'unmastered'
+                    ? 'bg-amber-950/70 border-amber-500/60 text-amber-300'
+                    : 'bg-slate-900/90 border-slate-700/80 text-white hover:border-cyan-400/60 focus:border-cyan-400'
+                }`}
+              >
+                <option value="all">⭐ Tất Cả Trạng Thái</option>
+                <option value="mastered">✅ Chỉ Từ Đã Thuộc ({masteredCards.length})</option>
+                <option value="unmastered">⏳ Chỉ Từ Chưa Thuộc ({Math.max(0, vocabList.length - masteredCards.length)})</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Unified Action & Status Bar */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-2.5 border-t border-slate-900/80">
+            {/* Left: Results Count & Quick Reset Filter */}
+            <div className="flex items-center justify-between sm:justify-start gap-2 text-xs">
+              <span className="font-medium text-slate-400 whitespace-nowrap">
+                Đang hiển thị: <strong className="text-cyan-300 font-black">{filteredList.length}</strong> / {vocabList.length} từ
+              </span>
+
+              {(selectedLevel !== 'all' || selectedCategory !== 'all' || selectedWordType !== 'all' || masteryFilter !== 'all' || searchQuery) && (
+                <button
+                  onClick={() => {
+                    if (isChildLocked) {
+                      requestUnlock(() => {
+                        setSelectedLevel('all');
+                        setSelectedCategory('all');
+                        setSelectedWordType('all');
+                        setMasteryFilter('all');
+                        setSearchQuery('');
+                      }, 'Bé muốn đặt lại toàn bộ bộ lọc');
+                      return;
+                    }
+                    setSelectedLevel('all');
                     setSelectedCategory('all');
-                  }, `Bé muốn đổi sang Cấp độ ${newLvl}`);
-                  return;
-                }
-                setSelectedLevel(newLvl);
-                setSelectedCategory('all');
-              }}
-              className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-cyan-400 cursor-pointer"
-            >
-              <option value="all">🌟 Tất Cả Cấp Độ ({vocabList.length} Từ)</option>
-              <option value="L1">🐣 L1 • Khởi Động (150 Từ - 4-5T)</option>
-              <option value="L2">🦁 L2 • Cơ Bản (150 Từ - 5-7T)</option>
-              <option value="L3">🚀 L3 • Mở Rộng (150 Từ - 7-9T)</option>
-              <option value="L4">👑 L4 • Nâng Cao (150 Từ - 8-10T)</option>
-              <option value="L5">🌟 L5 • Tiên Phong (150 Từ - 10-12T)</option>
-              <option value="L6">🌎 L6 • Quốc Tế (150 Từ - 12+T)</option>
-              <option value="BIO">🌿 BIO • Động Thực Vật Toàn Cầu (120 Từ)</option>
-              <option value="COLOR">🎨 COLOR • Sắc Màu Toàn Cầu (120 Từ)</option>
-              <option value="NUM">🔢 NUM • Số Đếm & Số Thứ Tự (120 Từ)</option>
-            </select>
+                    setSelectedWordType('all');
+                    setMasteryFilter('all');
+                    setSearchQuery('');
+                  }}
+                  className="text-[11px] font-bold text-pink-400 hover:text-pink-300 hover:underline cursor-pointer flex items-center gap-0.5 ml-1 transition"
+                  title="Xóa bộ lọc để xem toàn bộ từ vựng"
+                >
+                  <X className="h-3 w-3" /> Đặt lại
+                </button>
+              )}
+            </div>
 
-            {/* Category / Unit Selector Dropdown */}
-            <select
-              value={selectedCategory}
-              onChange={(e) => {
-                const newCat = e.target.value;
-                if (isChildLocked && newCat !== selectedCategory) {
-                  requestUnlock(() => {
-                    setSelectedCategory(newCat);
-                  }, 'Bé muốn đổi sang chủ đề khác');
-                  return;
-                }
-                setSelectedCategory(newCat);
-              }}
-              className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-cyan-400 cursor-pointer max-w-[220px]"
-            >
-              <option value="all">🌈 Tất Cả {availableCategories.length} Chủ Đề</option>
-              {availableCategories.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.icon} {c.name}
-                </option>
-              ))}
-            </select>
-
-            {/* Quick Child Lock for this Topic */}
+            {/* Center/Action: Quick Child Lock for this Topic */}
             <button
               onClick={() => {
                 if (isChildLocked) {
@@ -611,67 +687,33 @@ export default function FullSystemVocabularyView({
                   });
                 }
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shadow-md ${
+              className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-xl text-xs font-black transition cursor-pointer shadow-md active:scale-95 ${
                 isChildLocked
-                  ? 'bg-amber-500 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
-                  : 'bg-amber-950/70 border border-amber-500/40 text-amber-300 hover:bg-amber-500 hover:text-slate-950'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
+                  : 'bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-900 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400'
               }`}
               title={isChildLocked ? "Chủ đề đang bị khóa cho bé học - Bấm để Phụ huynh mở khóa" : "Khóa chủ đề này cho bé học - Bé chỉ học từ vựng trong này và không thể thoát ra"}
             >
-              {isChildLocked ? <Lock className="h-3.5 w-3.5" /> : <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />}
-              <span>{isChildLocked ? 'ĐÃ KHÓA CHỦ ĐỀ' : 'Khóa Cho Bé Học'}</span>
-            </button>
-
-            {/* Word Type Filter */}
-            <select
-              value={selectedWordType}
-              onChange={(e) => setSelectedWordType(e.target.value)}
-              className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-cyan-400 cursor-pointer"
-            >
-              <option value="all">🔤 Mọi Loại Từ</option>
-              <option value="Danh từ">Danh từ (831 từ)</option>
-              <option value="Động từ">Động từ (10 từ)</option>
-              <option value="Tính từ">Tính từ (35 từ)</option>
-              <option value="Cụm từ">Cụm từ (20 từ)</option>
-            </select>
-
-            {/* Mastery Filter */}
-            <button
-              onClick={() => {
-                setMasteryFilter((prev) => (prev === 'all' ? 'mastered' : prev === 'mastered' ? 'unmastered' : 'all'));
-              }}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-black border transition cursor-pointer ${
-                masteryFilter === 'mastered'
-                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/50'
-                  : masteryFilter === 'unmastered'
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-400/50'
-                  : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
-              }`}
-            >
-              <Star className="h-3.5 w-3.5" />
-              <span>
-                {masteryFilter === 'mastered' ? '⭐ Chỉ Từ Đã Thuộc' : masteryFilter === 'unmastered' ? '⏳ Chỉ Từ Chưa Thuộc' : 'Tất Cả Trạng Thái'}
+              {isChildLocked ? <Lock className="h-3.5 w-3.5 text-slate-950" /> : <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />}
+              <span className="whitespace-nowrap">
+                {isChildLocked
+                  ? `ĐÃ KHÓA: ${categoryMap[selectedCategory]?.name || (selectedLevel !== 'all' ? `CẤP ĐỘ ${selectedLevel}` : 'TOÀN BỘ')}`
+                  : `Khóa ${selectedCategory !== 'all' ? (categoryMap[selectedCategory]?.name || 'Chủ Đề Này') : selectedLevel !== 'all' ? `Cấp Độ ${selectedLevel}` : 'Chủ Đề'} Cho Bé Học`}
               </span>
             </button>
-          </div>
 
-          {/* Results count & Page Size selector */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-slate-400">
-              Đang hiển thị: <strong className="text-cyan-300">{filteredList.length}</strong> / 900 từ
-            </span>
-
-            {/* Page Size selector */}
-            <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-[11px] font-bold">
+            {/* Right: Page Size Selector */}
+            <div className="flex items-center justify-center sm:justify-end gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-[11px] font-bold shrink-0">
+              <span className="text-[10px] text-slate-500 uppercase tracking-wider px-1.5 hidden md:inline">Xem:</span>
               {[24, 48, 96, 9999].map((size) => (
                 <button
                   key={size}
                   onClick={() => setPageSize(size)}
-                  className={`px-2 py-0.5 rounded-lg transition ${
-                    pageSize === size ? 'bg-cyan-600 text-white font-black' : 'text-slate-400 hover:text-white'
+                  className={`px-2.5 py-1 rounded-lg transition whitespace-nowrap cursor-pointer ${
+                    pageSize === size ? 'bg-cyan-600 text-white font-black shadow-sm' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  {size === 9999 ? 'Tất Cả 900' : `${size}/Trang`}
+                  {size === 9999 ? 'Tất Cả' : `${size}/Trang`}
                 </button>
               ))}
             </div>
