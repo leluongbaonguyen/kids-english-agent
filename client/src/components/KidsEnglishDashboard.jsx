@@ -4,7 +4,8 @@ import {
   Volume2, Sparkles, Award, Star, RefreshCw, CheckCircle2, RotateCw, Trophy, Flame,
   Search, Check, X, Clock, ShieldCheck, Plus, Edit, Trash2, Download, Upload,
   FileText, Mic, Camera, History, FileCheck, Lock, UploadCloud, Database,
-  AlertTriangle, AlertCircle, Archive, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key
+  AlertTriangle, AlertCircle, Archive, CheckSquare, FileSpreadsheet, Eye, EyeOff, Key,
+  Play, Pause, RotateCcw
 } from 'lucide-react';
 import { COURSE_LEVELS, VOCAB_CATEGORIES, VOCABULARY_DATABASE, ILLUSTRATED_POSTER_PAGES, getSuperDetailedVocabInfo } from '../constants/kidsVocabularyDatabase.js';
 import LongmanEngine from '../services/longmanDictionary.js';
@@ -1924,6 +1925,8 @@ export function KidsEnglishDashboard({
 
 
   // 4,000 Exercises & Timed Quiz Game States
+  const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const [isQuizPaused, setIsQuizPaused] = useState(false);
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizScore, setQuizScore] = useState(0);
   const [quizAnswered, setQuizAnswered] = useState(false);
@@ -2484,9 +2487,55 @@ export function KidsEnglishDashboard({
   const quizPool = activeQuizSource.length > 0 ? activeQuizSource : VOCABULARY_DATABASE;
   const currentQuizCard = (quizPool && quizPool.length > 0) ? quizPool[quizIndex % quizPool.length] : null;
 
+  // Reset quiz states when leaving quiz or games tab
+  useEffect(() => {
+    if (activeTab !== 'quiz' && activeTab !== 'games') {
+      setIsQuizStarted(false);
+      setIsQuizPaused(false);
+    }
+  }, [activeTab]);
+
+  // Game Control Handlers (Bắt Đầu / Tạm Dừng / Chơi Lại)
+  const handleStartQuizGame = () => {
+    setIsQuizStarted(true);
+    setIsQuizPaused(false);
+    setQuizTimeLeft(15);
+    setQuizAnswered(false);
+    setSelectedQuizOption(null);
+    if (addToast) addToast('🚀 Trò chơi bắt đầu! Bé hãy chọn đáp án đúng trong 15 giây nhé!', 'success');
+    playWordAudio('Trò chơi 100 câu đố bắt đầu! Bé hãy chú ý lắng nghe và chọn đáp án chính xác nhé!');
+  };
+
+  const handlePauseResumeQuiz = () => {
+    setIsQuizPaused((prev) => {
+      const next = !prev;
+      if (next) {
+        if (addToast) addToast('⏸️ Đã tạm dừng đồng hồ 15 giây!', 'info');
+        playWordAudio('Tạm dừng trò chơi!');
+      } else {
+        if (addToast) addToast('▶️ Tiếp tục đếm ngược 15 giây!', 'success');
+        playWordAudio('Tiếp tục trò chơi!');
+      }
+      return next;
+    });
+  };
+
+  const handleRestartQuizGame = () => {
+    setIsQuizStarted(false);
+    setIsQuizPaused(false);
+    setQuizIndex(0);
+    setQuizScore(0);
+    setStreakCount(0);
+    setQuizTimeLeft(15);
+    setQuizAnswered(false);
+    setSelectedQuizOption(null);
+    if (addToast) addToast('🔄 Đã khởi động lại bộ 100 bài tập!', 'info');
+    playWordAudio('Đã bắt đầu lại trò chơi!');
+  };
+
   // Timed Quiz Countdown Timer (Thời Gian Đếm Nguồn 15 Giây)
   useEffect(() => {
-    if ((activeTab !== 'quiz' && activeTab !== 'games') || quizAnswered) return;
+    if ((activeTab !== 'quiz' && activeTab !== 'games') || !isQuizStarted || isQuizPaused || quizAnswered) return;
 
     const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
 
@@ -2504,7 +2553,7 @@ export function KidsEnglishDashboard({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [activeTab, quizAnswered, quizTimeLeft, currentQuizCard, quizMode]);
+  }, [activeTab, isQuizStarted, isQuizPaused, quizAnswered, quizTimeLeft, currentQuizCard, quizMode]);
 
   const quizOptions = useMemo(() => {
     if (!currentQuizCard) return [];
@@ -2575,7 +2624,7 @@ export function KidsEnglishDashboard({
 
   // Auto-advance to next exercise 1.4 seconds after answering
   useEffect(() => {
-    if (quizAnswered && (activeTab === 'quiz' || activeTab === 'games')) {
+    if (isQuizStarted && !isQuizPaused && quizAnswered && (activeTab === 'quiz' || activeTab === 'games')) {
       autoNextTimerRef.current = setTimeout(() => {
         handleNextQuiz();
       }, 1400);
@@ -2586,7 +2635,7 @@ export function KidsEnglishDashboard({
         autoNextTimerRef.current = null;
       }
     };
-  }, [quizAnswered, activeTab]);
+  }, [quizAnswered, activeTab, isQuizStarted, isQuizPaused]);
 
   return (
     <div className="w-full space-y-4 sm:space-y-6 animate-fadeIn font-sans relative">
@@ -3385,15 +3434,69 @@ export function KidsEnglishDashboard({
                 </button>
               )}
 
+              {/* Start / Pause / Resume / Restart Button Controls */}
+              {!isQuizStarted ? (
+                <button
+                  onClick={handleStartQuizGame}
+                  className="px-4 py-2 rounded-2xl font-black text-xs bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-2 border border-emerald-300 ring-2 ring-emerald-400/40 cursor-pointer animate-pulse"
+                  title="Bắt đầu tính giờ 15 giây và trả lời câu hỏi"
+                >
+                  <Play className="h-4 w-4 fill-white text-white" />
+                  <span>▶️ Bắt Đầu Chơi</span>
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={handlePauseResumeQuiz}
+                    className={`px-3 py-2 rounded-2xl font-black text-xs shadow-md hover:scale-105 active:scale-95 transition flex items-center gap-1.5 border cursor-pointer ${
+                      isQuizPaused
+                        ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 border-yellow-300 animate-pulse font-extrabold'
+                        : 'bg-slate-900 border-slate-700 text-slate-200 hover:text-white'
+                    }`}
+                    title={isQuizPaused ? 'Tiếp tục tính giờ' : 'Tạm dừng đồng hồ 15 giây'}
+                  >
+                    {isQuizPaused ? <Play className="h-4 w-4 fill-current" /> : <Pause className="h-4 w-4" />}
+                    <span>{isQuizPaused ? '▶️ Tiếp Tục' : '⏸️ Tạm Dừng'}</span>
+                  </button>
+
+                  <button
+                    onClick={handleRestartQuizGame}
+                    className="px-3 py-2 rounded-2xl font-black text-xs bg-slate-900 hover:bg-slate-800 text-rose-300 hover:text-rose-200 border border-rose-500/30 hover:border-rose-400 shadow-md hover:scale-105 active:scale-95 transition flex items-center gap-1.5 cursor-pointer"
+                    title="Khởi động lại trò chơi từ đầu"
+                  >
+                    <RotateCcw className="h-4 w-4 text-rose-400" />
+                    <span>🔄 Chơi Lại</span>
+                  </button>
+                </>
+              )}
+
               {/* Random Shuffle Button */}
               <button
                 onClick={handleShuffle100Quiz}
-                className="px-4 py-2 rounded-2xl font-black text-xs bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-2 border border-pink-400/80 cursor-pointer animate-pulse"
+                className="px-3.5 py-2 rounded-2xl font-black text-xs bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-2 border border-pink-400/80 cursor-pointer"
                 title="Xáo trộn ngẫu nhiên bộ 100 bài tập mới"
               >
                 <RotateCw className="h-4 w-4 text-yellow-300 animate-spin-slow" />
-                <span>🎲 Trộn Ngẫu Nhiên 100 Bài Tập</span>
+                <span>🎲 Trộn 100 Câu</span>
               </button>
+
+              {/* Status Badge */}
+              <div className={`px-2.5 py-1.5 rounded-xl text-[11px] font-mono-code font-bold border flex items-center gap-1.5 ${
+                !isQuizStarted
+                  ? 'bg-slate-900 border-slate-700 text-slate-400'
+                  : isQuizPaused
+                    ? 'bg-amber-500/20 border-amber-500/50 text-amber-300'
+                    : 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 animate-pulse'
+              }`}>
+                <span className={`h-2 w-2 rounded-full ${
+                  !isQuizStarted
+                    ? 'bg-slate-500'
+                    : isQuizPaused
+                      ? 'bg-amber-400'
+                      : 'bg-emerald-400'
+                }`} />
+                <span>{!isQuizStarted ? 'CHƯA BẮT ĐẦU' : isQuizPaused ? 'TẠM DỪNG' : 'ĐANG CHƠI'}</span>
+              </div>
 
               {/* Question Count Tracker */}
               <div className="rounded-2xl bg-slate-950 border border-slate-800 px-3 py-2 text-xs font-mono-code font-bold text-cyan-300 shadow-inner">
@@ -3449,193 +3552,346 @@ export function KidsEnglishDashboard({
             </button>
           </div>
 
-          {/* 15-SECOND COUNTDOWN TIMER PROGRESS BAR */}
-          <div className="space-y-1">
-            <div className="flex justify-between items-center text-xs font-mono-code font-bold">
-              <span className="text-slate-400 flex items-center gap-1">
-                <Clock className="h-3.5 w-3.5 text-pink-400 animate-spin-slow" /> Thời Gian Trả Lời:
-              </span>
-              <span className={`text-sm ${quizTimeLeft <= 5 ? 'text-rose-400 font-black animate-ping' : 'text-amber-300'}`}>
-                ⏱️ {quizTimeLeft} Giây
-              </span>
-            </div>
+          {/* Main Quiz Area: Either Super Detailed Start Screen or Active Quiz */}
+          {!isQuizStarted ? (
+            <div className="rounded-3xl border-2 border-dashed border-pink-500/50 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-8 text-center space-y-6 shadow-2xl relative overflow-hidden animate-fadeIn">
+              {/* Background Ambient Glow */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-pink-500/10 blur-3xl pointer-events-none rounded-full" />
+              <div className="absolute bottom-0 right-10 w-72 h-36 bg-cyan-500/10 blur-2xl pointer-events-none rounded-full" />
 
-            <div className="h-2.5 w-full rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
-              <div
-                className={`h-full transition-all duration-1000 ${
-                  quizTimeLeft > 8 ? 'bg-emerald-500' : quizTimeLeft > 4 ? 'bg-amber-500' : 'bg-rose-500 animate-pulse'
-                }`}
-                style={{ width: `${(quizTimeLeft / 15) * 100}%` }}
-              ></div>
-            </div>
-          </div>
+              {/* Mascot & Hero Header */}
+              <div className="flex flex-col items-center justify-center space-y-2 relative z-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/50 text-pink-300 text-xs font-black uppercase tracking-wider shadow-inner">
+                  <Sparkles className="h-3.5 w-3.5 text-yellow-300 animate-spin-slow" />
+                  <span>Sân Chơi Phản Xạ Tiếng Anh Siêu Cấp 100 Câu Đố</span>
+                  <Sparkles className="h-3.5 w-3.5 text-yellow-300 animate-spin-slow" />
+                </div>
 
-          {/* Quiz Question Card */}
-          {currentQuizCard ? (
-            <div className="rounded-3xl border border-pink-500/40 bg-slate-950 p-6 text-center space-y-4 shadow-inner relative overflow-hidden">
-              <div className="flex justify-center">
-                <span className="rounded-full px-3 py-1 text-xs font-black bg-slate-900 border border-slate-700 text-cyan-300">
-                  {currentQuizCard.level} • {currentQuizCard.hint}
-                </span>
+                <div className="text-7xl sm:text-8xl animate-bounce drop-shadow-[0_10px_20px_rgba(244,114,182,0.3)] select-none">
+                  {activePet === 'unicorn' ? '🦄' : activePet === 'dino' ? '🦕' : activePet === 'panda' ? '🐼' : '🐰'}
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-yellow-300 to-cyan-300 tracking-tight">
+                  SẴN SÀNG CHINH PHỤC 100 CÂU ĐỐ!
+                </h2>
+                <p className="max-w-xl mx-auto text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Thử thách phản xạ tiếng Anh 15 giây cho bé Minh Anh. Trả lời đúng để tích lũy điểm số, thăng hạng Sao Thưởng ⭐ và kích hoạt tràng pháo hoa rực rỡ!
+                </p>
               </div>
 
-              {quizMode === 'image_to_word' && (
-                <>
-                  <div className="text-8xl md:text-9xl animate-bounce drop-shadow-2xl">
-                    {currentQuizCard.image}
+              {/* 4 Super Detailed Feature & Rules Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left relative z-10">
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-pink-500/30 hover:border-pink-500/60 transition shadow-lg">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="p-2 rounded-xl bg-pink-500/20 text-pink-400 text-lg">⏱️</div>
+                    <div className="font-black text-sm text-pink-300 font-heading">15 Giây Mỗi Câu</div>
                   </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-wider text-pink-300">Hình ảnh ngộ nghĩnh này có tên Tiếng Anh là gì?</div>
-                    <div className="text-sm font-bold text-slate-400 mt-1 font-heading">Nghĩa tiếng Việt: "{currentQuizCard.meaning}"</div>
-                  </div>
-                </>
-              )}
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Đồng hồ chỉ bắt đầu đếm khi bé bấm nút "Bắt Đầu". Trả lời trong 10 giây đầu nhận ngay điểm thưởng tối đa!
+                  </p>
+                </div>
 
-              {quizMode === 'word_to_meaning' && (
-                <>
-                  <div className="text-4xl md:text-5xl font-black font-heading text-cyan-300 tracking-tight">
-                    {currentQuizCard.word}
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-purple-500/30 hover:border-purple-500/60 transition shadow-lg">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 text-lg">🎯</div>
+                    <div className="font-black text-sm text-purple-300 font-heading">4 Chế Độ Đa Dạng</div>
                   </div>
-                  <p className="text-sm font-mono-code text-cyan-400">{currentQuizCard.ipa}</p>
-                  <div className="text-xs font-bold uppercase tracking-wider text-pink-300 pt-2">
-                    Từ Tiếng Anh trên có nghĩa tiếng Việt là gì?
-                  </div>
-                </>
-              )}
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Đoán qua Icon 🖼️, Đoán Nghĩa TV 💡, Nghe Âm Thanh 🔊 hoặc Điền Từ Vào Câu 📝 thỏa sức lựa chọn.
+                  </p>
+                </div>
 
-              {quizMode === 'audio_to_word' && (
-                <>
-                  <button
-                    onClick={() => playWordAudio(currentQuizCard.word)}
-                    className="p-6 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-2xl hover:scale-110 active:scale-95 transition mx-auto flex items-center justify-center animate-pulse"
-                  >
-                    <Volume2 className="h-12 w-12" />
-                  </button>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-wider text-amber-300">Hãy lắng nghe âm thanh và chọn từ Tiếng Anh tương ứng!</div>
-                    <div className="text-xs text-slate-400 mt-1">Gợi ý nghĩa: "{currentQuizCard.meaning}"</div>
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 hover:border-amber-500/60 transition shadow-lg">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 text-lg">🔥</div>
+                    <div className="font-black text-sm text-amber-300 font-heading">Combo & Pháo Hoa</div>
                   </div>
-                </>
-              )}
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Đúng liên tiếp nhận Combo Streak x3, x5. Mỗi mốc 5 câu đúng sẽ nổ tràng pháo hoa rực rỡ toàn màn hình 🎆!
+                  </p>
+                </div>
 
-              {quizMode === 'fill_sentence' && (
-                <>
-                  <div className="text-lg md:text-xl font-black text-amber-300 font-heading bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-                    "{(currentQuizCard?.sentence || currentQuizCard?.example || `This is a ${currentQuizCard?.word || ''}`).replace(new RegExp(currentQuizCard?.word || 'word', 'gi'), '_____')}"
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-500/60 transition shadow-lg">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 text-lg">🔊</div>
+                    <div className="font-black text-sm text-cyan-300 font-heading">Trợ Giúp Phát Âm</div>
                   </div>
-                  <p className="text-xs text-slate-400 italic">Dịch nghĩa câu: "{currentQuizCard?.sentenceVi || currentQuizCard?.meaningVi || currentQuizCard?.meaning || ''}"</p>
-                  <div className="text-xs font-bold uppercase tracking-wider text-pink-300">
-                    Chọn từ Tiếng Anh chính xác để điền vào khoảng trống trên!
-                  </div>
-                </>
-              )}
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Bé có thể bấm nút nghe giọng đọc người bản xứ chuẩn quốc tế bất kỳ lúc nào để hỗ trợ chọn đáp án.
+                  </p>
+                </div>
+              </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              {/* Status Overview Strip */}
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 py-3 px-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono-code relative z-10">
+                <div className="flex items-center gap-2 text-cyan-300">
+                  <span className="text-slate-400 font-bold">📚 Kho dữ liệu:</span>
+                  <span className="font-black text-white bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-500/40">
+                    {quizPool.length} Từ Vựng / 100 Câu Đố
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-pink-300">
+                  <span className="text-slate-400 font-bold">🎮 Chế độ:</span>
+                  <span className="font-black text-white bg-pink-950/80 px-2.5 py-1 rounded-lg border border-pink-500/40">
+                    {quizMode === 'image_to_word' ? '🖼️ Đoán Qua Icon' : quizMode === 'word_to_meaning' ? '💡 Đoán Nghĩa TV' : quizMode === 'audio_to_word' ? '🔊 Nghe & Chọn Đúng' : '📝 Điền Từ Vào Câu'}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-amber-300">
+                  <span className="text-slate-400 font-bold">⭐ Điểm thưởng:</span>
+                  <span className="font-black text-yellow-300 bg-amber-950/80 px-2.5 py-1 rounded-lg border border-amber-500/40">
+                    {stars} Stars
+                  </span>
+                </div>
+              </div>
+
+              {/* GIANT START BUTTON (NÚT BẮT ĐẦU SIÊU CHI TIẾT) */}
+              <div className="pt-2 relative z-10 flex flex-col items-center gap-3">
                 <button
-                  onClick={() => playWordAudio(currentQuizCard.word)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-pink-600/30 border border-pink-500/40 px-3.5 py-1.5 text-xs font-bold text-pink-200 hover:bg-pink-600/50 transition active:scale-95 shadow-md"
+                  onClick={handleStartQuizGame}
+                  className="w-full max-w-xl py-4 sm:py-5 px-6 sm:px-10 rounded-3xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 text-white font-heading font-black text-lg sm:text-2xl shadow-[0_0_40px_rgba(16,185,129,0.45)] hover:shadow-[0_0_65px_rgba(16,185,129,0.7)] hover:scale-[1.03] active:scale-95 transition-all duration-300 flex items-center justify-center gap-4 border-2 border-emerald-300 cursor-pointer group"
                 >
-                  <Volume2 className="h-4 w-4 text-pink-400 animate-pulse" /> Nghe Gợi Ý Phát Âm 🔊
+                  <div className="p-3 bg-white/20 rounded-2xl group-hover:scale-125 transition-transform duration-300 shadow-inner">
+                    <Play className="h-7 w-7 sm:h-8 sm:w-8 fill-white text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="flex items-center gap-2 leading-tight">
+                      <span>▶️ BẮT ĐẦU CHƠI NGAY!</span>
+                      <Sparkles className="h-6 w-6 text-yellow-300 animate-spin-slow" />
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-emerald-100 font-mono-code font-normal">
+                      Bấm vào đây để kích hoạt câu hỏi #1 & đồng hồ 15 giây 🚀
+                    </div>
+                  </div>
+                </button>
+
+                {/* Sub-button to shuffle before starting */}
+                <button
+                  onClick={handleShuffle100Quiz}
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-yellow-300 transition py-1 px-3 rounded-xl hover:bg-slate-800 cursor-pointer"
+                >
+                  <RotateCw className="h-3.5 w-3.5 text-yellow-400 animate-spin-slow" />
+                  <span>Trộn ngẫu nhiên câu hỏi mới trước khi chơi</span>
                 </button>
               </div>
-
-              {/* Quick CRUD Action Controls for Parent / Admin on Current Exercise */}
-              {currentActor === 'bao_nguyen' && (
-                <div className="flex flex-wrap items-center justify-center gap-2 pt-3 border-t border-slate-900/80">
+            </div>
+          ) : (
+            <>
+              {/* In-Game Paused Notification Bar if paused */}
+              {isQuizPaused && (
+                <div className="p-4 rounded-2xl bg-amber-500/20 border-2 border-amber-400 text-center space-y-2 animate-pulse shadow-xl">
+                  <div className="text-base font-black text-amber-300 flex items-center justify-center gap-2 font-heading">
+                    <Pause className="h-5 w-5" /> TRÒ CHƠI ĐANG TẠM DỪNG!
+                  </div>
+                  <p className="text-xs text-amber-100">
+                    Đồng hồ 15 giây đã được đóng băng. Khi nào sẵn sàng, bé hãy bấm Tiếp tục nhé!
+                  </p>
                   <button
-                    onClick={() => handleOpenSuperAdd(currentQuizCard.category || 'L1-U01', currentQuizCard.level || 'L1')}
-                    className="px-3 py-1.5 rounded-xl bg-emerald-950/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-600 hover:text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95"
-                    title="Tạo thêm bài tập mới"
+                    onClick={handlePauseResumeQuiz}
+                    className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition inline-flex items-center gap-1.5 cursor-pointer"
                   >
-                    <Plus className="h-3.5 w-3.5 text-emerald-400" /> Thêm Bài Tập Mới
-                  </button>
-                  <button
-                    onClick={() => handleOpenSuperEdit(currentQuizCard)}
-                    className="px-3 py-1.5 rounded-xl bg-amber-950/90 border border-amber-500/40 text-amber-300 hover:bg-amber-600 hover:text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95"
-                    title="Sửa nội dung bài tập hiện tại"
-                  >
-                    <Edit className="h-3.5 w-3.5 text-amber-400" /> Sửa Bài Tập Này
-                  </button>
-                  <button
-                    onClick={() => handleDeleteSuperCard(currentQuizCard.id, currentQuizCard.word)}
-                    className="px-3 py-1.5 rounded-xl bg-rose-950/90 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95"
-                    title="Xóa bài tập này khỏi hệ thống"
-                  >
-                    <Trash2 className="h-3.5 w-3.5 text-rose-400" /> Xóa Bài Tập Này
+                    <Play className="h-4 w-4 fill-white" /> TIẾP TỤC CHƠI NGAY
                   </button>
                 </div>
               )}
-            </div>
-          ) : (
-            <div className="text-center p-8 rounded-3xl border border-slate-800 bg-slate-950 text-slate-400 space-y-2">
-              <div className="text-4xl">📚</div>
-              <div className="font-bold text-slate-200">Chưa có từ vựng nào trong kho dữ liệu</div>
-              <p className="text-xs">Hiện tại danh sách từ vựng trống.</p>
-            </div>
-          )}
 
-          {/* Answer Options Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {quizOptions.map((opt, idx) => {
-              const isSelected = selectedQuizOption === opt;
-              const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
-              const isCorrect = currentQuizCard && opt === correctAnswer;
+              {/* 15-SECOND COUNTDOWN TIMER PROGRESS BAR */}
+              <div className="space-y-1">
+                <div className="flex justify-between items-center text-xs font-mono-code font-bold">
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <Clock className="h-3.5 w-3.5 text-pink-400 animate-spin-slow" /> Thời Gian Trả Lời:
+                  </span>
+                  <span className={`text-sm ${quizTimeLeft <= 5 ? 'text-rose-400 font-black animate-ping' : 'text-amber-300'}`}>
+                    ⏱️ {quizTimeLeft} Giây {isQuizPaused ? '(Tạm Dừng)' : ''}
+                  </span>
+                </div>
 
-              let btnStyle = 'border-slate-800 bg-slate-950 text-slate-200 hover:bg-slate-800 hover:border-pink-500/40';
-              if (quizAnswered) {
-                if (isCorrect) {
-                  btnStyle = 'border-emerald-500 bg-emerald-950/90 text-emerald-200 ring-2 ring-emerald-500 shadow-emerald-500/20';
-                } else if (isSelected && !isCorrect) {
-                  btnStyle = 'border-rose-500 bg-rose-950/90 text-rose-200';
-                }
-              }
-
-              return (
-                <button
-                  key={idx}
-                  onClick={() => handleSelectQuizAnswer(opt)}
-                  disabled={quizAnswered}
-                  className={`rounded-2xl border p-4 text-left font-black text-base transition duration-200 flex items-center justify-between active:scale-95 ${btnStyle}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-slate-800 text-xs font-mono-code font-bold text-slate-300">
-                      {String.fromCharCode(65 + idx)}
-                    </span>
-                    <span>{opt}</span>
-                  </div>
-
-                  {quizAnswered && isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-400" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Next Question Button */}
-          {quizAnswered && (
-            <div className="pt-4 border-t border-slate-800 flex justify-between items-center animate-fadeIn">
-              <div className="text-xs font-bold text-slate-300">
-                {(() => {
-                  const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
-                  return selectedQuizOption === correctAnswer ? (
-                    <span className="text-emerald-400 font-bold flex items-center gap-1">
-                      <CheckCircle2 className="h-4 w-4" /> Xuất sắc lắm bé ơi! 🎉 (+5 Stars ⭐)
-                    </span>
-                  ) : (
-                    <span className="text-amber-300 font-bold flex items-center gap-1">
-                      <Sparkles className="h-4 w-4 text-amber-400" /> Bé hãy bấm nghe lại gợi ý nhé! Đáp án đúng là '{correctAnswer}' 💪
-                    </span>
-                  );
-                })()}
+                <div className="h-2.5 w-full rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-1000 ${
+                      quizTimeLeft > 8 ? 'bg-emerald-500' : quizTimeLeft > 4 ? 'bg-amber-500' : 'bg-rose-500 animate-pulse'
+                    }`}
+                    style={{ width: `${(quizTimeLeft / 15) * 100}%` }}
+                  ></div>
+                </div>
               </div>
 
-              <button
-                onClick={handleNextQuiz}
-                className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600 px-6 py-3 text-xs font-black text-white hover:from-pink-500 hover:to-purple-500 shadow-xl transition active:scale-95"
-              >
-                <span>Bài Tập Tiếp Theo (#{(quizIndex % 100) + 2})</span>
-                <Sparkles className="h-4 w-4" />
-              </button>
-            </div>
+              {/* Quiz Question Card */}
+              {currentQuizCard ? (
+                <div className="rounded-3xl border border-pink-500/40 bg-slate-950 p-6 text-center space-y-4 shadow-inner relative overflow-hidden">
+                  <div className="flex justify-center">
+                    <span className="rounded-full px-3 py-1 text-xs font-black bg-slate-900 border border-slate-700 text-cyan-300">
+                      {currentQuizCard.level} • {currentQuizCard.hint}
+                    </span>
+                  </div>
+
+                  {quizMode === 'image_to_word' && (
+                    <>
+                      <div className="text-8xl md:text-9xl animate-bounce drop-shadow-2xl">
+                        {currentQuizCard.image}
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold uppercase tracking-wider text-pink-300">Hình ảnh ngộ nghĩnh này có tên Tiếng Anh là gì?</div>
+                        <div className="text-sm font-bold text-slate-400 mt-1 font-heading">Nghĩa tiếng Việt: "{currentQuizCard.meaning}"</div>
+                      </div>
+                    </>
+                  )}
+
+                  {quizMode === 'word_to_meaning' && (
+                    <>
+                      <div className="text-4xl md:text-5xl font-black font-heading text-cyan-300 tracking-tight">
+                        {currentQuizCard.word}
+                      </div>
+                      <p className="text-sm font-mono-code text-cyan-400">{currentQuizCard.ipa}</p>
+                      <div className="text-xs font-bold uppercase tracking-wider text-pink-300 pt-2">
+                        Từ Tiếng Anh trên có nghĩa tiếng Việt là gì?
+                      </div>
+                    </>
+                  )}
+
+                  {quizMode === 'audio_to_word' && (
+                    <>
+                      <button
+                        onClick={() => playWordAudio(currentQuizCard.word)}
+                        className="p-6 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-2xl hover:scale-110 active:scale-95 transition mx-auto flex items-center justify-center animate-pulse"
+                      >
+                        <Volume2 className="h-12 w-12" />
+                      </button>
+                      <div>
+                        <div className="text-xs font-bold uppercase tracking-wider text-amber-300">Hãy lắng nghe âm thanh và chọn từ Tiếng Anh tương ứng!</div>
+                        <div className="text-xs text-slate-400 mt-1">Gợi ý nghĩa: "{currentQuizCard.meaning}"</div>
+                      </div>
+                    </>
+                  )}
+
+                  {quizMode === 'fill_sentence' && (
+                    <>
+                      <div className="text-lg md:text-xl font-black text-amber-300 font-heading bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+                        "{(currentQuizCard?.sentence || currentQuizCard?.example || `This is a ${currentQuizCard?.word || ''}`).replace(new RegExp(currentQuizCard?.word || 'word', 'gi'), '_____')}"
+                      </div>
+                      <p className="text-xs text-slate-400 italic">Dịch nghĩa câu: "{currentQuizCard?.sentenceVi || currentQuizCard?.meaningVi || currentQuizCard?.meaning || ''}"</p>
+                      <div className="text-xs font-bold uppercase tracking-wider text-pink-300">
+                        Chọn từ Tiếng Anh chính xác để điền vào khoảng trống trên!
+                      </div>
+                    </>
+                  )}
+
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      onClick={() => playWordAudio(currentQuizCard.word)}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-pink-600/30 border border-pink-500/40 px-3.5 py-1.5 text-xs font-bold text-pink-200 hover:bg-pink-600/50 transition active:scale-95 shadow-md cursor-pointer"
+                    >
+                      <Volume2 className="h-4 w-4 text-pink-400 animate-pulse" /> Nghe Gợi Ý Phát Âm 🔊
+                    </button>
+                    <button
+                      onClick={handlePauseResumeQuiz}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-amber-600/30 border border-amber-500/40 px-3.5 py-1.5 text-xs font-bold text-amber-200 hover:bg-amber-600/50 transition active:scale-95 shadow-md cursor-pointer"
+                    >
+                      {isQuizPaused ? <Play className="h-4 w-4 text-amber-300 fill-amber-300" /> : <Pause className="h-4 w-4 text-amber-300" />}
+                      <span>{isQuizPaused ? 'Tiếp Tục Chơi ▶️' : 'Tạm Dừng ⏸️'}</span>
+                    </button>
+                  </div>
+
+                  {/* Quick CRUD Action Controls for Parent / Admin on Current Exercise */}
+                  {currentActor === 'bao_nguyen' && (
+                    <div className="flex flex-wrap items-center justify-center gap-2 pt-3 border-t border-slate-900/80">
+                      <button
+                        onClick={() => handleOpenSuperAdd(currentQuizCard.category || 'L1-U01', currentQuizCard.level || 'L1')}
+                        className="px-3 py-1.5 rounded-xl bg-emerald-950/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-600 hover:text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95 cursor-pointer"
+                        title="Tạo thêm bài tập mới"
+                      >
+                        <Plus className="h-3.5 w-3.5 text-emerald-400" /> Thêm Bài Tập Mới
+                      </button>
+                      <button
+                        onClick={() => handleOpenSuperEdit(currentQuizCard)}
+                        className="px-3 py-1.5 rounded-xl bg-amber-950/90 border border-amber-500/40 text-amber-300 hover:bg-amber-600 hover:text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95 cursor-pointer"
+                        title="Sửa nội dung bài tập hiện tại"
+                      >
+                        <Edit className="h-3.5 w-3.5 text-amber-400" /> Sửa Bài Tập Này
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSuperCard(currentQuizCard.id, currentQuizCard.word)}
+                        className="px-3 py-1.5 rounded-xl bg-rose-950/90 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md active:scale-95 cursor-pointer"
+                        title="Xóa bài tập này khỏi hệ thống"
+                      >
+                        <Trash2 className="h-3.5 w-3.5 text-rose-400" /> Xóa Bài Tập Này
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center p-8 rounded-3xl border border-slate-800 bg-slate-950 text-slate-400 space-y-2">
+                  <div className="text-4xl">📚</div>
+                  <div className="font-bold text-slate-200">Chưa có từ vựng nào trong kho dữ liệu</div>
+                  <p className="text-xs">Hiện tại danh sách từ vựng trống.</p>
+                </div>
+              )}
+
+              {/* Answer Options Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {quizOptions.map((opt, idx) => {
+                  const isSelected = selectedQuizOption === opt;
+                  const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
+                  const isCorrect = currentQuizCard && opt === correctAnswer;
+
+                  let btnStyle = 'border-slate-800 bg-slate-950 text-slate-200 hover:bg-slate-800 hover:border-pink-500/40';
+                  if (quizAnswered) {
+                    if (isCorrect) {
+                      btnStyle = 'border-emerald-500 bg-emerald-950/90 text-emerald-200 ring-2 ring-emerald-500 shadow-emerald-500/20';
+                    } else if (isSelected && !isCorrect) {
+                      btnStyle = 'border-rose-500 bg-rose-950/90 text-rose-200';
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleSelectQuizAnswer(opt)}
+                      disabled={quizAnswered || isQuizPaused}
+                      className={`rounded-2xl border p-4 text-left font-black text-base transition duration-200 flex items-center justify-between active:scale-95 ${btnStyle} ${isQuizPaused ? 'opacity-60 cursor-not-allowed' : ''}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-slate-800 text-xs font-mono-code font-bold text-slate-300">
+                          {String.fromCharCode(65 + idx)}
+                        </span>
+                        <span>{opt}</span>
+                      </div>
+
+                      {quizAnswered && isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-400" />}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Next Question Button */}
+              {quizAnswered && (
+                <div className="pt-4 border-t border-slate-800 flex justify-between items-center animate-fadeIn">
+                  <div className="text-xs font-bold text-slate-300">
+                    {(() => {
+                      const correctAnswer = quizMode === 'word_to_meaning' ? currentQuizCard?.meaning : currentQuizCard?.word;
+                      return selectedQuizOption === correctAnswer ? (
+                        <span className="text-emerald-400 font-bold flex items-center gap-1">
+                          <CheckCircle2 className="h-4 w-4" /> Xuất sắc lắm bé ơi! 🎉 (+5 Stars ⭐)
+                        </span>
+                      ) : (
+                        <span className="text-amber-300 font-bold flex items-center gap-1">
+                          <Sparkles className="h-4 w-4 text-amber-400" /> Bé hãy bấm nghe lại gợi ý nhé! Đáp án đúng là '{correctAnswer}' 💪
+                        </span>
+                      );
+                    })()}
+                  </div>
+
+                  <button
+                    onClick={handleNextQuiz}
+                    className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600 px-6 py-3 text-xs font-black text-white hover:from-pink-500 hover:to-purple-500 shadow-xl transition active:scale-95 cursor-pointer"
+                  >
+                    <span>Bài Tập Tiếp Theo (#{(quizIndex % 100) + 2})</span>
+                    <Sparkles className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
