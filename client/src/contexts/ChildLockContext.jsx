@@ -127,7 +127,11 @@ export function ChildLockProvider({ children, onToast }) {
 
   const enterFullscreen = useCallback(async () => {
     try {
-      if (typeof document !== 'undefined' && !document.fullscreenElement) {
+      if (
+        typeof document !== 'undefined' &&
+        typeof document.documentElement?.requestFullscreen === 'function' &&
+        !document.fullscreenElement
+      ) {
         await document.documentElement.requestFullscreen();
       }
       if (typeof navigator !== 'undefined' && navigator.keyboard?.lock) {
@@ -193,13 +197,23 @@ export function ChildLockProvider({ children, onToast }) {
       }
     } catch (e) {}
 
-    // Automatically enter Fullscreen Kiosk
-    enterFullscreen();
+    // Only attempt Fullscreen on non-mobile devices where requestFullscreen is supported
+    const isMobile = typeof window !== 'undefined' && (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      window.innerWidth < 768 ||
+      (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 2) ||
+      (typeof document !== 'undefined' && !document.documentElement?.requestFullscreen)
+    );
+
+    if (!isMobile) {
+      enterFullscreen();
+    }
 
     playLockAudioFeedback('lock');
     if (onToast) {
       const targetLabel = targetInfo?.title ? ` - "${targetInfo.title}"` : '';
-      onToast(`🔒 Đã bật Khóa Trẻ Em & Chế độ Kiosk Toàn Màn Hình${targetLabel}!`, 'success');
+      const modeLabel = isMobile ? 'Khóa Trẻ Em' : 'Khóa Trẻ Em & Chế độ Kiosk Toàn Màn Hình';
+      onToast(`🔒 Đã bật ${modeLabel}${targetLabel}! Bé chỉ có thể học nội dung này và không thể thoát ra.`, 'success');
     }
   }, [enterFullscreen, onToast]);
 

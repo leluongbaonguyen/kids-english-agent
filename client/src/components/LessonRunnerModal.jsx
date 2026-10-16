@@ -280,7 +280,7 @@ export default function LessonRunnerModal({
       className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer"
       onClick={() => {
         if (isChildLocked) {
-          requestUnlock(onClose, 'Bé chạm ra ngoài màn hình bài học');
+          // When child locked, prevent closing on backdrop clicks (no annoying popup loops on mobile)
           return;
         }
         onClose();

@@ -18,8 +18,18 @@ export default function KioskExitOverlay() {
     isUnlockModalOpen
   } = useChildLock();
 
-  // Only show if locked and NOT currently fullscreen, and unlock modal is not blocking
-  if (!isChildLocked || isFullscreen) return null;
+  const [dismissWindowed, setDismissWindowed] = React.useState(false);
+
+  // Helper to detect mobile/tablet devices or environments without Fullscreen API
+  const isMobile = typeof window !== 'undefined' && (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth < 768 ||
+    (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 2) ||
+    (typeof document !== 'undefined' && !document.documentElement?.requestFullscreen)
+  );
+
+  // On mobile devices or when fullscreen is dismissed, NEVER block the screen
+  if (!isChildLocked || isFullscreen || isMobile || dismissWindowed) return null;
 
   const handleReturnToFullscreen = (e) => {
     e?.stopPropagation();
@@ -98,6 +108,14 @@ export default function KioskExitOverlay() {
           >
             <Lock className="h-4 w-4 text-amber-400" />
             <span>Ba / Mẹ Nhập Mật Khẩu Để Mở Khóa Hoặc Thoát</span>
+          </button>
+
+          {/* Option to continue in windowed mode */}
+          <button
+            onClick={() => setDismissWindowed(true)}
+            className="text-xs text-slate-400 hover:text-amber-300 underline underline-offset-4 transition py-1 cursor-pointer block mx-auto"
+          >
+            Tiếp tục học ở chế độ cửa sổ
           </button>
         </div>
 

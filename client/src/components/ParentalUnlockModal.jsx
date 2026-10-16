@@ -220,9 +220,9 @@ exit
     >
       <div
         key={shakeKey}
-        className={`relative w-full max-w-sm sm:max-w-md rounded-3xl border-2 ${
+        className={`relative w-full max-w-sm sm:max-w-md max-h-[92vh] max-h-[92dvh] overflow-y-auto rounded-3xl border-2 ${
           errorMessage || mathError || changePinError ? 'border-rose-500 shadow-[0_0_40px_rgba(244,63,94,0.6)] animate-shake' : 'border-amber-400/80 shadow-[0_0_50px_rgba(245,158,11,0.45)]'
-        } bg-gradient-to-b from-slate-900 via-slate-950 to-indigo-950 text-white p-5 sm:p-6 overflow-hidden animate-scaleIn`}
+        } bg-gradient-to-b from-slate-900 via-slate-950 to-indigo-950 text-white p-4 sm:p-6 animate-scaleIn custom-scrollbar`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Close */}
