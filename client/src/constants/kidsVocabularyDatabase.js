@@ -13252,7 +13252,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The koala sleeps up to twenty hours a day in eucalyptus trees.",
     "exampleVi": "Gấu koala ngủ tới 20 giờ mỗi ngày trên cây bạch đàn.",
-    "image": "🐃",
+    "image": "🐨",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13266,7 +13266,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The camel stores fat in its hump to survive across dry deserts.",
     "exampleVi": "Lạc đà tích trữ mỡ trong bướu để sinh tồn qua sa mạc khô cằn.",
-    "image": "🦌",
+    "image": "🐪",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13280,7 +13280,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Huge herds of bison once roamed freely across North American plains.",
     "exampleVi": "Những đàn bò rừng bizon khổng lồ từng lang thang tự do khắp đồng bằng Bắc Mỹ.",
-    "image": "🐗",
+    "image": "🦬",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13294,7 +13294,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The gazelle leaps gracefully to escape swift predators.",
     "exampleVi": "Linh dương nhảy thoăn thoắt để thoát khỏi những kẻ săn mồi nhanh nhẹn.",
-    "image": "🦡",
+    "image": "🦌",
     "level": "BIO",
     "category": "BIO-U01",
     "unit": 1
@@ -13336,7 +13336,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The chimpanzee uses twigs as clever tools to catch insects.",
     "exampleVi": "Tinh tinh biết dùng cành cây làm công cụ khéo léo để bắt côn trùng.",
-    "image": "🐆",
+    "image": "🦧",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13350,7 +13350,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The giant panda munches on fresh green bamboo stalks all day.",
     "exampleVi": "Gấu trúc khổng lồ gặm những thân tre xanh tươi suốt cả ngày.",
-    "image": "🐊",
+    "image": "🐼",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13364,7 +13364,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The polar bear walks effortlessly on drifting Arctic ice sheets.",
     "exampleVi": "Gấu trắng bắc cực di chuyển dễ dàng trên những tảng băng trôi vùng cực.",
-    "image": "🐍",
+    "image": "🐻‍❄️",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13378,7 +13378,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The grizzly bear catches fresh salmon leaping out of cold rivers.",
     "exampleVi": "Gấu xám bắt những con cá hồi tươi nhảy vọt lên từ dòng sông lạnh giá.",
-    "image": "🐼",
+    "image": "🐻",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13392,7 +13392,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The gray wolf howls under the bright full moon.",
     "exampleVi": "Chú sói xám cất tiếng hú dưới ánh trăng tròn vành vạnh.",
-    "image": "🦧",
+    "image": "🐺",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2
@@ -13406,7 +13406,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The clever red fox has a bushy tail with a white tip.",
     "exampleVi": "Chú cáo đỏ lanh lợi có chiếc đuôi xù với chỏm lông trắng muốt.",
-    "image": "🐺",
+    "image": "🦊",
     "level": "BIO",
     "category": "BIO-U02",
     "unit": 2

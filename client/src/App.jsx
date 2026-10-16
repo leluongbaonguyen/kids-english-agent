@@ -14,6 +14,11 @@ import { errorReporter } from './services/errorReporter.js';
 import SmartErrorAlertBanner from './components/SmartErrorAlertBanner.jsx';
 import { scrollToTop } from './utils/scrollHelper.js';
 
+import { ChildLockProvider, useChildLock } from './contexts/ChildLockContext.jsx';
+import ParentalUnlockModal from './components/ParentalUnlockModal.jsx';
+import ChildLockFloatingBadge from './components/ChildLockFloatingBadge.jsx';
+import KioskExitOverlay from './components/KioskExitOverlay.jsx';
+
 const getTabFromHash = () => {
   try {
     const hash = window.location.hash.replace(/^#\/?/, '').trim();
@@ -26,16 +31,9 @@ const getTabFromHash = () => {
   return 'intro';
 };
 
-export default function App() {
-  const [activeSystemError, setActiveSystemError] = useState(null);
+function MainAppContent({ toasts, addToast, activeSystemError, setActiveSystemError }) {
+  const { isChildLocked, requestUnlock } = useChildLock();
 
-  useEffect(() => {
-    errorReporter.init();
-    const unsubscribe = errorReporter.subscribe((errorData) => {
-      setActiveSystemError(errorData);
-    });
-    return () => unsubscribe();
-  }, []);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     try {
       return localStorage.getItem('kids_authenticated') === 'true' && Boolean(localStorage.getItem('v5_auth_token'));
@@ -68,7 +66,6 @@ export default function App() {
   const [homeworkTrigger, setHomeworkTrigger] = useState(0);
   const [adminCrudOpen, setAdminCrudOpen] = useState(false);
   const [studentPreviewMode, setStudentPreviewMode] = useState(false);
-  const [toasts, setToasts] = useState([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [bgConfig, setBgConfig] = useState(() => {
@@ -81,14 +78,6 @@ export default function App() {
     return { theme: 'galaxy3d', customUrl: '', customType: 'image', opacity: 0.85, blur: 0, speed: 1.0 };
   });
 
-  const addToast = (message, type = 'info') => {
-    const id = Date.now() + Math.random().toString();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 5000);
-  };
-
   // Verify server session on load
   useEffect(() => {
     const token = localStorage.getItem('v5_auth_token');
@@ -96,8 +85,8 @@ export default function App() {
       fetch('/api/v1/me', {
         headers: { Authorization: `Bearer ${token}` }
       })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.success && data.data?.user) {
             const user = data.data.user;
             setCurrentUser(user);
@@ -110,9 +99,7 @@ export default function App() {
             handleLogout();
           }
         })
-        .catch(() => {
-          // If server error, do not fail completely if local token exists, but fail closed on invalid session
-        });
+        .catch(() => {});
     }
   }, []);
 
@@ -143,11 +130,39 @@ export default function App() {
     addToast('🔒 Đã đăng xuất an toàn khỏi hệ thống!', 'info');
   };
 
+  const handleSafeLogout = () => {
+    if (isChildLocked) {
+      requestUnlock(() => handleLogout(), 'Xác thực phụ huynh để đăng xuất');
+      return;
+    }
+    handleLogout();
+  };
+
   const handleSwitchActor = (actorId) => {
     setCurrentActor(actorId);
     try {
       localStorage.setItem('kids_active_actor', actorId);
     } catch (e) {}
+  };
+
+  const handleSafeSwitchActor = (actorId) => {
+    if (isChildLocked) {
+      requestUnlock(() => handleSwitchActor(actorId), 'Xác thực phụ huynh để đổi tài khoản');
+      return;
+    }
+    handleSwitchActor(actorId);
+  };
+
+  const handleSafeSetActiveTab = (newTab) => {
+    if (isChildLocked && newTab !== activeTab) {
+      requestUnlock(() => {
+        setActiveTab(newTab);
+        scrollToTop(true);
+      }, 'Bé muốn chuyển sang mục học khác');
+      return;
+    }
+    setActiveTab(newTab);
+    scrollToTop(true);
   };
 
   const handleToggleFullscreen = () => {
@@ -175,7 +190,7 @@ export default function App() {
     }
   }, [activeTab, currentActor, currentUser]);
 
-  // Synchronize activeTab with URL hash for easy sharing & clear location display
+  // Synchronize activeTab with URL hash
   useEffect(() => {
     const currentSlug = ROUTE_MAP[activeTab]?.slug || activeTab;
     const targetHash = `#/${currentSlug}`;
@@ -189,39 +204,52 @@ export default function App() {
     scrollToTop(true);
   }, [activeTab]);
 
+  // Handle URL hash changes with child lock protection
   useEffect(() => {
     const handleHashChange = () => {
       const newTab = getTabFromHash();
       if (newTab !== activeTab) {
+        if (isChildLocked) {
+          const currentSlug = ROUTE_MAP[activeTab]?.slug || activeTab;
+          window.history.replaceState(null, '', `#/${currentSlug}`);
+          requestUnlock(() => {
+            setActiveTab(newTab);
+            scrollToTop(true);
+          }, 'Bé chuyển trang qua địa chỉ URL');
+          return;
+        }
         setActiveTab(newTab);
+        scrollToTop(true);
       }
-      scrollToTop(true);
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [activeTab]);
+  }, [activeTab, isChildLocked, requestUnlock]);
 
-  // 1. FIRST RENDER: LANDING INTRO HERO PAGE (PUBLIC SHOWCASE FOR ALL VISITORS)
+  // 1. FIRST RENDER: LANDING INTRO HERO PAGE
   if (activeTab === 'intro') {
     return (
       <div className="relative w-full min-h-screen bg-[#070a12]">
         <ToastContainer toasts={toasts} />
+        <ParentalUnlockModal />
+        <ChildLockFloatingBadge />
+        <KioskExitOverlay />
         <LandingIntroHero
           onEnterApp={() => {
             if (isAuthenticated) {
-              setActiveTab('flashcards');
+              handleSafeSetActiveTab('flashcards');
             } else {
-              setActiveTab('auth');
+              handleSafeSetActiveTab('auth');
             }
           }}
           onNavigateTab={(tab) => {
             if (!isAuthenticated && tab !== 'intro') {
-              setActiveTab('auth');
+              handleSafeSetActiveTab('auth');
             } else {
-              setActiveTab(tab);
+              handleSafeSetActiveTab(tab);
             }
           }}
-          onOpenAuth={() => setActiveTab('auth')}
+          onOpenAuth={() => handleSafeSetActiveTab('auth')}
           onQuickLogin={(roleId = 'minh_anh') => {
             const defaultProfiles = {
               minh_anh: { id: 'minh_anh', name: 'Bé Nguyễn Ngọc Minh Anh', role: 'student' },
@@ -245,14 +273,17 @@ export default function App() {
     );
   }
 
-  // 2. MANDATORY AUTHENTICATION GATE WHEN ENTERING APP
+  // 2. MANDATORY AUTHENTICATION GATE
   if (!isAuthenticated || activeTab === 'auth') {
     return (
       <div className="relative w-full min-h-screen bg-[#070a12]">
         <ToastContainer toasts={toasts} />
+        <ParentalUnlockModal />
+        <ChildLockFloatingBadge />
+        <KioskExitOverlay />
         <AuthGateScreen
           onLoginSuccess={handleLoginSuccess}
-          onGoToIntro={() => setActiveTab('intro')}
+          onGoToIntro={() => handleSafeSetActiveTab('intro')}
           addToast={addToast}
         />
       </div>
@@ -261,17 +292,20 @@ export default function App() {
 
   const isAdmin = currentActor === 'bao_nguyen' || (currentUser && currentUser.role === 'admin');
 
-  // 3. THIRD CHECK: DEDICATED ADMIN SYSTEM WORKSPACE (100% SEPARATE FROM STUDENT VIEW)
+  // 3. ADMIN SYSTEM WORKSPACE
   if (isAdmin && !studentPreviewMode) {
     return (
       <div className="relative w-full min-h-screen bg-[#070a12] text-slate-100 font-sans overflow-x-hidden">
         <Dynamic3DBackground activeTab="admin" customBgConfig={bgConfig} />
         <ToastContainer toasts={toasts} />
+        <ParentalUnlockModal />
+        <ChildLockFloatingBadge />
+        <KioskExitOverlay />
         <AdminDashboardView
           currentActor={currentActor}
           currentUser={currentUser}
-          onSwitchActor={handleSwitchActor}
-          onLogout={handleLogout}
+          onSwitchActor={handleSafeSwitchActor}
+          onLogout={handleSafeLogout}
           addToast={addToast}
           onOpenStudentPreview={() => setStudentPreviewMode(true)}
         />
@@ -281,6 +315,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen min-h-[100dvh] w-full bg-[#070a12] text-slate-100 relative font-sans overflow-x-hidden flex flex-col items-center justify-start pb-36 sm:pb-28 xl:pb-8">
+      {/* Parental Unlock Modal & Floating Status Badge */}
+      <ParentalUnlockModal />
+      <ChildLockFloatingBadge />
+      <KioskExitOverlay />
+
       {/* Admin Student Preview Mode Alert Banner */}
       {isAdmin && studentPreviewMode && (
         <div className="sticky top-0 z-[99999] w-full bg-amber-500 text-slate-950 text-xs font-black py-1.5 px-4 flex items-center justify-between shadow-lg">
@@ -297,7 +336,6 @@ export default function App() {
       {/* 3D Canvas Background */}
       <Dynamic3DBackground activeTab={activeTab} customBgConfig={bgConfig} />
 
-      
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} />
 
@@ -318,12 +356,12 @@ export default function App() {
         <div className="sticky top-0 z-30 w-full pt-2 pb-1 backdrop-blur-2xl bg-[#070a12]/80 shadow-lg transition-all duration-300">
           <Header
             currentActor={currentActor}
-            onSwitchActor={handleSwitchActor}
-            onLogout={handleLogout}
+            onSwitchActor={handleSafeSwitchActor}
+            onLogout={handleSafeLogout}
             isFullscreen={isFullscreen}
             onToggleFullscreen={handleToggleFullscreen}
             activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            setActiveTab={handleSafeSetActiveTab}
             onOpenLongman={() => setLongmanTrigger((prev) => prev + 1)}
             onOpenUserProfile={() => setUserProfileTrigger((prev) => prev + 1)}
             onOpenCMS={() => setCmsTrigger((prev) => prev + 1)}
@@ -337,13 +375,13 @@ export default function App() {
             plan={null}
             addToast={addToast}
             activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            setActiveTab={handleSafeSetActiveTab}
             longmanTrigger={longmanTrigger}
             userProfileTrigger={userProfileTrigger}
             cmsTrigger={cmsTrigger}
             homeworkTrigger={homeworkTrigger}
             currentActorProps={currentActor}
-            onSwitchActorProps={handleSwitchActor}
+            onSwitchActorProps={handleSafeSwitchActor}
           />
         </main>
       </div>
@@ -351,7 +389,7 @@ export default function App() {
       {/* iOS Native Mobile Bottom Navigation Bar */}
       <MobileBottomBar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleSafeSetActiveTab}
       />
 
       {/* Background Music Player */}
@@ -369,5 +407,37 @@ export default function App() {
         addToast={addToast}
       />
     </div>
+  );
+}
+
+export default function App() {
+  const [activeSystemError, setActiveSystemError] = useState(null);
+  const [toasts, setToasts] = useState([]);
+
+  const addToast = (message, type = 'info') => {
+    const id = Date.now() + Math.random().toString();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 5000);
+  };
+
+  useEffect(() => {
+    errorReporter.init();
+    const unsubscribe = errorReporter.subscribe((errorData) => {
+      setActiveSystemError(errorData);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <ChildLockProvider onToast={addToast}>
+      <MainAppContent
+        toasts={toasts}
+        addToast={addToast}
+        activeSystemError={activeSystemError}
+        setActiveSystemError={setActiveSystemError}
+      />
+    </ChildLockProvider>
   );
 }

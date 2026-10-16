@@ -1,8 +1,11 @@
 import React from 'react';
-import { BookOpen, Layers, Gamepad2, Compass, Sparkles, Target, Palette } from 'lucide-react';
+import { BookOpen, Layers, Gamepad2, Compass, Sparkles, Target, Palette, Lock } from 'lucide-react';
 import { scrollToTop } from '../utils/scrollHelper.js';
+import { useChildLock } from '../contexts/ChildLockContext.jsx';
 
 export function MobileBottomBar({ activeTab, setActiveTab }) {
+  const { isChildLocked, requestUnlock } = useChildLock();
+
   const tabs = [
     {
       id: 'intro',
@@ -68,6 +71,17 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
             <button
               key={tab.id}
               onClick={() => {
+                if (isChildLocked && !isActive) {
+                  requestUnlock(() => {
+                    if (tab.isAction && tab.onClick) {
+                      tab.onClick();
+                    } else if (setActiveTab) {
+                      setActiveTab(tab.id);
+                    }
+                    scrollToTop(true);
+                  }, `Bé muốn chuyển sang mục "${tab.label}"`);
+                  return;
+                }
                 if (tab.isAction && tab.onClick) {
                   tab.onClick();
                 } else if (setActiveTab) {
@@ -104,23 +118,25 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
                       : 'bg-slate-800 text-slate-400 border border-slate-700'
                   }`}
                 />
+
+                {/* Lock Indicator icon overlay if locked and not active */}
+                {isChildLocked && !isActive && (
+                  <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 bg-amber-500 text-slate-950 rounded-full flex items-center justify-center shadow-md">
+                    <Lock className="h-2 w-2" />
+                  </span>
+                )}
               </div>
 
               {/* Label below with active glow indicator */}
               <span
-                className={`text-[10px] font-black tracking-tight mt-1 transition-all duration-200 ${
+                className={`text-[9px] sm:text-[10px] font-black mt-0.5 transition-colors duration-200 truncate max-w-[65px] ${
                   isActive
-                    ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] font-heading scale-105'
+                    ? 'text-white font-heading font-black'
                     : 'text-slate-400 group-hover:text-slate-200'
                 }`}
               >
                 {tab.label}
               </span>
-
-              {/* Active Underline Dot */}
-              {isActive && (
-                <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${tab.gradient} mt-0.5 shadow-[0_0_8px_rgba(255,255,255,1)] animate-pulse`} />
-              )}
             </button>
           );
         })}
@@ -128,4 +144,3 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
     </div>
   );
 }
-

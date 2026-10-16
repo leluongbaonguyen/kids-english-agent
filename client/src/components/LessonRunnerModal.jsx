@@ -3,12 +3,13 @@ import { createPortal } from 'react-dom';
 import {
   X, Volume2, Mic, Star, Sparkles, CheckCircle2, RotateCw, Play, Pause,
   ChevronRight, HelpCircle, Trophy, Flame, Heart, ArrowRight, ShieldCheck,
-  Smile, Frown, Meh, Award, RefreshCw, Wand2
+  Smile, Frown, Meh, Award, RefreshCw, Wand2, Lock, Unlock
 } from 'lucide-react';
 
 import { OnlineVocabFetcher } from '../services/onlineVocabFetcher';
 import { speakWord } from '../services/nativeSpeechEngine.js';
 import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
+import { useChildLock } from '../contexts/ChildLockContext.jsx';
 
 export default function LessonRunnerModal({
   isOpen,
@@ -20,6 +21,8 @@ export default function LessonRunnerModal({
   onCompleteLesson,
   addToast
 }) {
+  const { isChildLocked, activateLock, requestUnlock } = useChildLock();
+
   if (!isOpen || !topicObj) return null;
 
   // Active step in the 11-step lesson flow
@@ -273,7 +276,16 @@ export default function LessonRunnerModal({
   ];
 
   return createPortal(
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/95 backdrop-blur-md p-2 sm:p-4 overflow-y-auto animate-fadeIn cursor-pointer"
+      onClick={() => {
+        if (isChildLocked) {
+          requestUnlock(onClose, 'Bé chạm ra ngoài màn hình bài học');
+          return;
+        }
+        onClose();
+      }}
+    >
       <div className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto my-auto rounded-3xl border-2 border-pink-500/50 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-3 sm:p-5 md:p-6 space-y-3.5 text-white shadow-2xl custom-scrollbar cursor-default" onClick={(e) => e.stopPropagation()}>
 
         {/* ========================================================================= */}
@@ -282,11 +294,17 @@ export default function LessonRunnerModal({
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
           <div className="flex items-center gap-3">
             <button
-              onClick={onClose}
+              onClick={() => {
+                if (isChildLocked) {
+                  requestUnlock(onClose, 'Bé muốn thoát bài học');
+                  return;
+                }
+                onClose();
+              }}
               className="p-2 rounded-2xl bg-rose-950 border border-rose-500/50 text-rose-300 hover:bg-rose-900 transition cursor-pointer"
-              title="Thoát bài học"
+              title={isChildLocked ? "Bài học đang bị khóa trẻ em - Nhập mật mã để thoát" : "Thoát bài học"}
             >
-              <X className="h-5 w-5" />
+              {isChildLocked ? <Lock className="h-5 w-5 text-amber-400 animate-pulse" /> : <X className="h-5 w-5" />}
             </button>
 
             <div>
@@ -295,6 +313,11 @@ export default function LessonRunnerModal({
                 <span className="rounded-full bg-amber-500/20 border border-amber-400 px-2 py-0.5 text-[10px] font-mono-code text-amber-300">
                   {stepsList[currentStepIndex]?.title}
                 </span>
+                {isChildLocked && (
+                  <span className="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm animate-pulse">
+                    <Lock className="h-2.5 w-2.5" /> ĐÃ KHÓA
+                  </span>
+                )}
               </div>
               <h2 className="text-lg sm:text-xl font-black font-heading tracking-tight text-white flex items-center gap-2">
                 <span>{stepsList[currentStepIndex]?.icon}</span>
@@ -303,8 +326,34 @@ export default function LessonRunnerModal({
             </div>
           </div>
 
-          {/* Right Header Stats: Lives, Stars, XP & Hint button */}
+          {/* Right Header Stats: Lives, Stars, XP & Lock & Fetch button */}
           <div className="flex items-center gap-2 flex-wrap">
+            {/* Quick Parental Lock Toggle */}
+            <button
+              type="button"
+              onClick={() => {
+                if (isChildLocked) {
+                  requestUnlock(null, 'Phụ huynh mở khóa bài học');
+                } else {
+                  activateLock({
+                    type: 'lesson',
+                    title: `${levelId} • ${topicObj.name || topicObj.title}`,
+                    level: levelId,
+                    id: topicObj.id
+                  });
+                }
+              }}
+              className={`px-2.5 py-1.5 rounded-2xl text-xs font-black transition flex items-center gap-1 cursor-pointer shadow-md ${
+                isChildLocked
+                  ? 'bg-amber-500 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
+                  : 'bg-slate-950 border border-amber-500/40 text-amber-300 hover:bg-amber-950 hover:text-white'
+              }`}
+              title={isChildLocked ? "Bài học đang bị khóa trẻ em - Bấm để Phụ huynh mở khóa" : "Khóa bài học này - Bé chỉ học bài này và không thể thoát ra"}
+            >
+              {isChildLocked ? <Lock className="h-3.5 w-3.5" /> : <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />}
+              <span>{isChildLocked ? 'ĐÃ KHÓA BÀI' : 'Khóa Bài Này'}</span>
+            </button>
+
             {/* Lives */}
             <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-2xl text-xs font-black text-rose-400">
               <Heart className="h-4 w-4 fill-rose-500 text-rose-500 animate-pulse" />

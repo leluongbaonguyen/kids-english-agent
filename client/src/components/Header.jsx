@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut, Sparkles, UserCheck, Volume2 } from 'lucide-react';
+import { LogOut, Sparkles, UserCheck, Volume2, Lock, Unlock, ShieldCheck } from 'lucide-react';
 import { ROUTE_MAP } from './PageLocationBar.jsx';
 import { NativeVoiceStudioModal } from './NativeVoiceStudioModal.jsx';
 import { getVoiceSettings, subscribeVoiceSettings } from '../services/nativeSpeechEngine.js';
 import { scrollToTop } from '../utils/scrollHelper.js';
+import { useChildLock } from '../contexts/ChildLockContext.jsx';
 
 export function Header({
   activeTab,
@@ -17,6 +18,7 @@ export function Header({
   const currentRoute = ROUTE_MAP[activeTab] || ROUTE_MAP['flashcards'];
   const [isVoiceStudioOpen, setIsVoiceStudioOpen] = useState(false);
   const [voiceSettings, setVoiceSettings] = useState(getVoiceSettings);
+  const { isChildLocked, activateLock, requestUnlock } = useChildLock();
 
   useEffect(() => {
     const unsub = subscribeVoiceSettings(setVoiceSettings);
@@ -31,6 +33,13 @@ export function Header({
           {/* Brand Logo & Active Location Indicator */}
           <div 
             onClick={() => {
+              if (isChildLocked) {
+                requestUnlock(() => {
+                  setActiveTab?.('intro');
+                  scrollToTop(true);
+                }, 'Bé bấm vào logo để chuyển trang');
+                return;
+              }
               setActiveTab?.('intro');
               scrollToTop(true);
             }} 
@@ -50,6 +59,11 @@ export function Header({
                 <span className="px-1 py-0.2 rounded-full bg-pink-500/20 text-pink-300 border border-pink-400/40 text-[8px] sm:text-[9px] font-black uppercase shrink-0">
                   V6.1
                 </span>
+                {isChildLocked && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-slate-950 border border-amber-300 text-[8px] sm:text-[9px] font-black uppercase tracking-wider shrink-0 flex items-center gap-0.5 animate-pulse shadow-sm">
+                    <Lock className="h-2.5 w-2.5" /> KHÓA
+                  </span>
+                )}
               </div>
               <div className="flex items-center gap-1 text-[9px] sm:text-xs text-slate-300 font-medium truncate">
                 <span className="flex items-center gap-1 text-pink-300 font-bold truncate">
@@ -62,6 +76,37 @@ export function Header({
           {/* Action Controls */}
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             
+            {/* Quick Button: Parental Kid-Lock */}
+            <button
+              onClick={() => {
+                if (isChildLocked) {
+                  requestUnlock(null, 'Phụ huynh bấm mở khóa trên thanh tiêu đề');
+                } else {
+                  activateLock({ title: currentRoute.title || 'Bài học hiện tại', tab: activeTab });
+                }
+              }}
+              className={`px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-black transition flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 ${
+                isChildLocked
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
+                  : 'bg-gradient-to-r from-amber-950/70 via-slate-900 to-slate-900 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400'
+              }`}
+              title={isChildLocked ? 'Đang bật khóa trẻ em - Bấm để Phụ huynh mở khóa' : 'Bật khóa trẻ em - Ngăn bé bấm lung tung hoặc thoát ra'}
+            >
+              {isChildLocked ? (
+                <>
+                  <Lock className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-950" />
+                  <span className="hidden sm:inline">ĐÃ KHÓA TRẺ EM</span>
+                  <span className="sm:hidden">Đã Khóa</span>
+                </>
+              ) : (
+                <>
+                  <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-400" />
+                  <span className="hidden sm:inline">Khóa Trẻ Em</span>
+                  <span className="sm:hidden">Khóa Bé</span>
+                </>
+              )}
+            </button>
+
             {/* Quick Button: Native Voice & Speed Studio */}
             <button
               onClick={() => setIsVoiceStudioOpen(true)}
@@ -76,6 +121,13 @@ export function Header({
             {/* Quick Nav to Memory Card Flip Game */}
             <button
               onClick={() => {
+                if (isChildLocked && activeTab !== 'memory_game') {
+                  requestUnlock(() => {
+                    setActiveTab?.('memory_game');
+                    scrollToTop(true);
+                  }, 'Bé muốn chuyển sang Game Lật Thẻ');
+                  return;
+                }
                 setActiveTab?.('memory_game');
                 scrollToTop(true);
               }}
@@ -94,6 +146,13 @@ export function Header({
             {/* Quick Nav to Intro Landing Page (Desktop only, mobile has bottom bar) */}
             <button
               onClick={() => {
+                if (isChildLocked && activeTab !== 'intro') {
+                  requestUnlock(() => {
+                    setActiveTab?.('intro');
+                    scrollToTop(true);
+                  }, 'Bé muốn chuyển sang Giới Thiệu');
+                  return;
+                }
                 setActiveTab?.('intro');
                 scrollToTop(true);
               }}
@@ -107,7 +166,13 @@ export function Header({
             {/* Admin Switcher */}
             {!isMinhAnh && (
               <button
-                onClick={() => onSwitchActor?.('minh_anh')}
+                onClick={() => {
+                  if (isChildLocked) {
+                    requestUnlock(() => onSwitchActor?.('minh_anh'), 'Xác thực để đổi chế độ người dùng');
+                    return;
+                  }
+                  onSwitchActor?.('minh_anh');
+                }}
                 className="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl text-[11px] font-extrabold bg-slate-900 border border-purple-500/40 text-purple-300 hover:text-white hover:bg-purple-950 transition items-center gap-1 cursor-pointer"
                 title="Chế độ Học sinh"
               >
@@ -118,7 +183,13 @@ export function Header({
 
             {/* Secure Logout Button */}
             <button
-              onClick={onLogout}
+              onClick={() => {
+                if (isChildLocked) {
+                  requestUnlock(onLogout, 'Xác thực phụ huynh để đăng xuất');
+                  return;
+                }
+                onLogout();
+              }}
               className="p-1 sm:px-2.5 sm:py-1.5 rounded-xl text-[11px] font-bold bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-rose-300 transition cursor-pointer flex items-center gap-1 active:scale-95"
               title="Đăng xuất"
             >
@@ -139,4 +210,3 @@ export function Header({
     </>
   );
 }
-

@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom';
 import {
   Volume2, Sparkles, Star, Search, Filter, Download, Play, Pause,
   ChevronLeft, ChevronRight, X, Eye, BookOpen, Layers, CheckCircle2,
-  Table, Grid, LayoutGrid, Clock, ArrowUpDown, RefreshCw, Zap, Award, HelpCircle
+  Table, Grid, LayoutGrid, Clock, ArrowUpDown, RefreshCw, Zap, Award, HelpCircle,
+  Lock, Unlock, ShieldCheck
 } from 'lucide-react';
 import {
   COURSE_LEVELS,
@@ -15,6 +16,7 @@ import VocabSmartIcon from './VocabSmartIcon.jsx';
 import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
 import { speakWord } from '../services/nativeSpeechEngine.js';
 import { scrollToTop } from '../utils/scrollHelper.js';
+import { useChildLock } from '../contexts/ChildLockContext.jsx';
 
 // Color themes for CEFR Levels L1 - L6
 const LEVEL_THEMES = {
@@ -107,6 +109,8 @@ export default function FullSystemVocabularyView({
   addToast,
   onOpenZoomModal
 }) {
+  const { isChildLocked, activateLock, requestUnlock, lockedTarget } = useChildLock();
+
   // Navigation & Filtering States
   const [selectedLevel, setSelectedLevel] = useState('all'); // 'all' | 'L1'..'L6'
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -114,6 +118,18 @@ export default function FullSystemVocabularyView({
   const [masteryFilter, setMasteryFilter] = useState('all'); // 'all' | 'mastered' | 'unmastered'
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('detailed_cards'); // 'detailed_cards' | 'data_table' | 'compact_grid'
+  
+  // If locked to a specific level and category, keep it locked
+  useEffect(() => {
+    if (isChildLocked && lockedTarget?.category) {
+      if (selectedCategory !== lockedTarget.category) {
+        setSelectedCategory(lockedTarget.category);
+      }
+      if (lockedTarget.level && selectedLevel !== lockedTarget.level) {
+        setSelectedLevel(lockedTarget.level);
+      }
+    }
+  }, [isChildLocked, lockedTarget]);
   
   // Pagination & Display limit
   const [pageSize, setPageSize] = useState(24); // 24 | 48 | 96 | 9999 (All)
@@ -428,6 +444,13 @@ export default function FullSystemVocabularyView({
               <button
                 key={lvl.id}
                 onClick={() => {
+                  if (isChildLocked && selectedLevel !== lvl.id) {
+                    requestUnlock(() => {
+                      setSelectedLevel(isSelected ? 'all' : lvl.id);
+                      setSelectedCategory('all');
+                    }, `Bé muốn đổi Cấp độ sang ${lvl.id}`);
+                    return;
+                  }
                   setSelectedLevel(isSelected ? 'all' : lvl.id);
                   setSelectedCategory('all');
                 }}
@@ -525,7 +548,15 @@ export default function FullSystemVocabularyView({
             <select
               value={selectedLevel}
               onChange={(e) => {
-                setSelectedLevel(e.target.value);
+                const newLvl = e.target.value;
+                if (isChildLocked && newLvl !== selectedLevel) {
+                  requestUnlock(() => {
+                    setSelectedLevel(newLvl);
+                    setSelectedCategory('all');
+                  }, `Bé muốn đổi sang Cấp độ ${newLvl}`);
+                  return;
+                }
+                setSelectedLevel(newLvl);
                 setSelectedCategory('all');
               }}
               className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-cyan-400 cursor-pointer"
@@ -545,7 +576,16 @@ export default function FullSystemVocabularyView({
             {/* Category / Unit Selector Dropdown */}
             <select
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => {
+                const newCat = e.target.value;
+                if (isChildLocked && newCat !== selectedCategory) {
+                  requestUnlock(() => {
+                    setSelectedCategory(newCat);
+                  }, 'Bé muốn đổi sang chủ đề khác');
+                  return;
+                }
+                setSelectedCategory(newCat);
+              }}
               className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-cyan-400 cursor-pointer max-w-[220px]"
             >
               <option value="all">🌈 Tất Cả {availableCategories.length} Chủ Đề</option>
@@ -555,6 +595,32 @@ export default function FullSystemVocabularyView({
                 </option>
               ))}
             </select>
+
+            {/* Quick Child Lock for this Topic */}
+            <button
+              onClick={() => {
+                if (isChildLocked) {
+                  requestUnlock(null, 'Phụ huynh mở khóa chủ đề này');
+                } else {
+                  const catName = categoryMap[selectedCategory]?.name || (selectedLevel !== 'all' ? `Cấp độ ${selectedLevel}` : 'Toàn bộ từ vựng');
+                  activateLock({
+                    type: 'vocabulary_topic',
+                    title: catName,
+                    level: selectedLevel,
+                    category: selectedCategory
+                  });
+                }
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shadow-md ${
+                isChildLocked
+                  ? 'bg-amber-500 text-slate-950 border border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.6)] animate-pulse'
+                  : 'bg-amber-950/70 border border-amber-500/40 text-amber-300 hover:bg-amber-500 hover:text-slate-950'
+              }`}
+              title={isChildLocked ? "Chủ đề đang bị khóa cho bé học - Bấm để Phụ huynh mở khóa" : "Khóa chủ đề này cho bé học - Bé chỉ học từ vựng trong này và không thể thoát ra"}
+            >
+              {isChildLocked ? <Lock className="h-3.5 w-3.5" /> : <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />}
+              <span>{isChildLocked ? 'ĐÃ KHÓA CHỦ ĐỀ' : 'Khóa Cho Bé Học'}</span>
+            </button>
 
             {/* Word Type Filter */}
             <select
@@ -953,7 +1019,13 @@ export default function FullSystemVocabularyView({
       {activeSpotlight && typeof document !== 'undefined' && createPortal(
         <div
           className="fixed inset-0 z-[999999999] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-xl animate-fadeIn cursor-pointer"
-          onClick={() => setActiveSpotlight(null)}
+          onClick={() => {
+            if (isChildLocked) {
+              requestUnlock(() => setActiveSpotlight(null), 'Bé chạm ra ngoài để đóng chi tiết');
+              return;
+            }
+            setActiveSpotlight(null);
+          }}
           style={{ isolation: 'isolate' }}
         >
           <div
@@ -971,14 +1043,25 @@ export default function FullSystemVocabularyView({
                 <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 truncate max-w-[150px] sm:max-w-[220px]">
                   {activeSpotlight.level} • {categoryMap[activeSpotlight.category]?.name || activeSpotlight.category}
                 </span>
+                {isChildLocked && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-slate-950 text-[9px] font-black uppercase flex items-center gap-0.5 animate-pulse">
+                    <Lock className="h-2.5 w-2.5" /> KHÓA
+                  </span>
+                )}
               </div>
 
               <button
-                onClick={() => setActiveSpotlight(null)}
+                onClick={() => {
+                  if (isChildLocked) {
+                    requestUnlock(() => setActiveSpotlight(null), 'Bé bấm nút đóng để thoát');
+                    return;
+                  }
+                  setActiveSpotlight(null);
+                }}
                 className="shrink-0 p-1.5 rounded-xl bg-slate-800 hover:bg-rose-950 hover:text-rose-300 text-slate-400 transition cursor-pointer"
-                title="Đóng cửa sổ (ESC)"
+                title={isChildLocked ? "Đang khóa trẻ em - Cần mật khẩu để đóng" : "Đóng cửa sổ (ESC)"}
               >
-                <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                {isChildLocked ? <Lock className="h-4 w-4 sm:h-5 sm:w-5 text-amber-400" /> : <X className="h-4 w-4 sm:h-5 sm:w-5" />}
               </button>
             </div>
 
