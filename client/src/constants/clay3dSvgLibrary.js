@@ -727,5 +727,559 @@ export const CLAY_3D_SVGS = {
     <circle cx="60" cy="100" r="5" fill="#4ADE80"/>
     <circle cx="20" cy="60" r="5" fill="#FB7185"/>
   </g>
+</svg>`,
+
+  // 12. CROSSING - 3D Isometric Pedestrian Road Crosswalk Scene with Lamp Posts & Traffic Sign
+  "crossing": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <linearGradient id="roadAsphalt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="60%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="curbConcrete" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="40%" stop-color="#CBD5E1"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <linearGradient id="stripeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="85%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="45%" stop-color="#FBBF24"/>
+      <stop offset="85%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </radialGradient>
+    <radialGradient id="bushGreen" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="45%" stop-color="#22C55E"/>
+      <stop offset="85%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#14532D"/>
+    </radialGradient>
+    <filter id="softCurbShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="3"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+  </defs>
+
+  <!-- Asphalt Roadway Perspective Base -->
+  <polygon points="32,70 108,70 134,124 6,124" fill="url(#roadAsphalt)"/>
+  
+  <!-- Left Sidewalk Curb & Raised Pavement -->
+  <polygon points="6,70 32,70 6,124 0,124" fill="url(#curbConcrete)"/>
+  <rect x="2" y="70" width="28" height="3" fill="#F8FAFC" opacity="0.6"/>
+  <!-- Right Sidewalk Curb & Raised Pavement -->
+  <polygon points="108,70 134,70 140,124 134,124" fill="url(#curbConcrete)"/>
+  <rect x="110" y="70" width="28" height="3" fill="#F8FAFC" opacity="0.6"/>
+
+  <!-- Chubby Green Bushes behind curbs -->
+  <circle cx="16" cy="68" r="9" fill="url(#bushGreen)"/>
+  <circle cx="26" cy="66" r="7" fill="url(#bushGreen)"/>
+  <circle cx="114" cy="66" r="7" fill="url(#bushGreen)"/>
+  <circle cx="124" cy="68" r="9" fill="url(#bushGreen)"/>
+  <ellipse cx="14" cy="64" rx="4" ry="2" fill="#BBF7D0" opacity="0.6"/>
+  <ellipse cx="122" cy="64" rx="4" ry="2" fill="#BBF7D0" opacity="0.6"/>
+
+  <!-- 3D Zebra Crossing Stripes in Perspective with Depth -->
+  <!-- Stripe 1 (Leftmost) -->
+  <polygon points="20,118 31,118 42,76 35,76" fill="url(#stripeGrad)"/>
+  <polygon points="20,118 31,118 31,121 20,121" fill="#94A3B8"/>
+  <!-- Stripe 2 -->
+  <polygon points="38,118 49,118 53,76 46,76" fill="url(#stripeGrad)"/>
+  <polygon points="38,118 49,118 49,121 38,121" fill="#94A3B8"/>
+  <!-- Stripe 3 (Center-Left) -->
+  <polygon points="56,118 67,118 64,76 57,76" fill="url(#stripeGrad)"/>
+  <polygon points="56,118 67,118 67,121 56,121" fill="#94A3B8"/>
+  <!-- Stripe 4 (Center-Right) -->
+  <polygon points="73,118 84,118 76,76 69,76" fill="url(#stripeGrad)"/>
+  <polygon points="73,118 84,118 84,121 73,121" fill="#94A3B8"/>
+  <!-- Stripe 5 -->
+  <polygon points="91,118 102,118 87,76 80,76" fill="url(#stripeGrad)"/>
+  <polygon points="91,118 102,118 102,121 91,121" fill="#94A3B8"/>
+  <!-- Stripe 6 (Rightmost) -->
+  <polygon points="109,118 120,118 98,76 91,76" fill="url(#stripeGrad)"/>
+  <polygon points="109,118 120,118 120,121 109,121" fill="#94A3B8"/>
+
+  <!-- Left Warning Bollard Lamp Post -->
+  <rect x="22" y="62" width="6" height="34" rx="2" fill="#1E293B"/>
+  <rect x="22" y="70" width="6" height="6" fill="#FACC15"/>
+  <rect x="22" y="82" width="6" height="6" fill="#FACC15"/>
+  <ellipse cx="25" cy="96" rx="6" ry="3" fill="#0F172A"/>
+  <!-- Golden Sphere Lamp Left -->
+  <circle cx="25" cy="58" r="8" fill="url(#lampGlow)"/>
+  <circle cx="23" cy="55" r="2.5" fill="#FFFFFF" opacity="0.85"/>
+  <ellipse cx="25" cy="58" rx="12" ry="12" fill="#FDE047" opacity="0.2"/>
+
+  <!-- Right Warning Bollard Lamp Post -->
+  <rect x="112" y="62" width="6" height="34" rx="2" fill="#1E293B"/>
+  <rect x="112" y="70" width="6" height="6" fill="#FACC15"/>
+  <rect x="112" y="82" width="6" height="6" fill="#FACC15"/>
+  <ellipse cx="115" cy="96" rx="6" ry="3" fill="#0F172A"/>
+  <!-- Golden Sphere Lamp Right -->
+  <circle cx="115" cy="58" r="8" fill="url(#lampGlow)"/>
+  <circle cx="113" cy="55" r="2.5" fill="#FFFFFF" opacity="0.85"/>
+  <ellipse cx="115" cy="58" rx="12" ry="12" fill="#FDE047" opacity="0.2"/>
+
+  <!-- Blue Pedestrian Crossing Sign Post -->
+  <rect x="52" y="44" width="4" height="32" rx="1" fill="#94A3B8"/>
+  <rect x="53" y="44" width="1.5" height="32" fill="#E2E8F0"/>
+  <!-- Sign Blue Rounded Square -->
+  <rect x="36" y="16" width="36" height="36" rx="7" fill="#2563EB" stroke="#FFFFFF" stroke-width="2.5" filter="url(#softCurbShadow)"/>
+  <!-- Inner White Triangle -->
+  <polygon points="54,20 70,47 38,47" fill="#FFFFFF"/>
+  <!-- Walking Person Silhouette on Crosswalk -->
+  <!-- Head -->
+  <circle cx="54" cy="27" r="2.5" fill="#1E3A8A"/>
+  <!-- Body and Walking Limbs -->
+  <path d="M 54,30 L 53,38 L 47,44 M 53,38 L 59,44 M 53,33 L 49,36 M 53,33 L 58,35" stroke="#1E3A8A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Mini Stripes in Sign Base -->
+  <line x1="43" y1="46" x2="65" y2="46" stroke="#1E3A8A" stroke-width="1.8" stroke-dasharray="3 2"/>
+</svg>`,
+
+  // 13. POLLUTION - 3D Industrial Factory Billowing Smoke, Polluted River, Trash & Floating Tire
+  "pollution": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <linearGradient id="factoryWall" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#94A3B8"/>
+      <stop offset="40%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="chimneyClay" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="45%" stop-color="#CBD5E1"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <linearGradient id="redBand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="45%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+    <radialGradient id="smokeDark" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#94A3B8"/>
+      <stop offset="45%" stop-color="#64748B"/>
+      <stop offset="85%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </radialGradient>
+    <radialGradient id="smokeLight" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="50%" stop-color="#CBD5E1"/>
+      <stop offset="85%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </radialGradient>
+    <linearGradient id="murkyRiver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="35%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#0F2847"/>
+    </linearGradient>
+    <radialGradient id="tireGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="45%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#090D16"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Giant Billowing Smoke Clouds in the Sky -->
+  <!-- Back Dark Smoke Puff Layer -->
+  <circle cx="56" cy="30" r="15" fill="url(#smokeDark)"/>
+  <circle cx="74" cy="22" r="18" fill="url(#smokeDark)"/>
+  <circle cx="94" cy="28" r="16" fill="url(#smokeDark)"/>
+  <circle cx="106" cy="42" r="14" fill="url(#smokeDark)"/>
+  <circle cx="44" cy="42" r="13" fill="url(#smokeDark)"/>
+  
+  <!-- Front Light Volumetric Smoke Clouds -->
+  <circle cx="62" cy="24" r="13" fill="url(#smokeLight)"/>
+  <circle cx="82" cy="18" r="15" fill="url(#smokeLight)"/>
+  <circle cx="98" cy="26" r="12" fill="url(#smokeLight)"/>
+  <circle cx="70" cy="36" r="14" fill="url(#smokeLight)"/>
+  <circle cx="88" cy="38" r="13" fill="url(#smokeLight)"/>
+  <!-- Specular highlight on smoke puffs -->
+  <ellipse cx="78" cy="14" rx="8" ry="4" fill="#FFFFFF" opacity="0.45"/>
+  <ellipse cx="60" cy="20" rx="6" ry="3" fill="#FFFFFF" opacity="0.45"/>
+
+  <!-- Factory Buildings Backdrop -->
+  <rect x="22" y="74" width="96" height="28" rx="4" fill="url(#factoryWall)"/>
+  <!-- Roof Gables & Skylights -->
+  <polygon points="26,74 36,66 46,74" fill="#475569"/>
+  <polygon points="46,74 56,66 66,74" fill="#475569"/>
+  <polygon points="84,74 96,64 108,74" fill="#475569"/>
+  <!-- Factory Small Windows -->
+  <rect x="30" y="80" width="8" height="6" rx="1.5" fill="#F8FAFC" opacity="0.85"/>
+  <rect x="44" y="80" width="8" height="6" rx="1.5" fill="#F8FAFC" opacity="0.85"/>
+  <rect x="92" y="80" width="8" height="6" rx="1.5" fill="#F8FAFC" opacity="0.85"/>
+
+  <!-- Left Main Tall Chimney -->
+  <path d="M 52,50 L 66,50 L 68,78 L 50,78 Z" fill="url(#chimneyClay)"/>
+  <!-- Red and White Striped Bands on Left Chimney -->
+  <path d="M 52,50 L 66,50 L 66,56 L 52,56 Z" fill="url(#redBand)"/>
+  <path d="M 52,56 L 66,56 L 66.5,62 L 51.5,62 Z" fill="#F8FAFC"/>
+  <path d="M 51.5,62 L 66.5,62 L 67,68 L 51,68 Z" fill="url(#redBand)"/>
+  <ellipse cx="59" cy="50" rx="7" ry="2.5" fill="#1E293B"/>
+
+  <!-- Right Slightly Shorter Chimney -->
+  <path d="M 74,56 L 86,56 L 88,78 L 72,78 Z" fill="url(#chimneyClay)"/>
+  <path d="M 74,56 L 86,56 L 86,61 L 74,61 Z" fill="url(#redBand)"/>
+  <path d="M 74,61 L 86,61 L 86.5,66 L 73.5,66 Z" fill="#F8FAFC"/>
+  <path d="M 73.5,66 L 86.5,66 L 87,71 L 73,71 Z" fill="url(#redBand)"/>
+  <ellipse cx="80" cy="56" rx="6" ry="2.2" fill="#1E293B"/>
+
+  <!-- Green Clay Shrubs on Factory Banks -->
+  <circle cx="16" cy="88" r="9" fill="#16A34A"/>
+  <circle cx="24" cy="85" r="7" fill="#22C55E"/>
+  <circle cx="118" cy="85" r="8" fill="#16A34A"/>
+  <circle cx="126" cy="88" r="9" fill="#15803D"/>
+
+  <!-- Polluted Murky River Foreground -->
+  <path d="M 6,94 C 36,90 104,90 134,94 L 140,126 L 0,126 Z" fill="url(#murkyRiver)"/>
+  <ellipse cx="70" cy="98" rx="55" ry="3.5" fill="#475569" opacity="0.4"/>
+
+  <!-- Floating Rubber Car Tire in River -->
+  <ellipse cx="94" cy="107" rx="12" ry="8" fill="url(#tireGrad)"/>
+  <ellipse cx="94" cy="106" rx="6" ry="4" fill="#0F2847"/>
+  <path d="M 84,106 C 88,102 100,102 104,106" stroke="#64748B" stroke-width="2" fill="none"/>
+  <!-- Tire Water Ripples -->
+  <ellipse cx="94" cy="111" rx="16" ry="3.5" fill="none" stroke="#64748B" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- Floating Plastic Water Bottles & Trash -->
+  <!-- Bottle 1 (Left Cyan Water Bottle) -->
+  <rect x="36" y="104" width="10" height="4.5" rx="2" transform="rotate(-15 41 106)" fill="#67E8F9" opacity="0.9"/>
+  <rect x="34" y="104.5" width="2.5" height="3" rx="0.8" transform="rotate(-15 35 106)" fill="#2563EB"/>
+  <line x1="38" y1="104.5" x2="45" y2="102.5" stroke="#FFFFFF" stroke-width="1.2" opacity="0.85"/>
+  <!-- Bottle 2 (Right smaller) -->
+  <rect x="58" y="108" width="9" height="4" rx="1.8" transform="rotate(20 62 110)" fill="#67E8F9" opacity="0.8"/>
+  <rect x="66" y="110" width="2" height="2.5" rx="0.6" transform="rotate(20 67 111)" fill="#2563EB"/>
+  <!-- Crumpled tin cans & trash bits -->
+  <ellipse cx="26" cy="108" rx="4" ry="2.2" fill="#FBBF24"/>
+  <ellipse cx="48" cy="113" rx="3.5" ry="1.8" fill="#CBD5E1"/>
+  <ellipse cx="78" cy="112" rx="4" ry="2" fill="#F43F5E"/>
+</svg>`,
+
+  // 14. COUNTRY - 3D Isometric Floating Island (Vietnam Map Shape) with Mountains, Pagoda & Vietnam Flag
+  "country": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <linearGradient id="islandRock" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#92400E"/>
+      <stop offset="45%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+    <linearGradient id="lushGrass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="35%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="riverBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67E8F9"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <radialGradient id="pagodaRoof" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="40%" stop-color="#EF4444"/>
+      <stop offset="85%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </radialGradient>
+    <linearGradient id="flagRed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="60%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+    <linearGradient id="seaWater" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <filter id="islandShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.5"/>
+      <feOffset dx="0" dy="6"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+  </defs>
+
+  <!-- Ground Sea Shadow -->
+  <ellipse cx="70" cy="118" rx="55" ry="14" fill="rgba(2,132,199,0.22)"/>
+
+  <!-- Floating Island Stratified Cliff Base (Curved S-Shape of Vietnam) -->
+  <path d="M 40,42 Q 62,34 94,44 Q 106,56 98,72 Q 88,82 92,94 Q 96,104 84,114 Q 68,118 52,112 Q 42,98 50,88 Q 54,76 38,62 Q 32,50 40,42 Z" fill="url(#islandRock)" filter="url(#islandShadow)"/>
+  
+  <!-- Coastal Turquoise Shelf -->
+  <path d="M 42,40 Q 64,32 96,42 Q 108,54 100,70 Q 90,80 94,92 Q 98,102 86,112 Q 70,116 54,110 Q 44,96 52,86 Q 56,74 40,60 Q 34,48 42,40 Z" fill="url(#seaWater)"/>
+
+  <!-- Verdant Green Top Landmass Surface (S-Curve of Vietnam) -->
+  <path d="M 44,38 Q 66,30 96,40 Q 106,52 98,68 Q 88,78 92,90 Q 96,100 84,110 Q 68,114 54,108 Q 44,94 52,84 Q 56,72 40,58 Q 36,46 44,38 Z" fill="url(#lushGrass)"/>
+
+  <!-- Mountain Ranges along Annamite Range (Truong Son) -->
+  <polygon points="56,58 66,42 76,58" fill="#475569"/>
+  <polygon points="62,58 70,38 78,58" fill="#64748B"/>
+  <polygon points="68,44 70,38 72,44" fill="#F8FAFC"/>
+  <polygon points="68,76 76,60 84,76" fill="#475569"/>
+
+  <!-- Winding Blue River flowing through the land -->
+  <path d="M 64,48 Q 58,60 66,70 Q 74,80 68,90 Q 62,100 76,108" fill="none" stroke="url(#riverBlue)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Miniature Green Trees on Hills -->
+  <circle cx="50" cy="52" r="5" fill="#15803D"/>
+  <circle cx="58" cy="48" r="4.5" fill="#22C55E"/>
+  <circle cx="82" cy="56" r="4.5" fill="#15803D"/>
+  <circle cx="86" cy="64" r="5.5" fill="#16A34A"/>
+  <circle cx="78" cy="88" r="5" fill="#22C55E"/>
+  <circle cx="62" cy="102" r="6" fill="#16A34A"/>
+
+  <!-- Traditional Vietnamese Pagoda / Citadel Pavilion -->
+  <!-- Yellow Clay Walls -->
+  <rect x="46" y="66" width="16" height="12" rx="2" fill="#FEF08A" stroke="#B45309" stroke-width="0.8"/>
+  <rect x="52" y="72" width="4" height="6" rx="1" fill="#78350F"/>
+  <!-- Multi-Tiered Red Terracotta Tile Roof with Curved Horn Eaves -->
+  <path d="M 42,66 Q 54,61 66,66 L 63,61 Q 54,58 45,61 Z" fill="url(#pagodaRoof)"/>
+  <path d="M 44,61 Q 54,56 64,61 L 61,56 Q 54,53 47,56 Z" fill="url(#pagodaRoof)"/>
+
+  <!-- Small Red-Roofed Village Houses -->
+  <rect x="74" y="74" width="7" height="6" fill="#FEF08A"/>
+  <polygon points="72,74 77.5,70 83,74" fill="url(#pagodaRoof)"/>
+  <rect x="80" y="82" width="7" height="6" fill="#FEF08A"/>
+  <polygon points="78,82 83.5,78 89,82" fill="url(#pagodaRoof)"/>
+
+  <!-- Golden Flagpole on Mountain Peak -->
+  <rect x="92" y="16" width="2.5" height="34" rx="1" fill="#F59E0B"/>
+  <circle cx="93.2" cy="15" r="2.5" fill="#FDE047"/>
+
+  <!-- Majestic National Flag of Vietnam (Waving Red Silk with Golden Star) -->
+  <path d="M 94,16 Q 108,12 122,18 Q 126,26 122,34 Q 108,28 94,32 Z" fill="url(#flagRed)"/>
+  <path d="M 94,16 Q 108,12 122,18" stroke="#FECACA" stroke-width="1.2" fill="none" opacity="0.6"/>
+  <!-- Golden Five-Point Star at Center of Vietnam Flag -->
+  <polygon points="108,19 110,23.5 114.5,23.8 111,26.8 112.2,31.2 108,28.5 103.8,31.2 105,26.8 101.5,23.8 106,23.5" fill="#FDE047"/>
+</svg>`,
+
+  // 15. FOREIGN - 3D Earth Globe with Flying White Jet Airplane, Clouds & Blue Passport
+  "foreign": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <radialGradient id="globeOcean" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="40%" stop-color="#0284C7"/>
+      <stop offset="80%" stop-color="#0369A1"/>
+      <stop offset="100%" stop-color="#0C4A6E"/>
+    </radialGradient>
+    <radialGradient id="landGreen" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="45%" stop-color="#22C55E"/>
+      <stop offset="85%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#14532D"/>
+    </radialGradient>
+    <linearGradient id="planeWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="planeBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="passportCover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="60%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#FACC15"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+    <filter id="softPlaneShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+  </defs>
+
+  <!-- Puffy Background Clouds -->
+  <ellipse cx="26" cy="62" rx="14" ry="8" fill="#F8FAFC" opacity="0.9"/>
+  <circle cx="20" cy="58" r="8" fill="#F8FAFC" opacity="0.9"/>
+  <ellipse cx="112" cy="38" rx="14" ry="7" fill="#F8FAFC" opacity="0.85"/>
+  <circle cx="106" cy="34" r="8" fill="#F8FAFC" opacity="0.85"/>
+
+  <!-- Flight Path Swirling Trail Around Globe -->
+  <path d="M 22,76 C 18,36 82,14 116,42" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-dasharray="5 3.5" opacity="0.8"/>
+
+  <!-- Central 3D Clay Earth Globe Sphere -->
+  <circle cx="68" cy="62" r="38" fill="url(#globeOcean)"/>
+  
+  <!-- 3D Clay Continents in Relief -->
+  <!-- North America / Eurasia Shapes -->
+  <path d="M 44,40 Q 52,34 60,38 Q 68,36 74,42 Q 70,48 62,46 Q 52,50 44,40 Z" fill="url(#landGreen)"/>
+  <path d="M 76,40 Q 88,38 98,46 Q 92,54 84,52 Q 78,48 76,40 Z" fill="url(#landGreen)"/>
+  <!-- Africa / South America Shapes -->
+  <path d="M 64,52 Q 76,50 82,58 Q 80,72 72,78 Q 66,74 64,62 Z" fill="url(#landGreen)"/>
+  <path d="M 46,58 Q 54,56 56,66 Q 52,78 44,72 Z" fill="url(#landGreen)"/>
+
+  <!-- Specular 3D Glossy Light Arc on Ocean -->
+  <ellipse cx="54" cy="42" rx="12" ry="5" transform="rotate(-30 54 42)" fill="#FFFFFF" opacity="0.45"/>
+  <circle cx="48" cy="36" r="3" fill="#FFFFFF" opacity="0.7"/>
+
+  <!-- Flying White Commercial Jet Airplane (Flying Towards Viewer) -->
+  <g filter="url(#softPlaneShadow)">
+    <!-- Swept Wings -->
+    <polygon points="102,60 114,38 120,41 106,66" fill="url(#planeWhite)"/>
+    <polygon points="84,62 68,70 66,66 82,58" fill="url(#planeWhite)"/>
+    <!-- Wing Blue Tips -->
+    <polygon points="114,38 120,41 117,39" fill="url(#planeBlue)"/>
+    <!-- Jet Engines Under Wings -->
+    <rect x="100" y="52" width="6" height="3" rx="1.5" fill="#64748B" transform="rotate(-30 100 52)"/>
+    <rect x="76" y="62" width="6" height="3" rx="1.5" fill="#64748B" transform="rotate(-30 76 62)"/>
+    <!-- Fuselage Main Body -->
+    <ellipse cx="98" cy="56" rx="20" ry="6" transform="rotate(-32 98 56)" fill="url(#planeWhite)"/>
+    <!-- Tail Fin (Rudder) -->
+    <polygon points="112,46 116,36 120,38 116,48" fill="url(#planeBlue)"/>
+    <!-- Cockpit Windshield (Black Glass) -->
+    <ellipse cx="84" cy="65" rx="3.5" ry="2" transform="rotate(-32 84 65)" fill="#0F172A"/>
+    <!-- Passenger Windows Row -->
+    <circle cx="92" cy="59" r="1.1" fill="#3B82F6"/>
+    <circle cx="95" cy="57" r="1.1" fill="#3B82F6"/>
+    <circle cx="98" cy="55" r="1.1" fill="#3B82F6"/>
+    <circle cx="101" cy="53" r="1.1" fill="#3B82F6"/>
+  </g>
+
+  <!-- Fluffy Cloud Layer in Front of Globe Base -->
+  <ellipse cx="98" cy="88" rx="16" ry="9" fill="#FFFFFF" opacity="0.95"/>
+  <circle cx="90" cy="84" r="9" fill="#FFFFFF" opacity="0.95"/>
+  <circle cx="106" cy="85" r="8" fill="#FFFFFF" opacity="0.95"/>
+
+  <!-- 3D Navy Blue Passport Booklet in Foreground Left -->
+  <g transform="rotate(-12 52 96)">
+    <!-- Passport Back Shadow & Page Thickness -->
+    <rect x="36" y="77" width="34" height="46" rx="4" fill="#0F172A"/>
+    <rect x="37" y="76" width="34" height="46" rx="4" fill="#F8FAFC"/>
+    <!-- Passport Dark Blue Cover -->
+    <rect x="35" y="75" width="34" height="46" rx="4" fill="url(#passportCover)" stroke="#3B82F6" stroke-width="0.8"/>
+    <!-- Gold Embossed Text: PASSPORT -->
+    <text x="52" y="85" font-family="sans-serif" font-size="4.2" font-weight="900" fill="url(#goldFoil)" text-anchor="middle" letter-spacing="0.5">PASSPORT</text>
+    <!-- Gold Globe Emblem Crest -->
+    <circle cx="52" cy="98" r="7" fill="none" stroke="url(#goldFoil)" stroke-width="1.2"/>
+    <ellipse cx="52" cy="98" rx="7" ry="2.8" fill="none" stroke="url(#goldFoil)" stroke-width="0.9"/>
+    <line x1="52" y1="91" x2="52" y2="105" stroke="url(#goldFoil)" stroke-width="0.9"/>
+    <circle cx="52" cy="98" r="2" fill="url(#goldFoil)"/>
+    <!-- Biometric Chip Symbol at bottom -->
+    <rect x="49" y="112" width="6" height="4" rx="1" fill="none" stroke="url(#goldFoil)" stroke-width="0.8"/>
+    <line x1="47" y1="114" x2="57" y2="114" stroke="url(#goldFoil)" stroke-width="0.8"/>
+  </g>
+</svg>`,
+
+  // 16. CHALLENGE - 3D Mountaineer Hiker Climbing Steep Rocky Mountain to Victory Summit Flag
+  "challenge": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <linearGradient id="rockFacetDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="60%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="rockFacetLight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#94A3B8"/>
+      <stop offset="45%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="snowCap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#BAE6FD"/>
+    </linearGradient>
+    <radialGradient id="hikerJacket" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="45%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </radialGradient>
+    <radialGradient id="backpackBlue" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="45%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </radialGradient>
+    <linearGradient id="flagRedWaving" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <radialGradient id="skinTone" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="60%" stop-color="#FDBA74"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </radialGradient>
+    <filter id="mountainShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="5"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+  </defs>
+
+  <!-- Fluffy Cloud Backdrop Behind Summit -->
+  <ellipse cx="44" cy="54" rx="14" ry="7" fill="#F8FAFC" opacity="0.9"/>
+  <ellipse cx="116" cy="62" rx="15" ry="7.5" fill="#F8FAFC" opacity="0.9"/>
+  <circle cx="110" cy="58" r="8" fill="#F8FAFC" opacity="0.9"/>
+
+  <!-- Mountain Ground Shadow -->
+  <ellipse cx="78" cy="124" rx="54" ry="8" fill="rgba(15,23,42,0.3)"/>
+
+  <!-- Giant Rocky Mountain Body (Multi-Faceted Granite Crags) -->
+  <g filter="url(#mountainShadow)">
+    <!-- Base Rocky Crags Left & Right -->
+    <polygon points="46,122 72,74 96,122" fill="url(#rockFacetDark)"/>
+    <polygon points="68,122 88,60 114,122" fill="url(#rockFacetLight)"/>
+    <polygon points="98,122 110,84 126,122" fill="url(#rockFacetDark)"/>
+    <!-- Main Summit Tower Peak -->
+    <polygon points="64,96 86,40 106,96" fill="url(#rockFacetDark)"/>
+    <polygon points="86,40 96,44 104,96 86,96" fill="url(#rockFacetLight)"/>
+    <!-- Stratified Crevice Lines on Rock -->
+    <polygon points="76,82 86,54 84,88" fill="#1E293B"/>
+    <polygon points="94,70 102,52 98,78" fill="#334155"/>
+    <polygon points="106,92 114,76 112,98" fill="#1E293B"/>
+    <!-- Pristine Snow & Glacier Ice Cap on Highest Summit -->
+    <polygon points="86,40 76,52 82,50 86,56 92,48 98,54 96,44" fill="url(#snowCap)"/>
+    <polygon points="86,40 82,50 86,56" fill="#E0F2FE"/>
+  </g>
+
+  <!-- Golden Flagpole on Mountain Apex -->
+  <rect x="94" y="24" width="2" height="22" rx="1" fill="#F59E0B"/>
+  <circle cx="95" cy="23.5" r="2" fill="#FDE047"/>
+
+  <!-- Red Victory Pennant Flag Flying at the Summit Peak -->
+  <path d="M 96,24 Q 106,21 118,26 Q 120,33 116,40 Q 106,34 96,37 Z" fill="url(#flagRedWaving)"/>
+  <path d="M 96,24 Q 106,21 118,26" stroke="#FECACA" stroke-width="1.2" fill="none"/>
+
+  <!-- Pine / Alpine Green Bushes along Mountain Trail Base -->
+  <circle cx="48" cy="116" r="6" fill="#15803D"/>
+  <circle cx="56" cy="114" r="5" fill="#22C55E"/>
+  <circle cx="120" cy="116" r="6" fill="#15803D"/>
+  <circle cx="126" cy="118" r="5" fill="#16A34A"/>
+
+  <!-- Mountaineer / Hiker Climbing Up to the Peak -->
+  <g transform="translate(42, 60)">
+    <!-- Right Leg Stepping Upwards onto Rock -->
+    <rect x="18" y="34" width="7" height="13" rx="3.5" transform="rotate(-35 21 40)" fill="#78350F"/>
+    <ellipse cx="27" cy="45" rx="5.5" ry="3.5" fill="#451A03"/>
+    <!-- Left Leg Grounded -->
+    <rect x="8" y="36" width="7" height="13" rx="3.5" transform="rotate(15 11 42)" fill="#78350F"/>
+    <ellipse cx="10" cy="48" rx="5.5" ry="3.5" fill="#451A03"/>
+
+    <!-- Trekking Stick / Hiking Pole -->
+    <line x1="28" y1="28" x2="34" y2="48" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="28" cy="28" r="1.8" fill="#F59E0B"/>
+
+    <!-- Yellow-Orange Jacket Torso & Arms -->
+    <ellipse cx="18" cy="24" rx="9" ry="11" fill="url(#hikerJacket)"/>
+    <!-- Arm Extending Forward with Hiking Pole -->
+    <path d="M 20,20 Q 26,22 28,28" stroke="url(#hikerJacket)" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <circle cx="28" cy="28" r="2.5" fill="url(#skinTone)"/>
+
+    <!-- Big 3D Clay Cobalt Blue Trekking Backpack -->
+    <rect x="4" y="12" width="14" height="20" rx="6" fill="url(#backpackBlue)"/>
+    <!-- Top Bedroll / Sleeping Bag on Backpack -->
+    <rect x="3" y="8" width="16" height="6" rx="3" fill="#0284C7"/>
+    <!-- Backpack Straps & Pocket Ribbons -->
+    <rect x="8" y="24" width="8" height="6" rx="2" fill="#1D4ED8"/>
+    <line x1="16" y1="14" x2="20" y2="22" stroke="#1E3A8A" stroke-width="1.8"/>
+
+    <!-- Hiker Head with Brown Hair / Mountaineering Beanie -->
+    <circle cx="20" cy="12" r="6.5" fill="url(#skinTone)"/>
+    <path d="M 14,12 C 14,6 26,6 26,12 Z" fill="#451A03"/>
+  </g>
 </svg>`
 };
