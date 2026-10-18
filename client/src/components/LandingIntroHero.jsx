@@ -37,8 +37,8 @@ export default function LandingIntroHero({
     {
       id: 'L1',
       title: 'Level 1 • Khởi Động',
-      subtitle: 'Starter Foundation',
-      count: '150 Từ Vựng',
+      subtitle: 'Starter Foundation (4–5 tuổi)',
+      count: '143 Từ Độc Bản',
       units: '15 Units',
       color: 'from-amber-500 to-orange-600',
       border: 'border-amber-400/50',
@@ -49,8 +49,8 @@ export default function LandingIntroHero({
     {
       id: 'L2',
       title: 'Level 2 • Cơ Bản',
-      subtitle: 'Elementary Communication',
-      count: '150 Từ Vựng',
+      subtitle: 'Elementary Communication (5–7 tuổi)',
+      count: '142 Từ Độc Bản',
       units: '15 Units',
       color: 'from-blue-500 to-cyan-600',
       border: 'border-blue-400/50',
@@ -61,8 +61,8 @@ export default function LandingIntroHero({
     {
       id: 'L3',
       title: 'Level 3 • Mở Rộng',
-      subtitle: 'Expanding World',
-      count: '150 Từ Vựng',
+      subtitle: 'Expanding World (7–9 tuổi)',
+      count: '137 Từ Độc Bản',
       units: '15 Units',
       color: 'from-teal-500 to-emerald-600',
       border: 'border-teal-400/50',
@@ -73,8 +73,8 @@ export default function LandingIntroHero({
     {
       id: 'L4',
       title: 'Level 4 • Nâng Cao',
-      subtitle: 'Advanced Horizons',
-      count: '150 Từ Vựng',
+      subtitle: 'Advanced Horizons (8–10 tuổi)',
+      count: '147 Từ Độc Bản',
       units: '15 Units',
       color: 'from-purple-500 to-indigo-600',
       border: 'border-purple-400/50',
@@ -85,8 +85,8 @@ export default function LandingIntroHero({
     {
       id: 'L5',
       title: 'Level 5 • Tiên Phong',
-      subtitle: 'Pioneer Science',
-      count: '150 Từ Vựng',
+      subtitle: 'Pioneer Science (10–12 tuổi)',
+      count: '131 Từ Độc Bản',
       units: '15 Units',
       color: 'from-rose-500 to-red-600',
       border: 'border-rose-400/50',
@@ -97,8 +97,8 @@ export default function LandingIntroHero({
     {
       id: 'L6',
       title: 'Level 6 • Quốc Tế',
-      subtitle: 'Global Cambridge Mastery',
-      count: '150 Từ Vựng',
+      subtitle: 'Global Cambridge Mastery (12+ tuổi)',
+      count: '125 Từ Độc Bản',
       units: '15 Units',
       color: 'from-cyan-500 to-blue-700',
       border: 'border-cyan-400/50',
@@ -110,7 +110,7 @@ export default function LandingIntroHero({
       id: 'BIO',
       title: 'Chuyên Đề • Bách Khoa Sinh Vật',
       subtitle: 'Flora & Fauna of the World',
-      count: '120 Từ Vựng',
+      count: '114 Từ Độc Bản',
       units: '10 Units',
       color: 'from-emerald-500 to-green-700',
       border: 'border-emerald-400/50',
@@ -122,25 +122,37 @@ export default function LandingIntroHero({
       id: 'COLOR',
       title: 'Chuyên Đề • Sắc Màu Toàn Cầu',
       subtitle: 'Colors of the World Encyclopedia',
-      count: '120 Từ Vựng',
+      count: '115 Từ Độc Bản',
       units: '10 Units',
       color: 'from-fuchsia-500 to-rose-600',
       border: 'border-fuchsia-400/50',
       badge: 'bg-fuchsia-500/20 text-fuchsia-300',
       icon: '🎨',
-      desc: '120 sắc thái màu thế giới: ruby, sapphire, emerald, pastel, neon quang học kèm mã HEX chuẩn và 120 Vector SVGs.'
+      desc: '115 sắc thái màu thế giới: ruby, sapphire, emerald, pastel, neon quang học kèm mã HEX chuẩn và 115 Vector SVGs.'
     },
     {
       id: 'NUM',
       title: 'Chuyên Đề • Số Đếm & Thứ Tự',
       subtitle: 'Numbers & Ordinals Encyclopedia',
-      count: '120 Từ Vựng',
+      count: '118 Khái Niệm',
       units: '10 Units',
       color: 'from-amber-400 via-yellow-500 to-amber-600',
       border: 'border-amber-400/60',
       badge: 'bg-amber-500/20 text-amber-300',
       icon: '🔢',
       desc: 'Số đếm 0–11, teens, tens, đại số lớn (million, billion, infinity), số thứ tự 1st–100th, phân số, bội số, chữ số La Mã I–M.'
+    },
+    {
+      id: 'ENC',
+      title: 'Bách Khoa • Thế Giới Kỳ Thú',
+      subtitle: 'World Encyclopedia',
+      count: '230 Từ Độc Bản',
+      units: '20 Units',
+      color: 'from-sky-500 via-indigo-500 to-purple-600',
+      border: 'border-sky-400/50',
+      badge: 'bg-sky-500/20 text-sky-300',
+      icon: '🪐',
+      desc: '20 chuyên đề bách khoa: Khủng long tiền sử, vũ trụ thiên hà, ẩm thực, nhạc cụ, siêu xe, kỳ quan nhân loại & phẩm chất tâm hồn.'
     }
   ];
 
@@ -195,7 +207,7 @@ export default function LandingIntroHero({
           {/* Nav Quick Links */}
           <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
             <a href="#stats" className="hover:text-pink-300 transition">Thống Kê Khủng</a>
-            <a href="#curriculum" className="hover:text-pink-300 transition">9 Cấp Độ (1,520 Từ)</a>
+            <a href="#curriculum" className="hover:text-pink-300 transition">10 Cấp Độ (1,402 Từ)</a>
             <a href="#galleries" className="hover:text-pink-300 transition">3 Triển Lãm SVG</a>
             <a href="#features" className="hover:text-pink-300 transition">Tính Năng Đột Phá</a>
             <a href="#exports" className="hover:text-pink-300 transition">Tài Liệu Xuất Bản</a>
@@ -266,7 +278,7 @@ export default function LandingIntroHero({
 
         {/* Subtitle */}
         <p className="max-w-3xl mt-5 sm:mt-7 text-sm sm:text-base md:text-lg text-slate-200/90 leading-relaxed font-medium">
-          Đột phá toàn diện với <span className="text-pink-300 font-black">1,520 từ vựng chuẩn quốc tế</span>, <span className="text-amber-300 font-black">100% Vector SVG bespoke vẽ riêng</span>, Trợ lý AI chấm phát âm chuẩn Anh - Mỹ, Thuật toán ghi nhớ vĩnh cửu <span className="text-cyan-300 font-black">SRS SuperMemo SM-2</span>, 18 Poster Sách Giáo Khoa và Bộ 3 Triển lãm Bách khoa tương tác đỉnh cao! 🌟
+          Đột phá toàn diện với <span className="text-pink-300 font-black">1,402 từ vựng chuẩn quốc tế</span>, <span className="text-amber-300 font-black">100% Vector SVG bespoke vẽ riêng</span>, Trợ lý AI chấm phát âm chuẩn Anh - Mỹ, Thuật toán ghi nhớ vĩnh cửu <span className="text-cyan-300 font-black">SRS SuperMemo SM-2</span>, 18 Poster Sách Giáo Khoa và Bộ 3 Triển lãm Bách khoa tương tác đỉnh cao! 🌟
         </p>
 
         {/* Hero CTA Action Group */}
@@ -282,7 +294,7 @@ export default function LandingIntroHero({
             className="px-7 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-black text-slate-950 bg-gradient-to-r from-amber-300 via-pink-400 to-purple-400 shadow-[0_0_35px_rgba(244,114,182,0.8)] border-2 border-white hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer group"
           >
             <Play className="w-5 h-5 fill-slate-950 text-slate-950" />
-            <span>KHÁM PHÁ TOÀN BỘ 1,520 TỪ VỰNG</span>
+            <span>KHÁM PHÁ TOÀN BỘ 1,402 TỪ VỰNG</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
           </button>
 
@@ -307,7 +319,7 @@ export default function LandingIntroHero({
             className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-black text-white bg-gradient-to-r from-purple-900/90 via-pink-900/90 to-amber-950/90 hover:from-purple-800 hover:to-pink-800 border-2 border-pink-400/80 shadow-[0_0_25px_rgba(236,72,153,0.5)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer"
           >
             <span className="text-xl">🃏</span>
-            <span>Chơi Siêu Game Lật Thẻ (1,520 Từ)</span>
+            <span>Chơi Siêu Game Lật Thẻ (1,402 Từ)</span>
           </button>
         </div>
 
@@ -345,15 +357,15 @@ export default function LandingIntroHero({
           
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-pink-500/50 backdrop-blur-xl transition text-center space-y-1 group">
             <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 group-hover:scale-110 transition-transform">
-              1,520
+              1,402
             </div>
-            <div className="text-xs font-bold text-white">Từ Vựng Chuẩn</div>
-            <div className="text-[11px] text-slate-400 font-medium">L1-L6 & 3 Bách Khoa</div>
+            <div className="text-xs font-bold text-white">Từ Vựng Độc Bản</div>
+            <div className="text-[11px] text-slate-400 font-medium">L1-L6 & 4 Bách Khoa</div>
           </div>
 
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-purple-500/50 backdrop-blur-xl transition text-center space-y-1 group">
             <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 group-hover:scale-110 transition-transform">
-              121
+              140
             </div>
             <div className="text-xs font-bold text-white">Chủ Đề Toàn Diện</div>
             <div className="text-[11px] text-slate-400 font-medium">Bao phủ mọi lĩnh vực</div>
@@ -377,7 +389,7 @@ export default function LandingIntroHero({
 
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/50 backdrop-blur-xl transition text-center space-y-1 group">
             <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 group-hover:scale-110 transition-transform">
-              9
+              10
             </div>
             <div className="text-xs font-bold text-white">Cấp Độ & Chuyên Đề</div>
             <div className="text-[11px] text-slate-400 font-medium">Lộ trình học bài bản</div>
@@ -385,7 +397,7 @@ export default function LandingIntroHero({
 
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/50 backdrop-blur-xl transition text-center space-y-1 group">
             <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400 group-hover:scale-110 transition-transform">
-              12 Sheets
+              14 Sheets
             </div>
             <div className="text-xs font-bold text-white">Xuất Excel Chuẩn</div>
             <div className="text-[11px] text-slate-400 font-medium">Kèm file Word bài tập A4</div>
@@ -399,13 +411,13 @@ export default function LandingIntroHero({
         <div className="text-center space-y-2 mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/40 text-purple-300 text-xs font-black uppercase">
             <BookOpen className="w-3.5 h-3.5" />
-            <span>LỘ TRÌNH 9 CẤP ĐỘ BÀI BẢN</span>
+            <span>LỘ TRÌNH 10 CẤP ĐỘ BÀI BẢN</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-white">
             Cấu Trúc Khóa Học Chuẩn Quốc Tế
           </h2>
           <p className="max-w-2xl mx-auto text-xs sm:text-sm text-slate-300">
-            Khám phá 6 Cấp độ học đường nền tảng (L1 đến L6) kết hợp 3 Đại Chuyên Đề Bách Khoa sâu rộng (Sinh Vật BIO, Sắc Màu COLOR, Số Học NUM).
+            Khám phá 6 Cấp độ học đường nền tảng (L1 đến L6) kết hợp 3 Đại Chuyên Đề Bách Khoa (BIO, COLOR, NUM) và Đại Bách Khoa Toàn Thư Thế Giới (ENC).
           </p>
         </div>
 
@@ -646,7 +658,7 @@ export default function LandingIntroHero({
               Tải Toàn Bộ Cơ Sở Dữ Liệu & Sách Bài Tập In Ấn
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Hệ thống tự động biên soạn và đồng bộ hóa toàn bộ 1,520 từ vựng ra hai định dạng chuẩn mực cao cấp: file Excel 12 sheets phân loại chi tiết và file Word bài tập A4 in màu cho bé học tại bàn!
+              Hệ thống tự động biên soạn và đồng bộ hóa toàn bộ 1,402 từ vựng ra hai định dạng chuẩn mực cao cấp: file Excel 14 sheets phân loại chi tiết và file Word bài tập A4 in màu cho bé học tại bàn!
             </p>
           </div>
 

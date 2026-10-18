@@ -1,4 +1,4 @@
-// Official Core & World Encyclopedia English Vocabulary Database for Kids (7 Levels • 140+ Units • 1,560 Words • Exact Icons • Vietnamese Phonetics • Bilingual Examples)
+// Official Core & World Encyclopedia English Vocabulary Database for Kids (10 Levels • 140 Units • 1,402 Unique Words • Exact Icons • Vietnamese Phonetics • Bilingual Examples)
 import {
   ENCYCLOPEDIA_LEVEL,
   ENCYCLOPEDIA_CATEGORIES,
@@ -10,92 +10,92 @@ export const COURSE_LEVELS = [
   {
     "id": "L1",
     "name": "Cấp độ L1: Khởi Động (4–5 tuổi)",
-    "badge": "Khởi Động • 150 Từ (15 Chủ Đề)",
+    "badge": "Khởi Động • 143 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-amber-500 to-orange-500 border-amber-400 text-amber-300",
     "bgBadge": "bg-amber-500/20 text-amber-300 border-amber-500/40",
     "description": "Từ đơn, nhận biết hình ảnh, phản xạ nghe–chọn. Màu sắc, số đếm 1-10, hình dạng, gia đình, cơ thể, động vật, đồ ăn, lớp học, đồ chơi, côn trùng, phòng tắm, cảm xúc, trang trại.",
     "icon": "🐣",
-    "targetWords": 150
+    "targetWords": 143
   },
   {
     "id": "L2",
     "name": "Cấp độ L2: Cơ Bản (5–7 tuổi)",
-    "badge": "Cơ Bản • 150 Từ (15 Chủ Đề)",
+    "badge": "Cơ Bản • 142 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-blue-500 to-cyan-500 border-blue-400 text-blue-300",
     "bgBadge": "bg-blue-500/20 text-blue-300 border-blue-500/40",
     "description": "Câu ngắn, sinh hoạt, trường học, mô tả vị trí. Ngôi nhà, quần áo, sinh hoạt hằng ngày, thời tiết, giao thông, môn học, bếp, sinh vật biển, mùa, vị trí.",
     "icon": "🦁",
-    "targetWords": 150
+    "targetWords": 142
   },
   {
     "id": "L3",
     "name": "Cấp độ L3: Mở Rộng (7–9 tuổi)",
-    "badge": "Mở Rộng • 150 Từ (15 Chủ Đề)",
+    "badge": "Mở Rộng • 137 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-emerald-500 to-teal-500 border-emerald-400 text-emerald-300",
     "bgBadge": "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
     "description": "Giao tiếp thực tế, xã hội, công nghệ và thiên nhiên. Thiên nhiên, sức khỏe, mua sắm, du lịch, công nghệ, nhà hàng, văn phòng, thiên tai, truyền thông, miêu tả con người.",
     "icon": "🚀",
-    "targetWords": 150
+    "targetWords": 137
   },
   {
     "id": "L4",
     "name": "Cấp độ L4: Nâng Cao Cho Bé (8–10 tuổi)",
-    "badge": "Nâng Cao • 150 Từ (15 Chủ Đề)",
+    "badge": "Nâng Cao • 147 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-purple-500 to-pink-500 border-purple-400 text-purple-300",
     "bgBadge": "bg-purple-500/20 text-purple-300 border-purple-500/40",
     "description": "Từ học thuật cơ bản, khoa học, tư duy và công dân. Khoa học cơ bản, không gian, thể thao Olympic, âm nhạc, nghệ thuật, kiến trúc, hành tinh vũ trụ.",
     "icon": "👑",
-    "targetWords": 150
+    "targetWords": 147
   },
   {
     "id": "L5",
     "name": "Cấp độ L5: Tiên Phong (10–12 tuổi)",
-    "badge": "Tiên Phong • 150 Từ (15 Chủ Đề)",
+    "badge": "Tiên Phong • 131 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-rose-500 to-orange-500 border-rose-400 text-rose-300",
     "bgBadge": "bg-rose-500/20 text-rose-300 border-rose-500/40",
     "description": "Ngôn ngữ học thuật đọc hiểu, viết văn, thuyết trình. Lịch sử thế giới, sinh học tế bào, hóa học chất, vật lý năng lượng, lập trình máy tính.",
     "icon": "🌟",
-    "targetWords": 150
+    "targetWords": 131
   },
   {
     "id": "L6",
     "name": "Cấp độ L6: Hội Nhập Quốc Tế (12+ tuổi)",
-    "badge": "Quốc Tế • 150 Từ (15 Chủ Đề)",
+    "badge": "Quốc Tế • 125 Từ Độc Bản (15 Chủ Đề)",
     "color": "from-teal-500 to-cyan-500 border-teal-400 text-teal-300",
     "bgBadge": "bg-teal-500/20 text-teal-300 border-teal-500/40",
     "description": "Ngôn ngữ học thuật quốc tế, IELTS/TOEFL cơ bản, giao tiếp toàn cầu. Giao tiếp ưu việt, chính trị học, IELTS academic, thành ngữ nâng cao, tư duy hệ thống.",
     "icon": "🌎",
-    "targetWords": 150
+    "targetWords": 125
   },
   {
     "id": "BIO",
     "name": "Chuyên Đề: Bách Khoa Động Thực Vật Toàn Cầu (Flora & Fauna)",
-    "badge": "Bách Khoa Sinh Học • 120 Từ (10 Chủ Đề)",
+    "badge": "Bách Khoa Sinh Học • 114 Từ Độc Bản (10 Chủ Đề)",
     "color": "from-emerald-500 to-teal-500 border-emerald-400 text-emerald-300",
     "bgBadge": "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
     "description": "Kho từ vựng chuyên sâu về thế giới động thực vật toàn cầu: Thú thảo nguyên, động vật săn mồi, chim muông, sinh vật đại dương sâu, bò sát, côn trùng, cổ thụ, muôn hoa, nấm và giải phẫu sinh học.",
     "icon": "🌿",
-    "targetWords": 120
+    "targetWords": 114
   },
   {
     "id": "COLOR",
     "name": "Chuyên Đề: Bách Khoa Sắc Màu Toàn Cầu (Colors of the World)",
-    "badge": "Bách Khoa Sắc Màu • 120 Từ (10 Chủ Đề)",
+    "badge": "Bách Khoa Sắc Màu • 115 Từ Độc Bản (10 Chủ Đề)",
     "color": "from-fuchsia-500 via-rose-500 to-amber-400 border-fuchsia-400 text-fuchsia-300",
     "bgBadge": "bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/40",
     "description": "Kho từ vựng chuyên sâu về thế giới màu sắc: Sắc đỏ & hồng, sắc lam đại dương & bầu trời, sắc lục ngọc bích, sắc vàng kim & hổ phách, sắc tím hoàng gia, sắc cam đất nung, sắc nâu gỗ, sắc đen & bạc kim loại, sắc trắng tinh khôi & quang học ngũ sắc.",
     "icon": "🎨",
-    "targetWords": 120
+    "targetWords": 115
   },
   {
     "id": "NUM",
     "name": "Chuyên Đề: Bách Khoa Số Đếm & Số Thứ Tự Toàn Cầu",
-    "badge": "Bách Khoa Số Học • 120 Khái Niệm (10 Chủ Đề)",
+    "badge": "Bách Khoa Số Học • 118 Khái Niệm Độc Bản (10 Chủ Đề)",
     "description": "Bộ từ vựng bách khoa toàn diện về số đếm (cardinal numbers), số thứ tự (ordinal numbers), phân số (fractions), bội số (multipliers), đơn vị đếm tập hợp và ký số La Mã trong tiếng Anh chuẩn quốc tế.",
     "icon": "🔢",
     "color": "from-amber-500 via-emerald-500 to-cyan-500",
     "borderColor": "border-amber-400",
-    "targetWords": 120,
+    "targetWords": 118,
     "unitCount": 10
   },
   ENCYCLOPEDIA_LEVEL

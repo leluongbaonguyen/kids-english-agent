@@ -375,11 +375,11 @@ export default function FullSystemVocabularyView({
             </div>
 
             <h1 className="text-xl sm:text-3xl md:text-4xl font-black font-heading text-white tracking-tight leading-tight">
-              TOÀN BỘ 1,520 TỪ VỰNG HỆ THỐNG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300">SIÊU CHI TIẾT</span>
+              TOÀN BỘ 1,402 TỪ VỰNG HỆ THỐNG <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-amber-300">SIÊU CHI TIẾT</span>
             </h1>
 
             <p className="text-[11px] sm:text-xs md:text-sm text-slate-300 leading-relaxed font-medium">
-              Khám phá toàn bộ 1,520 từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng các Chuyên đề Bách Khoa Động Thực Vật (BIO), Sắc Màu (COLOR), Số Đếm (NUM) và Bách Khoa Toàn Thư (ENC). Đầy đủ phiên âm IPA, tiếng Việt bồi, câu ví dụ song ngữ & giọng phát âm chuẩn bản ngữ!
+              Khám phá toàn bộ 1,402 từ vựng cốt lõi chuẩn CEFR & Cambridge qua 6 cấp độ (L1–L6) cùng các Chuyên đề Bách Khoa Động Thực Vật (BIO), Sắc Màu (COLOR), Số Đếm (NUM) và Bách Khoa Toàn Thư (ENC). Đầy đủ phiên âm IPA, tiếng Việt bồi, câu ví dụ song ngữ & giọng phát âm chuẩn bản ngữ!
             </p>
           </div>
 
@@ -401,7 +401,7 @@ export default function FullSystemVocabularyView({
                 window.location.hash = '#/game-lat-the';
               }}
               className="flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer border border-pink-400/50"
-              title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,520 từ vựng"
+              title="Mở Siêu Game Lật Thẻ Trí Nhớ với toàn bộ 1,402 từ vựng"
             >
               <span className="text-sm">🃏</span>
               <span>GAME LẬT THẺ</span>
@@ -594,16 +594,12 @@ export default function FullSystemVocabularyView({
                 }}
                 className="w-full h-10 bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400/60 focus:border-cyan-400 text-white rounded-xl sm:rounded-2xl px-2.5 sm:px-3 text-xs font-bold focus:outline-none transition shadow-inner truncate cursor-pointer"
               >
-                <option value="all">🌟 Tất Cả Cấp Độ (1,520 Từ)</option>
-                <option value="L1">🐣 L1 • Khởi Động (150 Từ)</option>
-                <option value="L2">🦁 L2 • Cơ Bản (150 Từ)</option>
-                <option value="L3">🚀 L3 • Mở Rộng (150 Từ)</option>
-                <option value="L4">👑 L4 • Nâng Cao (150 Từ)</option>
-                <option value="L5">🌟 L5 • Tiên Phong (150 Từ)</option>
-                <option value="L6">🌎 L6 • Quốc Tế (150 Từ)</option>
-                <option value="BIO">🌿 BIO • Động Thực Vật (120 Từ)</option>
-                <option value="COLOR">🎨 COLOR • Sắc Màu (120 Từ)</option>
-                <option value="NUM">🔢 NUM • Số Đếm & Thứ Tự (120 Từ)</option>
+                <option value="all">🌟 Tất Cả Cấp Độ ({stats.total || vocabList.length} Từ)</option>
+                {COURSE_LEVELS.map((lvl) => (
+                  <option key={lvl.id} value={lvl.id}>
+                    {lvl.icon} {lvl.id} • {lvl.name.split(':')[0].replace('Cấp độ ', '').replace('Chuyên Đề: ', '')} ({stats.levelCounts?.[lvl.id] || 0} Từ)
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -662,7 +658,7 @@ export default function FullSystemVocabularyView({
               >
                 <option value="all">⭐ Tất Cả Trạng Thái</option>
                 <option value="mastered">✅ Chỉ Từ Đã Thuộc ({masteredCards.length})</option>
-                <option value="unmastered">⏳ Chỉ Từ Chưa Thuộc ({Math.max(0, (vocabList.length >= 1520 ? 1520 : vocabList.length) - masteredCards.length)})</option>
+                <option value="unmastered">⏳ Chỉ Từ Chưa Thuộc ({Math.max(0, (stats.total || vocabList.length) - masteredCards.length)})</option>
               </select>
             </div>
           </div>
@@ -672,7 +668,7 @@ export default function FullSystemVocabularyView({
             {/* Left: Results Count & Quick Reset Filter */}
             <div className="flex items-center justify-between sm:justify-start gap-2 text-xs">
               <span className="font-medium text-slate-400 whitespace-nowrap">
-                Đang hiển thị: <strong className="text-cyan-300 font-black">{filteredList.length >= 1520 ? '1,520' : filteredList.length}</strong> / 1,520 từ
+                Đang hiển thị: <strong className="text-cyan-300 font-black">{filteredList.length}</strong> / {stats.total || vocabList.length} từ
               </span>
 
               {(selectedLevel !== 'all' || selectedCategory !== 'all' || selectedWordType !== 'all' || masteryFilter !== 'all' || searchQuery) && (
@@ -1169,7 +1165,7 @@ export default function FullSystemVocabularyView({
             <span className="px-3 py-1 rounded-lg bg-cyan-600/30 text-cyan-300 font-mono-code font-black border border-cyan-500/40">
               {currentPage}
             </span>
-            <span>/ {totalPages} ({filteredList.length >= 1520 ? '1,520' : filteredList.length} từ)</span>
+            <span>/ {totalPages} ({filteredList.length} từ)</span>
           </div>
 
           <button

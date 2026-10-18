@@ -2831,11 +2831,11 @@ export function KidsEnglishDashboard({
             <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" /> Menu Chức Năng:
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-black bg-pink-500/20 text-pink-200 border border-pink-400/40">
-            {activeTab === 'flashcards' && '🌟 Toàn Bộ Kho Từ Vựng Siêu Chi Tiết (1,520 Từ)'}
+            {activeTab === 'flashcards' && '🌟 Toàn Bộ Kho Từ Vựng Siêu Chi Tiết (1,402 Từ)'}
             {activeTab === 'detailed_path' && '🗺️ Lộ Trình 6 Cấp Độ'}
             {activeTab === 'poster' && `📖 Khóa Học (${posterPages.length} Trang)`}
             {(activeTab === 'quiz' || activeTab === 'games') && '🎮 Bài Tập & Game ⏰'}
-            {activeTab === 'memory_game' && '🃏 Siêu Game Lật Thẻ Trí Nhớ (1,520 Từ)'}
+            {activeTab === 'memory_game' && '🃏 Siêu Game Lật Thẻ Trí Nhớ (1,402 Từ)'}
             {activeTab === 'review_cycles' && '🔄 Chu Kỳ Ôn Tập'}
             {activeTab === 'db_table' && '🗃️ CSDL & Excel'}
             {activeTab === 'import_wizard' && '🚀 Wizard Nhập Dữ Liệu'}
@@ -2887,7 +2887,7 @@ export function KidsEnglishDashboard({
             className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
               activeTab === 'memory_game' ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white shadow-md scale-105 border border-yellow-300' : 'bg-slate-900 text-pink-300 hover:text-white border border-pink-500/30'
             }`}
-            title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,520 Từ Vựng"
+            title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,402 Từ Vựng"
           >
             <span className="animate-bounce">🃏</span> Game Lật Thẻ
           </button>
@@ -3353,7 +3353,7 @@ export function KidsEnglishDashboard({
               }`}
             >
               <span>🃏</span>
-              <span>Game Lật Thẻ (1,520 Từ)</span>
+              <span>Game Lật Thẻ (1,402 Từ)</span>
             </button>
             <button
               onClick={() => setGameSubTab('quiz')}

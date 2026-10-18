@@ -136,7 +136,7 @@ export function Header({
                   ? 'bg-gradient-to-r from-pink-600 to-amber-500 text-white border-yellow-300 scale-105 shadow-[0_0_15px_rgba(236,72,153,0.6)]'
                   : 'bg-gradient-to-r from-purple-900/60 to-pink-900/60 border-purple-400/40 text-pink-200 hover:text-white hover:bg-pink-600/30'
               }`}
-              title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,520 Từ Vựng"
+              title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,402 Từ Vựng"
             >
               <span className="text-xs sm:text-sm vocab-emoji">🃏</span>
               <span>Game Lật Thẻ</span>

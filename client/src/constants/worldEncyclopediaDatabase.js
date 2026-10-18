@@ -1,6 +1,6 @@
 /**
  * WORLD VOCABULARY ENCYCLOPEDIA (BÁCH KHOA TOÀN THƯ TỪ VỰNG THẾ GIỚI)
- * 300 Comprehensive, Encyclopedic English Words Across 20 Essential World Units
+ * 230 Comprehensive, Encyclopedic English Words Across 20 Essential World Units
  * Complete with authentic IPA, natural Vietnamese phonetic readings, bilingual examples,
  * 100% exact matching emojis, memory tips, and scientific fun facts.
  */
@@ -8,12 +8,12 @@
 export const ENCYCLOPEDIA_LEVEL = {
   "id": "ENC",
   "name": "Bách Khoa Toàn Thư Thế Giới (World Encyclopedia)",
-  "badge": "Bách Khoa Thế Giới • 300 Từ Vựng Siêu Chi Tiết",
+  "badge": "Bách Khoa Thế Giới • 230 Từ Vựng Độc Bản",
   "color": "from-amber-400 via-rose-500 to-indigo-600 border-amber-300 text-yellow-300",
   "bgBadge": "bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-indigo-500/20 text-yellow-300 border-amber-400/50",
   "description": "Bách khoa toàn thư từ vựng toàn cầu siêu chi tiết: Khủng long tiền sử, vũ trụ và các hành tinh, ẩm thực quốc tế, nông sản thế giới, thiên tai & kỳ quan, nhạc cụ, cơ thể học, thể thao Olympic, kiến trúc & cảm xúc tâm hồn.",
   "icon": "🌍",
-  "targetWords": 300
+  "targetWords": 230
 };
 
 export const ENCYCLOPEDIA_CATEGORIES = [

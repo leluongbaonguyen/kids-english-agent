@@ -1,0 +1,955 @@
+{
+  "totalWords": 1402,
+  "levelStats": [
+    {
+      "id": "L1",
+      "name": "Cấp độ L1: Khởi Động (4–5 tuổi)",
+      "icon": "🐣",
+      "oldTarget": 150,
+      "actualWords": 143,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L1-U01",
+          "name": "L1 • 01. Màu sắc (Colors)",
+          "icon": "🎨",
+          "count": 10
+        },
+        {
+          "id": "L1-U02",
+          "name": "L1 • 02. Số đếm 1–10 (Numbers 1-10)",
+          "icon": "🔢",
+          "count": 10
+        },
+        {
+          "id": "L1-U03",
+          "name": "L1 • 03. Hình dạng (Shapes)",
+          "icon": "📐",
+          "count": 10
+        },
+        {
+          "id": "L1-U04",
+          "name": "L1 • 04. Gia đình của bé (My Family)",
+          "icon": "👨‍👩‍👧‍👦",
+          "count": 10
+        },
+        {
+          "id": "L1-U05",
+          "name": "L1 • 05. Cơ thể của bé (My Body)",
+          "icon": "👁️",
+          "count": 10
+        },
+        {
+          "id": "L1-U06",
+          "name": "L1 • 06. Động vật quen thuộc (Animals)",
+          "icon": "🐱",
+          "count": 10
+        },
+        {
+          "id": "L1-U07",
+          "name": "L1 • 07. Đồ ăn và thức uống (Food & Drinks)",
+          "icon": "🍱",
+          "count": 10
+        },
+        {
+          "id": "L1-U08",
+          "name": "L1 • 08. Lớp học của bé (My Classroom)",
+          "icon": "🏫",
+          "count": 10
+        },
+        {
+          "id": "L1-U09",
+          "name": "L1 • 09. Động từ hành động (Action Words)",
+          "icon": "🏃",
+          "count": 10
+        },
+        {
+          "id": "L1-U10",
+          "name": "L1 • 10. Cảm xúc cơ bản (Feelings)",
+          "icon": "😊",
+          "count": 10
+        },
+        {
+          "id": "L1-U11",
+          "name": "L1 • 11. Đồ chơi của bé (Toys)",
+          "icon": "🧸",
+          "count": 10
+        },
+        {
+          "id": "L1-U12",
+          "name": "L1 • 12. Côn trùng & Sinh vật nhỏ (Insects)",
+          "icon": "🐞",
+          "count": 10
+        },
+        {
+          "id": "L1-U13",
+          "name": "L1 • 13. Đồ dùng phòng tắm (Bathroom Items)",
+          "icon": "🛁",
+          "count": 10
+        },
+        {
+          "id": "L1-U14",
+          "name": "L1 • 14. Ở nông trại (On the Farm)",
+          "icon": "🚜",
+          "count": 5
+        },
+        {
+          "id": "L1-U15",
+          "name": "L1 • 15. Từ trái nghĩa (Opposites)",
+          "icon": "↕️",
+          "count": 8
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "Cấp độ L2: Cơ Bản (5–7 tuổi)",
+      "icon": "🦁",
+      "oldTarget": 150,
+      "actualWords": 142,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L2-U01",
+          "name": "L2 • 01. Ngôi nhà (My Home)",
+          "icon": "🏠",
+          "count": 10
+        },
+        {
+          "id": "L2-U02",
+          "name": "L2 • 02. Quần áo (Clothes)",
+          "icon": "👕",
+          "count": 10
+        },
+        {
+          "id": "L2-U03",
+          "name": "L2 • 03. Sinh hoạt hằng ngày (Daily Routine)",
+          "icon": "⏰",
+          "count": 10
+        },
+        {
+          "id": "L2-U04",
+          "name": "L2 • 04. Thời tiết (Weather)",
+          "icon": "🌤️",
+          "count": 8
+        },
+        {
+          "id": "L2-U05",
+          "name": "L2 • 05. Phương tiện giao thông (Transportation)",
+          "icon": "🚗",
+          "count": 8
+        },
+        {
+          "id": "L2-U06",
+          "name": "L2 • 06. Địa điểm trong thành phố (Places in Town)",
+          "icon": "🏙️",
+          "count": 10
+        },
+        {
+          "id": "L2-U07",
+          "name": "L2 • 07. Nghề nghiệp (Jobs)",
+          "icon": "👷",
+          "count": 10
+        },
+        {
+          "id": "L2-U08",
+          "name": "L2 • 08. Trái cây và rau củ (Fruits & Vegetables)",
+          "icon": "🍎",
+          "count": 10
+        },
+        {
+          "id": "L2-U09",
+          "name": "L2 • 09. Thời gian và lịch (Time & Calendar)",
+          "icon": "📅",
+          "count": 10
+        },
+        {
+          "id": "L2-U10",
+          "name": "L2 • 10. Thể thao (Sports)",
+          "icon": "⚽",
+          "count": 10
+        },
+        {
+          "id": "L2-U11",
+          "name": "L2 • 11. Các môn học (School Subjects)",
+          "icon": "📚",
+          "count": 10
+        },
+        {
+          "id": "L2-U12",
+          "name": "L2 • 12. Dụng cụ nhà bếp (Kitchen Tools)",
+          "icon": "🍳",
+          "count": 10
+        },
+        {
+          "id": "L2-U13",
+          "name": "L2 • 13. Động vật biển (Sea Animals)",
+          "icon": "🐬",
+          "count": 10
+        },
+        {
+          "id": "L2-U14",
+          "name": "L2 • 14. Các mùa trong năm (Seasons)",
+          "icon": "🌸",
+          "count": 6
+        },
+        {
+          "id": "L2-U15",
+          "name": "L2 • 15. Phương hướng & Vị trí (Directions & Positions)",
+          "icon": "🧭",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "name": "Cấp độ L3: Mở Rộng (7–9 tuổi)",
+      "icon": "🚀",
+      "oldTarget": 150,
+      "actualWords": 137,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L3-U01",
+          "name": "L3 • 01. Thiên nhiên (Nature)",
+          "icon": "🌿",
+          "count": 10
+        },
+        {
+          "id": "L3-U02",
+          "name": "L3 • 02. Sức khỏe (Health)",
+          "icon": "🩺",
+          "count": 8
+        },
+        {
+          "id": "L3-U03",
+          "name": "L3 • 03. Mua sắm (Shopping)",
+          "icon": "🛒",
+          "count": 10
+        },
+        {
+          "id": "L3-U04",
+          "name": "L3 • 04. Du lịch (Travel)",
+          "icon": "✈️",
+          "count": 10
+        },
+        {
+          "id": "L3-U05",
+          "name": "L3 • 05. Công nghệ (Technology)",
+          "icon": "💻",
+          "count": 10
+        },
+        {
+          "id": "L3-U06",
+          "name": "L3 • 06. Sở thích (Hobbies)",
+          "icon": "🎨",
+          "count": 9
+        },
+        {
+          "id": "L3-U07",
+          "name": "L3 • 07. Cộng đồng quanh bé (My Community)",
+          "icon": "🏡",
+          "count": 10
+        },
+        {
+          "id": "L3-U08",
+          "name": "L3 • 08. Lễ hội & Tiệc (Festivals & Parties)",
+          "icon": "🎉",
+          "count": 10
+        },
+        {
+          "id": "L3-U09",
+          "name": "L3 • 09. Tính cách (Personality)",
+          "icon": "💖",
+          "count": 10
+        },
+        {
+          "id": "L3-U10",
+          "name": "L3 • 10. Bảo vệ Trái Đất (Protect the Earth)",
+          "icon": "🌍",
+          "count": 10
+        },
+        {
+          "id": "L3-U11",
+          "name": "L3 • 11. Ở nhà hàng (At a Restaurant)",
+          "icon": "🍽️",
+          "count": 10
+        },
+        {
+          "id": "L3-U12",
+          "name": "L3 • 12. Văn phòng & Công việc (Office & Work)",
+          "icon": "🏢",
+          "count": 8
+        },
+        {
+          "id": "L3-U13",
+          "name": "L3 • 13. Thiên tai (Natural Disasters)",
+          "icon": "🌪️",
+          "count": 9
+        },
+        {
+          "id": "L3-U14",
+          "name": "L3 • 14. Phương tiện truyền thông (Media Tools)",
+          "icon": "📺",
+          "count": 9
+        },
+        {
+          "id": "L3-U15",
+          "name": "L3 • 15. Miêu tả con người (Describing People)",
+          "icon": "🧑",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "Cấp độ L4: Nâng Cao Cho Bé (8–10 tuổi)",
+      "icon": "👑",
+      "oldTarget": 150,
+      "actualWords": 147,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L4-U01",
+          "name": "L4 • 01. Khoa học cơ bản (Science Basics)",
+          "icon": "🧪",
+          "count": 10
+        },
+        {
+          "id": "L4-U02",
+          "name": "L4 • 02. Không gian (Space)",
+          "icon": "🚀",
+          "count": 10
+        },
+        {
+          "id": "L4-U03",
+          "name": "L4 • 03. Từ học thuật cơ bản (Academic Words)",
+          "icon": "🧠",
+          "count": 10
+        },
+        {
+          "id": "L4-U04",
+          "name": "L4 • 04. Giao tiếp (Communication)",
+          "icon": "🗣️",
+          "count": 10
+        },
+        {
+          "id": "L4-U05",
+          "name": "L4 • 05. Giải quyết vấn đề (Problem Solving)",
+          "icon": "🧩",
+          "count": 10
+        },
+        {
+          "id": "L4-U06",
+          "name": "L4 • 06. Cảm xúc nâng cao (Complex Feelings)",
+          "icon": "🌟",
+          "count": 10
+        },
+        {
+          "id": "L4-U07",
+          "name": "L4 • 07. Quốc gia & Văn hóa (Countries & Culture)",
+          "icon": "🌐",
+          "count": 9
+        },
+        {
+          "id": "L4-U08",
+          "name": "L4 • 08. An toàn số (Digital Safety)",
+          "icon": "🔒",
+          "count": 10
+        },
+        {
+          "id": "L4-U09",
+          "name": "L4 • 09. Kể chuyện (Storytelling)",
+          "icon": "📖",
+          "count": 10
+        },
+        {
+          "id": "L4-U10",
+          "name": "L4 • 10. Mục tiêu & Trưởng thành (Goals & Growth)",
+          "icon": "🎯",
+          "count": 10
+        },
+        {
+          "id": "L4-U11",
+          "name": "L4 • 11. Toán học (Mathematics)",
+          "icon": "🧮",
+          "count": 9
+        },
+        {
+          "id": "L4-U12",
+          "name": "L4 • 12. Cơ thể người bên trong (The Human Body Inside)",
+          "icon": "🫀",
+          "count": 10
+        },
+        {
+          "id": "L4-U13",
+          "name": "L4 • 13. Hóa học cơ bản (Chemistry Basics)",
+          "icon": "⚛️",
+          "count": 9
+        },
+        {
+          "id": "L4-U14",
+          "name": "L4 • 14. Nghệ thuật & Thiết kế (Art & Design)",
+          "icon": "🖼️",
+          "count": 10
+        },
+        {
+          "id": "L4-U15",
+          "name": "L4 • 15. Xã hội & Công dân (Society & Citizenship)",
+          "icon": "⚖️",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "Cấp độ L5: Tiên Phong (10–12 tuổi)",
+      "icon": "🌟",
+      "oldTarget": 150,
+      "actualWords": 131,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L5-U01",
+          "name": "L5 • 01. Văn học Thiếu Nhi (Children's Literature)",
+          "icon": "📚",
+          "count": 8
+        },
+        {
+          "id": "L5-U02",
+          "name": "L5 • 02. Địa Lý Thế Giới (World Geography)",
+          "icon": "🗺️",
+          "count": 9
+        },
+        {
+          "id": "L5-U03",
+          "name": "L5 • 03. Lịch Sử Thế Giới (World History)",
+          "icon": "🏛️",
+          "count": 10
+        },
+        {
+          "id": "L5-U04",
+          "name": "L5 • 04. Tư Duy Phê Phán (Critical Thinking)",
+          "icon": "🧠",
+          "count": 9
+        },
+        {
+          "id": "L5-U05",
+          "name": "L5 • 05. Lập Trình Cơ Bản (Basic Coding)",
+          "icon": "💻",
+          "count": 10
+        },
+        {
+          "id": "L5-U06",
+          "name": "L5 • 06. Kinh Tế Học Cơ Bản (Basic Economics)",
+          "icon": "💰",
+          "count": 7
+        },
+        {
+          "id": "L5-U07",
+          "name": "L5 • 07. Sinh Học (Biology)",
+          "icon": "🧬",
+          "count": 10
+        },
+        {
+          "id": "L5-U08",
+          "name": "L5 • 08. Vật Lý Cơ Bản (Physics Basics)",
+          "icon": "⚡",
+          "count": 6
+        },
+        {
+          "id": "L5-U09",
+          "name": "L5 • 09. Âm Nhạc Học (Music Theory)",
+          "icon": "🎵",
+          "count": 10
+        },
+        {
+          "id": "L5-U10",
+          "name": "L5 • 10. Triết Học Cho Bé (Philosophy for Kids)",
+          "icon": "💡",
+          "count": 7
+        },
+        {
+          "id": "L5-U11",
+          "name": "L5 • 11. Hoạt Động Thiện Nguyện (Volunteering)",
+          "icon": "🤝",
+          "count": 9
+        },
+        {
+          "id": "L5-U12",
+          "name": "L5 • 12. Quyền Trẻ Em (Children's Rights)",
+          "icon": "🌈",
+          "count": 9
+        },
+        {
+          "id": "L5-U13",
+          "name": "L5 • 13. Thành Ngữ Tiếng Anh (English Idioms)",
+          "icon": "💬",
+          "count": 10
+        },
+        {
+          "id": "L5-U14",
+          "name": "L5 • 14. Toàn Cầu Hóa (Globalization)",
+          "icon": "🌐",
+          "count": 8
+        },
+        {
+          "id": "L5-U15",
+          "name": "L5 • 15. Nhân Vật Lịch Sử Nổi Tiếng (Famous Historical Figures)",
+          "icon": "🏅",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "name": "Cấp độ L6: Hội Nhập Quốc Tế (12+ tuổi)",
+      "icon": "🌎",
+      "oldTarget": 150,
+      "actualWords": 125,
+      "unitCount": 15,
+      "units": [
+        {
+          "id": "L6-U01",
+          "name": "L6 • 01. Tài Chính Cá Nhân (Personal Finance)",
+          "icon": "💳",
+          "count": 8
+        },
+        {
+          "id": "L6-U02",
+          "name": "L6 • 02. Ngôn Ngữ Học (Linguistics)",
+          "icon": "🔤",
+          "count": 10
+        },
+        {
+          "id": "L6-U03",
+          "name": "L6 • 03. Văn Hóa Đông & Tây (East vs West Culture)",
+          "icon": "⛩️",
+          "count": 5
+        },
+        {
+          "id": "L6-U04",
+          "name": "L6 • 04. Phần Mềm & AI (Software & AI)",
+          "icon": "🤖",
+          "count": 10
+        },
+        {
+          "id": "L6-U05",
+          "name": "L6 • 05. Thành Công Nghề Nghiệp (Career Success)",
+          "icon": "👔",
+          "count": 9
+        },
+        {
+          "id": "L6-U06",
+          "name": "L6 • 06. Tư Duy Tăng Trưởng (Growth Mindset)",
+          "icon": "🌱",
+          "count": 9
+        },
+        {
+          "id": "L6-U07",
+          "name": "L6 • 07. Đạo Đức Học (Ethics)",
+          "icon": "⚖️",
+          "count": 4
+        },
+        {
+          "id": "L6-U08",
+          "name": "L6 • 08. Vấn Đề Toàn Cầu (Global Issues)",
+          "icon": "🌍",
+          "count": 6
+        },
+        {
+          "id": "L6-U09",
+          "name": "L6 • 09. Lãnh Đạo (Leadership)",
+          "icon": "👑",
+          "count": 7
+        },
+        {
+          "id": "L6-U10",
+          "name": "L6 • 10. Sức Khỏe Tâm Thần (Mental Health)",
+          "icon": "🧘",
+          "count": 10
+        },
+        {
+          "id": "L6-U11",
+          "name": "L6 • 11. Giao Tiếp Ưu Việt (Excellent Communication)",
+          "icon": "🗣️",
+          "count": 8
+        },
+        {
+          "id": "L6-U12",
+          "name": "L6 • 12. Chính Trị Học (Basic Political Science)",
+          "icon": "🏛️",
+          "count": 10
+        },
+        {
+          "id": "L6-U13",
+          "name": "L6 • 13. IELTS / TOEFL Từ Vựng (Academic Vocabulary)",
+          "icon": "🎓",
+          "count": 10
+        },
+        {
+          "id": "L6-U14",
+          "name": "L6 • 14. Thành Ngữ Nâng Cao (Advanced Idioms & Proverbs)",
+          "icon": "📖",
+          "count": 10
+        },
+        {
+          "id": "L6-U15",
+          "name": "L6 • 15. Tư Duy Hệ Thống (Systems Thinking)",
+          "icon": "♾️",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "id": "BIO",
+      "name": "Chuyên Đề: Bách Khoa Động Thực Vật Toàn Cầu (Flora & Fauna)",
+      "icon": "🌿",
+      "oldTarget": 120,
+      "actualWords": 114,
+      "unitCount": 10,
+      "units": [
+        {
+          "id": "BIO-U01",
+          "name": "BIO • 01. Thú Thảo Nguyên & Động Vật Ăn Cỏ (Savannah Wildlife)",
+          "icon": "🦁",
+          "count": 12
+        },
+        {
+          "id": "BIO-U02",
+          "name": "BIO • 02. Động Vật Săn Mồi & Thú Rừng Nhiệt Đới (Jungle Predators)",
+          "icon": "🐅",
+          "count": 12
+        },
+        {
+          "id": "BIO-U03",
+          "name": "BIO • 03. Chim Muông Toàn Cầu & Bầu Trời (Birds of the World)",
+          "icon": "🦅",
+          "count": 12
+        },
+        {
+          "id": "BIO-U04",
+          "name": "BIO • 04. Sinh Vật Biển & Đại Dương Sâu (Deep Ocean & Marine Life)",
+          "icon": "🐋",
+          "count": 9
+        },
+        {
+          "id": "BIO-U05",
+          "name": "BIO • 05. Bò Sát & Lưỡng Cư Kỳ Thú (Reptiles & Amphibians)",
+          "icon": "🐊",
+          "count": 12
+        },
+        {
+          "id": "BIO-U06",
+          "name": "BIO • 06. Côn Trùng & Tiểu Sinh Vật Rừng (Insects & Arthropods)",
+          "icon": "🦋",
+          "count": 9
+        },
+        {
+          "id": "BIO-U07",
+          "name": "BIO • 07. Rừng Cây, Đại Thụ & Cổ Thực Vật (Ancient Trees & Forests)",
+          "icon": "🌲",
+          "count": 12
+        },
+        {
+          "id": "BIO-U08",
+          "name": "BIO • 08. Bách Hoa & Sắc Màu Thiên Nhiên (Flowers of the World)",
+          "icon": "🌺",
+          "count": 12
+        },
+        {
+          "id": "BIO-U09",
+          "name": "BIO • 09. Nấm, Rêu, Cỏ & Thực Vật Sa Mạc (Moss, Fungi & Desert Plants)",
+          "icon": "🍄",
+          "count": 12
+        },
+        {
+          "id": "BIO-U10",
+          "name": "BIO • 10. Giải Phẫu & Sinh Thái Động Thực Vật (Flora & Fauna Anatomy)",
+          "icon": "🪶",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "id": "COLOR",
+      "name": "Chuyên Đề: Bách Khoa Sắc Màu Toàn Cầu (Colors of the World)",
+      "icon": "🎨",
+      "oldTarget": 120,
+      "actualWords": 115,
+      "unitCount": 10,
+      "units": [
+        {
+          "id": "CLR-U01",
+          "name": "CLR • 01. Sắc Đỏ Quyến Rũ & Hồng Rực Rỡ (Reds & Pinks)",
+          "icon": "🌹",
+          "count": 11
+        },
+        {
+          "id": "CLR-U02",
+          "name": "CLR • 02. Sắc Lam Đại Dương & Bầu Trời (Blues & Cyans)",
+          "icon": "🌊",
+          "count": 12
+        },
+        {
+          "id": "CLR-U03",
+          "name": "CLR • 03. Sắc Lục Rừng Già & Ngọc Bích (Greens & Emeralds)",
+          "icon": "🍃",
+          "count": 12
+        },
+        {
+          "id": "CLR-U04",
+          "name": "CLR • 04. Sắc Vàng Ánh Kim & Hổ Phách (Yellows & Golds)",
+          "icon": "👑",
+          "count": 12
+        },
+        {
+          "id": "CLR-U05",
+          "name": "CLR • 05. Sắc Tím Hoàng Gia & Tử Đinh Hương (Purples & Violets)",
+          "icon": "🔮",
+          "count": 10
+        },
+        {
+          "id": "CLR-U06",
+          "name": "CLR • 06. Sắc Cam Ấm Áp & Đất Nung (Oranges & Earth Tones)",
+          "icon": "🌅",
+          "count": 11
+        },
+        {
+          "id": "CLR-U07",
+          "name": "CLR • 07. Sắc Nâu Đất & Gỗ Cổ Thụ (Browns & Woods)",
+          "icon": "🪵",
+          "count": 12
+        },
+        {
+          "id": "CLR-U08",
+          "name": "CLR • 08. Sắc Đen Huyền Bí, Bạc & Xám Kim Loại (Blacks & Silvers)",
+          "icon": "🪙",
+          "count": 12
+        },
+        {
+          "id": "CLR-U09",
+          "name": "CLR • 09. Sắc Trắng Tinh Khôi & Ngà Ngọc (Whites & Creams)",
+          "icon": "🕊️",
+          "count": 12
+        },
+        {
+          "id": "CLR-U10",
+          "name": "CLR • 10. Hiệu Ứng Sắc Màu & Quang Học (Chromatics & Optics)",
+          "icon": "🌈",
+          "count": 11
+        }
+      ]
+    },
+    {
+      "id": "NUM",
+      "name": "Chuyên Đề: Bách Khoa Số Đếm & Số Thứ Tự Toàn Cầu",
+      "icon": "🔢",
+      "oldTarget": 120,
+      "actualWords": 118,
+      "unitCount": 10,
+      "units": [
+        {
+          "id": "NUM-U01",
+          "name": "Số Đếm Cơ Bản 0–11 (Basic Cardinal Numbers 0–11)",
+          "icon": "0️⃣",
+          "count": 12
+        },
+        {
+          "id": "NUM-U02",
+          "name": "Số Đếm Tuổi Teen 12–20 & Tròn Chục (Teens & Tens Numbers)",
+          "icon": "🔟",
+          "count": 12
+        },
+        {
+          "id": "NUM-U03",
+          "name": "Số Tròn Chục & Đại Số Lớn (High Tens & Large Scale Numbers)",
+          "icon": "💯",
+          "count": 12
+        },
+        {
+          "id": "NUM-U04",
+          "name": "Số Thứ Tự Khởi Đầu 1st–12th (First to Twelfth Ordinals)",
+          "icon": "🥇",
+          "count": 12
+        },
+        {
+          "id": "NUM-U05",
+          "name": "Số Thứ Tự Tuổi Teen & Hàng Hai Mươi (Teens & 20s Ordinals)",
+          "icon": "🥈",
+          "count": 12
+        },
+        {
+          "id": "NUM-U06",
+          "name": "Số Thứ Tự Tròn Chục & Cột Mốc Lớn (Tens & Milestone Ordinals)",
+          "icon": "🥉",
+          "count": 12
+        },
+        {
+          "id": "NUM-U07",
+          "name": "Phân Số & Tỉ Lệ Toán Học (Fractions & Proportions)",
+          "icon": "🍰",
+          "count": 11
+        },
+        {
+          "id": "NUM-U08",
+          "name": "Tần Suất & Bội Số Nhân (Multipliers & Frequency Quantifiers)",
+          "icon": "✖️",
+          "count": 12
+        },
+        {
+          "id": "NUM-U09",
+          "name": "Đơn Vị Đếm Tập Hợp & Lô Hàng (Collective & Group Counting Units)",
+          "icon": "📦",
+          "count": 11
+        },
+        {
+          "id": "NUM-U10",
+          "name": "Chữ Số La Mã & Ký Hiệu Số Học (Roman Numerals & Math Notations)",
+          "icon": "🏛️",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "id": "ENC",
+      "name": "Bách Khoa Toàn Thư Thế Giới (World Encyclopedia)",
+      "icon": "🌍",
+      "oldTarget": 300,
+      "actualWords": 230,
+      "unitCount": 20,
+      "units": [
+        {
+          "id": "ENC-U01",
+          "name": "ENC • 01. Khủng Long & Thế Giới Tiền Sử (Dinosaurs)",
+          "icon": "🦖",
+          "count": 14
+        },
+        {
+          "id": "ENC-U02",
+          "name": "ENC • 02. Trái Cây & Nông Sản Toàn Cầu (Global Fruits)",
+          "icon": "🍓",
+          "count": 10
+        },
+        {
+          "id": "ENC-U03",
+          "name": "ENC • 03. Rau Củ Quả, Nấm & Thảo Mộc (Vegetables & Herbs)",
+          "icon": "🥦",
+          "count": 9
+        },
+        {
+          "id": "ENC-U04",
+          "name": "ENC • 04. Bánh Ngọt, Tráng Miệng & Ẩm Thực (Bakery & World Food)",
+          "icon": "🍰",
+          "count": 15
+        },
+        {
+          "id": "ENC-U05",
+          "name": "ENC • 05. Đồ Uống & Dinh Dưỡng Toàn Cầu (Beverages & Dairy)",
+          "icon": "🧃",
+          "count": 15
+        },
+        {
+          "id": "ENC-U06",
+          "name": "ENC • 06. Vũ Trụ, Hành Tinh & Thiên Thể (Universe & Solar System)",
+          "icon": "🪐",
+          "count": 11
+        },
+        {
+          "id": "ENC-U07",
+          "name": "ENC • 07. Kỳ Quan Thiên Nhiên, Địa Lý & Cảnh Quan (Geographic Wonders)",
+          "icon": "🌋",
+          "count": 11
+        },
+        {
+          "id": "ENC-U08",
+          "name": "ENC • 08. Khí Tượng, Hiện Tượng Thời Tiết & Cực Quang (Atmosphere & Weather)",
+          "icon": "🌈",
+          "count": 12
+        },
+        {
+          "id": "ENC-U09",
+          "name": "ENC • 09. Siêu Xe, Tàu Thủy, Máy Bay & Máy Cơ Giới (Super Machines)",
+          "icon": "🏎️",
+          "count": 14
+        },
+        {
+          "id": "ENC-U10",
+          "name": "ENC • 10. Nhạc Cụ Thế Giới & Âm Vang Giai Điệu (Musical Instruments)",
+          "icon": "🎻",
+          "count": 14
+        },
+        {
+          "id": "ENC-U11",
+          "name": "ENC • 11. Nghề Nghiệp Khám Phá & Chuyên Gia Tương Lai (Inspiring Careers)",
+          "icon": "🧑‍🚀",
+          "count": 9
+        },
+        {
+          "id": "ENC-U12",
+          "name": "ENC • 12. Đồ Dùng Gia Đình, Thiết Bị Thông Minh & Tiện Nghi (Smart Home & Living)",
+          "icon": "🛋️",
+          "count": 12
+        },
+        {
+          "id": "ENC-U13",
+          "name": "ENC • 13. Thời Trang, Phụ Kiện & Trang Phục Toàn Cầu (Fashion & Accessories)",
+          "icon": "🎒",
+          "count": 15
+        },
+        {
+          "id": "ENC-U14",
+          "name": "ENC • 14. Dụng Cụ Học Tập, Phòng Thí Nghiệm & Sáng Chế (School & Science Lab)",
+          "icon": "🔬",
+          "count": 10
+        },
+        {
+          "id": "ENC-U15",
+          "name": "ENC • 15. Trò Chơi, Đồ Chơi Thông Minh & Giải Trí (Games & Brain Toys)",
+          "icon": "🧩",
+          "count": 12
+        },
+        {
+          "id": "ENC-U16",
+          "name": "ENC • 16. Thể Thao Mạo Hiểm, Điền Kinh & Thế Vận Hội (Olympic & Sports)",
+          "icon": "🏂",
+          "count": 12
+        },
+        {
+          "id": "ENC-U17",
+          "name": "ENC • 17. Cơ Thể Người, Các Cơ Quan & Giác Quan Kỳ Diệu (Human Organs & Anatomy)",
+          "icon": "🫀",
+          "count": 7
+        },
+        {
+          "id": "ENC-U18",
+          "name": "ENC • 18. Cảm Xúc Tâm Hồn, Phẩm Chất & Siêu Năng Lực (Virtues & Soul Powers)",
+          "icon": "💖",
+          "count": 12
+        },
+        {
+          "id": "ENC-U19",
+          "name": "ENC • 19. Kỳ Quan Nhân Loại, Lâu Đài & Kiến Trúc Cổ Đại (World Heritage & Castles)",
+          "icon": "🏰",
+          "count": 15
+        },
+        {
+          "id": "ENC-U20",
+          "name": "ENC • 20. Động Vật Độc Đáo, Thú Cưng & Côn Trùng Kỳ Bí (Extraordinary Wildlife)",
+          "icon": "🦔",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "posStats": {
+    "Danh từ": 1172,
+    "Động từ": 9,
+    "Tính từ": 121,
+    "Phó từ": 5,
+    "Giới từ": 5,
+    "Cụm từ": 20,
+    "Số từ": 35,
+    "Số thứ tự": 35
+  }
+}

@@ -19,7 +19,7 @@ export function MobileBottomBar({ activeTab, setActiveTab }) {
     },
     {
       id: 'flashcards',
-      label: '1,520 Từ Vựng',
+      label: '1,402 Từ Vựng',
       mainIcon: BookOpen,
       subIcon: Layers,
       gradient: 'from-cyan-400 via-teal-500 to-blue-600',
