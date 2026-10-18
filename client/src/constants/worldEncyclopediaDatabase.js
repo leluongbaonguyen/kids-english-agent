@@ -203,7 +203,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The triceratops used its three horns for defense.",
     "exampleVi": "Khủng long ba sừng dùng ba chiếc sừng nhọn để tự vệ.",
-    "image": "🦕",
+    "image": "🦏",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -217,7 +217,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Stegosaurus had large bony plates along its back.",
     "exampleVi": "Khủng long lưng gai Stegosaurus có các phiến xương lớn dọc sống lưng.",
-    "image": "🦕",
+    "image": "🦎",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -231,7 +231,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "The pterodactyl soared high in the prehistoric sky.",
     "exampleVi": "Thằn lằn bay tiền sử chao liệng trên bầu trời cổ đại.",
-    "image": "🦅",
+    "image": "🦇",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -259,7 +259,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Velociraptor was very fast and smart.",
     "exampleVi": "Velociraptor là loài khủng long chạy cực nhanh và thông minh.",
-    "image": "🦖",
+    "image": "⚡",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -273,7 +273,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Spinosaurus had a huge sail on its back and could swim.",
     "exampleVi": "Spinosaurus có cánh buồm khổng lồ trên lưng và biết bơi lội.",
-    "image": "🦖",
+    "image": "🐊",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -287,7 +287,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "Ankylosaurus had heavy armor and a club tail.",
     "exampleVi": "Khủng long thiết giáp Ankylosaurus có áo giáp dày và đuôi hình cây chùy.",
-    "image": "🛡️",
+    "image": "🐢",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1
@@ -371,7 +371,7 @@ export const WORLD_ENCYCLOPEDIA_WORDS = [
     "type": "Danh từ",
     "example": "An ancient mosquito was preserved inside the amber.",
     "exampleVi": "Một chú muỗi cổ đại đã được bảo tồn nguyên vẹn bên trong viên hổ phách.",
-    "image": "🍯",
+    "image": "💎",
     "level": "ENC",
     "category": "ENC-U01",
     "unit": 1

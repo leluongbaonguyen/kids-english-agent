@@ -1,11 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { getCustomSvgForWord } from '../constants/floraFaunaSvgLibrary.js';
 import { getColorSvgForWord } from '../constants/colorSvgLibrary.js';
 import { getNumberSvgForWord } from '../constants/numberSvgLibrary.js';
+import { CLAY_3D_SVGS } from '../constants/clay3dSvgLibrary.js';
+import { getFluentEmojiUrl } from '../utils/fluentEmojiMap.js';
 import { normalizeSvg } from '../utils/svgNormalizer.js';
 
 /**
- * VocabSmartIcon - Clean, Crisp Vector & Unicode Icon Engine (Flat & Modern, No 3D Effects)
+ * VocabSmartIcon - Microsoft Fluent 3D & 3D Claymorphic Icon Engine
+ * Renders high-resolution 3D clay emojis (matching Microsoft Fluent 3D) and volumetric 3D SVGs
  * 
  * @param {Object} props
  * @param {Object} [props.item] - Vocabulary object with .word, .image, .hex, .svg
@@ -31,13 +34,28 @@ export default function VocabSmartIcon({
   const fallbackImage = item?.image || image;
   const hexColor = item?.hex;
   const animClass = animate ? (dance ? 'icon-dance' : 'icon-bounce-playful') : '';
+  const [imgFailed, setImgFailed] = useState(false);
 
-  // Find vector SVG from libraries or direct item.svg
+  // 1. Check if there is a handcrafted 3D Clay SVG (table, skirt, triceratops, stegosaurus, etc.)
+  const clay3dSvg = useMemo(() => {
+    if (!targetWord) return null;
+    const key = targetWord.toLowerCase().trim();
+    return CLAY_3D_SVGS[key] || null;
+  }, [targetWord]);
+
+  // 2. Check if there is an official Microsoft Fluent 3D WebP emoji asset
+  const fluent3dUrl = useMemo(() => {
+    if (!fallbackImage) return null;
+    return getFluentEmojiUrl(fallbackImage);
+  }, [fallbackImage]);
+
+  // 3. Find other vector SVGs (Flora/Fauna, Colors, Numbers, direct item.svg)
   const rawSvg = useMemo(() => {
+    if (clay3dSvg) return clay3dSvg;
     if (item?.svg) return item.svg;
     if (!targetWord) return null;
-    return getCustomSvgForWord(targetWord) || getColorSvgForWord(targetWord) || getNumberSvgForWord(targetWord);
-  }, [item?.svg, targetWord]);
+    return getColorSvgForWord(targetWord) || getNumberSvgForWord(targetWord) || getCustomSvgForWord(targetWord);
+  }, [clay3dSvg, item?.svg, targetWord]);
 
   // Normalized SVG string with width="100%", height="100%"
   const processedSvg = useMemo(() => {
@@ -47,7 +65,7 @@ export default function VocabSmartIcon({
 
   const styleObj = size ? { width: `${size}px`, height: `${size}px` } : {};
 
-  // 1. Vector SVG branch (Flora/Fauna, Colors, Numbers, etc.) - Clean flat vector
+  // Branch 1: Handcrafted 3D Clay or specialized Vector SVG (Table, Skirt, Dinosaurs, etc.)
   if (processedSvg) {
     return (
       <div
@@ -56,7 +74,7 @@ export default function VocabSmartIcon({
         title={targetWord}
       >
         <div
-          className="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block [&>svg]:shrink-0"
+          className="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block [&>svg]:shrink-0 filter drop-shadow-sm"
           dangerouslySetInnerHTML={{ __html: processedSvg }}
         />
         {showBadge && (
@@ -66,7 +84,30 @@ export default function VocabSmartIcon({
     );
   }
 
-  // 2. Unicode Emoji branch - Clean, natural, vivid emoji rendering
+  // Branch 2: Microsoft Fluent 3D Emoji (High-Resolution Claymorphic 3D WebP)
+  if (fluent3dUrl && !imgFailed) {
+    return (
+      <span
+        className={`vocab-smart-icon vocab-fluent-3d ${animClass} relative inline-flex items-center justify-center shrink-0 select-none ${className}`}
+        style={styleObj}
+        title={targetWord}
+      >
+        <img
+          src={fluent3dUrl}
+          alt={targetWord || fallbackImage}
+          className="w-full h-full object-contain filter drop-shadow-md select-none pointer-events-none transform-gpu transition-transform duration-200"
+          loading="lazy"
+          decoding="async"
+          onError={() => setImgFailed(true)}
+        />
+        {showBadge && (
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-pink-400 ring-2 ring-slate-950" />
+        )}
+      </span>
+    );
+  }
+
+  // Branch 3: Standard Native Unicode Emoji fallback
   if (fallbackImage) {
     return (
       <span
@@ -84,7 +125,7 @@ export default function VocabSmartIcon({
     );
   }
 
-  // 3. Clean Color Swatch Circle (Flat & crisp, no 3D marble glint)
+  // Branch 4: Clean Color Swatch Circle
   if (hexColor) {
     return (
       <span
@@ -99,7 +140,7 @@ export default function VocabSmartIcon({
     );
   }
 
-  // 4. Default Fallback icon
+  // Branch 5: Default Fallback icon
   return (
     <span
       className={`vocab-smart-icon vocab-emoji ${animClass} relative inline-flex items-center justify-center shrink-0 select-none font-emoji leading-none ${className}`}

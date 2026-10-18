@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import { scrollToTop } from '../utils/scrollHelper.js';
+import { scrollToTop, scrollToVocabCards } from '../utils/scrollHelper.js';
 
 export default function PaginationControl({
   currentPage = 1,
@@ -10,7 +10,8 @@ export default function PaginationControl({
   onPageChange,
   onPageSizeChange,
   pageSizeOptions = [12, 24, 48, 96],
-  itemLabel = 'mục'
+  itemLabel = 'mục',
+  scrollTarget = null
 }) {
   if (totalPages <= 1 && totalItems <= pageSize) return null;
 
@@ -24,14 +25,23 @@ export default function PaginationControl({
     }
     // Also scroll parent scrollable container if inside a modal
     const scrollParent = e?.currentTarget?.closest ? e.currentTarget.closest('.overflow-y-auto') : null;
-    scrollToTop(true, scrollParent);
+    if (scrollParent) {
+      scrollToTop(true, scrollParent);
+    } else {
+      scrollToVocabCards(scrollTarget || 'vocab-cards-top', 85);
+    }
   };
 
   const handlePageSizeChange = (newSize) => {
     if (typeof onPageSizeChange === 'function') {
       onPageSizeChange(newSize);
     }
-    scrollToTop(true);
+    const scrollParent = typeof document !== 'undefined' ? document.querySelector('.overflow-y-auto') : null;
+    if (scrollParent) {
+      scrollToTop(true, scrollParent);
+    } else {
+      scrollToVocabCards(scrollTarget || 'vocab-cards-top', 85);
+    }
   };
 
   // Generate page numbers with ellipses

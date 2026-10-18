@@ -4005,7 +4005,7 @@ export function KidsEnglishDashboard({
           </div>
 
           {/* Admin Vocabulary Data Table */}
-          <div className="overflow-x-auto rounded-3xl border border-slate-800 bg-slate-950/90 shadow-2xl custom-scrollbar">
+          <div id="admin-vocab-table" className="overflow-x-auto rounded-3xl border border-slate-800 bg-slate-950/90 shadow-2xl custom-scrollbar scroll-mt-24">
             <table className="w-full text-left border-collapse min-w-[950px]">
               <thead className="border-b border-slate-800 bg-slate-900/95 text-xs text-slate-300 font-bold uppercase tracking-wider">
                 <tr>
@@ -4083,6 +4083,7 @@ export function KidsEnglishDashboard({
             onPageChange={(pg) => setCurrentPage(pg)}
             pageSizeOptions={[12, 24, 48, 96]}
             itemLabel="từ vựng"
+            scrollTarget="admin-vocab-table"
           />
         </div>
       )}

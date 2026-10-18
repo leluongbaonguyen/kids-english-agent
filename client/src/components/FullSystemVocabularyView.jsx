@@ -15,7 +15,7 @@ import {
 import VocabSmartIcon from './VocabSmartIcon.jsx';
 import SuperDetailedAudioBar from './SuperDetailedAudioBar.jsx';
 import { speakWord } from '../services/nativeSpeechEngine.js';
-import { scrollToTop } from '../utils/scrollHelper.js';
+import { scrollToTop, scrollToVocabCards } from '../utils/scrollHelper.js';
 import { useChildLock } from '../contexts/ChildLockContext.jsx';
 
 // Color themes for CEFR Levels L1 - L6
@@ -145,6 +145,7 @@ export default function FullSystemVocabularyView({
   // Pagination & Display limit
   const [pageSize, setPageSize] = useState(24); // 24 | 48 | 96 | 9999 (All)
   const [currentPage, setCurrentPage] = useState(1);
+  const cardsTopRef = useRef(null);
 
   // Spotlight Zoom Modal State
   const [activeSpotlight, setActiveSpotlight] = useState(null);
@@ -236,7 +237,7 @@ export default function FullSystemVocabularyView({
     });
   }, [vocabList, selectedLevel, selectedCategory, selectedWordType, masteryFilter, searchQuery, masteredCards, categoryMap]);
 
-  // Reset page when filters change and scroll up to the top
+  // Reset page when filters change and scroll up to the top of cards
   const isFilterInitialMount = useRef(true);
   useEffect(() => {
     if (isFilterInitialMount.current) {
@@ -244,17 +245,17 @@ export default function FullSystemVocabularyView({
       return;
     }
     setCurrentPage(1);
-    scrollToTop(true);
+    scrollToVocabCards(cardsTopRef, 85);
   }, [selectedLevel, selectedCategory, selectedWordType, masteryFilter, searchQuery, pageSize]);
 
-  // Automatically scroll to the top when currentPage changes
+  // Automatically scroll to the top of vocabulary cards when currentPage changes
   const isPageInitialMount = useRef(true);
   useEffect(() => {
     if (isPageInitialMount.current) {
       isPageInitialMount.current = false;
       return;
     }
-    scrollToTop(true);
+    scrollToVocabCards(cardsTopRef, 85);
   }, [currentPage]);
 
   // Pagination calculation
@@ -750,6 +751,9 @@ export default function FullSystemVocabularyView({
         </div>
       </div>
 
+      {/* Target anchor for scrolling directly to the top of the vocabulary cards */}
+      <div id="vocab-cards-top" ref={cardsTopRef} className="w-full scroll-mt-24 pointer-events-none" />
+
       {/* ========================================================================= */}
       {/* 3. VIEW MODE 1: ULTRA-DETAILED FLASHCARDS (LẬT THẺ 3D SIÊU CHI TIẾT)        */}
       {/* ========================================================================= */}
@@ -1152,7 +1156,7 @@ export default function FullSystemVocabularyView({
           <button
             onClick={() => {
               setCurrentPage((p) => Math.max(1, p - 1));
-              scrollToTop(true);
+              scrollToVocabCards(cardsTopRef, 85);
             }}
             disabled={currentPage === 1}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:bg-slate-800 disabled:opacity-40 transition cursor-pointer"
@@ -1171,7 +1175,7 @@ export default function FullSystemVocabularyView({
           <button
             onClick={() => {
               setCurrentPage((p) => Math.min(totalPages, p + 1));
-              scrollToTop(true);
+              scrollToVocabCards(cardsTopRef, 85);
             }}
             disabled={currentPage === totalPages}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:bg-slate-800 disabled:opacity-40 transition cursor-pointer"

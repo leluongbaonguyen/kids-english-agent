@@ -1464,7 +1464,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I like eggs.",
     "exampleVi": "Bé thích quả trứng.",
-    "image": "🍳",
+    "image": "🥚",
     "level": "L1",
     "category": "L1-U07",
     "unit": 7
@@ -1618,7 +1618,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "This is my table.",
     "exampleVi": "Đây là bàn của bé.",
-    "image": "🪑",
+    "image": "🟫",
     "level": "L1",
     "category": "L1-U08",
     "unit": 8
@@ -1884,7 +1884,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I feel thirsty.",
     "exampleVi": "Bé cảm thấy khát.",
-    "image": "🚰",
+    "image": "🥤",
     "level": "L1",
     "category": "L1-U10",
     "unit": 10
@@ -2122,7 +2122,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "She is wearing a skirt.",
     "exampleVi": "Bạn ấy đang mặc chân váy.",
-    "image": "🥻",
+    "image": "👗",
     "level": "L2",
     "category": "L2-U02",
     "unit": 2
@@ -2318,7 +2318,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I play with my friends.",
     "exampleVi": "Bé chơi cùng các bạn.",
-    "image": "⚽",
+    "image": "🎮",
     "level": "L2",
     "category": "L2-U03",
     "unit": 3
@@ -2808,7 +2808,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "A nurse cares for patients.",
     "exampleVi": "Y tá chăm sóc bệnh nhân.",
-    "image": "🧑‍⚕️",
+    "image": "👩‍⚕️",
     "level": "L2",
     "category": "L2-U07",
     "unit": 7
@@ -4096,7 +4096,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I enjoy gardening.",
     "exampleVi": "Bé thích làm vườn.",
-    "image": "🌱",
+    "image": "🧑‍🌾",
     "level": "L3",
     "category": "L3-U06",
     "unit": 6
@@ -4194,7 +4194,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The police station is near the bank.",
     "exampleVi": "Đồn cảnh sát ở gần ngân hàng.",
-    "image": "🚓",
+    "image": "🚨",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4208,7 +4208,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Firefighters work at the fire station.",
     "exampleVi": "Lính cứu hỏa làm việc tại trạm cứu hỏa.",
-    "image": "🚒",
+    "image": "🧯",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4222,7 +4222,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "We learn about history at the museum.",
     "exampleVi": "Chúng ta học về lịch sử tại bảo tàng.",
-    "image": "🏛️",
+    "image": "🖼️",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4236,7 +4236,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The bakery sells fresh bread.",
     "exampleVi": "Tiệm bánh bán bánh mì mới.",
-    "image": "🥖",
+    "image": "🥐",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4250,7 +4250,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "My mother buys vegetables at the market.",
     "exampleVi": "Mẹ mua rau ở chợ.",
-    "image": "🛒",
+    "image": "🏪",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4292,7 +4292,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Use the crossing to cross the road.",
     "exampleVi": "Hãy dùng vạch qua đường để sang đường.",
-    "image": "🚶",
+    "image": "🚸",
     "level": "L3",
     "category": "L3-U07",
     "unit": 7
@@ -4320,7 +4320,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Our town has a colorful festival.",
     "exampleVi": "Thành phố có một lễ hội đầy màu sắc.",
-    "image": "🎈",
+    "image": "🎆",
     "level": "L3",
     "category": "L3-U08",
     "unit": 8
@@ -4376,7 +4376,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "She wears a funny costume.",
     "exampleVi": "Bạn ấy mặc trang phục hóa trang vui nhộn.",
-    "image": "🎭",
+    "image": "🦸",
     "level": "L3",
     "category": "L3-U08",
     "unit": 8
@@ -4516,7 +4516,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "My friend is brave.",
     "exampleVi": "Bạn của bé rất dũng cảm.",
-    "image": "🦁",
+    "image": "🛡️",
     "level": "L3",
     "category": "L3-U09",
     "unit": 9
@@ -4544,7 +4544,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "My friend is careful.",
     "exampleVi": "Bạn của bé rất cẩn thận.",
-    "image": "🔍",
+    "image": "⚠️",
     "level": "L3",
     "category": "L3-U09",
     "unit": 9
@@ -4558,7 +4558,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "My friend is patient.",
     "exampleVi": "Bạn của bé rất kiên nhẫn.",
-    "image": "⏳",
+    "image": "🐢",
     "level": "L3",
     "category": "L3-U09",
     "unit": 9
@@ -4754,7 +4754,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Food gives our bodies energy.",
     "exampleVi": "Thức ăn cung cấp năng lượng cho cơ thể.",
-    "image": "⚡",
+    "image": "🔋",
     "level": "L4",
     "category": "L4-U01",
     "unit": 1
@@ -5006,7 +5006,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Gravity pulls objects toward Earth.",
     "exampleVi": "Trọng lực kéo vật thể về phía Trái Đất.",
-    "image": "🍏",
+    "image": "⬇️",
     "level": "L4",
     "category": "L4-U02",
     "unit": 2
@@ -5034,7 +5034,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Describe the animal in the picture.",
     "exampleVi": "Hãy mô tả con vật trong tranh.",
-    "image": "🗣️",
+    "image": "📝",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5048,7 +5048,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Explain how you found the answer.",
     "exampleVi": "Hãy giải thích cách con tìm ra câu trả lời.",
-    "image": "💡",
+    "image": "💬",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5062,7 +5062,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Classify the animals into two groups.",
     "exampleVi": "Hãy phân loại động vật thành hai nhóm.",
-    "image": "🗂️",
+    "image": "🏷️",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5146,7 +5146,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Find the important information in the text.",
     "exampleVi": "Hãy tìm thông tin quan trọng trong đoạn văn.",
-    "image": "ℹ️",
+    "image": "📰",
     "level": "L4",
     "category": "L4-U03",
     "unit": 3
@@ -5440,7 +5440,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I feel proud today.",
     "exampleVi": "Hôm nay bé cảm thấy tự hào.",
-    "image": "🦁",
+    "image": "🏆",
     "level": "L4",
     "category": "L4-U06",
     "unit": 6
@@ -5580,7 +5580,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Vietnam is a beautiful country.",
     "exampleVi": "Việt Nam là một quốc gia xinh đẹp.",
-    "image": "🗺️",
+    "image": "🚩",
     "level": "L4",
     "category": "L4-U07",
     "unit": 7
@@ -5636,7 +5636,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Greeting politely is an important custom.",
     "exampleVi": "Chào hỏi lịch sự là một phong tục quan trọng.",
-    "image": "🍵",
+    "image": "🧧",
     "level": "L4",
     "category": "L4-U07",
     "unit": 7
@@ -6028,7 +6028,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "I want to learn more in the future.",
     "exampleVi": "Bé muốn học thêm trong tương lai.",
-    "image": "🚀",
+    "image": "🤖",
     "level": "L4",
     "category": "L4-U10",
     "unit": 10
@@ -6294,7 +6294,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Vietnam is a country in Southeast Asia.",
     "exampleVi": "Việt Nam là một quốc gia ở Đông Nam Á.",
-    "image": "🗺️",
+    "image": "🚩",
     "level": "L5",
     "category": "L5-U02",
     "unit": 2
@@ -6364,7 +6364,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Latitude tells how far north or south a place is.",
     "exampleVi": "Vĩ độ cho biết một nơi ở xa về phía bắc hay nam bao nhiêu.",
-    "image": "📐",
+    "image": "🌐",
     "level": "L5",
     "category": "L5-U02",
     "unit": 2
@@ -6378,7 +6378,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Longitude helps locate places east or west.",
     "exampleVi": "Kinh độ giúp xác định vị trí về phía đông hoặc tây.",
-    "image": "📏",
+    "image": "🧭",
     "level": "L5",
     "category": "L5-U02",
     "unit": 2
@@ -6462,7 +6462,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "The revolution changed the country.",
     "exampleVi": "Cuộc cách mạng đã thay đổi đất nước.",
-    "image": "🔄",
+    "image": "✊",
     "level": "L5",
     "category": "L5-U03",
     "unit": 3
@@ -6868,7 +6868,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Buyers and sellers meet in a market.",
     "exampleVi": "Người mua và người bán gặp nhau trên thị trường.",
-    "image": "🏪",
+    "image": "💹",
     "level": "L5",
     "category": "L5-U06",
     "unit": 6
@@ -6882,7 +6882,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Supply is the amount available for sale.",
     "exampleVi": "Nguồn cung là lượng hàng có sẵn để bán.",
-    "image": "🏭",
+    "image": "🚚",
     "level": "L5",
     "category": "L5-U06",
     "unit": 6
@@ -7162,7 +7162,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Energy allows things to move or change.",
     "exampleVi": "Năng lượng giúp vật chuyển động hoặc thay đổi.",
-    "image": "⚡",
+    "image": "🔋",
     "level": "L5",
     "category": "L5-U08",
     "unit": 8
@@ -7176,7 +7176,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Danh từ",
     "example": "Gravity pulls objects toward Earth.",
     "exampleVi": "Trọng lực kéo vật thể về phía Trái Đất.",
-    "image": "🍎",
+    "image": "⬇️",
     "level": "L5",
     "category": "L5-U08",
     "unit": 8
@@ -10970,7 +10970,7 @@ export const VOCABULARY_DATABASE = [
     "type": "Tính từ",
     "example": "Brave little knight.",
     "exampleVi": "Chú hiệp sĩ nhỏ dũng cảm.",
-    "image": "🦁",
+    "image": "🛡️",
     "level": "L3",
     "category": "L3-U15",
     "unit": 15
