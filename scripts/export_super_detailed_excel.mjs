@@ -225,12 +225,12 @@ function createVocabSheet(sheetName, titleText, subtitleText, wordsList, themeKe
 }
 
 // ============================================================================
-// SHEET 1: MASTER SHEET - TOÀN BỘ 1,560 TỪ VỰNG & ICON
+// SHEET 1: MASTER SHEET - TOÀN BỘ TỪ VỰNG ĐỘC BẢN & ICON
 // ============================================================================
 createVocabSheet(
-  'Toàn Bộ 1560 Từ Vựng & Icon',
-  '🌟 KIDS ENGLISH AGENT - TỔNG HỢP TOÀN BỘ 1,560 TỪ VỰNG & ICON SIÊU CHI TIẾT',
-  'Bộ cơ sở dữ liệu từ vựng tiếng Anh chuẩn quốc tế toàn diện: 10 Cấp Độ • 140 Chủ Đề • 1,560 Từ Vựng • 100% Exact Icon Emoji • Phiên Âm IPA & Bồi • Câu Ví Dụ • Mẹo Nhớ • Fun Fact',
+  `Toàn Bộ ${VOCABULARY_DATABASE.length} Từ Vựng`,
+  `🌟 KIDS ENGLISH AGENT - TỔNG HỢP TOÀN BỘ ${VOCABULARY_DATABASE.length} TỪ VỰNG ĐỘC BẢN & ICON SIÊU CHI TIẾT`,
+  `Bộ cơ sở dữ liệu từ vựng tiếng Anh chuẩn quốc tế toàn diện: 10 Cấp Độ • 140 Chủ Đề • ${VOCABULARY_DATABASE.length} Từ Vựng 100% Độc Bản Không Trùng Lặp • 100% Exact Icon Emoji • Phiên Âm IPA & Bồi • Câu Ví Dụ • Mẹo Nhớ • Fun Fact`,
   VOCABULARY_DATABASE,
   'ALL'
 );
