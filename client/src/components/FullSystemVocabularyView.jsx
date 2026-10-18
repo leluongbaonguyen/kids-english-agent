@@ -774,10 +774,10 @@ export default function FullSystemVocabularyView({
                   {/* ---------------- CARD FACE 1 (FRONT): TỪ VỰNG TIẾNG ANH & HÌNH MINH HỌA ---------------- */}
                   <div
                     onClick={() => toggleCardFlip(cardKey)}
-                    className={`card-flip-face card-flip-back rounded-3xl border p-4 bg-slate-900/95 backdrop-blur-xl shadow-xl flex flex-col justify-between cursor-pointer ${
+                    className={`card-flip-face card-flip-back rounded-3xl border-2 p-4 bg-[#061426] backdrop-blur-xl shadow-xl flex flex-col justify-between cursor-pointer ${
                       isSpeaking
                         ? 'border-yellow-400 ring-2 ring-yellow-400/80 shadow-[0_0_25px_rgba(250,204,21,0.5)]'
-                        : 'border-slate-800 hover:border-cyan-400/80 hover:shadow-cyan-500/30'
+                        : 'border-[#0090FF]/80 shadow-[0_4px_25px_rgba(0,149,255,0.22)] hover:border-cyan-300 hover:ring-2 hover:ring-cyan-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.55)]'
                     }`}
                   >
                     {/* Speaking Ribbon Indicator */}
@@ -831,8 +831,8 @@ export default function FullSystemVocabularyView({
 
                     {/* Card Center: Big Icon & Word */}
                     <div className="text-center py-2 space-y-1.5 my-auto">
-                      <div className="vocab-icon-stage-3d flex justify-center items-center py-1 select-none">
-                        <VocabSmartIcon item={item} className="w-16 h-16 sm:w-20 sm:h-20 text-6xl" />
+                      <div className="vocab-icon-stage-3d flex justify-center items-center py-2 select-none min-h-[110px]">
+                        <VocabSmartIcon item={item} className="w-24 h-24 sm:w-28 sm:h-28 text-6xl drop-shadow-2xl" />
                       </div>
 
                       <div>

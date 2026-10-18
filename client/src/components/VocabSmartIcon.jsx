@@ -20,6 +20,14 @@ import { normalizeSvg } from '../utils/svgNormalizer.js';
  * @param {boolean} [props.animate] - Whether to enable physics-based bouncing (default: true)
  * @param {boolean} [props.dance] - Whether to use rhythmic dance instead of squash-hop (default: false)
  */
+export const CLAY_3D_ASSETS = {
+  'crossing': '/images/vocab_3d/crossing_clean.png',
+  'pollution': '/images/vocab_3d/pollution_clean.png',
+  'country': '/images/vocab_3d/country_clean.png',
+  'foreign': '/images/vocab_3d/foreign_clean.png',
+  'challenge': '/images/vocab_3d/challenge_clean.png'
+};
+
 export default function VocabSmartIcon({
   item,
   word,
@@ -35,6 +43,13 @@ export default function VocabSmartIcon({
   const hexColor = item?.hex;
   const animClass = animate ? (dance ? 'icon-dance' : 'icon-bounce-playful') : '';
   const [imgFailed, setImgFailed] = useState(false);
+
+  // 0. Check if there is a pixel-perfect photorealistic 3D Clay Diorama Asset (matching reference cards)
+  const clay3dAsset = useMemo(() => {
+    if (!targetWord) return null;
+    const key = targetWord.toLowerCase().trim();
+    return CLAY_3D_ASSETS[key] || null;
+  }, [targetWord]);
 
   // 1. Check if there is a handcrafted 3D Clay SVG (table, skirt, triceratops, stegosaurus, etc.)
   const clay3dSvg = useMemo(() => {
@@ -64,6 +79,29 @@ export default function VocabSmartIcon({
   }, [rawSvg]);
 
   const styleObj = size ? { width: `${size}px`, height: `${size}px` } : {};
+
+  // Branch 0: Pixel-Perfect High-Res 3D Clay Diorama Asset (from reference cards)
+  if (clay3dAsset && !imgFailed) {
+    return (
+      <div
+        className={`vocab-smart-icon vocab-clay-3d-diorama ${animClass} relative inline-flex items-center justify-center shrink-0 select-none ${className}`}
+        style={styleObj}
+        title={targetWord}
+      >
+        <img
+          src={clay3dAsset}
+          alt={targetWord}
+          className="w-full h-full object-contain filter drop-shadow-xl select-none pointer-events-none transform-gpu transition-transform duration-300"
+          loading="eager"
+          decoding="async"
+          onError={() => setImgFailed(true)}
+        />
+        {showBadge && (
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-cyan-400 ring-2 ring-slate-950" />
+        )}
+      </div>
+    );
+  }
 
   // Branch 1: Handcrafted 3D Clay or specialized Vector SVG (Table, Skirt, Dinosaurs, etc.)
   if (processedSvg) {

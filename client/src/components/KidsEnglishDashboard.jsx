@@ -183,13 +183,13 @@ function VocabZoomModal({ card, onClose, onPlayAudio, onToggleMastered, isMaster
             {lvl.label}
           </div>
 
-          {/* Giant Emoji */}
+          {/* Giant 3D Clay Diorama / Icon */}
           <div
             onClick={() => onPlayAudio?.(card.word, false)}
-            className="zoom-emoji-pop text-center text-6xl sm:text-7xl md:text-8xl drop-shadow-2xl leading-none mb-1 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+            className="zoom-emoji-pop flex items-center justify-center py-2 drop-shadow-2xl leading-none mb-1 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
             title="Bấm vào hình để nghe đọc"
           >
-            {card.image}
+            <VocabSmartIcon item={card} className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 mx-auto drop-shadow-2xl" />
           </div>
 
           {/* Word & IPA */}
@@ -3222,12 +3222,12 @@ export function KidsEnglishDashboard({
                                   setShowSpotlightMeaning(false);
                                   playWordAudio(item.word, false);
                                 }}
-                                className={`group relative rounded-2xl p-2.5 text-center transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                                className={`group relative rounded-3xl p-3 text-center transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden ${
                                   isActiveCard
-                                    ? 'border-2 border-yellow-300 ring-4 ring-yellow-400/90 bg-gradient-to-b from-yellow-950/80 via-slate-900 to-amber-950/80 shadow-[0_0_30px_rgba(250,204,21,0.85)] scale-[1.08] z-20 animate-pulse'
+                                    ? 'border-2 border-yellow-300 ring-4 ring-yellow-400/90 bg-[#061426] shadow-[0_0_35px_rgba(250,204,21,0.85)] scale-[1.06] z-20 animate-pulse'
                                     : isMastered
-                                    ? 'border border-emerald-500/50 bg-emerald-950/40 hover:border-cyan-400 hover:ring-2 hover:ring-cyan-400/60 hover:scale-[1.05] hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:z-10 shadow-md'
-                                    : 'border border-slate-800 bg-slate-950 hover:border-cyan-400 hover:ring-2 hover:ring-cyan-400/60 hover:scale-[1.05] hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:z-10 shadow-md'
+                                    ? 'border-2 border-cyan-400/90 bg-[#061426] shadow-[0_4px_25px_rgba(0,149,255,0.22)] hover:border-cyan-300 hover:ring-2 hover:ring-cyan-400/60 hover:scale-[1.04] hover:shadow-[0_0_30px_rgba(34,211,238,0.55)] hover:z-10'
+                                    : 'border-2 border-[#0090FF]/80 bg-[#061426] shadow-[0_4px_25px_rgba(0,149,255,0.22)] hover:border-cyan-300 hover:ring-2 hover:ring-cyan-400/60 hover:scale-[1.04] hover:shadow-[0_0_30px_rgba(34,211,238,0.55)] hover:z-10'
                                 }`}
                               >
                                 {/* Top Speaking/Active Indicator Ribbon */}
@@ -3239,25 +3239,25 @@ export function KidsEnglishDashboard({
                                 )}
 
                               {/* Top Index Badge & Mastered Icon */}
-                              <div className="flex items-center justify-between text-[9px] font-mono-code text-slate-400 mb-1">
-                                <span className={`font-bold ${isActiveCard ? 'text-yellow-300 font-black' : 'text-slate-300'}`}>#{idx + 1}</span>
+                              <div className="flex items-center justify-between text-[9px] font-mono-code text-slate-400 mb-0.5">
+                                <span className={`font-bold ${isActiveCard ? 'text-yellow-300 font-black' : 'text-slate-400'}`}>#{idx + 1}</span>
                                 {isMastered && <Star className="h-3 w-3 fill-emerald-400 text-emerald-400" />}
                               </div>
 
-                              {/* Card Emoji Icon */}
-                              <div className={`text-3xl sm:text-4xl py-1 drop-shadow-md transition-transform duration-300 ${isActiveCard ? 'scale-125' : 'group-hover:scale-125'}`}>
-                                <VocabSmartIcon item={item} className="w-12 h-12 mx-auto drop-shadow-md text-3xl sm:text-4xl" />
+                              {/* Card 3D Diorama / Clay Icon */}
+                              <div className={`py-1.5 flex items-center justify-center transition-transform duration-300 min-h-[96px] sm:min-h-[110px] ${isActiveCard ? 'scale-115' : 'group-hover:scale-115'}`}>
+                                <VocabSmartIcon item={item} className="w-20 h-20 sm:w-24 sm:h-24 mx-auto drop-shadow-2xl" />
                               </div>
 
-                              {/* Card Text & Phonetics */}
+                              {/* Card Text & Phonetics - Exact styling from reference design cards */}
                               <div className="space-y-0.5 my-1">
-                                <div className={`font-black text-xs line-clamp-1 ${isActiveCard ? 'text-yellow-200 text-sm font-black' : 'text-white group-hover:text-cyan-300'}`}>
+                                <div className={`font-black text-sm sm:text-base line-clamp-1 tracking-wide ${isActiveCard ? 'text-yellow-200' : 'text-white group-hover:text-cyan-200'}`}>
                                   {item.word}
                                 </div>
-                                <div className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-md border line-clamp-1 ${isActiveCard ? 'bg-yellow-400/20 text-yellow-200 border-yellow-400/50' : 'text-pink-300 bg-pink-950/70 border-pink-500/30'}`}>
-                                  {detailedInfo?.vietnamesePhoneticDisplay || item.vietnamesePhonetic}
+                                <div className="text-[11px] sm:text-xs font-mono font-bold text-cyan-400 tracking-wider line-clamp-1">
+                                  {item.ipa ? item.ipa : `/${detailedInfo?.vietnamesePhoneticDisplay || item.vietnamesePhonetic}/`}
                                 </div>
-                                <div className={`text-[11px] font-bold line-clamp-1 ${isActiveCard ? 'text-amber-200 font-black' : 'text-yellow-300'}`}>
+                                <div className={`text-xs sm:text-[13px] font-extrabold line-clamp-1 tracking-wide ${isActiveCard ? 'text-amber-200' : 'text-yellow-400 group-hover:text-yellow-300'}`}>
                                   {item.meaning}
                                 </div>
                               </div>
