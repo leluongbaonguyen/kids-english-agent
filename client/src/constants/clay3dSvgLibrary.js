@@ -508,5 +508,224 @@ export const CLAY_3D_SVGS = {
   <!-- Glossy 3D Eye -->
   <circle cx="88" cy="68" r="2.8" fill="#0F172A"/>
   <circle cx="87" cy="67" r="1.1" fill="#FFFFFF"/>
+</svg>`,
+
+  // 9. REVOLUTION - 3D Clay Celestial Gyroscope Standing in Place & Revolving 360 Degrees
+  "revolution": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="sphereCoreGloss" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="45%" stop-color="#0284C7"/>
+      <stop offset="85%" stop-color="#0369A1"/>
+      <stop offset="100%" stop-color="#0C4A6E"/>
+    </radialGradient>
+    <radialGradient id="sunGoldCore" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </radialGradient>
+    <linearGradient id="ringGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="ringCyanGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#67E8F9"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0E7490"/>
+    </linearGradient>
+    <linearGradient id="standBaseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#CBD5E1"/>
+      <stop offset="50%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+      <feOffset dx="0" dy="3"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+    <style>
+      @keyframes spin360Clockwise {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes spin360Counter {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-360deg); }
+      }
+      .spin-ring-cw {
+        transform-origin: 60px 60px;
+        animation: spin360Clockwise 7s linear infinite;
+      }
+      .spin-ring-ccw {
+        transform-origin: 60px 60px;
+        animation: spin360Counter 10s linear infinite;
+      }
+      .spin-orbit-beads {
+        transform-origin: 60px 60px;
+        animation: spin360Clockwise 4.5s linear infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Stable Ground Contact Shadow -->
+  <ellipse cx="60" cy="110" rx="38" ry="6" fill="rgba(0,0,0,0.2)"/>
+
+  <!-- Solid Gyroscope Pedestal Stand (Standing Firmly in One Place) -->
+  <path d="M 42,107 Q 60,103 78,107 L 74,111 L 46,111 Z" fill="url(#standBaseGrad)"/>
+  <rect x="57" y="86" width="6" height="21" rx="3" fill="url(#standBaseGrad)"/>
+  <!-- Curved Brass Supporting Arm -->
+  <path d="M 60,90 C 22,90 22,34 60,34" fill="none" stroke="url(#standBaseGrad)" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="60" cy="34" r="3.5" fill="#F8FAFC"/>
+  <circle cx="60" cy="88" r="3.5" fill="#F8FAFC"/>
+
+  <!-- Central 3D Celestial Core Sphere (Standing Perfectly Anchored at 60, 60) -->
+  <circle cx="60" cy="60" r="22" fill="url(#sphereCoreGloss)" filter="url(#softGlow)"/>
+  <!-- Latitude / Longitude 3D Clay Bands on Sphere -->
+  <ellipse cx="60" cy="60" rx="22" ry="7" fill="none" stroke="#7DD3FC" stroke-width="1.8" opacity="0.5"/>
+  <ellipse cx="60" cy="60" rx="9" ry="22" fill="none" stroke="#7DD3FC" stroke-width="1.8" opacity="0.5"/>
+  <!-- Gloss Specular 3D Highlight Ribbon -->
+  <ellipse cx="52" cy="52" rx="7" ry="3.5" transform="rotate(-30 52 52)" fill="#FFFFFF" opacity="0.75"/>
+  <circle cx="56" cy="48" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+
+  <!-- Rotating Ring 1: Golden Orbital Ring Revolving in a Circle -->
+  <g className="spin-ring-cw">
+    <ellipse cx="60" cy="60" rx="44" ry="17" transform="rotate(-25 60 60)" fill="none" stroke="url(#ringGoldGrad)" stroke-width="3.5" stroke-dasharray="16 7" stroke-linecap="round"/>
+    <!-- Directional Arrowhead 1 on Golden Orbit -->
+    <path d="M 97,42 L 105,45 L 101,36 Z" fill="#FBBF24"/>
+    <!-- Directional Arrowhead 2 Opposite -->
+    <path d="M 23,78 L 15,75 L 19,84 Z" fill="#FBBF24"/>
+    <!-- Orbiting Clay Pearl Satellite -->
+    <circle cx="100" cy="43" r="5" fill="url(#sunGoldCore)"/>
+    <circle cx="98.5" cy="41.5" r="1.5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Rotating Ring 2: Cyan Neon Counter-Rotating Orbital Ring -->
+  <g className="spin-ring-ccw">
+    <ellipse cx="60" cy="60" rx="40" ry="15" transform="rotate(35 60 60)" fill="none" stroke="url(#ringCyanGrad)" stroke-width="2.8" stroke-dasharray="14 6" stroke-linecap="round"/>
+    <!-- Directional Arrowhead on Cyan Orbit -->
+    <path d="M 88,80 L 96,81 L 91,73 Z" fill="#22D3EE"/>
+    <circle cx="32" cy="40" r="4" fill="#38BDF8"/>
+    <circle cx="31" cy="39" r="1.2" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Fast Orbiting Shimmer Sparkles & Energy Nodes -->
+  <g className="spin-orbit-beads">
+    <circle cx="60" cy="22" r="3" fill="#FDE047"/>
+    <circle cx="60" cy="98" r="2.5" fill="#67E8F9"/>
+    <path d="M 28,60 Q 30,58 32,60 Q 30,62 28,60 Z" fill="#FFFFFF"/>
+    <path d="M 92,60 Q 94,58 96,60 Q 94,62 92,60 Z" fill="#FFFFFF"/>
+  </g>
+</svg>`,
+
+  // 10. ROTATION / SPIN - 3D Clay Gyroscopic Rotating Arrow Ring Standing in Place
+  "rotation": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="rotCoreGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="50%" stop-color="#DB2777"/>
+      <stop offset="100%" stop-color="#831843"/>
+    </radialGradient>
+    <linearGradient id="rotArrowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+    <style>
+      @keyframes rotInPlace {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .rot-spin-cw {
+        transform-origin: 60px 60px;
+        animation: rotInPlace 6s linear infinite;
+      }
+    </style>
+  </defs>
+  <!-- Stationary Central 3D Sphere -->
+  <ellipse cx="60" cy="108" rx="34" ry="5.5" fill="rgba(0,0,0,0.18)"/>
+  <circle cx="60" cy="60" r="24" fill="url(#rotCoreGrad)"/>
+  <ellipse cx="52" cy="52" rx="7" ry="3.5" transform="rotate(-30 52 52)" fill="#FFFFFF" opacity="0.75"/>
+  <circle cx="56" cy="48" r="2" fill="#FFFFFF"/>
+
+  <!-- Rotating 3D Clay Circular Arrow Ring (Standing in Place & Revolving 360 Degrees) -->
+  <g className="rot-spin-cw">
+    <path d="M 60,18 A 42 42 0 0 1 102,60 A 42 42 0 0 1 60,102 A 42 42 0 0 1 18,60 A 42 42 0 0 1 54,18.5" fill="none" stroke="url(#rotArrowGrad)" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="56,10 68,20 54,26" fill="#F59E0B"/>
+    <circle cx="102" cy="60" r="4" fill="#FDE047"/>
+    <circle cx="18" cy="60" r="4" fill="#F43F5E"/>
+    <circle cx="60" cy="102" r="4" fill="#FB923C"/>
+  </g>
+</svg>`,
+
+  "spin": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="spinCoreGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#A7F3D0"/>
+      <stop offset="45%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </radialGradient>
+    <linearGradient id="spinRibbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67E8F9"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <style>
+      @keyframes spinLoop360 {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .spin-loop-cw {
+        transform-origin: 60px 60px;
+        animation: spinLoop360 5s linear infinite;
+      }
+    </style>
+  </defs>
+  <ellipse cx="60" cy="108" rx="36" ry="6" fill="rgba(0,0,0,0.2)"/>
+  <circle cx="60" cy="60" r="22" fill="url(#spinCoreGrad)"/>
+  <ellipse cx="53" cy="53" rx="7" ry="3" transform="rotate(-30 53 53)" fill="#FFFFFF" opacity="0.8"/>
+  <g className="spin-loop-cw">
+    <ellipse cx="60" cy="60" rx="42" ry="16" transform="rotate(-35 60 60)" fill="none" stroke="url(#spinRibbonGrad)" stroke-width="4.5" stroke-dasharray="20 8" stroke-linecap="round"/>
+    <polygon points="96,40 106,42 99,32" fill="#38BDF8"/>
+    <polygon points="24,80 14,78 21,88" fill="#818CF8"/>
+    <circle cx="98" cy="40" r="4.5" fill="#FDE047"/>
+  </g>
+</svg>`,
+
+  // 11. CIRCLE - 3D Clay Iridescent Torus Ring Standing in Place and Spinning
+  "circle": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="circleTorusGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="35%" stop-color="#EC4899"/>
+      <stop offset="70%" stop-color="#9333EA"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </radialGradient>
+    <style>
+      @keyframes torusSpinInPlace {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .torus-spin-cw {
+        transform-origin: 60px 60px;
+        animation: torusSpinInPlace 8s linear infinite;
+      }
+    </style>
+  </defs>
+  <!-- Stationary Ground Shadow -->
+  <ellipse cx="60" cy="108" rx="42" ry="7" fill="rgba(0,0,0,0.2)"/>
+  
+  <!-- Rotating 3D Clay Torus Ring (Stands in Place and Spins in a Circle) -->
+  <g className="torus-spin-cw">
+    <circle cx="60" cy="60" r="40" fill="none" stroke="url(#circleTorusGrad)" stroke-width="16"/>
+    <!-- Specular Clay Highlights along the Circular Ridge -->
+    <path d="M 32,32 A 40 40 0 0 1 88,32" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+    <circle cx="38" cy="40" r="3" fill="#FFFFFF" opacity="0.8"/>
+    <!-- 4 Clay Pearl Accent Nodes -->
+    <circle cx="60" cy="20" r="5" fill="#FDE047"/>
+    <circle cx="100" cy="60" r="5" fill="#38BDF8"/>
+    <circle cx="60" cy="100" r="5" fill="#4ADE80"/>
+    <circle cx="20" cy="60" r="5" fill="#FB7185"/>
+  </g>
 </svg>`
 };

@@ -2818,7 +2818,7 @@ export function KidsEnglishDashboard({
 
       {/* GLOBAL SYSTEM TAB LOADING OVERLAY BANNER */}
       {isTabLoading && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[999999] px-6 py-2.5 rounded-full bg-slate-950/95 border-2 border-amber-400 text-amber-300 font-black text-xs shadow-2xl flex items-center gap-3 backdrop-blur-xl animate-bounce pointer-events-none">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[999999] px-6 py-2.5 rounded-full bg-slate-950/95 border-2 border-amber-400 text-amber-300 font-black text-xs shadow-2xl flex items-center gap-3 backdrop-blur-xl pointer-events-none">
           <RotateCw className="h-4 w-4 animate-spin text-amber-400" />
           <span>✨ Đang đồng bộ CSDL từ vựng V6.0, SRS Engine & Giao diện...</span>
         </div>
@@ -2828,7 +2828,7 @@ export function KidsEnglishDashboard({
       <div className="hidden sm:flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl gpu-accelerated">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs font-black uppercase tracking-wider text-pink-400 flex items-center gap-1.5">
-            <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" /> Menu Chức Năng:
+            <Sparkles className="h-4 w-4 text-yellow-300 icon-spin-continuous" /> Menu Chức Năng:
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-black bg-pink-500/20 text-pink-200 border border-pink-400/40">
             {activeTab === 'flashcards' && '🌟 Toàn Bộ Kho Từ Vựng Siêu Chi Tiết (1,402 Từ)'}
@@ -2848,55 +2848,55 @@ export function KidsEnglishDashboard({
         <div className="flex items-center gap-1.5 flex-wrap">
           <button
             onClick={() => setActiveTab('flashcards')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'flashcards' ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md scale-105' : 'bg-slate-900 text-slate-400 hover:text-white'
             }`}
           >
-            <span className="animate-pulse">📚</span> Toàn Bộ Từ Vựng
+            <span className="icon-spin-in-place text-sm">📚</span> Toàn Bộ Từ Vựng
           </button>
 
           <button
             onClick={() => setActiveTab('detailed_path')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
-              activeTab === 'detailed_path' ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white shadow-md scale-105 border border-purple-300 animate-pulse' : 'bg-slate-900 text-purple-300 hover:text-white'
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'detailed_path' ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white shadow-md scale-105 border border-purple-300' : 'bg-slate-900 text-purple-300 hover:text-white'
             }`}
           >
-            <span className="animate-bounce">🗺️</span> Lộ Trình 6 Cấp Độ
+            <span className="icon-spin-in-place text-sm">🗺️</span> Lộ Trình 6 Cấp Độ
           </button>
 
           <button
             onClick={() => setActiveTab('poster')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'poster' ? 'bg-gradient-to-r from-pink-600 to-indigo-600 text-white shadow-md scale-105' : 'bg-slate-900 text-slate-400 hover:text-white'
             }`}
           >
-            <span className="animate-bounce">📖</span> Khóa Học
+            <span className="icon-spin-in-place text-sm">📖</span> Khóa Học
           </button>
 
           <button
             onClick={() => setActiveTab('games')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
               (activeTab === 'quiz' || activeTab === 'games') ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105' : 'bg-slate-900 text-slate-400 hover:text-white'
             }`}
           >
-            <span className="animate-bounce">🎮</span> Game
+            <span className="icon-spin-in-place text-sm">🎮</span> Game
           </button>
 
           <button
             onClick={() => setActiveTab('memory_game')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'memory_game' ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white shadow-md scale-105 border border-yellow-300' : 'bg-slate-900 text-pink-300 hover:text-white border border-pink-500/30'
             }`}
             title="Chơi Siêu Game Lật Thẻ Trí Nhớ 1,402 Từ Vựng"
           >
-            <span className="animate-bounce">🃏</span> Game Lật Thẻ
+            <span className="icon-spin-in-place text-sm">🃏</span> Game Lật Thẻ
           </button>
 
           <button
             onClick={() => handleOpenLongmanModal('apple')}
-            className="px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow-md hover:scale-105 flex items-center gap-1"
+            className="px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow-md hover:scale-105 flex items-center gap-1.5"
           >
-            <span className="animate-pulse">📖</span> Tra Từ Điển
+            <span className="icon-spin-in-place text-sm">📖</span> Tra Từ Điển
           </button>
         </div>
       </div>

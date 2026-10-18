@@ -789,41 +789,87 @@ svg.lucide.animate-spin,
   }
 }
 
-/* ---------------- GLOBAL ICON BOUNCE STYLING ACROSS THE SYSTEM ---------------- */
+/**
+ * 6. In-Place Circular Spin (Đứng Yên 1 Chỗ Xoay Vòng Tròn Siêu Chi Tiết)
+ * Completely anchored at center (translateY: 0, NO jumping, NO displacement).
+ * Smooth 360-degree rotation with subtle volumetric scale and ambient glow.
+ */
+@keyframes iconSpinInPlaceDetailed {
+  0% {
+    transform: rotate(0deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  }
+  25% {
+    transform: rotate(90deg) scale(1.03);
+    filter: drop-shadow(0 4px 10px rgba(236, 72, 153, 0.3));
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  }
+  75% {
+    transform: rotate(270deg) scale(1.03);
+    filter: drop-shadow(0 4px 10px rgba(6, 182, 212, 0.3));
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  }
+}
 
-/* Universal Vocabulary Icons - Bouncing in physics rhythm */
+@keyframes iconSpinPure360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes iconHoverSpin360 {
+  0% {
+    transform: rotate(0deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.15);
+  }
+}
+
+/* ---------------- GLOBAL ICON STYLING (ĐỨNG YÊN 1 CHỖ XOAY VÒNG TRÒN) ---------------- */
+
+/* Universal Vocabulary Icons - Standing in Place and Rotating in Smooth Circle */
 .vocab-smart-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transform-origin: center bottom;
-  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+  transform-origin: center center !important;
+  animation: iconSpinInPlaceDetailed 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: transform;
-  transition: filter 0.2s ease;
+  transition: filter 0.25s ease, transform 0.25s ease;
 }
 
 .vocab-smart-icon svg {
-  transform-origin: center bottom;
+  transform-origin: center center !important;
   will-change: transform;
 }
 
-/* Universal Unicode Emoji Icons */
+/* Universal Unicode Emoji Icons - Standing in Place and Rotating in Smooth Circle */
 .vocab-emoji {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transform-origin: center bottom;
-  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+  transform-origin: center center !important;
+  animation: iconSpinInPlaceDetailed 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: transform;
 }
 
-/* Natural Staggered Delays so grid items don't jump simultaneously */
+/* Natural Staggered Delays so grid items don't spin simultaneously */
 *:nth-child(2n) .vocab-smart-icon,
 *:nth-child(2n) > .vocab-smart-icon,
 *:nth-child(2n).vocab-smart-icon,
 *:nth-child(2n) .vocab-emoji,
 *:nth-child(2n).vocab-emoji {
-  animation-delay: 0.35s;
+  animation-delay: 0.7s;
 }
 
 *:nth-child(3n) .vocab-smart-icon,
@@ -831,7 +877,7 @@ svg.lucide.animate-spin,
 *:nth-child(3n).vocab-smart-icon,
 *:nth-child(3n) .vocab-emoji,
 *:nth-child(3n).vocab-emoji {
-  animation-delay: 0.7s;
+  animation-delay: 1.4s;
 }
 
 *:nth-child(4n) .vocab-smart-icon,
@@ -839,7 +885,7 @@ svg.lucide.animate-spin,
 *:nth-child(4n).vocab-smart-icon,
 *:nth-child(4n) .vocab-emoji,
 *:nth-child(4n).vocab-emoji {
-  animation-delay: 1.05s;
+  animation-delay: 2.1s;
 }
 
 *:nth-child(5n) .vocab-smart-icon,
@@ -847,7 +893,7 @@ svg.lucide.animate-spin,
 *:nth-child(5n).vocab-smart-icon,
 *:nth-child(5n) .vocab-emoji,
 *:nth-child(5n).vocab-emoji {
-  animation-delay: 1.4s;
+  animation-delay: 2.8s;
 }
 
 *:nth-child(6n) .vocab-smart-icon,
@@ -855,10 +901,10 @@ svg.lucide.animate-spin,
 *:nth-child(6n).vocab-smart-icon,
 *:nth-child(6n) .vocab-emoji,
 *:nth-child(6n).vocab-emoji {
-  animation-delay: 1.75s;
+  animation-delay: 3.5s;
 }
 
-/* Excited Dance on Hover & Interaction */
+/* Smooth Circular Spin on Hover & Interaction (Standing in Place) */
 .vocab-smart-icon:hover,
 .group:hover .vocab-smart-icon,
 button:hover .vocab-smart-icon,
@@ -867,7 +913,9 @@ div:hover > .vocab-smart-icon,
 .vocab-emoji:hover,
 .group:hover .vocab-emoji,
 button:hover .vocab-emoji {
-  animation: iconHoverExcited 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate !important;
+  transform-origin: center center !important;
+  animation: iconHoverSpin360 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) infinite !important;
+  filter: drop-shadow(0 6px 14px rgba(236, 72, 153, 0.35)) !important;
 }
 
 /* Spring compression on tap / click */
@@ -879,11 +927,12 @@ button:active .vocab-emoji {
   animation: iconTapSpring 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
-/* Playful bounce on interactive buttons when hovered */
+/* In-place circular spin on interactive buttons when hovered */
 button:hover svg.lucide,
 a:hover svg.lucide,
 .btn-bounce:hover svg {
-  animation: iconPlayfulDance 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: center center !important;
+  animation: iconHoverSpin360 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
 }
 
 button:active svg.lucide,
@@ -892,15 +941,38 @@ a:active svg.lucide {
   transition: transform 0.1s ease;
 }
 
-/* Standalone Utility Classes for direct usage */
+/* Standalone Utility Classes for In-Place 360 Spin (Đứng Yên 1 Chỗ Xoay Vòng Tròn) */
+.icon-spin-in-place {
+  display: inline-block !important;
+  transform-origin: center center !important;
+  animation: iconSpinInPlaceDetailed 5s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+  will-change: transform;
+}
+
+.icon-spin-continuous {
+  display: inline-block !important;
+  transform-origin: center center !important;
+  animation: iconSpinPure360 6s linear infinite !important;
+  will-change: transform;
+}
+
+.icon-spin-slow-360 {
+  display: inline-block !important;
+  transform-origin: center center !important;
+  animation: iconSpinPure360 9s linear infinite !important;
+  will-change: transform;
+}
+
 .icon-bounce-playful {
-  animation: iconSquashHop 2.4s cubic-bezier(0.28, 0.84, 0.42, 1) infinite !important;
-  transform-origin: center bottom;
+  display: inline-block !important;
+  transform-origin: center center !important;
+  animation: iconSpinInPlaceDetailed 5s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
 }
 
 .icon-dance {
-  animation: iconPlayfulDance 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite !important;
-  transform-origin: center bottom;
+  display: inline-block !important;
+  transform-origin: center center !important;
+  animation: iconSpinInPlaceDetailed 5s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
 }
 
 .icon-float-bop {
@@ -909,7 +981,8 @@ a:active svg.lucide {
 }
 
 .icon-hover-excited:hover {
-  animation: iconHoverExcited 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate !important;
+  transform-origin: center center !important;
+  animation: iconHoverSpin360 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) infinite !important;
 }
 
 /* Ultra-Crisp, Professional Semantic Vocabulary Icon Engine */
